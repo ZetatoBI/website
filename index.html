@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Zetato | Data, AI and digital products</title>
-<meta name="description" content="Zetato is a Metro Vancouver digital company. We build business intelligence, data platforms and AI solutions on Microsoft, and we make our own apps and games.">
-<meta property="og:title" content="Zetato | Data, AI and digital products">
-<meta property="og:description" content="Business intelligence, data platforms and AI on Microsoft, plus our own apps and games.">
+<title>Zetato | Data, analytics and AI consulting</title>
+<meta name="description" content="Zetato designs and delivers business intelligence, data platforms and AI on Microsoft for organizations across Canada. Senior-led, based in Metro Vancouver.">
+<meta property="og:title" content="Zetato | Data, analytics and AI consulting">
+<meta property="og:description" content="Business intelligence, data platforms and AI on Microsoft. Senior-led delivery from Metro Vancouver.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://zetatobi.com/">
 <meta name="theme-color" content="#031C3A">
@@ -174,7 +174,8 @@
   .side { border-radius: 20px; padding: clamp(28px, 4vw, 48px); display: flex; flex-direction: column; }
   .side-intel { background: var(--white); border: 1px solid var(--line); }
   .side-studio { background: var(--navy); color: var(--white); position: relative; overflow: hidden; }
-  .side-studio .pix { position: absolute; right: -10px; top: -10px; width: 190px; opacity: 0.5; }
+  .side-studio .spark { position: absolute; right: 24px; top: 28px; width: 180px; opacity: 0.9; }
+  @media (max-width: 640px) { .side-studio .spark { display: none; } }
   .side .name { font-family: var(--serif); font-size: clamp(28px, 3vw, 38px); letter-spacing: -0.015em; margin: 0 0 4px; }
   .side .role { font-size: 15px; font-weight: 600; color: var(--blue); margin: 0 0 22px; }
   .side-studio .role { color: var(--sky); }
@@ -293,7 +294,8 @@
       <li><a href="#work">Our work</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#approach">Approach</a></li>
-      <li><a href="#engage">Engagements</a></li>
+      <li><a href="/insights/">Insights</a></li>
+      <li><a href="https://studios.zetatobi.com">Studios</a></li>
       <li><a class="btn btn-primary" href="#contact">Contact us</a></li>
     </ul>
   </div>
@@ -304,13 +306,13 @@
   <div class="hero" id="top">
     <div class="wrap hero-grid">
       <div>
-        <h1>Turn scattered data into decisions you can stand behind.</h1>
-        <p class="lede">Zetato builds business intelligence, data platforms and AI on Microsoft, so leadership teams get reliable answers and the work around them runs itself.</p>
+        <h1>Better decisions from data you can trust.</h1>
+        <p class="lede">Zetato designs and delivers business intelligence, data platforms and AI on Microsoft. We help organizations measure what matters, forecast with confidence and automate the work around it.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#contact">Start a conversation</a>
-          <a class="btn btn-ghost" href="#work">See example work</a>
+          <a class="btn btn-primary" href="#contact">Book a consultation</a>
+          <a class="btn btn-ghost" href="#work">View example work</a>
         </div>
-        <p class="hero-note">Senior-led delivery from Metro Vancouver, for clients across Canada.</p>
+        <p class="hero-note">Senior-led delivery. Based in Metro Vancouver, serving clients across Canada.</p>
       </div>
 
       <div class="panel hero-panel" role="img" aria-label="Illustrative dashboard: scattered data points resolving into a clear trend with a decision point">
@@ -328,7 +330,7 @@
           <g class="marker" transform="translate(386 120)">
             <circle r="16" fill="rgba(31,122,224,0.25)"/><circle r="7" fill="#fff" stroke="#1F7AE0" stroke-width="3"/>
             <text x="-150" y="-26" fill="#fff" font-family="Hanken Grotesk, Arial" font-size="13" font-weight="600">Decision point</text>
-            <text x="-150" y="-9" fill="rgba(239,244,251,0.6)" font-family="Hanken Grotesk, Arial" font-size="12">Act here, with confidence</text>
+            <text x="-150" y="-9" fill="rgba(239,244,251,0.6)" font-family="Hanken Grotesk, Arial" font-size="12">Trend confirmed</text>
           </g>
         </svg>
         <div class="ask"><small>Ask your data</small>“Which region is driving the Q3 lift?” <br><b>North, up 18% on repeat orders.</b></div>
@@ -349,14 +351,16 @@
     <div class="wrap">
       <div class="head-row">
         <div>
-          <h2 id="work-title">What good looks like.</h2>
-          <p class="intro">Three examples of the kind of reporting we build. One model, consistent definitions, and a clear next action on every page.</p>
+          <h2 id="work-title">Reporting built around decisions.</h2>
+          <p class="intro">Five examples of what we deliver. Each ties a focused set of measures to the decision it informs and the action it should trigger.</p>
         </div>
       </div>
       <div class="tabs" role="tablist" aria-label="Example dashboards">
-        <button class="tab" role="tab" aria-selected="true" data-tab="re">Real estate market</button>
-        <button class="tab" role="tab" aria-selected="false" data-tab="pmo">Project portfolio</button>
+        <button class="tab" role="tab" aria-selected="true" data-tab="pmo">Project portfolio</button>
         <button class="tab" role="tab" aria-selected="false" data-tab="ops">Operations forecast</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="res">Resource management</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="fs">Field service</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="re">Real estate development</button>
       </div>
       <div class="panel dash" role="tabpanel" aria-live="polite">
         <div class="dash-kpis" id="dash-kpis"></div>
@@ -374,14 +378,14 @@
         </div>
         <div class="insight"><b>Insight</b><span id="insight"></span></div>
       </div>
-      <p class="sample">Sample data for illustration. Client work stays confidential.</p>
+      <p class="sample">Sample data for illustration. Client deliverables remain confidential.</p>
     </div>
   </section>
 
   <section style="padding-top:0" aria-labelledby="flow-title">
     <div class="wrap">
-      <h2 id="flow-title">One version of the truth.</h2>
-      <p class="intro">We connect the systems you already run into a single governed platform, then put the answers where people work: dashboards, AI assistants, apps and alerts.</p>
+      <h2 id="flow-title">From disconnected systems to one governed platform.</h2>
+      <p class="intro">We integrate the systems you already run, apply consistent definitions and security, and deliver the results where people work: dashboards, AI assistants, applications and alerts.</p>
       <div class="panel flow" style="padding: clamp(16px,3vw,32px)">
         <div class="flow-wrap">
         <svg viewBox="0 0 1000 380" role="img" aria-label="Data sources flow into a Microsoft Fabric lakehouse and semantic model, which power dashboards, AI assistants, apps and alerts">
@@ -409,12 +413,12 @@
 <section aria-labelledby="ai-title">
   <div class="wrap ai-grid">
     <div>
-      <h2 id="ai-title">Ask your data a question. Get an answer you can check.</h2>
-      <p class="intro" style="margin-bottom:28px">We build AI assistants on top of your governed data, so answers come from your numbers, not guesses from the internet.</p>
+      <h2 id="ai-title">AI assistants grounded in your own data.</h2>
+      <p class="intro" style="margin-bottom:28px">We build assistants on your governed data model, so answers are traceable, consistent with your reporting and limited to what each user is permitted to see.</p>
       <ul class="ai-points">
-        <li><h3>Grounded in your model</h3><p>Every answer draws on the same definitions your dashboards use.</p></li>
-        <li><h3>Shows its source</h3><p>Answers cite the table and refresh time, so people can verify them.</p></li>
-        <li><h3>Respects permissions</h3><p>People only see what their role already allows.</p></li>
+        <li><h3>Consistent with your reporting</h3><p>Answers use the same measures and definitions as your dashboards.</p></li>
+        <li><h3>Traceable</h3><p>Each answer cites its source and refresh time, so it can be verified.</p></li>
+        <li><h3>Secure by role</h3><p>Existing permissions apply, so sensitive data stays protected.</p></li>
       </ul>
     </div>
     <div class="chat" id="chat" aria-label="Example conversation with an AI data assistant">
@@ -433,36 +437,10 @@
   </div>
 </section>
 
-<section class="tint" aria-labelledby="sides-title">
-  <div class="wrap">
-    <h2 id="sides-title">One company, two ways we build.</h2>
-    <p class="intro">Consulting helps organizations run better. Our studio builds products of our own. Both come from the same place: good data, careful design and software people actually use.</p>
-    <div class="sides-grid">
-      <article class="side side-intel">
-        <p class="name">Zetato Intelligence</p>
-        <p class="role">Consulting for business intelligence, data and AI</p>
-        <p>We help leadership teams get reliable answers from their data, then automate the work around those answers, using Microsoft tools you already own.</p>
-        <ul><li>Reporting and dashboards</li><li>Data platforms and integration</li><li>AI assistants and automation</li><li>Business applications</li></ul>
-        <div class="spacer"></div>
-        <a class="link" href="#services">Explore our services</a>
-      </article>
-      <article class="side side-studio">
-        <svg class="pix" viewBox="0 0 100 100" aria-hidden="true"><g fill="#C2DBFA" opacity=".35"><rect x="10" y="10" width="14" height="14" rx="3"/><rect x="30" y="10" width="14" height="14" rx="3"/><rect x="50" y="10" width="14" height="14" rx="3"/><rect x="70" y="10" width="14" height="14" rx="3"/><rect x="50" y="50" width="14" height="14" rx="3"/><rect x="30" y="70" width="14" height="14" rx="3"/></g><rect x="70" y="30" width="14" height="14" rx="3" fill="#1F7AE0"/></svg>
-        <p class="name">Zetato Studios</p>
-        <p class="role">Our own apps and games</p>
-        <p>Small, polished apps and games for phones and the web. Ad-free by design, built with the same care we bring to client work.</p>
-        <ul><li>Mobile and web games</li><li>First titles in development</li></ul>
-        <div class="spacer"></div>
-        <a class="link" href="https://studios.zetatobi.com">Visit Zetato Studios</a>
-      </article>
-    </div>
-  </div>
-</section>
-
 <section id="services" aria-labelledby="services-title">
   <div class="wrap">
-    <h2 id="services-title">What we do for clients.</h2>
-    <p class="intro">We work across the Microsoft data and AI stack, from the first dashboard to the systems behind it. Most engagements start small and grow as the value becomes clear.</p>
+    <h2 id="services-title">What we deliver.</h2>
+    <p class="intro">End-to-end capability across the Microsoft data and AI stack, from strategy and data engineering to reporting, automation and adoption.</p>
     <div class="caps">
       <div class="cap">
         <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#EFF4FB"/><rect x="10" y="22" width="5" height="9" rx="1.5" fill="#8EC1FF"/><rect x="17.5" y="16" width="5" height="15" rx="1.5" fill="#1F7AE0"/><rect x="25" y="10" width="5" height="21" rx="1.5" fill="#031C3A"/></svg>
@@ -507,38 +485,38 @@
 
 <section class="dark" id="approach" aria-labelledby="approach-title">
   <div class="wrap">
-    <h2 id="approach-title">How an engagement works.</h2>
-    <p class="intro">Every project follows the same path. It keeps scope honest and makes sure what we build gets used.</p>
+    <h2 id="approach-title">Our delivery approach.</h2>
+    <p class="intro">A consistent method that keeps scope controlled, quality measurable and adoption high.</p>
     <ol class="steps">
-      <li><h3>Start with the decision</h3><p>We agree on the questions that matter and who needs the answers before touching any data.</p></li>
-      <li><h3>Fix the foundation</h3><p>We connect, clean and model the data so the numbers hold up under scrutiny.</p></li>
-      <li><h3>Build it with you</h3><p>We deliver in working pieces, with your team reviewing as we go.</p></li>
-      <li><h3>Hand over and improve</h3><p>You get documentation and training, and we stay close as needs change.</p></li>
+      <li><h3>Define the decisions</h3><p>We confirm the objectives, the measures that track them and who acts on the results.</p></li>
+      <li><h3>Build the foundation</h3><p>We integrate, validate and model the data so the numbers hold up to scrutiny.</p></li>
+      <li><h3>Deliver iteratively</h3><p>We release in working increments, with stakeholders reviewing at each stage.</p></li>
+      <li><h3>Transfer and support</h3><p>Documentation, training and ongoing support keep the solution in use and improving.</p></li>
     </ol>
   </div>
 </section>
 
 <section class="tint" id="engage" aria-labelledby="engage-title">
   <div class="wrap">
-    <h2 id="engage-title">Ways to work with us.</h2>
-    <p class="intro">Start with what fits your budget and appetite. Each option leads naturally into the next.</p>
+    <h2 id="engage-title">Engagement options.</h2>
+    <p class="intro">Choose the level of commitment that fits your priorities. Each option builds on the one before it.</p>
     <div class="models">
       <div class="model">
         <span class="tag">Discovery</span>
-        <h3>Find the quick wins</h3>
+        <h3>Assess and prioritize</h3>
         <p>A short, fixed-scope review of your data, reporting and tools, ending with a prioritized roadmap.</p>
         <ul><li>Current-state assessment</li><li>Prioritized roadmap</li><li>A working prototype</li></ul>
       </div>
       <div class="model feature">
         <span class="tag">Delivery</span>
-        <h3>Build the solution</h3>
+        <h3>Design and build</h3>
         <p>A scoped project to deliver dashboards, a data platform, an AI assistant or an app, end to end.</p>
         <ul><li>Clear scope and milestones</li><li>Built in working pieces</li><li>Documentation and training</li></ul>
       </div>
       <div class="model">
         <span class="tag">Partnership</span>
-        <h3>Keep improving</h3>
-        <p>Ongoing support for teams that want a reliable data partner without hiring a full team.</p>
+        <h3>Operate and improve</h3>
+        <p>Ongoing support and enhancement, giving you senior data capability without the cost of a full in-house team.</p>
         <ul><li>Enhancements as needs change</li><li>Monitoring and fixes</li><li>Advice on what's next</li></ul>
       </div>
     </div>
@@ -548,11 +526,11 @@
 <section aria-labelledby="principles-title">
   <div class="wrap principles">
     <div>
-      <h2 id="principles-title">Why teams work with us.</h2>
-      <p class="intro" style="margin-bottom:0">Large firms bring scale. We bring focus, speed and the people who actually do the work, in the room from day one.</p>
+      <h2 id="principles-title">Why clients choose Zetato.</h2>
+      <p class="intro" style="margin-bottom:0">The capability of a large consultancy, delivered by the senior practitioners who do the work, from scoping through support.</p>
     </div>
     <dl>
-      <div><dt>Senior-led, every time</dt><dd>The people who scope your project are the people who build it.</dd></div>
+      <div><dt>Senior-led, every time</dt><dd>The people who scope your project are the people who deliver it.</dd></div>
       <div><dt>Built on what you own</dt><dd>We work inside your Microsoft environment, so you get more from existing licences.</dd></div>
       <div><dt>Yours to keep</dt><dd>Clear documentation and no lock-in. Your team can run and extend everything we build.</dd></div>
       <div><dt>Plain language</dt><dd>We explain trade-offs in business terms, so decisions are made with open eyes.</dd></div>
@@ -560,18 +538,44 @@
   </div>
 </section>
 
-<section class="tint" id="contact" aria-labelledby="contact-title">
+<section class="tint" id="beyond" aria-labelledby="beyond-title">
+  <div class="wrap">
+    <h2 id="beyond-title">Beyond consulting.</h2>
+    <p class="intro">Two initiatives that apply the same analytical and product skills to our own work.</p>
+    <div class="sides-grid">
+      <article class="side side-studio">
+        <svg class="spark" viewBox="0 0 240 90" aria-hidden="true"><path d="M0 70 C30 66 50 58 80 56 C110 54 130 40 160 36 C190 32 210 20 240 12" fill="none" stroke="#1F7AE0" stroke-width="3" stroke-linecap="round"/><path d="M0 72 C40 70 70 64 110 60 C150 56 190 48 240 40" fill="none" stroke="rgba(239,244,251,0.45)" stroke-width="2" stroke-dasharray="5 5"/></svg>
+        <p class="name">Zetato Insights</p>
+        <p class="role">Data-driven market analysis</p>
+        <p>Research on equities and markets using the same modelling discipline we apply for clients. Positions are disclosed, time-stamped and measured against the S&amp;P 500.</p>
+        <ul><li>Market overview</li><li>Portfolio performance and trade history</li><li>Research notes</li></ul>
+        <div class="spacer"></div>
+        <a class="link" href="/insights/">Explore Insights</a>
+      </article>
+      <article class="side side-intel">
+        <p class="name">Zetato Studios</p>
+        <p class="role">Apps, training and interactive products</p>
+        <p>Practical apps and tools, training on the Microsoft data platform, and interactive products, including games, built and tested in the open.</p>
+        <ul><li>Apps and tools</li><li>Training, including Microsoft Fabric</li><li>Games and interactive work</li></ul>
+        <div class="spacer"></div>
+        <a class="link" href="https://studios.zetatobi.com">Visit Zetato Studios</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="contact" aria-labelledby="contact-title">
   <div class="wrap">
     <div class="contact-box">
       <div class="glow"></div>
       <div style="position:relative">
-        <h2 id="contact-title" style="color:#fff">Tell us what you're trying to figure out.</h2>
-        <p>A short call is usually enough to see whether we can help. If we can't, we'll say so and point you somewhere useful.</p>
+        <h2 id="contact-title" style="color:#fff">Let's discuss your objectives.</h2>
+        <p>A short introductory call is usually enough to assess fit, scope and next steps. If another approach would serve you better, we will tell you.</p>
       </div>
       <div class="contact-side">
         <a class="btn btn-primary" href="mailto:Hello@ZetatoBI.com?subject=Enquiry%20from%20zetatobi.com">Email us</a>
         <a class="mail" href="mailto:Hello@ZetatoBI.com">Hello@ZetatoBI.com</a>
-        <small>Based in Langley, British Columbia. Working with clients across Canada.</small>
+        <small>Based in Langley, British Columbia. Serving clients across Canada.</small>
       </div>
     </div>
   </div>
@@ -583,10 +587,10 @@
   <div class="wrap foot">
     <div>
       <a class="brand" href="#top" aria-label="Zetato home"><svg class="mark" aria-hidden="true"><use href="#zmark"/></svg><span class="word">ZETATO</span></a>
-      <p>&copy; <span id="yr">2026</span> Zetato Business Intelligence Inc. Zetato, Zetato Intelligence and Zetato Studios are trade names of Zetato Business Intelligence Inc.</p>
+      <p>&copy; <span id="yr">2026</span> Zetato Business Intelligence Inc. Zetato, Zetato Intelligence, Zetato Insights and Zetato Studios are trade names of Zetato Business Intelligence Inc.</p>
     </div>
     <nav aria-label="Footer">
-      <a href="#work">Our work</a><a href="#services">Services</a><a href="#approach">Approach</a><a href="https://studios.zetatobi.com">Studios</a><a href="#contact">Contact</a>
+      <a href="#work">Our work</a><a href="#services">Services</a><a href="#approach">Approach</a><a href="/insights/">Insights</a><a href="https://studios.zetatobi.com">Studios</a><a href="#contact">Contact</a>
     </nav>
   </div>
 </footer>
@@ -640,7 +644,7 @@
   function lineChart(svg, cfg) {
     clear(svg);
     var W = 640, H = 270, L = 44, R = 12, T = 12, B = 28, n = cfg.labels.length;
-    var all = []; cfg.series.forEach(function (s) { all = all.concat(s.data.filter(function (v) { return v != null; })); if (s.lo) all = all.concat(s.lo, s.hi); });
+    var all = []; cfg.series.forEach(function (s) { all = all.concat(s.data.filter(function (v) { return v != null; })); if (s.lo) all = all.concat(s.lo.filter(function (v) { return v != null; }), s.hi.filter(function (v) { return v != null; })); });
     var min = cfg.min != null ? cfg.min : Math.min.apply(null, all), max = cfg.max != null ? cfg.max : Math.max.apply(null, all);
     var pad = (max - min) * 0.08; min -= pad; max += pad;
     function X(i) { return L + i * (W - L - R) / (n - 1); } function Y(v) { return T + (1 - (v - min) / (max - min)) * (H - T - B); }
@@ -667,13 +671,13 @@
     if (cfg.marks) cfg.marks.forEach(function (m) {
       var gx = el('g', {}, svg), mx = X(m.i), my = Y(m.v);
       el('circle', { cx: mx, cy: my, r: 11, fill: 'rgba(245,181,68,0.22)' }, gx); el('circle', { cx: mx, cy: my, r: 4.5, fill: '#F5B544' }, gx);
-      var tx = el('text', { x: mx, y: my - 18, 'text-anchor': 'middle', style: 'fill:#F5B544;font-weight:600' }, gx); tx.textContent = m.t; fadeIn(gx, 1.4);
+      var tx = el('text', { x: mx, y: (my - 18 < T + 12 ? my + 26 : my - 18), 'text-anchor': 'middle', style: 'fill:#F5B544;font-weight:600' }, gx); tx.textContent = m.t; fadeIn(gx, 1.4);
     });
     if (cfg.now != null) { var nx = X(cfg.now); var ln = el('line', { x1: nx, x2: nx, y1: T, y2: H - B, stroke: 'rgba(239,244,251,0.3)', 'stroke-dasharray': '3 4' }, svg); el('text', { x: nx + 6, y: T + 12 }, svg).textContent = 'Today'; fadeIn(ln, 0.5); }
   }
   function barChart(svg, cfg) {
     clear(svg);
-    var W = 320, H = 270, L = 96, R = 44, T = 10, rowH = (H - T - 10) / cfg.items.length, max = Math.max.apply(null, cfg.items.map(function (d) { return d.v; }));
+    var W = 320, H = 270, L = cfg.left || 96, R = cfg.right || 44, T = 10, rowH = (H - T - 10) / cfg.items.length, max = Math.max.apply(null, cfg.items.map(function (d) { return d.v; }));
     cfg.items.forEach(function (d, i) {
       var y = T + i * rowH + rowH / 2;
       el('text', { x: L - 10, y: y + 4, 'text-anchor': 'end', style: 'fill:rgba(239,244,251,0.75);font-size:12px' }, svg).textContent = d.k;
@@ -705,40 +709,78 @@
 
   /* Data */
   var months = ['Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep'];
-  function walk(start, drift, vol, n) { var a = [], v = start; for (var i = 0; i < n; i++) { v += drift + (rand() - 0.5) * vol; a.push(+v.toFixed(1)); } return a; }
+  var mo12 = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var i;
   seed = 23;
-  var north = walk(640, 5.2, 14, 24), central = walk(700, 2.4, 12, 24), south = walk(590, 1.0, 12, 24);
+  /* Project portfolio */
   var planSpend = [], actual = [], lo = [], hi = [], fc = [];
-  for (var i = 0; i < 12; i++) { var p = 2 + 38 * Math.pow((i + 1) / 12, 1.25); planSpend.push(+p.toFixed(1)); }
-  var acc = 0; for (i = 0; i < 12; i++) { if (i < 8) { acc = planSpend[i] * (0.9 + i * 0.012) + (rand() - 0.5); actual.push(+acc.toFixed(1)); fc.push(i === 7 ? +acc.toFixed(1) : null); lo.push(null); hi.push(null); } else { var f = planSpend[i] * 0.985; actual.push(null); fc.push(+f.toFixed(1)); var sp = (i - 7) * 1.1; lo.push(+(f - sp).toFixed(1)); hi.push(+(f + sp).toFixed(1)); } }
+  for (i = 0; i < 12; i++) planSpend.push(+(2 + 38 * Math.pow((i + 1) / 12, 1.25)).toFixed(1));
+  for (i = 0; i < 12; i++) { if (i < 8) { var acc = planSpend[i] * (0.9 + i * 0.012) + (rand() - 0.5); actual.push(+acc.toFixed(1)); fc.push(i === 7 ? +acc.toFixed(1) : null); lo.push(null); hi.push(null); } else { var f = planSpend[i] * 0.985; actual.push(null); fc.push(+f.toFixed(1)); var sp = (i - 7) * 1.1; lo.push(+(f - sp).toFixed(1)); hi.push(+(f + sp).toFixed(1)); } }
+  /* Operations */
   var dem = [], dfc = [], dlo = [], dhi = [];
   for (i = 0; i < 24; i++) { var base = 620 + i * 9 + 90 * Math.sin((i + 2) / 12 * 2 * Math.PI); if (i < 17) { dem.push(+(base + (rand() - 0.5) * 50 + (i === 11 ? 150 : 0)).toFixed(0)); dfc.push(i === 16 ? dem[16] : null); dlo.push(null); dhi.push(null); } else { dem.push(null); dfc.push(+base.toFixed(0)); var s2 = (i - 16) * 14; dlo.push(+(base - s2).toFixed(0)); dhi.push(+(base + s2).toFixed(0)); } }
-  var mo12 = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  /* Resource management: 12 weeks back, 12 forward */
+  var weeks = []; for (i = 0; i < 24; i++) weeks.push('W' + (i + 1));
+  var cap = [], rd = [], rfc = [], rlo = [], rhi = [];
+  for (i = 0; i < 24; i++) {
+    cap.push(1200);
+    var dv = 1030 + i * 6 + 150 * Math.exp(-Math.pow((i - 19) / 2.2, 2)) + (rand() - 0.5) * 40;
+    if (i < 12) { rd.push(+dv.toFixed(0)); rfc.push(i === 11 ? +dv.toFixed(0) : null); rlo.push(null); rhi.push(null); }
+    else { rd.push(null); rfc.push(+dv.toFixed(0)); var w3 = (i - 11) * 9; rlo.push(+(dv - w3).toFixed(0)); rhi.push(+(dv + w3).toFixed(0)); }
+  }
+  /* Field service: weekly requests */
+  var fsA = [], fsF = [], fsL = [], fsH = [];
+  for (i = 0; i < 24; i++) { var b2 = 210 + 55 * Math.sin((i - 3) / 24 * 2 * Math.PI) + (i > 18 ? (i - 18) * 12 : 0); if (i < 16) { fsA.push(+(b2 + (rand() - 0.5) * 24 + (i === 9 ? 70 : 0)).toFixed(0)); fsF.push(i === 15 ? fsA[15] : null); fsL.push(null); fsH.push(null); } else { fsA.push(null); fsF.push(+b2.toFixed(0)); var s4 = (i - 15) * 6; fsL.push(+(b2 - s4).toFixed(0)); fsH.push(+(b2 + s4).toFixed(0)); } }
+  /* Real estate: benchmark price per sq ft, 18 months actual + 6 forecast */
+  var qtr = ['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'];
+  var newB = [], resale = [], nfc = [], nlo = [], nhi = [];
+  var nv = 905, rv = 820;
+  for (i = 0; i < 24; i++) {
+    nv += 2.6 + (rand() - 0.5) * 9; rv += 0.4 + (rand() - 0.5) * 9;
+    if (i < 18) { newB.push(+nv.toFixed(0)); resale.push(+rv.toFixed(0)); nfc.push(i === 17 ? +nv.toFixed(0) : null); nlo.push(null); nhi.push(null); }
+    else { newB.push(null); resale.push(null); var fv = newB[17] + (i - 17) * 2.2; nfc.push(+fv.toFixed(0)); var s5 = (i - 17) * 7; nlo.push(+(fv - s5).toFixed(0)); nhi.push(+(fv + s5).toFixed(0)); }
+  }
 
   var views = {
-    re: {
-      kpis: [['Median sale price', '$1.18M', '+4.2% YoY', ''], ['Days on market', '23', '-5 days', ''], ['Active listings', '412', '+11%', 'down'], ['Months of supply', '3.1', 'Balanced', '']],
-      main: function (s) { lineChart(s, { labels: months, every: 3, series: [{ data: north, color: '#8EC1FF', area: true, end: true }, { data: central, color: '#1F7AE0', end: true }, { data: south, color: 'rgba(239,244,251,0.45)', w: 2 }], fmt: function (v) { return '$' + Math.round(v); } }); },
-      mt: 'Price per square foot, 24 months', ms: 'By submarket', ml: [['North', '#8EC1FF'], ['Central', '#1F7AE0'], ['South', 'rgba(239,244,251,0.45)']],
-      side: function (s) { barChart(s, { items: [{ k: 'Townhome', v: 142, l: '142' }, { k: 'Condo', v: 118, l: '118' }, { k: 'Multiplex', v: 64, l: '64' }, { k: 'Detached', v: 51, l: '51' }, { k: 'Land', v: 17, l: '17' }] }); },
-      st: 'Sales by product type', ss: 'Last quarter', sl: [],
-      ins: 'North is gaining about three times faster than South. Townhome demand is strongest, which supports a townhome-led land strategy in that area.'
-    },
     pmo: {
       kpis: [['Active projects', '38', '+4 this quarter', ''], ['On budget', '84%', '+6 pts', ''], ['At risk', '5', 'Review Friday', 'down'], ['Forecast variance', '-1.5%', 'Under plan', '']],
       main: function (s) { lineChart(s, { labels: mo12, every: 2, min: 0, series: [{ data: planSpend, color: 'rgba(239,244,251,0.5)', dash: true, w: 2 }, { data: actual, color: '#1F7AE0', area: true }, { data: fc, lo: lo, hi: hi, color: '#8EC1FF', end: true }], now: 7, fmt: function (v) { return '$' + Math.round(v) + 'M'; } }); },
       mt: 'Cumulative spend vs plan', ms: 'Portfolio, this fiscal year', ml: [['Plan', 'rgba(239,244,251,0.5)'], ['Actual', '#1F7AE0'], ['Forecast and range', '#8EC1FF']],
       side: function (s) { donut(s, { center: '38', sub: 'active projects', items: [{ k: 'On track', v: 27, c: '#1F7AE0' }, { k: 'Watch', v: 6, c: '#8EC1FF' }, { k: 'At risk', v: 5, c: '#F5B544' }] }); },
       st: 'Portfolio health', ss: 'By status', sl: [],
-      ins: 'Spend is tracking slightly under plan. Three of the five at-risk projects share one vendor, so a single conversation could clear most of the risk.'
+      ins: 'Spend is tracking 1.5% under plan. Three of the five at-risk projects share one vendor, so a single escalation addresses most of the exposure.'
     },
     ops: {
-      kpis: [['Orders next 90 days', '18.4K', 'Forecast', ''], ['Forecast accuracy', '94%', '+3 pts', ''], ['Stock-outs avoided', '12', 'This quarter', ''], ['Supplier lead time', '6.2 days', '+0.8 days', 'down']],
-      main: function (s) { lineChart(s, { labels: months, every: 3, series: [{ data: dem, color: '#1F7AE0', area: true }, { data: dfc, lo: dlo, hi: dhi, color: '#8EC1FF', end: true }], marks: [{ i: 11, v: dem[11], t: 'Promo spike' }], now: 16, fmt: function (v) { return Math.round(v); } }); },
+      kpis: [['Orders, next 90 days', '18.4K', 'Forecast', ''], ['Forecast accuracy', '94%', '+3 pts', ''], ['Stock-outs avoided', '12', 'This quarter', ''], ['Supplier lead time', '6.2 days', '+0.8 days', 'down']],
+      main: function (s) { lineChart(s, { labels: months, every: 3, series: [{ data: dem, color: '#1F7AE0', area: true }, { data: dfc, lo: dlo, hi: dhi, color: '#8EC1FF', end: true }], marks: [{ i: 11, v: dem[11], t: 'Promotion' }], now: 16, fmt: function (v) { return Math.round(v); } }); },
       mt: 'Weekly demand and forecast', ms: 'Units, all regions', ml: [['Actual', '#1F7AE0'], ['Forecast and range', '#8EC1FF'], ['Anomaly', '#F5B544']],
       side: function (s) { barChart(s, { items: [{ k: 'Seasonality', v: 41, l: '41%' }, { k: 'Promotions', v: 27, l: '27%' }, { k: 'Price', v: 16, l: '16%' }, { k: 'Weather', v: 10, l: '10%' }, { k: 'Other', v: 6, l: '6%' }] }); },
-      st: 'What drives demand', ss: 'Share of variation', sl: [],
-      ins: 'Demand peaks again in about eight weeks. Ordering two weeks earlier than last year covers the longer supplier lead time.'
+      st: 'Demand drivers', ss: 'Share of variation', sl: [],
+      ins: 'Demand peaks again in about eight weeks. Placing orders two weeks earlier than last year offsets the longer supplier lead time.'
+    },
+    res: {
+      kpis: [['Billable utilization', '81%', '+4 pts', ''], ['Capacity, next 12 weeks', '14,400 h', 'Confirmed', ''], ['Over-allocated staff', '6', 'Rebalance', 'down'], ['Unfilled requests', '9 roles', '3 urgent', 'down']],
+      main: function (s) { lineChart(s, { labels: weeks, every: 4, series: [{ data: cap, color: 'rgba(239,244,251,0.5)', dash: true, w: 2 }, { data: rd, color: '#1F7AE0', area: true }, { data: rfc, lo: rlo, hi: rhi, color: '#8EC1FF', end: true }], marks: [{ i: 19, v: rfc[19], t: 'Over capacity' }], now: 11, fmt: function (v) { return Math.round(v / 10) * 10 + ' h'; } }); },
+      mt: 'Capacity vs demand', ms: 'Hours per week', ml: [['Capacity', 'rgba(239,244,251,0.5)'], ['Booked', '#1F7AE0'], ['Pipeline demand', '#8EC1FF']],
+      side: function (s) { barChart(s, { left: 104, items: [{ k: 'Data engineers', v: 94, l: '94%' }, { k: 'BI developers', v: 86, l: '86%' }, { k: 'Analysts', v: 78, l: '78%' }, { k: 'Project leads', v: 71, l: '71%' }, { k: 'Architects', v: 62, l: '62%' }] }); },
+      st: 'Utilization by role', ss: 'Last 4 weeks', sl: [],
+      ins: 'Pipeline demand exceeds capacity by about 11% in weeks 18 to 21, concentrated in data engineering. Cross-training two analysts or securing one contractor now closes the gap before it affects delivery dates.'
+    },
+    fs: {
+      kpis: [['Open requests', '186', '-12% vs last month', ''], ['Avg time to resolve', '3.4 h', '-0.6 h', ''], ['First-visit fix rate', '87%', '+5 pts', ''], ['SLA met', '95%', 'Target 95%', '']],
+      main: function (s) { lineChart(s, { labels: weeks, every: 4, series: [{ data: fsA, color: '#1F7AE0', area: true }, { data: fsF, lo: fsL, hi: fsH, color: '#8EC1FF', end: true }], marks: [{ i: 9, v: fsA[9], t: 'Cold snap' }], now: 15, fmt: function (v) { return Math.round(v); } }); },
+      mt: 'Service requests and forecast', ms: 'Requests per week', ml: [['Actual', '#1F7AE0'], ['Forecast and range', '#8EC1FF'], ['Event', '#F5B544']],
+      side: function (s) { barChart(s, { left: 100, right: 78, items: [{ k: 'HVAC', v: 412, l: '412, 4.8 h' }, { k: 'Electrical', v: 268, l: '268, 3.1 h' }, { k: 'Plumbing', v: 201, l: '201, 2.9 h' }, { k: 'Access control', v: 118, l: '118, 1.6 h' }, { k: 'Other', v: 86, l: '86, 1.2 h' }] }); },
+      st: 'Requests by category', ss: 'Count, avg hours to resolve', sl: [],
+      ins: 'HVAC accounts for 38% of requests and the longest repair times. Scheduling preventive maintenance in the two weeks before the forecast peak reduces expected call-outs and protects the SLA.'
+    },
+    re: {
+      kpis: [['Benchmark price, townhome', '$1.02M', '+3.1% YoY', ''], ['Days on market', '23', '-5 days', ''], ['Months of inventory', '3.4', 'Balanced market', ''], ['Presale absorption', '64%', 'First 90 days', '']],
+      main: function (s) { lineChart(s, { labels: qtr, every: 3, series: [{ data: newB, color: '#1F7AE0', area: true }, { data: resale, color: 'rgba(239,244,251,0.5)', w: 2 }, { data: nfc, lo: nlo, hi: nhi, color: '#8EC1FF', end: true }], now: 17, fmt: function (v) { return '$' + Math.round(v); } }); },
+      mt: 'Price per square foot, with 6-month forecast', ms: 'Townhomes', ml: [['New construction', '#1F7AE0'], ['Resale', 'rgba(239,244,251,0.5)'], ['Forecast and range', '#8EC1FF']],
+      side: function (s) { barChart(s, { right: 52, items: [{ k: 'Q4 2026', v: 410, l: '410' }, { k: 'Q1 2027', v: 360, l: '360' }, { k: 'Q2 2027', v: 455, l: '455' }, { k: 'Q3 2027', v: 480, l: '480' }, { k: 'Q4 2027', v: 505, l: '505' }] }); },
+      st: 'Forecast housing starts', ss: 'Units, local market', sl: [],
+      ins: 'New construction holds a widening premium over resale while inventory stays balanced. Starts are forecast to rise about 17% by mid-2027, so launches before Q2 2027 face less competing supply.'
     }
   };
   function show(key) {
@@ -777,7 +819,7 @@
     var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { io.disconnect(); fn(); } }); }, { threshold: 0.3 });
     io.observe(node);
   }
-  onView(document.querySelector('.dash'), function () { show('re'); });
+  onView(document.querySelector('.dash'), function () { show('pmo'); });
   onView(document.getElementById('chat'), function () {
     var q = 'Why did gross margin drop in Q3?', qt = document.getElementById('qtext'), i = 0;
     function done() { document.getElementById('caret').remove(); setTimeout(function () { document.getElementById('a').classList.add('show'); setTimeout(function () { document.querySelectorAll('.bar-fill').forEach(function (b) { b.style.width = b.dataset.w + '%'; }); }, 400); }, 500); }
