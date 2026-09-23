@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zetato | Data, AI and digital products</title>
+<meta name="description" content="Zetato is a Metro Vancouver digital company. We build business intelligence, data platforms and AI solutions on Microsoft, and we make our own apps and games.">
+<meta property="og:title" content="Zetato | Data, AI and digital products">
+<meta property="og:description" content="Business intelligence, data platforms and AI on Microsoft, plus our own apps and games.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://zetatobi.com/">
+<meta name="theme-color" content="#031C3A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23031C3A'/%3E%3Cpath d='M18 19h28L20 45h26' fill='none' stroke='%231F7AE0' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #031C3A;
+    --navy-2: #0A1F3D;
+    --navy-3: #13305A;
+    --blue: #1F7AE0;
+    --blue-strong: #0C72EE;
+    --ice: #EFF4FB;
+    --white: #FFFFFF;
+    --ink: #0A1F3D;
+    --slate: #4A5B72;
+    --line: #D7E2F0;
+    --line-dark: rgba(239, 244, 251, 0.14);
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+    --sans: "Hanken Grotesk", "Segoe UI", Arial, Helvetica, sans-serif;
+    --wrap: 1160px;
+    --gutter: clamp(20px, 5vw, 48px);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink);
+    background: var(--white);
+    -webkit-font-smoothing: antialiased;
+  }
+  img, svg { max-width: 100%; display: block; }
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--blue);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  .wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
+  .skip {
+    position: absolute; left: -9999px; top: 12px; z-index: 100;
+    background: var(--white); color: var(--navy); padding: 10px 16px; border-radius: 6px;
+  }
+  .skip:focus { left: 12px; }
+
+  /* Header */
+  .site-header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(3, 28, 58, 0.92);
+    backdrop-filter: saturate(140%) blur(10px);
+    -webkit-backdrop-filter: saturate(140%) blur(10px);
+    border-bottom: 1px solid var(--line-dark);
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--white); }
+  .brand svg { width: 34px; height: 34px; }
+  .brand span { font-family: var(--serif); font-size: 26px; font-weight: 500; letter-spacing: -0.01em; }
+  .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; margin: 0; padding: 0; }
+  .nav-links a { color: rgba(239, 244, 251, 0.78); text-decoration: none; font-size: 15px; font-weight: 500; }
+  .nav-links a:hover { color: var(--white); }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--sans); font-size: 15px; font-weight: 600;
+    padding: 12px 22px; border-radius: 8px; text-decoration: none;
+    border: 1px solid transparent; transition: background-color .2s ease, border-color .2s ease;
+  }
+  .btn-primary { background: var(--blue); color: var(--white); }
+  .btn-primary:hover { background: var(--blue-strong); }
+  .btn-ghost { color: var(--white); border-color: rgba(239, 244, 251, 0.35); }
+  .btn-ghost:hover { border-color: var(--white); }
+  .nav .btn { padding: 9px 18px; font-size: 14px; }
+
+  /* Hero */
+  .hero {
+    background: var(--navy);
+    color: var(--white);
+    padding: clamp(64px, 10vw, 120px) 0 clamp(72px, 10vw, 128px);
+    overflow: hidden;
+  }
+  .hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(42px, 6.2vw, 76px);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    margin: 0 0 28px;
+    max-width: 13ch;
+  }
+  .hero p.lede {
+    font-size: clamp(17px, 1.6vw, 20px);
+    line-height: 1.6;
+    color: rgba(239, 244, 251, 0.78);
+    max-width: 50ch;
+    margin: 0 0 36px;
+  }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+  .chart {
+    margin: 0;
+    position: relative;
+    border: 1px solid var(--line-dark);
+    border-radius: 16px;
+    background: linear-gradient(180deg, var(--navy-2), var(--navy));
+    padding: 22px 22px 16px;
+  }
+  .chart-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; gap: 12px; }
+  .chart-head strong { font-family: var(--serif); font-weight: 500; font-size: 19px; }
+  .chart-head span { font-size: 13px; color: rgba(239, 244, 251, 0.6); }
+  .chart svg { width: 100%; height: auto; }
+  .chart .grid line { stroke: rgba(239, 244, 251, 0.08); stroke-width: 1; }
+  .chart .dot { fill: rgba(239, 244, 251, 0.42); opacity: 0; animation: dotIn .5s ease forwards; }
+  .chart .trend {
+    fill: none; stroke: var(--blue); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round;
+    stroke-dasharray: 720; stroke-dashoffset: 720;
+    animation: draw 1.6s cubic-bezier(.6,.05,.2,1) 1.2s forwards;
+  }
+  .chart .band { fill: rgba(31, 122, 224, 0.14); opacity: 0; animation: fadeIn .8s ease 2.5s forwards; }
+  .chart .marker { opacity: 0; animation: fadeIn .5s ease 2.8s forwards; }
+  .chart .marker circle.halo { fill: rgba(31, 122, 224, 0.25); }
+  .chart .marker circle.core { fill: var(--white); stroke: var(--blue); stroke-width: 3; }
+  .chart .marker text { fill: var(--white); font-family: var(--sans); font-size: 13px; font-weight: 600; }
+  .chart .marker text.sub { fill: rgba(239, 244, 251, 0.65); font-weight: 400; font-size: 12px; }
+  .chart-foot { display: flex; gap: 20px; flex-wrap: wrap; font-size: 13px; color: rgba(239, 244, 251, 0.6); margin-top: 6px; }
+  .chart-foot i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 7px; vertical-align: -1px; }
+  .chart-foot .k1 { background: rgba(239, 244, 251, 0.42); }
+  .chart-foot .k2 { background: var(--blue); }
+
+  @keyframes dotIn { to { opacity: 1; } }
+  @keyframes fadeIn { to { opacity: 1; } }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+
+  /* Sections */
+  section { padding: clamp(72px, 10vw, 120px) 0; }
+  h2 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(32px, 4.2vw, 50px); line-height: 1.08; letter-spacing: -0.02em;
+    margin: 0 0 18px; max-width: 20ch;
+  }
+  h3 { font-family: var(--serif); font-weight: 500; font-size: 25px; line-height: 1.2; margin: 0 0 10px; letter-spacing: -0.01em; }
+  .intro { color: var(--slate); max-width: 58ch; margin: 0 0 56px; font-size: 18px; }
+
+  /* Two sides */
+  .sides { background: var(--ice); }
+  .sides-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 20px; }
+  .side { border-radius: 18px; padding: clamp(28px, 4vw, 48px); display: flex; flex-direction: column; }
+  .side-intel { background: var(--white); border: 1px solid var(--line); }
+  .side-studio { background: var(--navy); color: var(--white); }
+  .side .name { font-family: var(--serif); font-size: clamp(28px, 3vw, 36px); font-weight: 500; letter-spacing: -0.015em; margin: 0 0 6px; }
+  .side .role { font-size: 15px; font-weight: 600; color: var(--blue); margin: 0 0 22px; }
+  .side-studio .role { color: #7FB5F2; }
+  .side p { margin: 0 0 20px; max-width: 46ch; }
+  .side-intel p { color: var(--slate); }
+  .side-studio p { color: rgba(239, 244, 251, 0.78); }
+  .side ul { margin: 0 0 32px; padding: 0; list-style: none; }
+  .side li { padding: 11px 0; border-top: 1px solid var(--line); font-weight: 500; }
+  .side-studio li { border-top-color: var(--line-dark); }
+  .side .spacer { flex: 1; }
+  .side .link { font-weight: 600; text-decoration: none; border-bottom: 2px solid currentColor; padding-bottom: 2px; align-self: flex-start; }
+  .side-intel .link { color: var(--blue-strong); }
+  .side-studio .link { color: var(--white); }
+
+  /* Capabilities */
+  .caps { display: grid; grid-template-columns: repeat(2, 1fr); column-gap: clamp(32px, 6vw, 80px); }
+  .cap { padding: 30px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr; }
+  .cap p { color: var(--slate); margin: 0 0 12px; max-width: 48ch; }
+  .cap .tools { font-size: 14px; color: var(--ink); font-weight: 500; margin: 0; }
+  .sectors {
+    margin-top: 48px; padding: 26px 30px; border-radius: 14px; background: var(--ice);
+    color: var(--slate); font-size: 16px;
+  }
+  .sectors strong { color: var(--ink); font-weight: 600; }
+
+  /* Approach */
+  .approach { background: var(--navy); color: var(--white); }
+  .approach .intro { color: rgba(239, 244, 251, 0.72); }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; counter-reset: step; }
+  .steps li { counter-increment: step; border-top: 2px solid var(--blue); padding-top: 22px; }
+  .steps li::before {
+    content: counter(step);
+    display: block; font-family: var(--serif); font-size: 44px; line-height: 1; margin-bottom: 18px;
+    color: rgba(239, 244, 251, 0.35);
+  }
+  .steps h3 { font-size: 22px; }
+  .steps p { color: rgba(239, 244, 251, 0.72); margin: 0; font-size: 16px; }
+
+  /* Principles */
+  .principles { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(32px, 6vw, 88px); align-items: start; }
+  .principles dl { margin: 0; }
+  .principles dt { font-family: var(--serif); font-size: 23px; font-weight: 500; margin: 0 0 6px; }
+  .principles dd { margin: 0 0 30px; color: var(--slate); max-width: 52ch; }
+  .principles dd:last-child { margin-bottom: 0; }
+
+  /* Contact */
+  .contact { background: var(--ice); }
+  .contact-box {
+    background: var(--navy); color: var(--white); border-radius: 22px;
+    padding: clamp(36px, 6vw, 72px);
+    display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: end;
+  }
+  .contact-box h2 { color: var(--white); margin-bottom: 14px; }
+  .contact-box p { color: rgba(239, 244, 251, 0.75); margin: 0; max-width: 46ch; }
+  .contact-side { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+  .contact-side .mail { color: var(--white); font-size: 18px; font-weight: 500; text-decoration: none; border-bottom: 1px solid rgba(239, 244, 251, 0.4); word-break: break-all; }
+  .contact-side .mail:hover { border-bottom-color: var(--white); }
+  .contact-side small { color: rgba(239, 244, 251, 0.6); font-size: 14px; }
+
+  /* Footer */
+  footer { background: var(--navy); color: rgba(239, 244, 251, 0.6); font-size: 14px; padding: 40px 0 calc(40px + env(safe-area-inset-bottom, 0px)); }
+  .foot { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; align-items: flex-start; }
+  .foot .brand span { font-size: 22px; }
+  .foot p { margin: 12px 0 0; max-width: 60ch; }
+  .foot nav a { color: rgba(239, 244, 251, 0.75); text-decoration: none; margin-left: 24px; }
+  .foot nav a:first-child { margin-left: 0; }
+  .foot nav a:hover { color: var(--white); }
+
+  /* Responsive */
+  @media (max-width: 980px) {
+    .hero-grid, .sides-grid, .principles, .contact-box { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: repeat(2, 1fr); }
+    .contact-box { align-items: start; }
+  }
+  @media (max-width: 760px) {
+    .nav-links li:not(:last-child) { display: none; }
+    .caps { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+    .foot nav a { margin: 0 20px 0 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .chart .dot, .chart .band, .chart .marker { animation: none; opacity: 1; }
+    .chart .trend { animation: none; stroke-dashoffset: 0; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Zetato home">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#0A1F3D" stroke="rgba(239,244,251,0.18)"/><path d="M18 19h28L20 45h26" fill="none" stroke="#1F7AE0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Zetato</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#approach">Approach</a></li>
+      <li><a href="https://games.zetatobi.com">Studios</a></li>
+      <li><a class="btn btn-primary" href="#contact">Contact us</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+  <div class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>Turn scattered data into decisions you can stand behind.</h1>
+        <p class="lede">Zetato is a digital company based in Metro Vancouver. Our consulting practice builds business intelligence, data platforms and AI solutions on Microsoft. Our studio builds apps and games of our own.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contact">Start a conversation</a>
+          <a class="btn btn-ghost" href="#services">See what we do</a>
+        </div>
+      </div>
+
+      <figure class="chart" aria-label="Illustration: scattered data points resolving into a clear trend with a marked decision point">
+        <div class="chart-head">
+          <strong>From noise to a clear call</strong>
+          <span>Illustrative</span>
+        </div>
+        <svg viewBox="0 0 520 300" role="img" aria-hidden="true">
+          <g class="grid">
+            <line x1="0" y1="60" x2="520" y2="60"/>
+            <line x1="0" y1="120" x2="520" y2="120"/>
+            <line x1="0" y1="180" x2="520" y2="180"/>
+            <line x1="0" y1="240" x2="520" y2="240"/>
+          </g>
+          <path class="band" d="M20 262 C120 238 190 214 260 184 C330 154 400 118 500 70 L500 118 C400 158 330 190 260 214 C190 240 120 266 20 290 Z"/>
+          <g id="dots"></g>
+          <path class="trend" d="M20 276 C120 252 190 228 260 199 C330 170 400 136 500 94"/>
+          <g class="marker" transform="translate(372 150)">
+            <circle class="halo" r="16"/>
+            <circle class="core" r="7"/>
+            <text x="-128" y="-30">Decision point</text>
+            <text class="sub" x="-128" y="-12">Act here, with confidence</text>
+          </g>
+        </svg>
+        <figcaption class="chart-foot">
+          <span><i class="k1"></i>Raw data</span>
+          <span><i class="k2"></i>Modelled trend</span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <section class="sides" aria-labelledby="sides-title">
+    <div class="wrap">
+      <h2 id="sides-title">One company, two ways we build.</h2>
+      <p class="intro">Our consulting work helps organizations run better. Our studio is where we build products for everyone else. Both come from the same place: good data, careful design and software that people actually use.</p>
+      <div class="sides-grid">
+        <article class="side side-intel">
+          <p class="name">Zetato Intelligence</p>
+          <p class="role">Consulting for business intelligence, data and AI</p>
+          <p>We help leadership teams get reliable answers from their data, then automate the work around those answers. Senior people, Microsoft tools you already own, and results your team can run without us.</p>
+          <ul>
+            <li>Reporting and dashboards</li>
+            <li>Data platforms and integration</li>
+            <li>AI agents and automation</li>
+            <li>Business applications</li>
+          </ul>
+          <div class="spacer"></div>
+          <a class="link" href="#services">Explore our services</a>
+        </article>
+        <article class="side side-studio">
+          <p class="name">Zetato Studios</p>
+          <p class="role">Our own apps and games</p>
+          <p>Small, polished games and apps for phones and the web. Ad-free by design, built with the same care we bring to client work.</p>
+          <ul>
+            <li>Mobile and web games</li>
+            <li>First titles in development</li>
+          </ul>
+          <div class="spacer"></div>
+          <a class="link" href="https://games.zetatobi.com">Visit Zetato Studios</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" aria-labelledby="services-title">
+    <div class="wrap">
+      <h2 id="services-title">What we do for clients.</h2>
+      <p class="intro">We work across the Microsoft data and AI stack, from the first dashboard to the systems behind it. Most engagements start small and grow as the value becomes clear.</p>
+      <div class="caps">
+        <div class="cap">
+          <h3>Reporting and analytics</h3>
+          <p>Dashboards leaders trust, built on clean models with consistent definitions, so every meeting starts from the same numbers.</p>
+          <p class="tools">Power BI, semantic models, KPI design</p>
+        </div>
+        <div class="cap">
+          <h3>Data platforms</h3>
+          <p>A single, governed home for your data, with pipelines that keep it current and quality checks that catch problems early.</p>
+          <p class="tools">Microsoft Fabric, SQL, data pipelines</p>
+        </div>
+        <div class="cap">
+          <h3>AI and automation</h3>
+          <p>Practical AI that saves real hours: agents that answer questions from your own data and workflows that remove repetitive steps.</p>
+          <p class="tools">Copilot Studio, AI Builder, Power Automate</p>
+        </div>
+        <div class="cap">
+          <h3>Business applications</h3>
+          <p>Custom apps that fit how your team works, connected to the data you already have instead of another spreadsheet.</p>
+          <p class="tools">Power Apps, Dataverse, Dynamics 365</p>
+        </div>
+        <div class="cap">
+          <h3>Project and portfolio insight</h3>
+          <p>Visibility across projects, budgets and resources, so a PMO can spot risk early and report with confidence.</p>
+          <p class="tools">Project Operations, Project Server, portfolio reporting</p>
+        </div>
+        <div class="cap">
+          <h3>Strategy and advisory</h3>
+          <p>A clear roadmap before you spend: what to build first, what to license, and how to govern it as you grow.</p>
+          <p class="tools">Roadmaps, governance, adoption</p>
+        </div>
+      </div>
+      <p class="sectors"><strong>Experience across</strong> project delivery, real estate development, healthcare, manufacturing, government and rail.</p>
+    </div>
+  </section>
+
+  <section class="approach" id="approach" aria-labelledby="approach-title">
+    <div class="wrap">
+      <h2 id="approach-title">How an engagement works.</h2>
+      <p class="intro">Every project follows the same path. It keeps scope honest and makes sure what we build gets used.</p>
+      <ol class="steps">
+        <li>
+          <h3>Start with the decision</h3>
+          <p>We agree on the questions that matter and who needs the answers before touching any data.</p>
+        </li>
+        <li>
+          <h3>Fix the foundation</h3>
+          <p>We connect, clean and model the data so the numbers hold up under scrutiny.</p>
+        </li>
+        <li>
+          <h3>Build it with you</h3>
+          <p>We deliver in working pieces, with your team reviewing as we go.</p>
+        </li>
+        <li>
+          <h3>Hand over and improve</h3>
+          <p>You get documentation and training, and we stay close as needs change.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section aria-labelledby="principles-title">
+    <div class="wrap principles">
+      <div>
+        <h2 id="principles-title">Why teams work with us.</h2>
+        <p class="intro" style="margin-bottom:0">Large firms bring scale. We bring focus, speed and the people who actually do the work, in the room from day one.</p>
+      </div>
+      <dl>
+        <dt>Senior-led, every time</dt>
+        <dd>The people who scope your project are the people who build it. No hand-off to a junior bench.</dd>
+        <dt>Built on what you already own</dt>
+        <dd>We work inside your Microsoft environment, so you get more from existing licences instead of adding new vendors.</dd>
+        <dt>Yours to keep</dt>
+        <dd>Clear documentation and no lock-in. Your team can run and extend everything we build.</dd>
+        <dt>Plain language</dt>
+        <dd>We explain trade-offs in business terms, so decisions are made with open eyes.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <div class="contact-box">
+        <div>
+          <h2 id="contact-title">Tell us what you're trying to figure out.</h2>
+          <p>A short call is usually enough to see whether we can help. If we can't, we'll say so and point you somewhere useful.</p>
+        </div>
+        <div class="contact-side">
+          <a class="btn btn-primary" href="mailto:RAbuAwwad@ZetatoBI.com?subject=Enquiry%20from%20zetatobi.com">Email us</a>
+          <a class="mail" href="mailto:RAbuAwwad@ZetatoBI.com">RAbuAwwad@ZetatoBI.com</a>
+          <small>Based in Langley, British Columbia. Working with clients across Canada.</small>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <a class="brand" href="#top" aria-label="Zetato home">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#0A1F3D" stroke="rgba(239,244,251,0.18)"/><path d="M18 19h28L20 45h26" fill="none" stroke="#1F7AE0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Zetato</span>
+      </a>
+      <p>&copy; <span id="yr">2026</span> Zetato Business Intelligence Inc. Zetato, Zetato Intelligence and Zetato Studios are trade names of Zetato Business Intelligence Inc.</p>
+    </div>
+    <nav aria-label="Footer">
+      <a href="#services">Services</a>
+      <a href="#approach">Approach</a>
+      <a href="https://games.zetatobi.com">Studios</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var y = document.getElementById('yr');
+    if (y) y.textContent = new Date().getFullYear();
+
+    // Scattered "raw data" points around the trend line
+    var g = document.getElementById('dots');
+    if (!g) return;
+    var ns = 'http://www.w3.org/2000/svg';
+    var seed = 7;
+    function rand() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+    function trendY(x) {
+      // Approximates the drawn curve from (20,276) to (500,94)
+      var t = (x - 20) / 480;
+      return 276 - 182 * (0.55 * t + 0.45 * t * t);
+    }
+    for (var i = 0; i < 46; i++) {
+      var x = 26 + i * 10.4 + (rand() - 0.5) * 6;
+      var spread = 70 - i * 0.9;
+      var y = trendY(x) + (rand() - 0.5) * spread;
+      var c = document.createElementNS(ns, 'circle');
+      c.setAttribute('class', 'dot');
+      c.setAttribute('cx', x.toFixed(1));
+      c.setAttribute('cy', Math.max(12, Math.min(292, y)).toFixed(1));
+      c.setAttribute('r', (2.2 + rand() * 1.6).toFixed(1));
+      c.style.animationDelay = (0.15 + rand() * 0.9).toFixed(2) + 's';
+      g.appendChild(c);
+    }
+  })();
+</script>
+</body>
+</html>
