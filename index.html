@@ -10,485 +10,781 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://zetatobi.com/">
 <meta name="theme-color" content="#031C3A">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23031C3A'/%3E%3Cpath d='M18 19h28L20 45h26' fill='none' stroke='%231F7AE0' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 86 76'%3E%3Crect x='0' y='0' width='86' height='76' rx='16' fill='%23031C3A'/%3E%3Cg transform='translate(0 2)'%3E%3Cpolygon points='78,36 22,18 22,32 78,50' fill='%230F74EE'/%3E%3Cpolygon points='12,57 78,36 78,50 12,71' fill='%23C2DBFA'/%3E%3Cpolygon points='22,18 58,6.5 58,1 74,8.5 58,25 58,20.5 22,32' fill='%23C2DBFA'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
 <style>
   :root {
     --navy: #031C3A;
     --navy-2: #0A1F3D;
-    --navy-3: #13305A;
+    --navy-3: #10294D;
+    --navy-4: #183A66;
     --blue: #1F7AE0;
-    --blue-strong: #0C72EE;
+    --blue-strong: #0F74EE;
+    --sky: #8EC1FF;
     --ice: #EFF4FB;
+    --ice-2: #C2DBFA;
+    --amber: #F5B544;
     --white: #FFFFFF;
     --ink: #0A1F3D;
     --slate: #4A5B72;
     --line: #D7E2F0;
-    --line-dark: rgba(239, 244, 251, 0.14);
+    --line-dark: rgba(239, 244, 251, 0.12);
+    --text-dim: rgba(239, 244, 251, 0.72);
+    --text-faint: rgba(239, 244, 251, 0.5);
     --serif: "Newsreader", Georgia, "Times New Roman", serif;
     --sans: "Hanken Grotesk", "Segoe UI", Arial, Helvetica, sans-serif;
-    --wrap: 1160px;
+    --wrap: 1200px;
     --gutter: clamp(20px, 5vw, 48px);
   }
   *, *::before, *::after { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: 80px; -webkit-text-size-adjust: 100%; }
-  body {
-    margin: 0;
-    font-family: var(--sans);
-    font-size: 17px;
-    line-height: 1.6;
-    color: var(--ink);
-    background: var(--white);
-    -webkit-font-smoothing: antialiased;
-  }
-  img, svg { max-width: 100%; display: block; }
+  html { scroll-behavior: smooth; scroll-padding-top: 84px; -webkit-text-size-adjust: 100%; }
+  body { margin: 0; font-family: var(--sans); font-size: 17px; line-height: 1.6; color: var(--ink); background: var(--white); -webkit-font-smoothing: antialiased; }
+  svg { display: block; max-width: 100%; }
   a { color: inherit; }
-  a:focus-visible, button:focus-visible {
-    outline: 3px solid var(--blue);
-    outline-offset: 3px;
-    border-radius: 4px;
-  }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
   .wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
-  .skip {
-    position: absolute; left: -9999px; top: 12px; z-index: 100;
-    background: var(--white); color: var(--navy); padding: 10px 16px; border-radius: 6px;
-  }
+  .skip { position: absolute; left: -9999px; top: 12px; z-index: 100; background: var(--white); color: var(--navy); padding: 10px 16px; border-radius: 6px; }
   .skip:focus { left: 12px; }
+  .dark { background: var(--navy); color: var(--white); }
+  .tint { background: var(--ice); }
+
+  /* Brand */
+  .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--white); }
+  .brand .mark { width: 40px; height: 36px; }
+  .brand .word { font-family: var(--sans); font-weight: 600; font-size: 17px; letter-spacing: 0.32em; margin-right: -0.32em; }
 
   /* Header */
-  .site-header {
-    position: sticky; top: 0; z-index: 50;
-    background: rgba(3, 28, 58, 0.92);
-    backdrop-filter: saturate(140%) blur(10px);
-    -webkit-backdrop-filter: saturate(140%) blur(10px);
-    border-bottom: 1px solid var(--line-dark);
-    padding-top: env(safe-area-inset-top, 0px);
-  }
-  .nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
-  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--white); }
-  .brand svg { width: 34px; height: 34px; }
-  .brand span { font-family: var(--serif); font-size: 26px; font-weight: 500; letter-spacing: -0.01em; }
-  .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; margin: 0; padding: 0; }
-  .nav-links a { color: rgba(239, 244, 251, 0.78); text-decoration: none; font-size: 15px; font-weight: 500; }
+  .site-header { position: sticky; top: 0; z-index: 50; background: rgba(3, 28, 58, 0.9); backdrop-filter: saturate(140%) blur(12px); -webkit-backdrop-filter: saturate(140%) blur(12px); border-bottom: 1px solid var(--line-dark); padding-top: env(safe-area-inset-top, 0px); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+  .nav-links { display: flex; align-items: center; gap: 30px; list-style: none; margin: 0; padding: 0; }
+  .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 15px; font-weight: 500; }
   .nav-links a:hover { color: var(--white); }
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center;
-    font-family: var(--sans); font-size: 15px; font-weight: 600;
-    padding: 12px 22px; border-radius: 8px; text-decoration: none;
-    border: 1px solid transparent; transition: background-color .2s ease, border-color .2s ease;
-  }
+  .menu-btn { display: none; background: none; border: 1px solid var(--line-dark); color: var(--white); border-radius: 8px; padding: 8px 12px; font: 600 14px var(--sans); cursor: pointer; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: var(--sans); font-size: 15px; font-weight: 600; padding: 13px 22px; border-radius: 10px; text-decoration: none; border: 1px solid transparent; cursor: pointer; transition: background-color .2s ease, border-color .2s ease; }
   .btn-primary { background: var(--blue); color: var(--white); }
   .btn-primary:hover { background: var(--blue-strong); }
-  .btn-ghost { color: var(--white); border-color: rgba(239, 244, 251, 0.35); }
+  .btn-ghost { color: var(--white); border-color: rgba(239, 244, 251, 0.3); background: transparent; }
   .btn-ghost:hover { border-color: var(--white); }
-  .nav .btn { padding: 9px 18px; font-size: 14px; }
+  .nav-links .btn { padding: 9px 18px; font-size: 14px; color: var(--white); }
+
+  /* Type */
+  h1, h2 { font-family: var(--serif); font-weight: 400; letter-spacing: -0.022em; }
+  h2 { font-size: clamp(34px, 4.4vw, 54px); line-height: 1.06; margin: 0 0 18px; max-width: 20ch; }
+  h3 { font-family: var(--sans); font-weight: 600; font-size: 19px; line-height: 1.3; margin: 0 0 8px; letter-spacing: -0.005em; }
+  .intro { color: var(--slate); max-width: 60ch; margin: 0 0 52px; font-size: 18px; }
+  .dark .intro { color: var(--text-dim); }
+  section { padding: clamp(80px, 10vw, 128px) 0; }
+  .head-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; flex-wrap: wrap; }
+  .head-row .intro { margin-bottom: 44px; }
 
   /* Hero */
-  .hero {
-    background: var(--navy);
-    color: var(--white);
-    padding: clamp(64px, 10vw, 120px) 0 clamp(72px, 10vw, 128px);
-    overflow: hidden;
-  }
-  .hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
-  .hero h1 {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-size: clamp(42px, 6.2vw, 76px);
-    line-height: 1.02;
-    letter-spacing: -0.025em;
-    margin: 0 0 28px;
-    max-width: 13ch;
-  }
-  .hero p.lede {
-    font-size: clamp(17px, 1.6vw, 20px);
-    line-height: 1.6;
-    color: rgba(239, 244, 251, 0.78);
-    max-width: 50ch;
-    margin: 0 0 36px;
-  }
+  .hero { position: relative; overflow: hidden; padding: clamp(56px, 8vw, 104px) 0 clamp(64px, 8vw, 112px); }
+  .hero::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(239,244,251,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(239,244,251,0.045) 1px, transparent 1px); background-size: 56px 56px; mask-image: radial-gradient(ellipse at 70% 40%, #000 20%, transparent 72%); -webkit-mask-image: radial-gradient(ellipse at 70% 40%, #000 20%, transparent 72%); pointer-events: none; }
+  .hero-grid { position: relative; display: grid; grid-template-columns: 1fr 1.08fr; gap: clamp(36px, 5vw, 72px); align-items: center; }
+  .hero h1 { font-size: clamp(44px, 6vw, 80px); line-height: 1.0; margin: 0 0 26px; max-width: 12ch; }
+  .hero .lede { font-size: clamp(17px, 1.5vw, 20px); color: var(--text-dim); max-width: 48ch; margin: 0 0 34px; }
   .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .hero-note { margin-top: 36px; color: var(--text-faint); font-size: 14px; }
 
-  .chart {
-    margin: 0;
-    position: relative;
-    border: 1px solid var(--line-dark);
-    border-radius: 16px;
-    background: linear-gradient(180deg, var(--navy-2), var(--navy));
-    padding: 22px 22px 16px;
-  }
-  .chart-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; gap: 12px; }
-  .chart-head strong { font-family: var(--serif); font-weight: 500; font-size: 19px; }
-  .chart-head span { font-size: 13px; color: rgba(239, 244, 251, 0.6); }
-  .chart svg { width: 100%; height: auto; }
-  .chart .grid line { stroke: rgba(239, 244, 251, 0.08); stroke-width: 1; }
-  .chart .dot { fill: rgba(239, 244, 251, 0.42); opacity: 0; animation: dotIn .5s ease forwards; }
-  .chart .trend {
-    fill: none; stroke: var(--blue); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round;
-    stroke-dasharray: 720; stroke-dashoffset: 720;
-    animation: draw 1.6s cubic-bezier(.6,.05,.2,1) 1.2s forwards;
-  }
-  .chart .band { fill: rgba(31, 122, 224, 0.14); opacity: 0; animation: fadeIn .8s ease 2.5s forwards; }
-  .chart .marker { opacity: 0; animation: fadeIn .5s ease 2.8s forwards; }
-  .chart .marker circle.halo { fill: rgba(31, 122, 224, 0.25); }
-  .chart .marker circle.core { fill: var(--white); stroke: var(--blue); stroke-width: 3; }
-  .chart .marker text { fill: var(--white); font-family: var(--sans); font-size: 13px; font-weight: 600; }
-  .chart .marker text.sub { fill: rgba(239, 244, 251, 0.65); font-weight: 400; font-size: 12px; }
-  .chart-foot { display: flex; gap: 20px; flex-wrap: wrap; font-size: 13px; color: rgba(239, 244, 251, 0.6); margin-top: 6px; }
-  .chart-foot i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 7px; vertical-align: -1px; }
-  .chart-foot .k1 { background: rgba(239, 244, 251, 0.42); }
-  .chart-foot .k2 { background: var(--blue); }
-
-  @keyframes dotIn { to { opacity: 1; } }
+  .panel { background: linear-gradient(180deg, rgba(24,58,102,0.55), rgba(10,31,61,0.9)); border: 1px solid var(--line-dark); border-radius: 18px; box-shadow: 0 40px 80px -40px rgba(0,0,0,0.6); }
+  .hero-panel { padding: 22px; position: relative; }
+  .panel-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .panel-top strong { font-weight: 600; font-size: 15px; }
+  .chip { font-size: 12px; font-weight: 600; color: var(--sky); background: rgba(31,122,224,0.16); border: 1px solid rgba(142,193,255,0.25); padding: 4px 10px; border-radius: 999px; }
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+  .kpi { background: rgba(3,28,58,0.6); border: 1px solid var(--line-dark); border-radius: 12px; padding: 12px 14px; }
+  .kpi span { display: block; font-size: 12px; color: var(--text-faint); }
+  .kpi b { display: block; font-size: 22px; font-weight: 600; letter-spacing: -0.01em; margin-top: 2px; font-variant-numeric: tabular-nums; }
+  .kpi em { font-style: normal; font-size: 12px; font-weight: 600; color: #6FE3B5; }
+  .kpi em.down { color: var(--amber); }
+  .hero-chart .grid line { stroke: rgba(239,244,251,0.07); }
+  .hero-chart .dot { fill: rgba(239,244,251,0.4); opacity: 0; animation: fadeIn .5s ease forwards; }
+  .hero-chart .trend { fill: none; stroke: var(--blue); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 720; stroke-dashoffset: 720; animation: draw 1.6s cubic-bezier(.6,.05,.2,1) 1.1s forwards; }
+  .hero-chart .band { fill: rgba(31,122,224,0.16); opacity: 0; animation: fadeIn .8s ease 2.4s forwards; }
+  .hero-chart .marker { opacity: 0; animation: fadeIn .5s ease 2.7s forwards; }
+  .ask { position: absolute; left: -28px; bottom: -26px; max-width: 300px; background: var(--white); color: var(--ink); border-radius: 14px; padding: 14px 16px; box-shadow: 0 24px 50px -20px rgba(0,0,0,0.55); font-size: 14px; line-height: 1.45; opacity: 0; transform: translateY(8px); animation: rise .6s ease 3.1s forwards; }
+  .ask small { display: block; color: var(--slate); font-size: 12px; font-weight: 600; margin-bottom: 4px; }
   @keyframes fadeIn { to { opacity: 1; } }
   @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes rise { to { opacity: 1; transform: none; } }
 
-  /* Sections */
-  section { padding: clamp(72px, 10vw, 120px) 0; }
-  h2 {
-    font-family: var(--serif); font-weight: 400;
-    font-size: clamp(32px, 4.2vw, 50px); line-height: 1.08; letter-spacing: -0.02em;
-    margin: 0 0 18px; max-width: 20ch;
-  }
-  h3 { font-family: var(--serif); font-weight: 500; font-size: 25px; line-height: 1.2; margin: 0 0 10px; letter-spacing: -0.01em; }
-  .intro { color: var(--slate); max-width: 58ch; margin: 0 0 56px; font-size: 18px; }
+  /* Stack strip */
+  .stack { border-top: 1px solid var(--line-dark); padding: 26px 0; }
+  .stack .wrap { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+  .stack p { margin: 0; font-size: 14px; color: var(--text-faint); }
+  .stack ul { display: flex; flex-wrap: wrap; gap: 10px 26px; list-style: none; margin: 0; padding: 0; }
+  .stack li { font-weight: 600; font-size: 15px; color: var(--text-dim); }
+
+  /* Showcase */
+  .tabs { display: inline-flex; gap: 4px; padding: 4px; border-radius: 12px; background: var(--navy-2); border: 1px solid var(--line-dark); margin-bottom: 22px; flex-wrap: wrap; }
+  .tab { background: none; border: 0; color: var(--text-dim); font: 600 14px var(--sans); padding: 10px 16px; border-radius: 9px; cursor: pointer; }
+  .tab[aria-selected="true"] { background: var(--blue); color: var(--white); }
+  .dash { padding: clamp(16px, 2.4vw, 26px); }
+  .dash-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+  .dash-body { display: grid; grid-template-columns: 1.75fr 1fr; gap: 16px; }
+  .card { background: rgba(3,28,58,0.55); border: 1px solid var(--line-dark); border-radius: 14px; padding: 16px 18px; min-width: 0; }
+  .card-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+  .card-head strong { font-size: 15px; font-weight: 600; }
+  .card-head span { font-size: 12px; color: var(--text-faint); }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--text-faint); margin-top: 6px; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  .insight { margin-top: 16px; display: flex; gap: 12px; align-items: flex-start; background: rgba(31,122,224,0.12); border: 1px solid rgba(142,193,255,0.22); border-radius: 12px; padding: 14px 16px; font-size: 15px; color: var(--ice); }
+  .insight b { color: var(--sky); font-weight: 600; white-space: nowrap; }
+  .sample { font-size: 13px; color: var(--text-faint); margin-top: 14px; }
+  .chart-svg text { font-family: var(--sans); font-size: 11px; fill: rgba(239,244,251,0.5); }
+  .chart-svg .gl { stroke: rgba(239,244,251,0.07); }
+
+  /* AI */
+  .ai-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(36px, 6vw, 88px); align-items: center; }
+  .ai-points { list-style: none; margin: 0; padding: 0; }
+  .ai-points li { padding: 18px 0; border-top: 1px solid var(--line); }
+  .ai-points p { margin: 0; color: var(--slate); }
+  .chat { background: var(--navy); color: var(--white); border-radius: 20px; padding: 22px; min-height: 440px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 40px 80px -40px rgba(3,28,58,0.55); }
+  .chat-top { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; padding-bottom: 12px; border-bottom: 1px solid var(--line-dark); }
+  .chat-top .pulse { width: 8px; height: 8px; border-radius: 50%; background: #6FE3B5; }
+  .msg { max-width: 88%; border-radius: 14px; padding: 12px 15px; font-size: 15px; line-height: 1.5; }
+  .msg.q { align-self: flex-end; background: var(--blue); }
+  .msg.a { align-self: flex-start; background: var(--navy-3); border: 1px solid var(--line-dark); opacity: 0; transform: translateY(8px); transition: opacity .5s ease, transform .5s ease; }
+  .msg.a.show { opacity: 1; transform: none; }
+  .msg.a .src { display: block; margin-top: 10px; font-size: 12px; color: var(--text-faint); }
+  .bars-mini { margin-top: 12px; display: grid; gap: 8px; }
+  .bar-row { display: grid; grid-template-columns: 70px 1fr 48px; gap: 10px; align-items: center; font-size: 13px; color: var(--text-dim); }
+  .bar-track { height: 8px; border-radius: 4px; background: rgba(239,244,251,0.08); overflow: hidden; }
+  .bar-fill { height: 100%; width: 0; border-radius: 4px; background: var(--blue); transition: width 1s cubic-bezier(.3,.7,.2,1); }
+  .bar-row:first-child .bar-fill { background: var(--sky); }
+  .caret { display: inline-block; width: 2px; height: 1em; background: var(--white); vertical-align: -2px; margin-left: 2px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* Architecture */
+  .flow svg text { font-family: var(--sans); }
+  .flow .node rect { fill: var(--navy-3); stroke: rgba(142,193,255,0.25); }
+  .flow .node text { fill: var(--white); font-size: 15px; font-weight: 600; }
+  .flow .node text.s { fill: var(--text-faint); font-size: 12px; font-weight: 400; }
+  .flow .col-label { fill: var(--text-faint); font-size: 13px; }
+  .flow .core rect { fill: rgba(31,122,224,0.18); stroke: var(--blue); }
+  .flow path.link { fill: none; stroke: rgba(142,193,255,0.25); stroke-width: 1.5; }
+  .flow .pkt { fill: var(--sky); }
+  .flow-wrap { overflow-x: auto; }
+  .flow-wrap svg { min-width: 760px; }
 
   /* Two sides */
-  .sides { background: var(--ice); }
   .sides-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 20px; }
-  .side { border-radius: 18px; padding: clamp(28px, 4vw, 48px); display: flex; flex-direction: column; }
+  .side { border-radius: 20px; padding: clamp(28px, 4vw, 48px); display: flex; flex-direction: column; }
   .side-intel { background: var(--white); border: 1px solid var(--line); }
-  .side-studio { background: var(--navy); color: var(--white); }
-  .side .name { font-family: var(--serif); font-size: clamp(28px, 3vw, 36px); font-weight: 500; letter-spacing: -0.015em; margin: 0 0 6px; }
+  .side-studio { background: var(--navy); color: var(--white); position: relative; overflow: hidden; }
+  .side-studio .pix { position: absolute; right: -10px; top: -10px; width: 190px; opacity: 0.5; }
+  .side .name { font-family: var(--serif); font-size: clamp(28px, 3vw, 38px); letter-spacing: -0.015em; margin: 0 0 4px; }
   .side .role { font-size: 15px; font-weight: 600; color: var(--blue); margin: 0 0 22px; }
-  .side-studio .role { color: #7FB5F2; }
+  .side-studio .role { color: var(--sky); }
   .side p { margin: 0 0 20px; max-width: 46ch; }
   .side-intel p { color: var(--slate); }
-  .side-studio p { color: rgba(239, 244, 251, 0.78); }
-  .side ul { margin: 0 0 32px; padding: 0; list-style: none; }
+  .side-studio p { color: var(--text-dim); position: relative; }
+  .side ul { margin: 0 0 32px; padding: 0; list-style: none; position: relative; }
   .side li { padding: 11px 0; border-top: 1px solid var(--line); font-weight: 500; }
   .side-studio li { border-top-color: var(--line-dark); }
   .side .spacer { flex: 1; }
   .side .link { font-weight: 600; text-decoration: none; border-bottom: 2px solid currentColor; padding-bottom: 2px; align-self: flex-start; }
   .side-intel .link { color: var(--blue-strong); }
-  .side-studio .link { color: var(--white); }
 
   /* Capabilities */
-  .caps { display: grid; grid-template-columns: repeat(2, 1fr); column-gap: clamp(32px, 6vw, 80px); }
-  .cap { padding: 30px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr; }
-  .cap p { color: var(--slate); margin: 0 0 12px; max-width: 48ch; }
-  .cap .tools { font-size: 14px; color: var(--ink); font-weight: 500; margin: 0; }
-  .sectors {
-    margin-top: 48px; padding: 26px 30px; border-radius: 14px; background: var(--ice);
-    color: var(--slate); font-size: 16px;
-  }
-  .sectors strong { color: var(--ink); font-weight: 600; }
+  .caps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .cap { border: 1px solid var(--line); border-radius: 16px; padding: 26px; background: var(--white); display: flex; flex-direction: column; }
+  .cap svg { width: 40px; height: 40px; margin-bottom: 18px; }
+  .cap p { color: var(--slate); margin: 0 0 16px; font-size: 16px; }
+  .cap .tools { margin-top: auto; font-size: 13px; font-weight: 600; color: var(--ink); padding-top: 14px; border-top: 1px solid var(--line); }
+  .sectors { margin-top: 28px; color: var(--slate); font-size: 16px; }
+  .sectors strong { color: var(--ink); }
 
   /* Approach */
-  .approach { background: var(--navy); color: var(--white); }
-  .approach .intro { color: rgba(239, 244, 251, 0.72); }
-  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; counter-reset: step; }
-  .steps li { counter-increment: step; border-top: 2px solid var(--blue); padding-top: 22px; }
-  .steps li::before {
-    content: counter(step);
-    display: block; font-family: var(--serif); font-size: 44px; line-height: 1; margin-bottom: 18px;
-    color: rgba(239, 244, 251, 0.35);
-  }
-  .steps h3 { font-size: 22px; }
-  .steps p { color: rgba(239, 244, 251, 0.72); margin: 0; font-size: 16px; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; counter-reset: step; position: relative; }
+  .steps li { counter-increment: step; padding: 0 24px 0 0; position: relative; }
+  .steps li::before { content: counter(step); display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--navy); border: 2px solid var(--blue); color: var(--white); font-weight: 600; margin-bottom: 22px; position: relative; z-index: 1; }
+  .steps li::after { content: ""; position: absolute; left: 44px; right: 0; top: 22px; height: 2px; background: linear-gradient(90deg, var(--blue), rgba(31,122,224,0.15)); }
+  .steps li:last-child::after { display: none; }
+  .steps p { color: var(--text-dim); margin: 0; font-size: 16px; max-width: 30ch; }
+
+  /* Models */
+  .models { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .model { border-radius: 18px; padding: 30px; background: var(--white); border: 1px solid var(--line); }
+  .model.feature { background: var(--navy); color: var(--white); border-color: var(--navy); }
+  .model .tag { display: inline-block; font-size: 13px; font-weight: 600; color: var(--blue); margin-bottom: 14px; }
+  .model.feature .tag { color: var(--sky); }
+  .model p { color: var(--slate); margin: 0 0 18px; font-size: 16px; }
+  .model.feature p { color: var(--text-dim); }
+  .model ul { margin: 0; padding: 0; list-style: none; font-size: 15px; }
+  .model li { padding: 8px 0 8px 22px; position: relative; }
+  .model li::before { content: ""; position: absolute; left: 0; top: 16px; width: 10px; height: 2px; background: var(--blue); }
 
   /* Principles */
   .principles { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(32px, 6vw, 88px); align-items: start; }
-  .principles dl { margin: 0; }
-  .principles dt { font-family: var(--serif); font-size: 23px; font-weight: 500; margin: 0 0 6px; }
-  .principles dd { margin: 0 0 30px; color: var(--slate); max-width: 52ch; }
-  .principles dd:last-child { margin-bottom: 0; }
+  .principles dl { margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 28px 32px; }
+  .principles dt { font-weight: 600; font-size: 18px; margin: 0 0 6px; }
+  .principles dd { margin: 0; color: var(--slate); font-size: 16px; }
 
   /* Contact */
-  .contact { background: var(--ice); }
-  .contact-box {
-    background: var(--navy); color: var(--white); border-radius: 22px;
-    padding: clamp(36px, 6vw, 72px);
-    display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: end;
-  }
-  .contact-box h2 { color: var(--white); margin-bottom: 14px; }
-  .contact-box p { color: rgba(239, 244, 251, 0.75); margin: 0; max-width: 46ch; }
-  .contact-side { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
-  .contact-side .mail { color: var(--white); font-size: 18px; font-weight: 500; text-decoration: none; border-bottom: 1px solid rgba(239, 244, 251, 0.4); word-break: break-all; }
-  .contact-side .mail:hover { border-bottom-color: var(--white); }
-  .contact-side small { color: rgba(239, 244, 251, 0.6); font-size: 14px; }
+  .contact-box { background: var(--navy); color: var(--white); border-radius: 24px; padding: clamp(36px, 6vw, 72px); display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: end; position: relative; overflow: hidden; }
+  .contact-box .glow { position: absolute; right: -120px; bottom: -160px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(31,122,224,0.35), transparent 65%); pointer-events: none; }
+  .contact-box p { color: var(--text-dim); margin: 0; max-width: 46ch; }
+  .contact-side { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; position: relative; }
+  .contact-side .mail { color: var(--white); font-size: 18px; font-weight: 500; text-decoration: none; border-bottom: 1px solid rgba(239,244,251,0.4); }
+  .contact-side small { color: var(--text-faint); font-size: 14px; }
 
-  /* Footer */
-  footer { background: var(--navy); color: rgba(239, 244, 251, 0.6); font-size: 14px; padding: 40px 0 calc(40px + env(safe-area-inset-bottom, 0px)); }
-  .foot { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; align-items: flex-start; }
-  .foot .brand span { font-size: 22px; }
-  .foot p { margin: 12px 0 0; max-width: 60ch; }
-  .foot nav a { color: rgba(239, 244, 251, 0.75); text-decoration: none; margin-left: 24px; }
-  .foot nav a:first-child { margin-left: 0; }
+  footer { padding: 44px 0 calc(44px + env(safe-area-inset-bottom, 0px)); color: var(--text-faint); font-size: 14px; }
+  .foot { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .foot p { margin: 14px 0 0; max-width: 62ch; }
+  .foot nav { display: flex; gap: 22px; flex-wrap: wrap; }
+  .foot nav a { color: var(--text-dim); text-decoration: none; }
   .foot nav a:hover { color: var(--white); }
 
-  /* Responsive */
-  @media (max-width: 980px) {
-    .hero-grid, .sides-grid, .principles, .contact-box { grid-template-columns: 1fr; }
-    .steps { grid-template-columns: repeat(2, 1fr); }
-    .contact-box { align-items: start; }
+  @media (max-width: 1040px) {
+    .hero-grid, .ai-grid, .principles, .contact-box, .sides-grid { grid-template-columns: 1fr; }
+    .dash-body { grid-template-columns: 1fr; }
+    .caps, .models { grid-template-columns: 1fr 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; row-gap: 36px; }
+    .steps li:nth-child(2)::after { display: none; }
+    .ask { left: 12px; }
   }
   @media (max-width: 760px) {
-    .nav-links li:not(:last-child) { display: none; }
-    .caps { grid-template-columns: 1fr; }
+    .menu-btn { display: inline-block; }
+    .nav-links { display: none; position: absolute; top: 72px; left: 0; right: 0; flex-direction: column; align-items: flex-start; gap: 0; padding: 8px var(--gutter) 20px; background: var(--navy); border-bottom: 1px solid var(--line-dark); }
+    .nav-links.open { display: flex; }
+    .nav-links li { width: 100%; }
+    .nav-links a { display: block; padding: 12px 0; font-size: 17px; }
+    .nav-links .btn { margin-top: 8px; display: inline-flex; }
+    .kpis { grid-template-columns: 1fr 1fr; }
+    .kpis .kpi:last-child { display: none; }
+    .dash-kpis { grid-template-columns: 1fr 1fr; }
+    .caps, .models, .principles dl { grid-template-columns: 1fr; }
     .steps { grid-template-columns: 1fr; }
-    .foot nav a { margin: 0 20px 0 0; }
+    .steps li::after { display: none; }
+    .ask { position: static; margin-top: 14px; max-width: none; }
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .chart .dot, .chart .band, .chart .marker { animation: none; opacity: 1; }
-    .chart .trend { animation: none; stroke-dashoffset: 0; }
+    *, *::before, *::after { animation-duration: 0.001s !important; animation-delay: 0s !important; transition-duration: 0.001s !important; }
+    .hero-chart .trend { stroke-dashoffset: 0; }
+    .flow .pkt { display: none; }
   }
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="zmark" viewBox="0 0 86 76">
+      <polygon points="78,38 22,20 22,34 78,52" fill="#0F74EE"/>
+      <polygon points="12,59 78,38 78,52 12,73" fill="#C2DBFA"/>
+      <polygon points="22,20 58,8.5 58,3 74,10.5 58,27 58,22.5 22,34" fill="#C2DBFA"/>
+    </symbol>
+  </defs>
+</svg>
+
 <header class="site-header">
   <div class="wrap nav">
     <a class="brand" href="#top" aria-label="Zetato home">
-      <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#0A1F3D" stroke="rgba(239,244,251,0.18)"/><path d="M18 19h28L20 45h26" fill="none" stroke="#1F7AE0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <span>Zetato</span>
+      <svg class="mark" aria-hidden="true"><use href="#zmark"/></svg>
+      <span class="word">ZETATO</span>
     </a>
-    <ul class="nav-links">
+    <button class="menu-btn" aria-expanded="false" aria-controls="navlist">Menu</button>
+    <ul class="nav-links" id="navlist">
+      <li><a href="#work">Our work</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#approach">Approach</a></li>
-      <li><a href="https://games.zetatobi.com">Studios</a></li>
+      <li><a href="#engage">Engagements</a></li>
       <li><a class="btn btn-primary" href="#contact">Contact us</a></li>
     </ul>
   </div>
 </header>
 
 <main id="main">
+<div class="dark">
   <div class="hero" id="top">
     <div class="wrap hero-grid">
       <div>
         <h1>Turn scattered data into decisions you can stand behind.</h1>
-        <p class="lede">Zetato is a digital company based in Metro Vancouver. Our consulting practice builds business intelligence, data platforms and AI solutions on Microsoft. Our studio builds apps and games of our own.</p>
+        <p class="lede">Zetato builds business intelligence, data platforms and AI on Microsoft, so leadership teams get reliable answers and the work around them runs itself.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#contact">Start a conversation</a>
-          <a class="btn btn-ghost" href="#services">See what we do</a>
+          <a class="btn btn-ghost" href="#work">See example work</a>
         </div>
+        <p class="hero-note">Senior-led delivery from Metro Vancouver, for clients across Canada.</p>
       </div>
 
-      <figure class="chart" aria-label="Illustration: scattered data points resolving into a clear trend with a marked decision point">
-        <div class="chart-head">
-          <strong>From noise to a clear call</strong>
-          <span>Illustrative</span>
+      <div class="panel hero-panel" role="img" aria-label="Illustrative dashboard: scattered data points resolving into a clear trend with a decision point">
+        <div class="panel-top"><strong>Market outlook</strong><span class="chip">Sample dashboard</span></div>
+        <div class="kpis">
+          <div class="kpi"><span>Revenue, YTD</span><b data-count="4.82" data-prefix="$" data-suffix="M" data-dec="2">$0</b><em>+12.4%</em></div>
+          <div class="kpi"><span>Forecast accuracy</span><b data-count="94" data-suffix="%">0</b><em>+3 pts</em></div>
+          <div class="kpi"><span>Cycle time</span><b data-count="18" data-suffix=" days">0</b><em class="down">watch</em></div>
         </div>
-        <svg viewBox="0 0 520 300" role="img" aria-hidden="true">
-          <g class="grid">
-            <line x1="0" y1="60" x2="520" y2="60"/>
-            <line x1="0" y1="120" x2="520" y2="120"/>
-            <line x1="0" y1="180" x2="520" y2="180"/>
-            <line x1="0" y1="240" x2="520" y2="240"/>
-          </g>
-          <path class="band" d="M20 262 C120 238 190 214 260 184 C330 154 400 118 500 70 L500 118 C400 158 330 190 260 214 C190 240 120 266 20 290 Z"/>
+        <svg class="hero-chart" viewBox="0 0 520 250" aria-hidden="true">
+          <g class="grid"><line x1="0" y1="50" x2="520" y2="50"/><line x1="0" y1="110" x2="520" y2="110"/><line x1="0" y1="170" x2="520" y2="170"/><line x1="0" y1="230" x2="520" y2="230"/></g>
+          <path class="band" d="M20 214 C120 194 190 174 260 148 C330 122 400 92 500 50 L500 96 C400 132 330 160 260 180 C190 202 120 224 20 244 Z"/>
           <g id="dots"></g>
-          <path class="trend" d="M20 276 C120 252 190 228 260 199 C330 170 400 136 500 94"/>
-          <g class="marker" transform="translate(372 150)">
-            <circle class="halo" r="16"/>
-            <circle class="core" r="7"/>
-            <text x="-128" y="-30">Decision point</text>
-            <text class="sub" x="-128" y="-12">Act here, with confidence</text>
+          <path class="trend" d="M20 230 C120 210 190 190 260 165 C330 140 400 110 500 72"/>
+          <g class="marker" transform="translate(386 120)">
+            <circle r="16" fill="rgba(31,122,224,0.25)"/><circle r="7" fill="#fff" stroke="#1F7AE0" stroke-width="3"/>
+            <text x="-150" y="-26" fill="#fff" font-family="Hanken Grotesk, Arial" font-size="13" font-weight="600">Decision point</text>
+            <text x="-150" y="-9" fill="rgba(239,244,251,0.6)" font-family="Hanken Grotesk, Arial" font-size="12">Act here, with confidence</text>
           </g>
         </svg>
-        <figcaption class="chart-foot">
-          <span><i class="k1"></i>Raw data</span>
-          <span><i class="k2"></i>Modelled trend</span>
-        </figcaption>
-      </figure>
+        <div class="ask"><small>Ask your data</small>“Which region is driving the Q3 lift?” <br><b>North, up 18% on repeat orders.</b></div>
+      </div>
     </div>
   </div>
 
-  <section class="sides" aria-labelledby="sides-title">
+  <div class="stack">
     <div class="wrap">
-      <h2 id="sides-title">One company, two ways we build.</h2>
-      <p class="intro">Our consulting work helps organizations run better. Our studio is where we build products for everyone else. Both come from the same place: good data, careful design and software that people actually use.</p>
-      <div class="sides-grid">
-        <article class="side side-intel">
-          <p class="name">Zetato Intelligence</p>
-          <p class="role">Consulting for business intelligence, data and AI</p>
-          <p>We help leadership teams get reliable answers from their data, then automate the work around those answers. Senior people, Microsoft tools you already own, and results your team can run without us.</p>
-          <ul>
-            <li>Reporting and dashboards</li>
-            <li>Data platforms and integration</li>
-            <li>AI agents and automation</li>
-            <li>Business applications</li>
-          </ul>
-          <div class="spacer"></div>
-          <a class="link" href="#services">Explore our services</a>
-        </article>
-        <article class="side side-studio">
-          <p class="name">Zetato Studios</p>
-          <p class="role">Our own apps and games</p>
-          <p>Small, polished games and apps for phones and the web. Ad-free by design, built with the same care we bring to client work.</p>
-          <ul>
-            <li>Mobile and web games</li>
-            <li>First titles in development</li>
-          </ul>
-          <div class="spacer"></div>
-          <a class="link" href="https://games.zetatobi.com">Visit Zetato Studios</a>
-        </article>
-      </div>
+      <p>Built on the Microsoft data and AI platform</p>
+      <ul>
+        <li>Microsoft Fabric</li><li>Power BI</li><li>Azure</li><li>SQL Server</li><li>Power Apps</li><li>Power Automate</li><li>Copilot Studio</li><li>Dataverse</li>
+      </ul>
     </div>
-  </section>
+  </div>
 
-  <section id="services" aria-labelledby="services-title">
+  <section id="work" aria-labelledby="work-title" style="padding-top: clamp(64px, 8vw, 104px)">
     <div class="wrap">
-      <h2 id="services-title">What we do for clients.</h2>
-      <p class="intro">We work across the Microsoft data and AI stack, from the first dashboard to the systems behind it. Most engagements start small and grow as the value becomes clear.</p>
-      <div class="caps">
-        <div class="cap">
-          <h3>Reporting and analytics</h3>
-          <p>Dashboards leaders trust, built on clean models with consistent definitions, so every meeting starts from the same numbers.</p>
-          <p class="tools">Power BI, semantic models, KPI design</p>
-        </div>
-        <div class="cap">
-          <h3>Data platforms</h3>
-          <p>A single, governed home for your data, with pipelines that keep it current and quality checks that catch problems early.</p>
-          <p class="tools">Microsoft Fabric, SQL, data pipelines</p>
-        </div>
-        <div class="cap">
-          <h3>AI and automation</h3>
-          <p>Practical AI that saves real hours: agents that answer questions from your own data and workflows that remove repetitive steps.</p>
-          <p class="tools">Copilot Studio, AI Builder, Power Automate</p>
-        </div>
-        <div class="cap">
-          <h3>Business applications</h3>
-          <p>Custom apps that fit how your team works, connected to the data you already have instead of another spreadsheet.</p>
-          <p class="tools">Power Apps, Dataverse, Dynamics 365</p>
-        </div>
-        <div class="cap">
-          <h3>Project and portfolio insight</h3>
-          <p>Visibility across projects, budgets and resources, so a PMO can spot risk early and report with confidence.</p>
-          <p class="tools">Project Operations, Project Server, portfolio reporting</p>
-        </div>
-        <div class="cap">
-          <h3>Strategy and advisory</h3>
-          <p>A clear roadmap before you spend: what to build first, what to license, and how to govern it as you grow.</p>
-          <p class="tools">Roadmaps, governance, adoption</p>
-        </div>
-      </div>
-      <p class="sectors"><strong>Experience across</strong> project delivery, real estate development, healthcare, manufacturing, government and rail.</p>
-    </div>
-  </section>
-
-  <section class="approach" id="approach" aria-labelledby="approach-title">
-    <div class="wrap">
-      <h2 id="approach-title">How an engagement works.</h2>
-      <p class="intro">Every project follows the same path. It keeps scope honest and makes sure what we build gets used.</p>
-      <ol class="steps">
-        <li>
-          <h3>Start with the decision</h3>
-          <p>We agree on the questions that matter and who needs the answers before touching any data.</p>
-        </li>
-        <li>
-          <h3>Fix the foundation</h3>
-          <p>We connect, clean and model the data so the numbers hold up under scrutiny.</p>
-        </li>
-        <li>
-          <h3>Build it with you</h3>
-          <p>We deliver in working pieces, with your team reviewing as we go.</p>
-        </li>
-        <li>
-          <h3>Hand over and improve</h3>
-          <p>You get documentation and training, and we stay close as needs change.</p>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <section aria-labelledby="principles-title">
-    <div class="wrap principles">
-      <div>
-        <h2 id="principles-title">Why teams work with us.</h2>
-        <p class="intro" style="margin-bottom:0">Large firms bring scale. We bring focus, speed and the people who actually do the work, in the room from day one.</p>
-      </div>
-      <dl>
-        <dt>Senior-led, every time</dt>
-        <dd>The people who scope your project are the people who build it. No hand-off to a junior bench.</dd>
-        <dt>Built on what you already own</dt>
-        <dd>We work inside your Microsoft environment, so you get more from existing licences instead of adding new vendors.</dd>
-        <dt>Yours to keep</dt>
-        <dd>Clear documentation and no lock-in. Your team can run and extend everything we build.</dd>
-        <dt>Plain language</dt>
-        <dd>We explain trade-offs in business terms, so decisions are made with open eyes.</dd>
-      </dl>
-    </div>
-  </section>
-
-  <section class="contact" id="contact" aria-labelledby="contact-title">
-    <div class="wrap">
-      <div class="contact-box">
+      <div class="head-row">
         <div>
-          <h2 id="contact-title">Tell us what you're trying to figure out.</h2>
-          <p>A short call is usually enough to see whether we can help. If we can't, we'll say so and point you somewhere useful.</p>
+          <h2 id="work-title">What good looks like.</h2>
+          <p class="intro">Three examples of the kind of reporting we build. One model, consistent definitions, and a clear next action on every page.</p>
         </div>
-        <div class="contact-side">
-          <a class="btn btn-primary" href="mailto:RAbuAwwad@ZetatoBI.com?subject=Enquiry%20from%20zetatobi.com">Email us</a>
-          <a class="mail" href="mailto:RAbuAwwad@ZetatoBI.com">RAbuAwwad@ZetatoBI.com</a>
-          <small>Based in Langley, British Columbia. Working with clients across Canada.</small>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Example dashboards">
+        <button class="tab" role="tab" aria-selected="true" data-tab="re">Real estate market</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="pmo">Project portfolio</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="ops">Operations forecast</button>
+      </div>
+      <div class="panel dash" role="tabpanel" aria-live="polite">
+        <div class="dash-kpis" id="dash-kpis"></div>
+        <div class="dash-body">
+          <div class="card">
+            <div class="card-head"><strong id="main-title"></strong><span id="main-sub"></span></div>
+            <svg class="chart-svg" id="main-chart" viewBox="0 0 640 270" aria-hidden="true"></svg>
+            <div class="legend" id="main-legend"></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><strong id="side-title"></strong><span id="side-sub"></span></div>
+            <svg class="chart-svg" id="side-chart" viewBox="0 0 320 270" aria-hidden="true"></svg>
+            <div class="legend" id="side-legend"></div>
+          </div>
+        </div>
+        <div class="insight"><b>Insight</b><span id="insight"></span></div>
+      </div>
+      <p class="sample">Sample data for illustration. Client work stays confidential.</p>
+    </div>
+  </section>
+
+  <section style="padding-top:0" aria-labelledby="flow-title">
+    <div class="wrap">
+      <h2 id="flow-title">One version of the truth.</h2>
+      <p class="intro">We connect the systems you already run into a single governed platform, then put the answers where people work: dashboards, AI assistants, apps and alerts.</p>
+      <div class="panel flow" style="padding: clamp(16px,3vw,32px)">
+        <div class="flow-wrap">
+        <svg viewBox="0 0 1000 380" role="img" aria-label="Data sources flow into a Microsoft Fabric lakehouse and semantic model, which power dashboards, AI assistants, apps and alerts">
+          <text class="col-label" x="30" y="24">Your sources</text>
+          <text class="col-label" x="392" y="24">The platform</text>
+          <text class="col-label" x="790" y="24">Where people see it</text>
+          <g id="links"></g>
+          <g class="node"><rect x="30" y="48" width="190" height="62" rx="12"/><text x="50" y="76">ERP and finance</text><text class="s" x="50" y="96">Costs, budgets, invoices</text></g>
+          <g class="node"><rect x="30" y="126" width="190" height="62" rx="12"/><text x="50" y="154">CRM and sales</text><text class="s" x="50" y="174">Pipeline, customers</text></g>
+          <g class="node"><rect x="30" y="204" width="190" height="62" rx="12"/><text x="50" y="232">Spreadsheets</text><text class="s" x="50" y="252">The ones everyone uses</text></g>
+          <g class="node"><rect x="30" y="282" width="190" height="62" rx="12"/><text x="50" y="310">Market and web data</text><text class="s" x="50" y="330">APIs, public sources</text></g>
+          <g class="node core"><rect x="392" y="70" width="216" height="104" rx="14"/><text x="414" y="108">Lakehouse</text><text class="s" x="414" y="130">Microsoft Fabric</text><text class="s" x="414" y="150">Cleaned, current, governed</text></g>
+          <g class="node core"><rect x="392" y="204" width="216" height="104" rx="14"/><text x="414" y="242">Semantic model</text><text class="s" x="414" y="264">One set of definitions</text><text class="s" x="414" y="284">Security by role</text></g>
+          <g class="node"><rect x="780" y="48" width="190" height="62" rx="12"/><text x="800" y="76">Dashboards</text><text class="s" x="800" y="96">Power BI, web, mobile</text></g>
+          <g class="node"><rect x="780" y="126" width="190" height="62" rx="12"/><text x="800" y="154">AI assistants</text><text class="s" x="800" y="174">Ask in plain language</text></g>
+          <g class="node"><rect x="780" y="204" width="190" height="62" rx="12"/><text x="800" y="232">Business apps</text><text class="s" x="800" y="252">Forms and workflows</text></g>
+          <g class="node"><rect x="780" y="282" width="190" height="62" rx="12"/><text x="800" y="310">Alerts</text><text class="s" x="800" y="330">Teams and email</text></g>
+        </svg>
         </div>
       </div>
     </div>
   </section>
+</div>
+
+<section aria-labelledby="ai-title">
+  <div class="wrap ai-grid">
+    <div>
+      <h2 id="ai-title">Ask your data a question. Get an answer you can check.</h2>
+      <p class="intro" style="margin-bottom:28px">We build AI assistants on top of your governed data, so answers come from your numbers, not guesses from the internet.</p>
+      <ul class="ai-points">
+        <li><h3>Grounded in your model</h3><p>Every answer draws on the same definitions your dashboards use.</p></li>
+        <li><h3>Shows its source</h3><p>Answers cite the table and refresh time, so people can verify them.</p></li>
+        <li><h3>Respects permissions</h3><p>People only see what their role already allows.</p></li>
+      </ul>
+    </div>
+    <div class="chat" id="chat" aria-label="Example conversation with an AI data assistant">
+      <div class="chat-top"><span class="pulse"></span>Data assistant <span style="margin-left:auto;font-weight:400;color:var(--text-faint);font-size:13px">Example</span></div>
+      <div class="msg q" id="q"><span id="qtext"></span><span class="caret" id="caret"></span></div>
+      <div class="msg a" id="a">
+        Gross margin fell 2.3 points in Q3. Most of it came from two product lines, driven by freight costs in August.
+        <div class="bars-mini">
+          <div class="bar-row"><span>Freight</span><div class="bar-track"><div class="bar-fill" data-w="82"></div></div><span>-1.4 pts</span></div>
+          <div class="bar-row"><span>Discounts</span><div class="bar-track"><div class="bar-fill" data-w="38"></div></div><span>-0.6 pts</span></div>
+          <div class="bar-row"><span>Product mix</span><div class="bar-track"><div class="bar-fill" data-w="22"></div></div><span>-0.3 pts</span></div>
+        </div>
+        <span class="src">Source: Sales and margin model, refreshed today 6:00 am</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tint" aria-labelledby="sides-title">
+  <div class="wrap">
+    <h2 id="sides-title">One company, two ways we build.</h2>
+    <p class="intro">Consulting helps organizations run better. Our studio builds products of our own. Both come from the same place: good data, careful design and software people actually use.</p>
+    <div class="sides-grid">
+      <article class="side side-intel">
+        <p class="name">Zetato Intelligence</p>
+        <p class="role">Consulting for business intelligence, data and AI</p>
+        <p>We help leadership teams get reliable answers from their data, then automate the work around those answers, using Microsoft tools you already own.</p>
+        <ul><li>Reporting and dashboards</li><li>Data platforms and integration</li><li>AI assistants and automation</li><li>Business applications</li></ul>
+        <div class="spacer"></div>
+        <a class="link" href="#services">Explore our services</a>
+      </article>
+      <article class="side side-studio">
+        <svg class="pix" viewBox="0 0 100 100" aria-hidden="true"><g fill="#C2DBFA" opacity=".35"><rect x="10" y="10" width="14" height="14" rx="3"/><rect x="30" y="10" width="14" height="14" rx="3"/><rect x="50" y="10" width="14" height="14" rx="3"/><rect x="70" y="10" width="14" height="14" rx="3"/><rect x="50" y="50" width="14" height="14" rx="3"/><rect x="30" y="70" width="14" height="14" rx="3"/></g><rect x="70" y="30" width="14" height="14" rx="3" fill="#1F7AE0"/></svg>
+        <p class="name">Zetato Studios</p>
+        <p class="role">Our own apps and games</p>
+        <p>Small, polished apps and games for phones and the web. Ad-free by design, built with the same care we bring to client work.</p>
+        <ul><li>Mobile and web games</li><li>First titles in development</li></ul>
+        <div class="spacer"></div>
+        <a class="link" href="https://studios.zetatobi.com">Visit Zetato Studios</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="services" aria-labelledby="services-title">
+  <div class="wrap">
+    <h2 id="services-title">What we do for clients.</h2>
+    <p class="intro">We work across the Microsoft data and AI stack, from the first dashboard to the systems behind it. Most engagements start small and grow as the value becomes clear.</p>
+    <div class="caps">
+      <div class="cap">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#EFF4FB"/><rect x="10" y="22" width="5" height="9" rx="1.5" fill="#8EC1FF"/><rect x="17.5" y="16" width="5" height="15" rx="1.5" fill="#1F7AE0"/><rect x="25" y="10" width="5" height="21" rx="1.5" fill="#031C3A"/></svg>
+        <h3>Reporting and analytics</h3>
+        <p>Dashboards leaders trust, built on clean models with consistent definitions, so every meeting starts from the same numbers.</p>
+        <p class="tools">Power BI, semantic models, KPI design</p>
+      </div>
+      <div class="cap">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#EFF4FB"/><ellipse cx="20" cy="12" rx="9" ry="3.5" fill="#1F7AE0"/><path d="M11 12v16c0 2 4 3.5 9 3.5s9-1.5 9-3.5V12" fill="none" stroke="#031C3A" stroke-width="2"/><path d="M11 20c0 2 4 3.5 9 3.5s9-1.5 9-3.5" fill="none" stroke="#8EC1FF" stroke-width="2"/></svg>
+        <h3>Data platforms</h3>
+        <p>A single, governed home for your data, with pipelines that keep it current and checks that catch problems early.</p>
+        <p class="tools">Microsoft Fabric, SQL, data pipelines</p>
+      </div>
+      <div class="cap">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#EFF4FB"/><path d="M20 9l2.6 7.4L30 19l-7.4 2.6L20 29l-2.6-7.4L10 19l7.4-2.6z" fill="#1F7AE0"/><circle cx="29" cy="11" r="2.5" fill="#031C3A"/></svg>
+        <h3>AI and automation</h3>
+        <p>Practical AI that saves real hours: assistants that answer questions from your own data and workflows that remove repetitive steps.</p>
+        <p class="tools">Copilot Studio, AI Builder, Power Automate</p>
+      </div>
+      <div class="cap">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#EFF4FB"/><rect x="11" y="10" width="18" height="20" rx="3" fill="none" stroke="#031C3A" stroke-width="2"/><rect x="15" y="15" width="10" height="3" rx="1.5" fill="#1F7AE0"/><rect x="15" y="21" width="7" height="3" rx="1.5" fill="#8EC1FF"/></svg>
+        <h3>Business applications</h3>
+        <p>Custom apps that fit how your team works, connected to the data you already have instead of another spreadsheet.</p>
+        <p class="tools">Power Apps, Dataverse, Dynamics 365</p>
+      </div>
+      <div class="cap">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#EFF4FB"/><rect x="10" y="12" width="12" height="4" rx="2" fill="#031C3A"/><rect x="16" y="18" width="14" height="4" rx="2" fill="#1F7AE0"/><rect x="13" y="24" width="10" height="4" rx="2" fill="#8EC1FF"/></svg>
+        <h3>Project and portfolio insight</h3>
+        <p>Visibility across projects, budgets and resources, so a PMO can spot risk early and report with confidence.</p>
+        <p class="tools">Project Operations, Project Server, portfolio reporting</p>
+      </div>
+      <div class="cap">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#EFF4FB"/><path d="M10 28l7-8 5 5 8-11" fill="none" stroke="#1F7AE0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="30" cy="14" r="2.5" fill="#031C3A"/></svg>
+        <h3>Strategy and advisory</h3>
+        <p>A clear roadmap before you spend: what to build first, what to license, and how to govern it as you grow.</p>
+        <p class="tools">Roadmaps, governance, adoption</p>
+      </div>
+    </div>
+    <p class="sectors"><strong>Experience across</strong> project delivery, real estate development, healthcare, manufacturing, government and rail.</p>
+  </div>
+</section>
+
+<section class="dark" id="approach" aria-labelledby="approach-title">
+  <div class="wrap">
+    <h2 id="approach-title">How an engagement works.</h2>
+    <p class="intro">Every project follows the same path. It keeps scope honest and makes sure what we build gets used.</p>
+    <ol class="steps">
+      <li><h3>Start with the decision</h3><p>We agree on the questions that matter and who needs the answers before touching any data.</p></li>
+      <li><h3>Fix the foundation</h3><p>We connect, clean and model the data so the numbers hold up under scrutiny.</p></li>
+      <li><h3>Build it with you</h3><p>We deliver in working pieces, with your team reviewing as we go.</p></li>
+      <li><h3>Hand over and improve</h3><p>You get documentation and training, and we stay close as needs change.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="tint" id="engage" aria-labelledby="engage-title">
+  <div class="wrap">
+    <h2 id="engage-title">Ways to work with us.</h2>
+    <p class="intro">Start with what fits your budget and appetite. Each option leads naturally into the next.</p>
+    <div class="models">
+      <div class="model">
+        <span class="tag">Discovery</span>
+        <h3>Find the quick wins</h3>
+        <p>A short, fixed-scope review of your data, reporting and tools, ending with a prioritized roadmap.</p>
+        <ul><li>Current-state assessment</li><li>Prioritized roadmap</li><li>A working prototype</li></ul>
+      </div>
+      <div class="model feature">
+        <span class="tag">Delivery</span>
+        <h3>Build the solution</h3>
+        <p>A scoped project to deliver dashboards, a data platform, an AI assistant or an app, end to end.</p>
+        <ul><li>Clear scope and milestones</li><li>Built in working pieces</li><li>Documentation and training</li></ul>
+      </div>
+      <div class="model">
+        <span class="tag">Partnership</span>
+        <h3>Keep improving</h3>
+        <p>Ongoing support for teams that want a reliable data partner without hiring a full team.</p>
+        <ul><li>Enhancements as needs change</li><li>Monitoring and fixes</li><li>Advice on what's next</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="principles-title">
+  <div class="wrap principles">
+    <div>
+      <h2 id="principles-title">Why teams work with us.</h2>
+      <p class="intro" style="margin-bottom:0">Large firms bring scale. We bring focus, speed and the people who actually do the work, in the room from day one.</p>
+    </div>
+    <dl>
+      <div><dt>Senior-led, every time</dt><dd>The people who scope your project are the people who build it.</dd></div>
+      <div><dt>Built on what you own</dt><dd>We work inside your Microsoft environment, so you get more from existing licences.</dd></div>
+      <div><dt>Yours to keep</dt><dd>Clear documentation and no lock-in. Your team can run and extend everything we build.</dd></div>
+      <div><dt>Plain language</dt><dd>We explain trade-offs in business terms, so decisions are made with open eyes.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="tint" id="contact" aria-labelledby="contact-title">
+  <div class="wrap">
+    <div class="contact-box">
+      <div class="glow"></div>
+      <div style="position:relative">
+        <h2 id="contact-title" style="color:#fff">Tell us what you're trying to figure out.</h2>
+        <p>A short call is usually enough to see whether we can help. If we can't, we'll say so and point you somewhere useful.</p>
+      </div>
+      <div class="contact-side">
+        <a class="btn btn-primary" href="mailto:Hello@ZetatoBI.com?subject=Enquiry%20from%20zetatobi.com">Email us</a>
+        <a class="mail" href="mailto:Hello@ZetatoBI.com">Hello@ZetatoBI.com</a>
+        <small>Based in Langley, British Columbia. Working with clients across Canada.</small>
+      </div>
+    </div>
+  </div>
+</section>
+
 </main>
 
-<footer>
+<footer class="dark">
   <div class="wrap foot">
     <div>
-      <a class="brand" href="#top" aria-label="Zetato home">
-        <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#0A1F3D" stroke="rgba(239,244,251,0.18)"/><path d="M18 19h28L20 45h26" fill="none" stroke="#1F7AE0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span>Zetato</span>
-      </a>
+      <a class="brand" href="#top" aria-label="Zetato home"><svg class="mark" aria-hidden="true"><use href="#zmark"/></svg><span class="word">ZETATO</span></a>
       <p>&copy; <span id="yr">2026</span> Zetato Business Intelligence Inc. Zetato, Zetato Intelligence and Zetato Studios are trade names of Zetato Business Intelligence Inc.</p>
     </div>
     <nav aria-label="Footer">
-      <a href="#services">Services</a>
-      <a href="#approach">Approach</a>
-      <a href="https://games.zetatobi.com">Studios</a>
-      <a href="#contact">Contact</a>
+      <a href="#work">Our work</a><a href="#services">Services</a><a href="#approach">Approach</a><a href="https://studios.zetatobi.com">Studios</a><a href="#contact">Contact</a>
     </nav>
   </div>
 </footer>
 
 <script>
-  (function () {
-    var y = document.getElementById('yr');
-    if (y) y.textContent = new Date().getFullYear();
+(function () {
+  var NS = 'http://www.w3.org/2000/svg';
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function el(tag, attrs, parent) { var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+  var seed = 11; function rand() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+  document.getElementById('yr').textContent = new Date().getFullYear();
 
-    // Scattered "raw data" points around the trend line
-    var g = document.getElementById('dots');
-    if (!g) return;
-    var ns = 'http://www.w3.org/2000/svg';
-    var seed = 7;
-    function rand() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
-    function trendY(x) {
-      // Approximates the drawn curve from (20,276) to (500,94)
-      var t = (x - 20) / 480;
-      return 276 - 182 * (0.55 * t + 0.45 * t * t);
+  /* Mobile menu */
+  var mb = document.querySelector('.menu-btn'), nl = document.getElementById('navlist');
+  mb.addEventListener('click', function () { var o = nl.classList.toggle('open'); mb.setAttribute('aria-expanded', o); mb.textContent = o ? 'Close' : 'Menu'; });
+  nl.addEventListener('click', function (e) { if (e.target.tagName === 'A') { nl.classList.remove('open'); mb.setAttribute('aria-expanded', false); mb.textContent = 'Menu'; } });
+
+  /* Hero dots */
+  var g = document.getElementById('dots');
+  function trendY(x) { var t = (x - 20) / 480; return 230 - 158 * (0.55 * t + 0.45 * t * t); }
+  for (var i = 0; i < 46; i++) {
+    var x = 26 + i * 10.4 + (rand() - 0.5) * 6, sp = 64 - i * 0.85, y = trendY(x) + (rand() - 0.5) * sp;
+    var c = el('circle', { 'class': 'dot', cx: x.toFixed(1), cy: Math.max(10, Math.min(246, y)).toFixed(1), r: (2 + rand() * 1.6).toFixed(1) }, g);
+    c.style.animationDelay = (0.15 + rand() * 0.9).toFixed(2) + 's';
+  }
+
+  /* Count-up */
+  function countUp(node) {
+    var to = parseFloat(node.dataset.count), dec = +(node.dataset.dec || 0), pre = node.dataset.prefix || '', suf = node.dataset.suffix || '';
+    if (reduce) { node.textContent = pre + to.toFixed(dec) + suf; return; }
+    var t0 = null;
+    function step(t) { if (!t0) t0 = t; var p = Math.min(1, (t - t0) / 1400), e = 1 - Math.pow(1 - p, 3); node.textContent = pre + (to * e).toFixed(dec) + suf; if (p < 1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }
+  setTimeout(function () { document.querySelectorAll('.hero [data-count]').forEach(countUp); }, 600);
+
+  /* Chart helpers */
+  function clear(s) { while (s.firstChild) s.removeChild(s.firstChild); }
+  function drawIn(path, delay) {
+    if (reduce) return;
+    var L = path.getTotalLength(); path.style.strokeDasharray = L; path.style.strokeDashoffset = L;
+    path.getBoundingClientRect();
+    path.style.transition = 'stroke-dashoffset 1.3s cubic-bezier(.5,.1,.2,1) ' + (delay || 0) + 's'; path.style.strokeDashoffset = 0;
+  }
+  function fadeIn(node, delay) { if (reduce) return; node.style.opacity = 0; node.style.transition = 'opacity .6s ease ' + (delay || 0) + 's'; requestAnimationFrame(function () { requestAnimationFrame(function () { node.style.opacity = 1; }); }); }
+  function smooth(pts) {
+    var d = 'M' + pts[0][0] + ' ' + pts[0][1];
+    for (var i = 1; i < pts.length; i++) { var p0 = pts[i - 1], p1 = pts[i], mx = (p0[0] + p1[0]) / 2; d += ' C' + mx + ' ' + p0[1] + ' ' + mx + ' ' + p1[1] + ' ' + p1[0] + ' ' + p1[1]; }
+    return d;
+  }
+  function lineChart(svg, cfg) {
+    clear(svg);
+    var W = 640, H = 270, L = 44, R = 12, T = 12, B = 28, n = cfg.labels.length;
+    var all = []; cfg.series.forEach(function (s) { all = all.concat(s.data.filter(function (v) { return v != null; })); if (s.lo) all = all.concat(s.lo, s.hi); });
+    var min = cfg.min != null ? cfg.min : Math.min.apply(null, all), max = cfg.max != null ? cfg.max : Math.max.apply(null, all);
+    var pad = (max - min) * 0.08; min -= pad; max += pad;
+    function X(i) { return L + i * (W - L - R) / (n - 1); } function Y(v) { return T + (1 - (v - min) / (max - min)) * (H - T - B); }
+    for (var k = 0; k <= 4; k++) { var v = min + (max - min) * k / 4, y = Y(v); el('line', { 'class': 'gl', x1: L, x2: W - R, y1: y, y2: y }, svg); el('text', { x: L - 8, y: y + 4, 'text-anchor': 'end' }, svg).textContent = cfg.fmt(v); }
+    cfg.labels.forEach(function (lb, i) { if (i % cfg.every === 0) el('text', { x: X(i), y: H - 8, 'text-anchor': 'middle' }, svg).textContent = lb; });
+    var defs = el('defs', {}, svg);
+    cfg.series.forEach(function (s, si) {
+      if (s.lo) {
+        var up = [], dn = [];
+        s.lo.forEach(function (v, i) { if (v != null) { up.push([X(i), Y(s.hi[i])]); dn.unshift([X(i), Y(v)]); } });
+        var band = el('path', { d: smooth(up) + ' L' + dn.map(function (p) { return p[0] + ' ' + p[1]; }).join(' L') + ' Z', fill: 'rgba(142,193,255,0.14)' }, svg); fadeIn(band, 0.9);
+      }
+      var pts = []; s.data.forEach(function (v, i) { if (v != null) pts.push([+X(i).toFixed(1), +Y(v).toFixed(1)]); });
+      if (s.area) {
+        var gid = 'g' + si + Math.floor(rand() * 1e6);
+        var lg = el('linearGradient', { id: gid, x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
+        el('stop', { offset: '0', 'stop-color': s.color, 'stop-opacity': '0.35' }, lg); el('stop', { offset: '1', 'stop-color': s.color, 'stop-opacity': '0' }, lg);
+        var a = el('path', { d: smooth(pts) + ' L' + pts[pts.length - 1][0] + ' ' + (H - B) + ' L' + pts[0][0] + ' ' + (H - B) + ' Z', fill: 'url(#' + gid + ')' }, svg); fadeIn(a, 0.6);
+      }
+      var p = el('path', { d: smooth(pts), fill: 'none', stroke: s.color, 'stroke-width': s.w || 2.5, 'stroke-linecap': 'round' }, svg);
+      if (s.dash) { p.setAttribute('stroke-dasharray', '6 6'); fadeIn(p, 0.3); } else drawIn(p, si * 0.15);
+      if (s.end) { var lp = pts[pts.length - 1]; var dot = el('circle', { cx: lp[0], cy: lp[1], r: 4.5, fill: '#fff', stroke: s.color, 'stroke-width': 2.5 }, svg); fadeIn(dot, 1.3); }
+    });
+    if (cfg.marks) cfg.marks.forEach(function (m) {
+      var gx = el('g', {}, svg), mx = X(m.i), my = Y(m.v);
+      el('circle', { cx: mx, cy: my, r: 11, fill: 'rgba(245,181,68,0.22)' }, gx); el('circle', { cx: mx, cy: my, r: 4.5, fill: '#F5B544' }, gx);
+      var tx = el('text', { x: mx, y: my - 18, 'text-anchor': 'middle', style: 'fill:#F5B544;font-weight:600' }, gx); tx.textContent = m.t; fadeIn(gx, 1.4);
+    });
+    if (cfg.now != null) { var nx = X(cfg.now); var ln = el('line', { x1: nx, x2: nx, y1: T, y2: H - B, stroke: 'rgba(239,244,251,0.3)', 'stroke-dasharray': '3 4' }, svg); el('text', { x: nx + 6, y: T + 12 }, svg).textContent = 'Today'; fadeIn(ln, 0.5); }
+  }
+  function barChart(svg, cfg) {
+    clear(svg);
+    var W = 320, H = 270, L = 96, R = 44, T = 10, rowH = (H - T - 10) / cfg.items.length, max = Math.max.apply(null, cfg.items.map(function (d) { return d.v; }));
+    cfg.items.forEach(function (d, i) {
+      var y = T + i * rowH + rowH / 2;
+      el('text', { x: L - 10, y: y + 4, 'text-anchor': 'end', style: 'fill:rgba(239,244,251,0.75);font-size:12px' }, svg).textContent = d.k;
+      el('rect', { x: L, y: y - 9, width: W - L - R, height: 18, rx: 5, fill: 'rgba(239,244,251,0.06)' }, svg);
+      var w = (W - L - R) * d.v / max, r = el('rect', { x: L, y: y - 9, width: reduce ? w : 0, height: 18, rx: 5, fill: i === 0 ? '#8EC1FF' : '#1F7AE0' }, svg);
+      if (!reduce) { r.style.transition = 'width 1s cubic-bezier(.3,.7,.2,1) ' + (0.1 + i * 0.08) + 's'; requestAnimationFrame(function () { requestAnimationFrame(function () { r.setAttribute('width', w); }); }); }
+      el('text', { x: L + w + 8, y: y + 4, style: 'fill:#fff;font-size:12px;font-weight:600' }, svg).textContent = d.l;
+    });
+  }
+  function donut(svg, cfg) {
+    clear(svg);
+    var cx = 160, cy = 125, r = 82, sw = 22, C = 2 * Math.PI * r, tot = cfg.items.reduce(function (a, d) { return a + d.v; }, 0), off = 0;
+    el('circle', { cx: cx, cy: cy, r: r, fill: 'none', stroke: 'rgba(239,244,251,0.06)', 'stroke-width': sw }, svg);
+    cfg.items.forEach(function (d, i) {
+      var len = C * d.v / tot - 3;
+      var c = el('circle', { cx: cx, cy: cy, r: r, fill: 'none', stroke: d.c, 'stroke-width': sw, 'stroke-dasharray': (reduce ? len : 0) + ' ' + C, 'stroke-dashoffset': -off, transform: 'rotate(-90 ' + cx + ' ' + cy + ')' }, svg);
+      if (!reduce) { c.style.transition = 'stroke-dasharray .9s cubic-bezier(.3,.7,.2,1) ' + (0.15 + i * 0.25) + 's'; requestAnimationFrame(function () { requestAnimationFrame(function () { c.setAttribute('stroke-dasharray', len + ' ' + C); }); }); }
+      off += C * d.v / tot;
+    });
+    el('text', { x: cx, y: cy + 4, 'text-anchor': 'middle', style: 'fill:#fff;font-size:34px;font-weight:600;font-family:Hanken Grotesk,Arial' }, svg).textContent = cfg.center;
+    el('text', { x: cx, y: cy + 26, 'text-anchor': 'middle', style: 'font-size:12px' }, svg).textContent = cfg.sub;
+    cfg.items.forEach(function (d, i) {
+      var x = 30 + i * 100, y = 250;
+      el('rect', { x: x, y: y - 9, width: 10, height: 10, rx: 3, fill: d.c }, svg);
+      el('text', { x: x + 16, y: y, style: 'fill:rgba(239,244,251,0.75);font-size:12px' }, svg).textContent = d.k + ' ' + d.v;
+    });
+  }
+  function legend(id, items) { document.getElementById(id).innerHTML = items.map(function (d) { return '<span><i style="background:' + d[1] + '"></i>' + d[0] + '</span>'; }).join(''); }
+
+  /* Data */
+  var months = ['Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep'];
+  function walk(start, drift, vol, n) { var a = [], v = start; for (var i = 0; i < n; i++) { v += drift + (rand() - 0.5) * vol; a.push(+v.toFixed(1)); } return a; }
+  seed = 23;
+  var north = walk(640, 5.2, 14, 24), central = walk(700, 2.4, 12, 24), south = walk(590, 1.0, 12, 24);
+  var planSpend = [], actual = [], lo = [], hi = [], fc = [];
+  for (var i = 0; i < 12; i++) { var p = 2 + 38 * Math.pow((i + 1) / 12, 1.25); planSpend.push(+p.toFixed(1)); }
+  var acc = 0; for (i = 0; i < 12; i++) { if (i < 8) { acc = planSpend[i] * (0.9 + i * 0.012) + (rand() - 0.5); actual.push(+acc.toFixed(1)); fc.push(i === 7 ? +acc.toFixed(1) : null); lo.push(null); hi.push(null); } else { var f = planSpend[i] * 0.985; actual.push(null); fc.push(+f.toFixed(1)); var sp = (i - 7) * 1.1; lo.push(+(f - sp).toFixed(1)); hi.push(+(f + sp).toFixed(1)); } }
+  var dem = [], dfc = [], dlo = [], dhi = [];
+  for (i = 0; i < 24; i++) { var base = 620 + i * 9 + 90 * Math.sin((i + 2) / 12 * 2 * Math.PI); if (i < 17) { dem.push(+(base + (rand() - 0.5) * 50 + (i === 11 ? 150 : 0)).toFixed(0)); dfc.push(i === 16 ? dem[16] : null); dlo.push(null); dhi.push(null); } else { dem.push(null); dfc.push(+base.toFixed(0)); var s2 = (i - 16) * 14; dlo.push(+(base - s2).toFixed(0)); dhi.push(+(base + s2).toFixed(0)); } }
+  var mo12 = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  var views = {
+    re: {
+      kpis: [['Median sale price', '$1.18M', '+4.2% YoY', ''], ['Days on market', '23', '-5 days', ''], ['Active listings', '412', '+11%', 'down'], ['Months of supply', '3.1', 'Balanced', '']],
+      main: function (s) { lineChart(s, { labels: months, every: 3, series: [{ data: north, color: '#8EC1FF', area: true, end: true }, { data: central, color: '#1F7AE0', end: true }, { data: south, color: 'rgba(239,244,251,0.45)', w: 2 }], fmt: function (v) { return '$' + Math.round(v); } }); },
+      mt: 'Price per square foot, 24 months', ms: 'By submarket', ml: [['North', '#8EC1FF'], ['Central', '#1F7AE0'], ['South', 'rgba(239,244,251,0.45)']],
+      side: function (s) { barChart(s, { items: [{ k: 'Townhome', v: 142, l: '142' }, { k: 'Condo', v: 118, l: '118' }, { k: 'Multiplex', v: 64, l: '64' }, { k: 'Detached', v: 51, l: '51' }, { k: 'Land', v: 17, l: '17' }] }); },
+      st: 'Sales by product type', ss: 'Last quarter', sl: [],
+      ins: 'North is gaining about three times faster than South. Townhome demand is strongest, which supports a townhome-led land strategy in that area.'
+    },
+    pmo: {
+      kpis: [['Active projects', '38', '+4 this quarter', ''], ['On budget', '84%', '+6 pts', ''], ['At risk', '5', 'Review Friday', 'down'], ['Forecast variance', '-1.5%', 'Under plan', '']],
+      main: function (s) { lineChart(s, { labels: mo12, every: 2, min: 0, series: [{ data: planSpend, color: 'rgba(239,244,251,0.5)', dash: true, w: 2 }, { data: actual, color: '#1F7AE0', area: true }, { data: fc, lo: lo, hi: hi, color: '#8EC1FF', end: true }], now: 7, fmt: function (v) { return '$' + Math.round(v) + 'M'; } }); },
+      mt: 'Cumulative spend vs plan', ms: 'Portfolio, this fiscal year', ml: [['Plan', 'rgba(239,244,251,0.5)'], ['Actual', '#1F7AE0'], ['Forecast and range', '#8EC1FF']],
+      side: function (s) { donut(s, { center: '38', sub: 'active projects', items: [{ k: 'On track', v: 27, c: '#1F7AE0' }, { k: 'Watch', v: 6, c: '#8EC1FF' }, { k: 'At risk', v: 5, c: '#F5B544' }] }); },
+      st: 'Portfolio health', ss: 'By status', sl: [],
+      ins: 'Spend is tracking slightly under plan. Three of the five at-risk projects share one vendor, so a single conversation could clear most of the risk.'
+    },
+    ops: {
+      kpis: [['Orders next 90 days', '18.4K', 'Forecast', ''], ['Forecast accuracy', '94%', '+3 pts', ''], ['Stock-outs avoided', '12', 'This quarter', ''], ['Supplier lead time', '6.2 days', '+0.8 days', 'down']],
+      main: function (s) { lineChart(s, { labels: months, every: 3, series: [{ data: dem, color: '#1F7AE0', area: true }, { data: dfc, lo: dlo, hi: dhi, color: '#8EC1FF', end: true }], marks: [{ i: 11, v: dem[11], t: 'Promo spike' }], now: 16, fmt: function (v) { return Math.round(v); } }); },
+      mt: 'Weekly demand and forecast', ms: 'Units, all regions', ml: [['Actual', '#1F7AE0'], ['Forecast and range', '#8EC1FF'], ['Anomaly', '#F5B544']],
+      side: function (s) { barChart(s, { items: [{ k: 'Seasonality', v: 41, l: '41%' }, { k: 'Promotions', v: 27, l: '27%' }, { k: 'Price', v: 16, l: '16%' }, { k: 'Weather', v: 10, l: '10%' }, { k: 'Other', v: 6, l: '6%' }] }); },
+      st: 'What drives demand', ss: 'Share of variation', sl: [],
+      ins: 'Demand peaks again in about eight weeks. Ordering two weeks earlier than last year covers the longer supplier lead time.'
     }
-    for (var i = 0; i < 46; i++) {
-      var x = 26 + i * 10.4 + (rand() - 0.5) * 6;
-      var spread = 70 - i * 0.9;
-      var y = trendY(x) + (rand() - 0.5) * spread;
-      var c = document.createElementNS(ns, 'circle');
-      c.setAttribute('class', 'dot');
-      c.setAttribute('cx', x.toFixed(1));
-      c.setAttribute('cy', Math.max(12, Math.min(292, y)).toFixed(1));
-      c.setAttribute('r', (2.2 + rand() * 1.6).toFixed(1));
-      c.style.animationDelay = (0.15 + rand() * 0.9).toFixed(2) + 's';
-      g.appendChild(c);
-    }
-  })();
+  };
+  function show(key) {
+    var v = views[key];
+    document.getElementById('dash-kpis').innerHTML = v.kpis.map(function (k) { return '<div class="kpi"><span>' + k[0] + '</span><b>' + k[1] + '</b><em class="' + k[3] + '">' + k[2] + '</em></div>'; }).join('');
+    document.getElementById('main-title').textContent = v.mt; document.getElementById('main-sub').textContent = v.ms;
+    document.getElementById('side-title').textContent = v.st; document.getElementById('side-sub').textContent = v.ss;
+    legend('main-legend', v.ml); legend('side-legend', v.sl);
+    v.main(document.getElementById('main-chart')); v.side(document.getElementById('side-chart'));
+    document.getElementById('insight').textContent = v.ins;
+  }
+  var tabs = document.querySelectorAll('.tab');
+  tabs.forEach(function (t, idx) {
+    t.addEventListener('click', function () { tabs.forEach(function (o) { o.setAttribute('aria-selected', 'false'); o.tabIndex = -1; }); t.setAttribute('aria-selected', 'true'); t.tabIndex = 0; show(t.dataset.tab); });
+    t.addEventListener('keydown', function (e) { if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { var n = tabs[(idx + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length]; n.focus(); n.click(); } });
+    if (idx) t.tabIndex = -1;
+  });
+
+  /* Architecture links with moving packets */
+  var links = document.getElementById('links');
+  var srcY = [79, 157, 235, 313], outY = [79, 157, 235, 313];
+  srcY.forEach(function (y, i) { var ty = i < 2 ? 122 : 256; var d = 'M220 ' + y + ' C310 ' + y + ' 300 ' + ty + ' 392 ' + ty; addLink(d, i * 0.6); });
+  el('path', { 'class': 'link', d: 'M500 174 L500 204' }, links);
+  outY.forEach(function (y, i) { var sy = i < 2 ? 122 : 256; var d = 'M608 ' + sy + ' C700 ' + sy + ' 690 ' + y + ' 780 ' + y; addLink(d, 0.3 + i * 0.6); });
+  function addLink(d, delay) {
+    el('path', { 'class': 'link', d: d }, links);
+    if (reduce) return;
+    var c = el('circle', { 'class': 'pkt', r: 3.5 }, links);
+    var am = el('animateMotion', { dur: '2.6s', repeatCount: 'indefinite', begin: delay + 's', path: d }, c);
+  }
+
+  /* Reveal-on-view: dashboard + chat */
+  var shown = {};
+  function onView(node, fn) {
+    if (!('IntersectionObserver' in window)) { fn(); return; }
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { io.disconnect(); fn(); } }); }, { threshold: 0.3 });
+    io.observe(node);
+  }
+  onView(document.querySelector('.dash'), function () { show('re'); });
+  onView(document.getElementById('chat'), function () {
+    var q = 'Why did gross margin drop in Q3?', qt = document.getElementById('qtext'), i = 0;
+    function done() { document.getElementById('caret').remove(); setTimeout(function () { document.getElementById('a').classList.add('show'); setTimeout(function () { document.querySelectorAll('.bar-fill').forEach(function (b) { b.style.width = b.dataset.w + '%'; }); }, 400); }, 500); }
+    if (reduce) { qt.textContent = q; done(); return; }
+    (function type() { qt.textContent = q.slice(0, ++i); if (i < q.length) setTimeout(type, 38); else done(); })();
+  });
+})();
 </script>
 </body>
 </html>
