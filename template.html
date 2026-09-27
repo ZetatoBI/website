@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zetato Insights | Daily market data, sector performance and value screens</title>
+<meta name="description" content="{{DESCRIPTION}}">
+<link rel="canonical" href="https://zetatobi.com/insights/">
+<meta name="robots" content="index, follow, max-snippet:-1">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Zetato">
+<meta property="og:title" content="Zetato Insights: market data as of {{AS_OF}}">
+<meta property="og:description" content="{{DESCRIPTION}}">
+<meta property="og:url" content="https://zetatobi.com/insights/">
+<meta name="theme-color" content="#031C3A">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","name":"Zetato Insights","url":"https://zetatobi.com/insights/",
+ "description":"Daily US and Canadian market data, S&P 500 sector performance and a screen of large caps trading below their industry peers.",
+ "dateModified":"{{BUILT_ISO}}","inLanguage":"en-CA",
+ "publisher":{"@type":"Organization","name":"Zetato Business Intelligence Inc.","url":"https://zetatobi.com/"}}
+</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 86 76'%3E%3Crect width='86' height='76' rx='16' fill='%23031C3A'/%3E%3Cg transform='translate(0 2)'%3E%3Cpolygon points='78,36 22,18 22,32 78,50' fill='%230F74EE'/%3E%3Cpolygon points='12,57 78,36 78,50 12,71' fill='%23C2DBFA'/%3E%3Cpolygon points='22,18 58,6.5 58,1 74,8.5 58,25 58,20.5 22,32' fill='%23C2DBFA'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #031C3A; --navy-2: #0A1F3D; --navy-3: #10294D;
+    --blue: #1F7AE0; --sky: #8EC1FF; --ice: #EFF4FB; --ice-2: #C2DBFA;
+    --amber: #F5B544; --mint: #6FE3B5; --red: #FF8A8A;
+    --dim: rgba(239,244,251,0.74); --faint: rgba(239,244,251,0.52); --line: rgba(239,244,251,0.12);
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+    --sans: "Hanken Grotesk", "Segoe UI", Arial, Helvetica, sans-serif;
+    --wrap: 1200px; --gutter: clamp(20px, 5vw, 48px);
+    color-scheme: dark;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+  body { margin: 0; background: var(--navy); color: #fff; font-family: var(--sans); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
+  svg { display: block; max-width: 100%; }
+  [hidden] { display: none !important; }
+  .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
+  .skip { position: absolute; left: -9999px; top: 12px; background: #fff; color: var(--navy); padding: 10px 16px; border-radius: 6px; z-index: 100; }
+  .skip:focus { left: 12px; }
+
+  header { position: sticky; top: 0; z-index: 50; background: rgba(3,28,58,0.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); padding-top: env(safe-area-inset-top, 0px); }
+  .nav { height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand .mark { width: 40px; height: 36px; }
+  .brand .w { font-weight: 600; font-size: 15px; letter-spacing: 0.3em; }
+  .brand .w span { color: var(--sky); }
+  .nav-links { display: flex; align-items: center; gap: 26px; list-style: none; margin: 0; padding: 0; }
+  .nav-links a { color: var(--dim); text-decoration: none; font-size: 15px; font-weight: 500; }
+  .nav-links a:hover { color: #fff; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; font: 600 14px var(--sans); padding: 9px 18px; border-radius: 10px; text-decoration: none; background: var(--blue); color: #fff !important; }
+  .btn:hover { background: #0F74EE; }
+
+  .hero { padding: clamp(52px, 7vw, 88px) 0 clamp(28px, 4vw, 44px); }
+  h1, h2 { font-family: var(--serif); font-weight: 400; letter-spacing: -0.022em; }
+  h1 { font-size: clamp(42px, 5.6vw, 72px); line-height: 1.0; margin: 0 0 20px; max-width: 16ch; }
+  h2 { font-size: clamp(30px, 3.4vw, 42px); line-height: 1.08; margin: 0 0 10px; }
+  h3 { font-size: 18px; font-weight: 600; margin: 0 0 6px; }
+  .lede { color: var(--dim); font-size: clamp(17px, 1.5vw, 20px); max-width: 60ch; margin: 0 0 18px; }
+  .asof { display: inline-flex; align-items: center; gap: 10px; color: var(--dim); font-size: 14px; background: var(--navy-2); border: 1px solid var(--line); border-radius: 14px; padding: 7px 14px; margin: 0; }
+  .asof i { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 0 4px rgba(111,227,181,0.16); }
+  .intro { color: var(--dim); max-width: 64ch; margin: 0 0 26px; }
+  section { padding: clamp(52px, 6.5vw, 84px) 0; border-top: 1px solid var(--line); }
+
+  .read { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(28px, 4vw, 56px); align-items: start; }
+  .read-text p { font-family: var(--serif); font-size: clamp(19px, 1.7vw, 23px); line-height: 1.5; margin: 0 0 14px; color: #fff; }
+  .read-text p + p { color: var(--dim); }
+  .read-text small { color: var(--faint); font-size: 13px; }
+
+  .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .tile { background: var(--navy-2); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px 12px; min-width: 0; }
+  .tile .n { font-size: 13px; color: var(--faint); }
+  .tile .v { font-size: 24px; font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+  .tile .c { font-size: 13px; font-variant-numeric: tabular-nums; display: flex; gap: 12px; flex-wrap: wrap; }
+  .tile svg { width: 100%; height: 34px; margin-top: 6px; }
+  .pos { color: var(--mint); } .neg { color: var(--red); } .flat { color: var(--dim); }
+
+  .panel { background: linear-gradient(180deg, rgba(24,58,102,0.45), rgba(10,31,61,0.9)); border: 1px solid var(--line); border-radius: 18px; padding: clamp(14px, 2.2vw, 24px); }
+  .tv { height: 460px; border-radius: 12px; overflow: hidden; position: relative; background: var(--navy-2); }
+  .tv .fallback { position: absolute; inset: 0; display: grid; place-items: center; color: var(--faint); font-size: 15px; text-align: center; padding: 20px; }
+  .tv .tradingview-widget-container { position: relative; z-index: 1; height: 100%; }
+  .credit { font-size: 12px; color: var(--faint); margin: 10px 0 0; }
+  .credit a { color: var(--dim); }
+
+  .head-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; margin-bottom: 22px; }
+  .head-row .intro { margin: 0; }
+  .seg { display: inline-flex; gap: 4px; padding: 4px; border-radius: 12px; background: var(--navy-2); border: 1px solid var(--line); flex-wrap: wrap; }
+  .seg button { background: none; border: 0; color: var(--dim); font: 600 14px var(--sans); padding: 8px 13px; border-radius: 9px; cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: var(--blue); color: #fff; }
+
+  .bars { display: grid; gap: 6px; }
+  .bar-row { display: grid; grid-template-columns: 220px 1fr 70px; align-items: center; gap: 14px; font-size: 15px; }
+  .bar-row .k { color: var(--dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar-row .k b { color: #fff; font-weight: 600; display: inline-block; width: 46px; }
+  .bar-track { position: relative; height: 22px; }
+  .bar-track .zero { position: absolute; top: -3px; bottom: -3px; width: 1px; background: rgba(239,244,251,0.3); }
+  .bar-track .bench { position: absolute; top: -5px; bottom: -5px; width: 2px; margin-left: -1px; background: var(--amber); border-radius: 1px; z-index: 1; }
+  .bar-fill { position: absolute; top: 3px; height: 16px; border-radius: 4px; transition: left .5s ease, width .5s ease; }
+  .bar-fill.up { background: var(--blue); } .bar-fill.down { background: rgba(255,138,138,0.75); }
+  .bar-row .v { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+  .legend { display: flex; gap: 18px; font-size: 13px; color: var(--faint); margin-top: 14px; flex-wrap: wrap; }
+  .legend i { display: inline-block; width: 14px; height: 3px; border-radius: 2px; margin-right: 7px; vertical-align: 3px; }
+
+  .tbl-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; font-variant-numeric: tabular-nums; min-width: 760px; }
+  caption { text-align: left; font-weight: 600; font-size: 16px; padding: 0 0 12px; }
+  caption span { font-weight: 400; color: var(--faint); font-size: 14px; margin-left: 8px; }
+  th { text-align: left; font-size: 13px; font-weight: 600; color: var(--faint); padding: 10px 12px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  td { padding: 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.num, th.num { text-align: right; }
+  td .sub { display: block; color: var(--faint); font-size: 13px; }
+  td a { text-decoration: none; }
+  td a:hover b { text-decoration: underline; }
+  tr.row { cursor: pointer; }
+  tr.row:hover td { background: rgba(142,193,255,0.05); }
+  .tick { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; }
+  .tick button { background: none; border: 1px solid var(--line); color: var(--dim); width: 22px; height: 22px; border-radius: 6px; font: 600 13px var(--sans); cursor: pointer; line-height: 1; }
+  tr.detail td { background: rgba(3,28,58,0.5); color: var(--dim); }
+  tr.detail b { color: #fff; font-weight: 600; }
+  .badge { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 6px; background: rgba(111,227,181,0.14); color: var(--mint); white-space: nowrap; }
+  .badge.off { background: rgba(239,244,251,0.08); color: var(--faint); }
+
+  .stack { display: grid; gap: 20px; }
+  .pick { display: grid; gap: 6px; font-size: 13px; color: var(--faint); }
+  .pick select { appearance: none; -webkit-appearance: none; background: var(--navy-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%238EC1FF' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 12px center; color: #fff; font: 600 15px var(--sans); border: 1px solid var(--line); border-radius: 10px; padding: 9px 38px 9px 14px; min-width: 240px; cursor: pointer; }
+  .pick select:hover { border-color: rgba(142,193,255,0.45); }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+  .stat { background: rgba(3,28,58,0.6); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+  .stat span { display: block; font-size: 13px; color: var(--faint); }
+  .stat b { display: block; font-size: 26px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .stat em { font-style: normal; font-size: 13px; color: var(--dim); }
+  .note-line { color: var(--faint); font-size: 14px; margin: 14px 0 0; }
+  .note-line a { color: var(--sky); }
+  .chart-svg text { font-family: var(--sans); font-size: 11px; fill: rgba(239,244,251,0.5); }
+  .chart-svg .gl { stroke: rgba(239,244,251,0.07); }
+
+  .notes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .note { background: var(--navy-2); border: 1px solid var(--line); border-radius: 16px; padding: 22px; text-decoration: none; display: flex; flex-direction: column; gap: 8px; }
+  a.note:hover { border-color: rgba(142,193,255,0.45); }
+  .note time { font-size: 13px; color: var(--faint); }
+  .note p { margin: 0; color: var(--dim); font-size: 15px; }
+
+  .method { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .method div { border-top: 2px solid var(--blue); padding-top: 18px; }
+  .method p { margin: 0; color: var(--dim); font-size: 16px; }
+
+  .disclaimer { background: var(--ice); color: #33445C; font-size: 14px; line-height: 1.6; }
+  .disclaimer h2 { color: var(--navy); font-size: 26px; }
+  .disclaimer p { max-width: 90ch; margin: 0 0 10px; }
+
+  footer { padding: 40px 0 calc(40px + env(safe-area-inset-bottom, 0px)); font-size: 14px; color: var(--faint); }
+  footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  footer nav { display: flex; gap: 20px; flex-wrap: wrap; }
+  footer a { color: var(--dim); text-decoration: none; }
+
+  @media (max-width: 960px) {
+    .read { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .notes, .method { grid-template-columns: 1fr; }
+    .nav-links li:not(:last-child) { display: none; }
+    .tv { height: 360px; }
+    .bar-row { grid-template-columns: 120px 1fr 58px; gap: 10px; font-size: 14px; }
+    .bar-row .k b { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .bar-fill { transition: none; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="zmark" viewBox="0 0 86 76">
+    <polygon points="78,38 22,20 22,34 78,52" fill="#0F74EE"/>
+    <polygon points="12,59 78,38 78,52 12,73" fill="#C2DBFA"/>
+    <polygon points="22,20 58,8.5 58,3 74,10.5 58,27 58,22.5 22,34" fill="#C2DBFA"/>
+  </symbol>
+</defs></svg>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="/" aria-label="Zetato home"><svg class="mark" aria-hidden="true"><use href="#zmark"/></svg><span class="w">ZETATO <span>INSIGHTS</span></span></a>
+    <ul class="nav-links">
+      <li><a href="#market">Market</a></li>
+      <li><a href="#sectors">Sectors</a></li>
+      <li data-need="watch"><a href="#watch">Value watch</a></li>
+      <li data-need="portfolio"><a href="#portfolio">Portfolio</a></li>
+      <li data-need="notes"><a href="#research">Research</a></li>
+      <li><a href="/">Consulting</a></li>
+      <li><a class="btn" href="mailto:Hello@ZetatoBI.com?subject=Zetato%20Insights">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+  <div class="hero">
+    <div class="wrap">
+      <h1>Market analysis, built on data.</h1>
+      <p class="lede">A daily read of US and Canadian markets: index and sector performance, and a screen of large companies trading below their industry peers. Every figure is calculated from closing prices and measured against the S&amp;P 500.</p>
+      <p class="asof"><i aria-hidden="true"></i>Data as of the {{AS_OF}} close. Updated each weekday after the US market closes.</p>
+    </div>
+  </div>
+
+  <section id="market" aria-labelledby="market-title">
+    <div class="wrap">
+      <h2 id="market-title">Market overview</h2>
+      <p class="intro">Where the major indices stand, and what changed.</p>
+      <div class="read">
+        <div class="read-text">
+          {{SUMMARY}}
+          <small>Written automatically from the closing data on this page.</small>
+        </div>
+        <div class="tiles" id="tiles"></div>
+      </div>
+      <div class="panel" style="margin-top:28px">
+        <div class="tv">
+          <div class="fallback">Loading the live S&amp;P 500 chart. If it does not appear, your browser or network may be blocking the chart provider.</div>
+          <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+            {"autosize": true, "symbol": "FOREXCOM:SPXUSD", "interval": "D", "range": "12M", "timezone": "America/Vancouver",
+             "theme": "dark", "style": "3", "locale": "en", "backgroundColor": "rgba(10, 31, 61, 1)", "gridColor": "rgba(239, 244, 251, 0.06)",
+             "hide_top_toolbar": true, "hide_legend": false, "allow_symbol_change": false, "save_image": false, "calendar": false,
+             "support_host": "https://www.tradingview.com"}
+            </script>
+          </div>
+        </div>
+        <p class="credit">Live chart by <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">TradingView</a>, may be delayed.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="sectors" aria-labelledby="sectors-title">
+    <div class="wrap">
+      <div class="head-row">
+        <div>
+          <h2 id="sectors-title">Sector performance</h2>
+          <p class="intro">Total return of the eleven S&amp;P 500 sectors, measured with the Select Sector SPDR funds.</p>
+        </div>
+        <div class="seg" role="group" aria-label="Period" id="sec-period">
+          <button data-p="1w" aria-pressed="false">1 week</button>
+          <button data-p="1m" aria-pressed="true">1 month</button>
+          <button data-p="3m" aria-pressed="false">3 months</button>
+          <button data-p="ytd" aria-pressed="false">Year to date</button>
+          <button data-p="1y" aria-pressed="false">1 year</button>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="bars" id="sec-bars"></div>
+        <div class="legend"><span><i style="background:var(--amber);width:3px;height:12px;vertical-align:-1px"></i>S&amp;P 500 over the same period</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="watch" aria-labelledby="watch-title" data-need="watch">
+    <div class="wrap">
+      <h2 id="watch-title">Value watch</h2>
+      <p class="intro" id="watch-intro"></p>
+      <div class="stack">
+        <div class="panel tbl-wrap">
+          <table>
+            <caption>On the watch today <span id="watch-count"></span></caption>
+            <thead><tr><th>Company</th><th>Sector</th><th class="num">Price</th><th class="num">Forward P/E</th><th class="num">Peer P/E</th><th class="num">From 52-week high</th><th class="num">Analyst upside</th></tr></thead>
+            <tbody id="watch-rows"></tbody>
+          </table>
+        </div>
+        <div class="panel" id="track" hidden>
+          <div class="head-row" style="margin-bottom:14px">
+            <div>
+              <h3>Track record</h3>
+              <p class="intro" style="margin:0" id="track-intro"></p>
+            </div>
+            <label class="pick">List published on
+              <select id="track-date"></select>
+            </label>
+          </div>
+          <div class="stats" id="track-stats"></div>
+          <p class="note-line" id="track-wait" hidden style="margin:0 0 14px">This list was published at the latest close, so returns start counting after the next trading day.</p>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Company</th><th>Today</th><th class="num">Return since</th><th class="num">vs S&amp;P 500</th></tr></thead>
+              <tbody id="track-rows"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <p class="note-line">Screened daily with <a href="https://rebounder.zetatobi.com">Rebounder</a>, our stock screening app. A place on this list means a company meets the criteria above. It is not a recommendation.</p>
+    </div>
+  </section>
+
+  <section id="portfolio" aria-labelledby="portfolio-title" data-need="portfolio">
+    <div class="wrap">
+      <h2 id="portfolio-title">Tracked portfolio</h2>
+      <p class="intro">Every position with its entry date, valued daily at closing prices and compared with the S&amp;P 500.</p>
+      <div class="panel">
+        <div class="stats" id="pf-stats"></div>
+        <svg class="chart-svg" id="pf-chart" viewBox="0 0 1000 300" role="img" aria-label="Cumulative return of the tracked portfolio compared with the S&amp;P 500"></svg>
+        <div class="legend"><span><i style="background:#1F7AE0"></i>Tracked portfolio</span><span><i style="background:rgba(239,244,251,0.55)"></i>S&amp;P 500</span></div>
+      </div>
+      <div class="panel tbl-wrap" style="margin-top:20px">
+        <table>
+          <caption>Positions <span>Select a row for the thesis and exit condition</span></caption>
+          <thead><tr><th>Ticker</th><th>Company</th><th>Entered</th><th class="num">Weight</th><th class="num">Entry</th><th class="num">Last</th><th class="num">Return</th><th class="num">vs S&amp;P 500</th></tr></thead>
+          <tbody id="pf-rows"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="research" aria-labelledby="research-title" data-need="notes">
+    <div class="wrap">
+      <h2 id="research-title">Research notes</h2>
+      <p class="intro">The analysis behind the numbers.</p>
+      <div class="notes" id="notes"></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="method-title">
+    <div class="wrap">
+      <h2 id="method-title">Method</h2>
+      <p class="intro">The same rules every day, applied to every company.</p>
+      <div class="method">
+        <div><h3>Closing prices only</h3><p>Returns use adjusted daily closes, so dividends and splits are accounted for. Nothing on this page is estimated or back-filled.</p></div>
+        <div><h3>Relative to peers</h3><p>Valuations are compared with the median of the same industry, and analyst targets are weighted toward the most recent revisions.</p></div>
+        <div><h3>Measured in public</h3><p>Every flag and position is recorded with its date and compared with the S&amp;P 500, whether it worked or not.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="disclaimer" aria-labelledby="disc-title">
+    <div class="wrap">
+      <h2 id="disc-title">Important information</h2>
+      <p>Zetato Insights is published for general information and education only. It is not investment, financial, legal or tax advice, and it does not consider the objectives or circumstances of any individual. Zetato Business Intelligence Inc. is not registered as an adviser or dealer with any securities regulator.</p>
+      <p>Zetato and its principals may hold positions in the securities discussed and may trade them at any time. Data comes from third-party sources and may contain errors or delays. Past performance does not guarantee future results. All investments carry risk, including loss of principal. Consult a registered professional before making investment decisions.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; <span id="yr">2026</span> Zetato Business Intelligence Inc. Zetato Insights is a trade name of Zetato Business Intelligence Inc.</span>
+    <nav aria-label="Footer"><a href="/">Consulting</a><a href="https://studios.zetatobi.com">Studios</a><a href="https://rebounder.zetatobi.com">Rebounder</a><a href="mailto:Hello@ZetatoBI.com">Hello@ZetatoBI.com</a></nav>
+  </div>
+</footer>
+
+<!-- Data below is written by pipeline/build_insights.py. Edit insights/content.json or insights/template.html, never index.html. -->
+<script id="insights-data" type="application/json">{{DATA}}</script>
+<script>
+(function () {
+  var D = JSON.parse(document.getElementById('insights-data').textContent);
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(t, a, p) { var e = document.createElementNS(NS, t); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function pct(v, d) { return v == null ? 'n/a' : (v > 0 ? '+' : v < 0 ? '\u2212' : '') + Math.abs(v).toFixed(d == null ? 1 : d) + '%'; }
+  function cls(v) { return v == null ? 'flat' : v > 0 ? 'pos' : v < 0 ? 'neg' : 'flat'; }
+  function num(v, d) { return v == null ? 'n/a' : v.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d }); }
+  function day(s) { return new Date(s + 'T12:00:00').toLocaleDateString('en-CA', { year: 'numeric', month: 'short', day: 'numeric' }); }
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  var has = { watch: !!(D.watch && D.watch.length), portfolio: !!(D.portfolio && D.portfolio.holdings.length), notes: !!(D.notes && D.notes.length) };
+  document.querySelectorAll('[data-need]').forEach(function (n) { if (!has[n.getAttribute('data-need')]) n.hidden = true; });
+
+  function sparkSVG(pts, up) {
+    if (!pts || pts.length < 2) return '';
+    var w = 200, h = 34, mn = Math.min.apply(null, pts), mx = Math.max.apply(null, pts), r = mx - mn || 1;
+    var d = pts.map(function (v, i) { return (i ? 'L' : 'M') + (i * w / (pts.length - 1)).toFixed(1) + ' ' + (h - 3 - (v - mn) / r * (h - 6)).toFixed(1); }).join(' ');
+    return '<svg viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="none" aria-hidden="true"><path d="' + d + '" fill="none" stroke="' + (up ? '#6FE3B5' : '#FF8A8A') + '" stroke-width="1.6" vector-effect="non-scaling-stroke"/></svg>';
+  }
+
+  /* Index and rate tiles */
+  var tiles = (D.indices || []).map(function (x) {
+    var r = x.ret;
+    return '<div class="tile"><div class="n">' + esc(x.name) + '</div><div class="v">' + num(x.last, 2) + '</div>' +
+      '<div class="c"><span class="' + cls(r['1d']) + '">' + pct(r['1d'], 2) + ' today</span><span class="' + cls(r.ytd) + '">' + pct(r.ytd) + ' YTD</span></div>' +
+      sparkSVG(x.spark, r['1y'] == null || r['1y'] >= 0) + '</div>';
+  }).concat((D.rates || []).map(function (x) {
+    var ch = x.unit === '%' ? (x.chg1w > 0 ? '+' : x.chg1w < 0 ? '\u2212' : '') + Math.abs(Math.round(x.chg1w * 100)) + ' bps'
+                            : (x.chg1w > 0 ? '+' : x.chg1w < 0 ? '\u2212' : '') + Math.abs(x.chg1w).toFixed(1) + ' pts';
+    return '<div class="tile"><div class="n">' + esc(x.name) + '</div><div class="v">' + num(x.last, 2) + x.unit + '</div>' +
+      '<div class="c flat">' + ch + ' this week</div>' + sparkSVG(x.spark, true) + '</div>';
+  }));
+  document.getElementById('tiles').innerHTML = tiles.join('');
+
+  /* Sectors */
+  var spx = (D.indices || []).filter(function (x) { return x.ticker === '^GSPC'; })[0];
+  function sectors(p) {
+    var rows = (D.sectors || []).filter(function (s) { return s.ret[p] != null; }).sort(function (a, b) { return b.ret[p] - a.ret[p]; });
+    var b = spx ? spx.ret[p] : null;
+    var vals = rows.map(function (s) { return s.ret[p]; }).concat(b == null ? [] : [b], [0]);
+    var mn = Math.min.apply(null, vals), mx = Math.max.apply(null, vals), span = (mx - mn) || 1;
+    function X(v) { return (v - mn) / span * 100; }
+    document.getElementById('sec-bars').innerHTML = rows.map(function (s) {
+      var v = s.ret[p], a = X(Math.min(0, v)), w = Math.abs(X(v) - X(0));
+      return '<div class="bar-row"><div class="k"><b>' + esc(s.ticker) + '</b>' + esc(s.name) + '</div><div class="bar-track">' +
+        '<span class="zero" style="left:' + X(0) + '%"></span>' + (b == null ? '' : '<span class="bench" style="left:' + X(b) + '%"></span>') +
+        '<span class="bar-fill ' + (v >= 0 ? 'up' : 'down') + '" style="left:' + a + '%;width:' + Math.max(w, 0.4) + '%"></span></div>' +
+        '<div class="v ' + cls(v) + '">' + pct(v) + '</div></div>';
+    }).join('');
+  }
+  var seg = document.getElementById('sec-period');
+  seg.addEventListener('click', function (e) { var bt = e.target.closest('button'); if (!bt) return; seg.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === bt); }); sectors(bt.dataset.p); });
+  sectors('1m');
+
+  /* Value watch */
+  if (has.watch) {
+    var R = D.watchRules;
+    document.getElementById('watch-intro').textContent = 'Large US-listed companies, worth more than $' + (R.min_cap / 1e9) + ' billion, whose forward P/E is at least ' + R.min_pe_discount + '% below their industry median, that trade at least ' + R.min_off_high + '% below their 52-week high, and where recent analyst price targets sit at least ' + R.min_upside + '% above the current price.';
+    document.getElementById('watch-count').textContent = D.watch.length + (D.watch.length === 1 ? ' company' : ' companies');
+    document.getElementById('watch-rows').innerHTML = D.watch.map(function (m) {
+      return '<tr><td><a href="https://rebounder.zetatobi.com/"><b>' + esc(m.ticker) + '</b></a><span class="sub">' + esc(m.name) + '</span></td>' +
+        '<td>' + esc(m.sector) + '<span class="sub">' + esc(m.industry) + '</span></td>' +
+        '<td class="num">' + num(m.price, 2) + '</td><td class="num">' + num(m.pe, 1) + '</td><td class="num">' + num(m.peerPe, 1) + '<span class="sub">' + pct(-m.peDiscount, 0) + ' vs peers</span></td>' +
+        '<td class="num">' + pct(-m.offHigh) + '</td><td class="num">' + pct(m.upside) + '</td></tr>';
+    }).join('');
+    var T = D.track;
+    if (T && T.cohorts && T.cohorts.length) {
+      document.getElementById('track').hidden = false;
+      document.getElementById('track-intro').textContent = 'What happened to each published list if every company on it was held in equal amounts from that day\u2019s close to today, compared with the S&P 500 over the same period.';
+      var sel = document.getElementById('track-date');
+      sel.innerHTML = T.cohorts.map(function (c, i) { return '<option value="' + i + '">' + day(c.date) + ' (' + c.rows.length + (c.rows.length === 1 ? ' company' : ' companies') + ')</option>'; }).join('');
+      function showCohort(i) {
+        var c = T.cohorts[i], n = c.rows.length, avg = 0, beat = 0;
+        c.rows.forEach(function (x) { avg += x.ret; if (c.bench != null && x.ret > c.bench) beat++; }); avg /= n;
+        var fresh = c.date >= D.asOf;
+        document.getElementById('track-wait').hidden = !fresh;
+        document.getElementById('track-stats').innerHTML =
+          '<div class="stat"><span>Average return</span><b class="' + (fresh ? 'flat' : cls(avg)) + '">' + pct(avg) + '</b><em>Equal weight, since ' + day(c.date) + '</em></div>' +
+          '<div class="stat"><span>S&amp;P 500</span><b>' + pct(c.bench) + '</b><em>Same period</em></div>' +
+          '<div class="stat"><span>Difference</span><b class="' + (fresh ? 'flat' : cls(avg - c.bench)) + '">' + pct(c.bench == null ? null : avg - c.bench) + '</b><em>Percentage points</em></div>' +
+          '<div class="stat"><span>Beat the S&amp;P 500</span><b>' + beat + ' of ' + n + '</b><em>' + Math.round(beat / n * 100) + '% of companies</em></div>';
+        document.getElementById('track-rows').innerHTML = c.rows.map(function (x) {
+          var d = c.bench == null ? null : x.ret - c.bench;
+          return '<tr><td><b>' + esc(x.ticker) + '</b><span class="sub">' + esc(x.name) + '</span></td>' +
+            '<td>' + (x.on ? '<span class="badge">Still on the watch</span>' : '<span class="badge off">Left the list</span>') + '</td>' +
+            '<td class="num ' + (fresh ? 'flat' : cls(x.ret)) + '">' + pct(x.ret) + '</td><td class="num ' + (fresh ? 'flat' : cls(d)) + '">' + pct(d) + '</td></tr>';
+        }).join('');
+      }
+      sel.addEventListener('change', function () { showCohort(+sel.value); });
+      showCohort(0);
+    }
+  }
+
+  /* Tracked portfolio */
+  if (has.portfolio) {
+    var P = D.portfolio, pf = P.perf, last = pf[pf.length - 1], rel = last.p - last.b;
+    var open = P.holdings.filter(function (h) { return h.open; });
+    document.getElementById('pf-stats').innerHTML =
+      '<div class="stat"><span>Portfolio return</span><b class="' + cls(last.p) + '">' + pct(last.p) + '</b><em>Since ' + day(P.inception) + '</em></div>' +
+      '<div class="stat"><span>S&amp;P 500</span><b>' + pct(last.b) + '</b><em>Same period</em></div>' +
+      '<div class="stat"><span>Difference</span><b class="' + cls(rel) + '">' + pct(rel) + '</b><em>Percentage points</em></div>' +
+      '<div class="stat"><span>Open positions</span><b>' + open.length + '</b><em>' + P.cash + '% cash</em></div>';
+    var svg = document.getElementById('pf-chart'), W = 1000, H = 300, L = 54, Rr = 16, Tt = 16, B = 30, n = pf.length;
+    var all = pf.map(function (r) { return r.p; }).concat(pf.map(function (r) { return r.b; }), [0]);
+    var mn = Math.min.apply(null, all), mx = Math.max.apply(null, all), pad = Math.max(1, (mx - mn) * 0.12); mn -= pad; mx += pad;
+    function X(i) { return L + i * (W - L - Rr) / Math.max(1, n - 1); } function Y(v) { return Tt + (1 - (v - mn) / (mx - mn)) * (H - Tt - B); }
+    for (var k = 0; k <= 4; k++) { var v = mn + (mx - mn) * k / 4; el('line', { 'class': 'gl', x1: L, x2: W - Rr, y1: Y(v), y2: Y(v) }, svg); el('text', { x: L - 8, y: Y(v) + 4, 'text-anchor': 'end' }, svg).textContent = pct(v, 0); }
+    el('line', { x1: L, x2: W - Rr, y1: Y(0), y2: Y(0), stroke: 'rgba(239,244,251,0.25)' }, svg);
+    var step = Math.max(1, Math.ceil(n / 7));
+    pf.forEach(function (r, i) { if (i % step === 0) el('text', { x: X(i), y: H - 8, 'text-anchor': 'middle' }, svg).textContent = new Date(r.d + 'T12:00:00').toLocaleDateString('en-CA', { month: 'short', year: '2-digit' }); });
+    function path(key) { return pf.map(function (r, i) { return (i ? 'L' : 'M') + X(i).toFixed(1) + ' ' + Y(r[key]).toFixed(1); }).join(' '); }
+    el('path', { d: path('b'), fill: 'none', stroke: 'rgba(239,244,251,0.55)', 'stroke-width': 2, 'stroke-dasharray': '6 6' }, svg);
+    el('path', { d: path('p'), fill: 'none', stroke: '#1F7AE0', 'stroke-width': 3, 'stroke-linejoin': 'round' }, svg);
+    el('circle', { cx: X(n - 1), cy: Y(last.p), r: 5, fill: '#fff', stroke: '#1F7AE0', 'stroke-width': 3 }, svg);
+    document.getElementById('pf-rows').innerHTML = P.holdings.map(function (h, i) {
+      var d = h.bench == null ? null : h.ret - h.bench;
+      return '<tr class="row" data-i="' + i + '"><td><span class="tick"><button aria-expanded="false" aria-controls="pd' + i + '" aria-label="Show thesis for ' + esc(h.ticker) + '">+</button>' + esc(h.ticker) + '</span></td>' +
+        '<td>' + esc(h.name) + '<span class="sub">' + esc(h.sector) + '</span></td><td>' + day(h.bought) + (h.open ? '' : '<span class="sub">Closed ' + day(h.sold) + '</span>') + '</td>' +
+        '<td class="num">' + (h.open ? h.weight + '%' : 'Closed') + '</td><td class="num">' + num(h.cost, 2) + '</td><td class="num">' + num(h.last, 2) + '</td>' +
+        '<td class="num ' + cls(h.ret) + '">' + pct(h.ret) + '</td><td class="num ' + cls(d) + '">' + pct(d) + '</td></tr>' +
+        '<tr class="detail" id="pd' + i + '" hidden><td colspan="8"><b>Thesis.</b> ' + esc(h.thesis || 'Not recorded.') + '<br><b>Exit condition.</b> ' + esc(h.exit || 'Not recorded.') + '</td></tr>';
+    }).join('');
+    document.getElementById('pf-rows').addEventListener('click', function (e) {
+      var row = e.target.closest('tr.row'); if (!row) return;
+      var det = document.getElementById('pd' + row.dataset.i), btn = row.querySelector('button'), op = det.hidden;
+      det.hidden = !op; btn.setAttribute('aria-expanded', op); btn.textContent = op ? '\u2212' : '+';
+    });
+  }
+
+  /* Research notes */
+  if (has.notes) document.getElementById('notes').innerHTML = D.notes.map(function (n) {
+    var o = n.link ? '<a class="note" href="' + esc(n.link) + '">' : '<div class="note">', c = n.link ? '</a>' : '</div>';
+    return o + '<time datetime="' + esc(n.date) + '">' + day(n.date) + '</time><h3>' + esc(n.title) + '</h3><p>' + esc(n.summary) + '</p>' + c;
+  }).join('');
+})();
+</script>
+</body>
+</html>
