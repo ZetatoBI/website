@@ -269,25 +269,31 @@ def update_history(watch, prices_now, bench, today):
     HISTORY.parent.mkdir(parents=True, exist_ok=True)
     HISTORY.write_text(json.dumps(hist, indent=1), encoding="utf-8")
 
-    rows = []
-    for t, f in flags.items():
-        end = f.get("lastPrice") if f.get("active") else f.get("exitPrice")
-        if not (f.get("price") and end):
+    # Daily groups: every list the screen has published, keyed by date.
+    cohorts = hist.setdefault("cohorts", {})
+    if not cohorts:  # first run after upgrade: rebuild groups from first-flag dates
+        for t, f in flags.items():
+            if f.get("price"):
+                cohorts.setdefault(f["flagged"], []).append({"t": t, "price": f["price"], "bench": f.get("bench")})
+    if watch and today not in cohorts:
+        cohorts[today] = [{"t": m["ticker"], "price": m["price"], "bench": rnd(bench.iloc[-1])} for m in watch]
+    HISTORY.write_text(json.dumps(hist, indent=1), encoding="utf-8")
+
+    out = []
+    for d in sorted(cohorts):
+        rows, b0 = [], None
+        for c in cohorts[d]:
+            now = prices_now.get(c["t"])
+            if not (now and c.get("price")):
+                continue
+            b0 = b0 or c.get("bench")
+            rows.append({"ticker": c["t"], "name": flags.get(c["t"], {}).get("name", c["t"]),
+                         "ret": rnd((now / c["price"] - 1) * 100, 1), "on": c["t"] in current})
+        if not rows:
             continue
-        b_end = bench.iloc[-1] if f.get("active") else bench[bench.index <= pd.Timestamp(f["unflagged"])].iloc[-1]
-        r = (end / f["price"] - 1) * 100
-        br = (b_end / f["bench"] - 1) * 100 if f.get("bench") else None
-        rows.append({"ticker": t, "name": f["name"], "flagged": f["flagged"], "unflagged": f.get("unflagged"),
-                     "active": f.get("active", False), "ret": rnd(r, 1), "bench": rnd(br, 1)})
-    rows.sort(key=lambda x: x["flagged"], reverse=True)
-    done = [x for x in rows if x["bench"] is not None and x["flagged"] < today]  # skip flags made today
-    stats = None
-    if done:
-        stats = {"count": len(done),
-                 "avg": rnd(sum(x["ret"] for x in done) / len(done), 1),
-                 "avgBench": rnd(sum(x["bench"] for x in done) / len(done), 1),
-                 "beat": sum(1 for x in done if x["ret"] > x["bench"])}
-    return {"started": hist["started"], "rows": rows[:24], "stats": stats}
+        rows.sort(key=lambda x: x["ret"], reverse=True)
+        out.append({"date": d, "bench": rnd((bench.iloc[-1] / b0 - 1) * 100, 1) if b0 else None, "rows": rows})
+    return {"started": hist["started"], "cohorts": out}
 
 
 # ---------------------------------------------------------------- tracked portfolio
