@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /pipeline/
+Disallow: /insights/data/
 Disallow: /insights/template.html
 Disallow: /insights/README.md
 
