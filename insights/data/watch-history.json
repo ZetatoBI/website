@@ -65,5 +65,49 @@
    "active": true,
    "lastPrice": 57.85
   }
+ },
+ "cohorts": {
+  "2026-09-25": [
+   {
+    "t": "ORCL",
+    "price": 137.1,
+    "bench": 7743.41
+   },
+   {
+    "t": "UAL",
+    "price": 113.99,
+    "bench": 7743.41
+   },
+   {
+    "t": "DECK",
+    "price": 78.67,
+    "bench": 7743.41
+   },
+   {
+    "t": "INTU",
+    "price": 275.79,
+    "bench": 7743.41
+   },
+   {
+    "t": "LMT",
+    "price": 519.56,
+    "bench": 7743.41
+   },
+   {
+    "t": "AKAM",
+    "price": 113.94,
+    "bench": 7743.41
+   },
+   {
+    "t": "UPS",
+    "price": 93.96,
+    "bench": 7743.41
+   },
+   {
+    "t": "TRMB",
+    "price": 57.85,
+    "bench": 7743.41
+   }
+  ]
  }
 }
