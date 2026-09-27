@@ -1,0 +1,69 @@
+{
+ "started": "2026-09-25",
+ "flags": {
+  "ORCL": {
+   "name": "Oracle Corporation",
+   "flagged": "2026-09-25",
+   "price": 137.1,
+   "bench": 7743.41,
+   "active": true,
+   "lastPrice": 137.1
+  },
+  "UAL": {
+   "name": "United Airlines Holdings, Inc.",
+   "flagged": "2026-09-25",
+   "price": 113.99,
+   "bench": 7743.41,
+   "active": true,
+   "lastPrice": 113.99
+  },
+  "DECK": {
+   "name": "Deckers Outdoor Corporation",
+   "flagged": "2026-09-25",
+   "price": 78.67,
+   "bench": 7743.41,
+   "active": true,
+   "lastPrice": 78.67
+  },
+  "INTU": {
+   "name": "Intuit Inc.",
+   "flagged": "2026-09-25",
+   "price": 275.79,
+   "bench": 7743.41,
+   "active": true,
+   "lastPrice": 275.79
+  },
+  "LMT": {
+   "name": "Lockheed Martin Corporation",
+   "flagged": "2026-09-25",
+   "price": 519.56,
+   "bench": 7743.41,
+   "active": true,
+   "lastPrice": 519.56
+  },
+  "AKAM": {
+   "name": "Akamai Technologies, Inc.",
+   "flagged": "2026-09-25",
+   "price": 113.94,
+   "bench": 7743.41,
+   "active": true,
+   "lastPrice": 113.94
+  },
+  "UPS": {
+   "name": "United Parcel Service, Inc.",
+   "flagged": "2026-09-25",
+   "price": 93.96,
+   "bench": 7743.41,
+   "active": true,
+   "lastPrice": 93.96
+  },
+  "TRMB": {
+   "name": "Trimble Inc.",
+   "flagged": "2026-09-25",
+   "price": 57.85,
+   "bench": 7743.41,
+   "active": true,
+   "lastPrice": 57.85
+  }
+ }
+}
