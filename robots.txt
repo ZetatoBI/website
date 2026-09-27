@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /pipeline/
+Disallow: /insights/template.html
+Disallow: /insights/README.md
+
+Sitemap: https://zetatobi.com/sitemap.xml
