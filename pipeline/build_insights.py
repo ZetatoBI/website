@@ -12,6 +12,7 @@ Runs once each weekday after the US close (GitHub Actions). It:
 
 Usage:  python pipeline/build_insights.py
 """
+import gzip
 import html
 import json
 import math
@@ -34,19 +35,61 @@ SITE = "https://zetatobi.com"
 REBOUNDER = "https://rebounder.zetatobi.com/data/screen.json"
 BENCH = "^GSPC"
 
-INDICES = [
-    ("^GSPC", "S&P 500"),
-    ("^NDX", "Nasdaq 100"),
-    ("^RUT", "Russell 2000"),
-    ("^GSPTSE", "S&P/TSX Composite"),
-]
-RATES = [("^TNX", "US 10-year yield"), ("^VIX", "VIX volatility")]
-SECTORS = [
-    ("XLK", "Technology"), ("XLC", "Communication services"), ("XLY", "Consumer discretionary"),
-    ("XLF", "Financials"), ("XLV", "Health care"), ("XLI", "Industrials"), ("XLE", "Energy"),
-    ("XLB", "Materials"), ("XLP", "Consumer staples"), ("XLU", "Utilities"), ("XLRE", "Real estate"),
-]
+FX = "CAD=X"  # Canadian dollars per US dollar
+# Canada is built but switched off for now. To bring it back: MARKETS = ("us", "ca").
+MARKETS = ("us",)
+CCYS = ("USD", "CAD") if "ca" in MARKETS else ("USD",)
+
+# Overview tiles per market: (ticker, label, kind). kind: index | yield | level | fx
+TILES = {
+    "us": [("^GSPC", "S&P 500", "index"), ("^NDX", "Nasdaq 100", "index"), ("^RUT", "Russell 2000", "index"),
+           ("^DJI", "Dow Jones Industrial Average", "index"),
+           ("^TNX", "US 10-year yield", "yield"), ("^VIX", "VIX volatility", "level")],
+    "ca": [("^GSPTSE", "S&P/TSX Composite", "index"), ("XIU.TO", "S&P/TSX 60 (XIU)", "index"),
+           ("XCS.TO", "TSX small caps (XCS)", "index"), ("CL=F", "WTI crude oil", "index"),
+           ("GC=F", "Gold", "index"), (FX, "USD/CAD", "fx")],
+}
+BENCHMARKS = {"us": ("^GSPC", "S&P 500"), "ca": ("^GSPTSE", "S&P/TSX Composite")}
+
+COMMODITIES = [("CL=F", "WTI crude oil"), ("BZ=F", "Brent crude oil"), ("NG=F", "Natural gas"), ("GC=F", "Gold"),
+               ("SI=F", "Silver"), ("HG=F", "Copper"), ("LBR=F", "Lumber"), ("ZW=F", "Wheat"), ("ZC=F", "Corn")]
+GLOBAL = [("SPY", "United States"), ("EWC", "Canada"), ("EZU", "Eurozone"), ("EWU", "United Kingdom"),
+          ("EWJ", "Japan"), ("MCHI", "China"), ("INDA", "India"), ("EWZ", "Brazil"), ("EEM", "Emerging markets")]
+# Performance groups per market: (id, tab label, description, [(ticker, name)])
+GROUPS = {
+    "us": [
+        ("sectors", "Sectors", "The eleven S&P 500 sectors, measured with the Select Sector SPDR funds.", [
+            ("XLK", "Technology"), ("XLC", "Communication services"), ("XLY", "Consumer discretionary"),
+            ("XLF", "Financials"), ("XLV", "Health care"), ("XLI", "Industrials"), ("XLE", "Energy"),
+            ("XLB", "Materials"), ("XLP", "Consumer staples"), ("XLU", "Utilities"), ("XLRE", "Real estate")]),
+        ("styles", "Styles", "Size and investment styles. When equal weight trails the S&P 500, gains are concentrated in the largest companies.", [
+            ("SPY", "S&P 500"), ("RSP", "S&P 500 equal weight"), ("IVW", "Growth"), ("IVE", "Value"),
+            ("IWM", "Small caps"), ("MTUM", "Momentum"), ("QUAL", "Quality"), ("USMV", "Low volatility"),
+            ("SCHD", "Dividend")]),
+        ("commodities", "Commodities", "Front-month futures prices. Futures roll monthly, so long-period figures are approximate.", COMMODITIES),
+        ("bonds", "Bonds", "US bond market total return, from short Treasuries to high yield.", [
+            ("SHY", "Treasuries, 1 to 3 years"), ("IEF", "Treasuries, 7 to 10 years"), ("TLT", "Treasuries, 20+ years"),
+            ("TIP", "Inflation-protected"), ("LQD", "Investment-grade corporate"), ("HYG", "High-yield corporate")]),
+        ("global", "Global", "Country and regional stock markets, measured with US-listed funds.", GLOBAL),
+    ],
+    "ca": [
+        ("sectors", "Sectors", "Canadian sectors, measured with TSX-listed sector funds.", [
+            ("XFN.TO", "Financials"), ("ZEB.TO", "Banks"), ("XEG.TO", "Energy"), ("XMA.TO", "Materials"),
+            ("XGD.TO", "Gold miners"), ("ZIN.TO", "Industrials"), ("XIT.TO", "Technology"),
+            ("XRE.TO", "Real estate (REITs)"), ("XUT.TO", "Utilities"), ("XST.TO", "Consumer staples")]),
+        ("styles", "Styles", "Canadian stocks by size and style.", [
+            ("XIC.TO", "S&P/TSX Capped Composite"), ("XIU.TO", "S&P/TSX 60"), ("XMD.TO", "Mid caps"),
+            ("XCS.TO", "Small caps"), ("XEI.TO", "High dividend"), ("ZLB.TO", "Low volatility")]),
+        ("commodities", "Commodities", "Front-month futures prices. Futures roll monthly, so long-period figures are approximate.", COMMODITIES),
+        ("bonds", "Bonds", "Canadian bond market total return.", [
+            ("XSB.TO", "Short-term bonds"), ("XBB.TO", "Broad bond market"), ("XLB.TO", "Long-term bonds"),
+            ("XCB.TO", "Corporate bonds"), ("XRB.TO", "Real return bonds")]),
+        ("global", "Global", "Country and regional stock markets, measured with US-listed funds.", GLOBAL),
+    ],
+}
 LOOKBACK = {"1d": 1, "1w": 5, "1m": 21, "3m": 63, "1y": 252}
+ANNUALIZED = {"3y": 3, "5y": 5}      # shown as per-year returns
+CALENDAR_YEARS = 5                    # the last five full calendar years
 
 # Value watch rules (same spirit as Rebounder's defaults, a little stricter for a public list)
 WATCH = {"min_cap": 10e9, "min_pe_discount": 15, "min_off_high": 15, "min_upside": 15, "max_rows": 8}
@@ -72,7 +115,7 @@ def load_json(p, default):
 
 
 # ---------------------------------------------------------------- prices
-def download(tickers, period="2y"):
+def download(tickers, period="7y"):
     """Adjusted daily closes, one column per ticker."""
     raw = yf.download(sorted(set(tickers)), period=period, interval="1d", auto_adjust=True,
                       group_by="ticker", progress=False, threads=True)
@@ -109,9 +152,22 @@ def since(s, d):
     return None if after.empty else (s.iloc[-1] / after.iloc[0] - 1) * 100
 
 
+def cal_year(s, y):
+    a, b = s[s.index.year < y], s[s.index.year <= y]
+    if a.empty or b.empty or b.index[-1].year != y or (b.index[-1].month < 12):
+        return None
+    return (b.iloc[-1] / a.iloc[-1] - 1) * 100
+
+
 def returns(s):
     r = {k: rnd(ret(s, n)) for k, n in LOOKBACK.items()}
     r["ytd"] = rnd(ytd(s))
+    for k, yrs in ANNUALIZED.items():
+        n = 252 * yrs
+        r[k] = None if len(s) <= n else rnd(((s.iloc[-1] / s.iloc[-1 - n]) ** (1 / yrs) - 1) * 100)
+    last = s.index[-1].year
+    for y in range(last - CALENDAR_YEARS, last):
+        r[f"cy{y}"] = rnd(cal_year(s, y))
     return r
 
 
@@ -131,87 +187,200 @@ def ma_gap(s, n=200):
 
 
 # ---------------------------------------------------------------- market block
+def native(t):
+    return "CAD" if t.endswith(".TO") or t == "^GSPTSE" else "USD"
+
+
+def convert(s, t, target, fx):
+    """Price series of ticker t expressed in the target currency."""
+    if native(t) == target or fx is None:
+        return s
+    f = fx.reindex(s.index).ffill().bfill()
+    return s * f if target == "CAD" else s / f
+
+
+def rets_all(s, t, fx):
+    return {c: returns(convert(s, t, c, fx)) for c in CCYS}
+
+
 def market_block(closes):
-    idx = []
-    for t, name in INDICES:
-        s = closes.get(t)
-        if s is None:
-            continue
-        idx.append({"ticker": t, "name": name, "last": rnd(s.iloc[-1]), "ret": returns(s),
-                    "ma200": rnd(ma_gap(s), 1), "spark": spark(s)})
-    rates = []
-    for t, name in RATES:
-        s = closes.get(t)
-        if s is None or len(s) < 22:
-            continue
-        if t == "^TNX" and s.iloc[-1] > 20:  # older feeds quote the yield x10
-            s = s / 10
-        rates.append({"ticker": t, "name": name, "last": rnd(s.iloc[-1]),
-                      "chg1w": rnd(s.iloc[-1] - s.iloc[-6]), "chg1m": rnd(s.iloc[-1] - s.iloc[-22]),
-                      "unit": "%" if t == "^TNX" else "", "spark": spark(s)})
-    sectors = []
-    for t, name in SECTORS:
-        s = closes.get(t)
-        if s is None:
-            continue
-        sectors.append({"ticker": t, "name": name, "ret": returns(s), "ma200": rnd(ma_gap(s), 1)})
-    return idx, rates, sectors
+    fx = closes.get(FX)
+    tiles, groups, bench = {}, {}, {}
+    for m, spec in ((m, TILES[m]) for m in MARKETS):
+        out = []
+        for t, name, kind in spec:
+            s = closes.get(t)
+            if s is None or len(s) < 22:
+                continue
+            if kind == "index":
+                out.append({"t": t, "name": name, "kind": kind, "last": rnd(s.iloc[-1]), "ccy": native(t),
+                            "ret": rets_all(s, t, fx), "spark": spark(s)})
+            else:
+                if t == "^TNX" and s.iloc[-1] > 20:  # some feeds quote the yield x10
+                    s = s / 10
+                out.append({"t": t, "name": name, "kind": kind, "last": rnd(s.iloc[-1], 4 if kind == "fx" else 2),
+                            "chg1w": rnd(s.iloc[-1] - s.iloc[-6], 4), "chg1m": rnd(s.iloc[-1] - s.iloc[-22], 4),
+                            "spark": spark(s)})
+        tiles[m] = out
+    for m, spec in ((m, GROUPS[m]) for m in MARKETS):
+        gs = []
+        for gid, label, desc, items in spec:
+            rows = [{"t": t, "name": n, "ret": rets_all(closes[t], t, fx)} for t, n in items if t in closes]
+            if rows:
+                gs.append({"id": gid, "label": label, "desc": desc, "items": rows})
+        groups[m] = gs
+        bt, bn = BENCHMARKS[m]
+        if bt in closes:
+            bench[m] = {"name": bn, "ret": rets_all(closes[bt], bt, fx)}
+    return tiles, groups, bench
 
 
-def market_summary(idx, rates, sectors):
-    """Plain-language summary built from the numbers. Rendered into the HTML for readers and search."""
-    by = {i["ticker"]: i for i in idx}
-    out = []
-    sp = by.get("^GSPC")
-    if sp and sp["ret"]["1w"] is not None:
-        wk = sp["ret"]["1w"]
-        verb = "gained" if wk > 0.05 else "lost" if wk < -0.05 else "was flat"
-        amt = f" {abs(wk):.1f}%" if verb != "was flat" else ""
-        s = f"The S&P 500 {verb}{amt} over the past week"
-        if sp["ret"]["ytd"] is not None:
-            s += f" and is {'up' if sp['ret']['ytd'] >= 0 else 'down'} {abs(sp['ret']['ytd']):.1f}% year to date"
-        s += "."
-        if sp["ma200"] is not None:
-            s += (f" It sits {abs(sp['ma200']):.1f}% {'above' if sp['ma200'] >= 0 else 'below'} its 200-day average, "
-                  f"{'a long-term uptrend' if sp['ma200'] >= 0 else 'a long-term downtrend'} by that measure.")
-        out.append(s)
-    nd, rt = by.get("^NDX"), by.get("^RUT")
-    if sp and nd and rt and all(x["ret"]["1m"] is not None for x in (sp, nd, rt)):
-        ranked = sorted((sp, nd, rt), key=lambda x: x["ret"]["1m"], reverse=True)
-        lead, lag = ranked[0], ranked[-1]
-        out.append(f"Over the past month the {lead['name']} led the major US indices at "
-                   f"{lead['ret']['1m']:+.1f}%, while the {lag['name']} trailed at {lag['ret']['1m']:+.1f}%.")
-    sec = [x for x in sectors if x["ret"]["1m"] is not None]
-    if len(sec) >= 3:
-        sec.sort(key=lambda x: x["ret"]["1m"], reverse=True)
-        out.append(f"By sector, {sec[0]['name'].lower()} ({sec[0]['ret']['1m']:+.1f}%) and "
-                   f"{sec[1]['name'].lower()} ({sec[1]['ret']['1m']:+.1f}%) led over one month, while "
-                   f"{sec[-1]['name'].lower()} ({sec[-1]['ret']['1m']:+.1f}%) lagged.")
-    r = {x["ticker"]: x for x in rates}
-    if "^TNX" in r and "^VIX" in r:
-        t, v = r["^TNX"], r["^VIX"]
-        bps = round(t["chg1m"] * 100)
-        out.append(f"The US 10-year yield is {t['last']:.2f}%, {'up' if bps >= 0 else 'down'} {abs(bps)} basis points "
-                   f"in a month, and the VIX is at {v['last']:.1f}.")
-    return out
+def _move(v):
+    return "gained" if v > 0.05 else "lost" if v < -0.05 else "was flat"
+
+
+def _lead_lag(group, ccy, label_fmt):
+    rows = [x for x in group["items"] if x["ret"][ccy]["1m"] is not None]
+    if len(rows) < 3:
+        return None
+    rows.sort(key=lambda x: x["ret"][ccy]["1m"], reverse=True)
+    f = lambda x: f"{x['name'].lower()} ({x['ret'][ccy]['1m']:+.1f}%)"
+    return label_fmt.format(a=f(rows[0]), b=f(rows[1]), z=f(rows[-1]))
+
+
+def index_sentence(closes, t, name, ccy_word):
+    s = closes.get(t)
+    if s is None or len(s) < 210:
+        return None
+    wk, y, gap = ret(s, 5), ytd(s), ma_gap(s)
+    verb = _move(wk)
+    txt = f"The {name} {verb}{'' if verb == 'was flat' else f' {abs(wk):.1f}%'} over the past week"
+    if y is not None:
+        txt += f" and is {'up' if y >= 0 else 'down'} {abs(y):.1f}% year to date{ccy_word}"
+    txt += "."
+    if gap is not None:
+        txt += (f" It sits {abs(gap):.1f}% {'above' if gap >= 0 else 'below'} its 200-day average, "
+                f"{'a long-term uptrend' if gap >= 0 else 'a long-term downtrend'} by that measure.")
+    return txt
+
+
+def market_summary(closes, groups):
+    by = lambda m, gid: next((g for g in groups.get(m, []) if g["id"] == gid), None)
+    fx = closes.get(FX)
+    us, ca = [], []
+    x = index_sentence(closes, "^GSPC", "S&P 500", "")
+    if x: us.append(x)
+    trio = [(t, n, closes[t]) for t, n in (("^GSPC", "S&P 500"), ("^NDX", "Nasdaq 100"), ("^RUT", "Russell 2000")) if t in closes]
+    if len(trio) == 3 and all(ret(s, 21) is not None for _, _, s in trio):
+        r = sorted(trio, key=lambda z: ret(z[2], 21), reverse=True)
+        us.append(f"Over the past month the {r[0][1]} led the major US indices at {ret(r[0][2], 21):+.1f}%, "
+                  f"while the {r[-1][1]} trailed at {ret(r[-1][2], 21):+.1f}%.")
+    g = by("us", "sectors")
+    x = g and _lead_lag(g, "USD", "By sector, {a} and {b} led over one month, while {z} lagged.")
+    if x: us.append(x)
+    tnx, vix = closes.get("^TNX"), closes.get("^VIX")
+    if tnx is not None and vix is not None and len(tnx) > 22:
+        if tnx.iloc[-1] > 20: tnx = tnx / 10
+        bps = round((tnx.iloc[-1] - tnx.iloc[-22]) * 100)
+        us.append(f"The US 10-year yield is {tnx.iloc[-1]:.2f}%, {'up' if bps >= 0 else 'down'} {abs(bps)} basis points "
+                  f"in a month, and the VIX is at {vix.iloc[-1]:.1f}.")
+
+    if "ca" not in MARKETS:
+        return {"us": us, "ca": []}
+    x = index_sentence(closes, "^GSPTSE", "S&P/TSX Composite", " in Canadian dollars")
+    if x: ca.append(x)
+    g = by("ca", "sectors")
+    x = g and _lead_lag(g, "CAD", "Among Canadian sectors, {a} and {b} led over one month, while {z} lagged.")
+    if x: ca.append(x)
+    oil, gold = closes.get("CL=F"), closes.get("GC=F")
+    if oil is not None and gold is not None and len(oil) > 22 and len(gold) > 22:
+        ca.append(f"WTI crude is at US${oil.iloc[-1]:.2f} a barrel ({ret(oil, 21):+.1f}% in a month) and gold at "
+                  f"US${gold.iloc[-1]:,.0f} an ounce ({ret(gold, 21):+.1f}%), two of the biggest drivers of the TSX.")
+    if fx is not None and len(fx) > 22:
+        chg = ret(fx, 21)
+        ca.append(f"One US dollar buys C${fx.iloc[-1]:.4f}. The Canadian dollar "
+                  f"{'weakened' if chg > 0 else 'strengthened'} {abs(chg):.1f}% against it over the past month, "
+                  f"which {'adds to' if chg > 0 else 'reduces'} US returns for Canadian investors.")
+    return {"us": us, "ca": ca}
 
 
 # ---------------------------------------------------------------- value watch (from Rebounder)
 def fetch_rebounder():
+    """Returns (stock list, raw screen JSON)."""
     try:
         req = urllib.request.Request(REBOUNDER, headers={"User-Agent": "zetato-insights"})
         with urllib.request.urlopen(req, timeout=60) as r:
             data = json.loads(r.read().decode("utf-8"))
     except Exception as e:
         print(f"Rebounder screen unavailable: {e}", file=sys.stderr)
-        return []
+        return [], None
     if (data.get("meta") or {}).get("demo"):
         print("Rebounder screen is demo data: skipping value watch.", file=sys.stderr)
-        return []
+        return [], None
     stocks = data.get("stocks", data.get("universe", []))
     if isinstance(stocks, dict):
         stocks = [dict(v, ticker=v.get("ticker", k)) for k, v in stocks.items()]
-    return [s for s in stocks if isinstance(s, dict) and s.get("ticker")]
+    return [s for s in stocks if isinstance(s, dict) and s.get("ticker")], data
+
+
+ARCHIVE = INS / "data" / "archive"
+DATE_KEYS = ("asOf", "as_of", "date", "generated", "updated", "built", "timestamp")
+
+
+def _gz_write(path, obj):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with gzip.open(path, "wt", encoding="utf-8") as f:
+        json.dump(obj, f, separators=(",", ":"))
+
+
+def screen_date(meta, fallback):
+    for k in DATE_KEYS:
+        v = str((meta or {}).get(k) or "")[:10]
+        if len(v) == 10 and v[4] == "-" and v[7] == "-":
+            return v
+    return fallback
+
+
+def archive_screen(raw, as_of):
+    """Keep Rebounder's full screen once per day, exactly as published: valuations, peer medians
+    and analyst targets. This history can't be downloaded later from any free source."""
+    if not raw or (raw.get("meta") or {}).get("demo"):
+        return
+    d = screen_date(raw.get("meta"), as_of)
+    out = ARCHIVE / "screens" / d[:4] / f"{d}.json.gz"
+    if not out.exists():
+        _gz_write(out, raw)
+
+
+def archive_prices(tickers, as_of):
+    """Raw daily bars (open, high, low, close, adjusted close, volume) for every stock in the screen's
+    universe plus everything on this page. Kept from today on, so companies that are later acquired or
+    delisted stay in the record."""
+    out = ARCHIVE / "prices" / as_of[:4] / f"{as_of}.json.gz"
+    if out.exists() or not tickers:
+        return
+    try:
+        raw = yf.download(sorted(set(tickers)), period="5d", interval="1d", auto_adjust=False,
+                          group_by="ticker", progress=False, threads=True)
+    except Exception as e:
+        print(f"Price archive skipped: {e}", file=sys.stderr)
+        return
+    rows = {}
+    for t in set(tickers):
+        try:
+            df = raw[t] if isinstance(raw.columns, pd.MultiIndex) else raw
+            df = df.dropna(how="all")
+            df.index = pd.to_datetime(df.index).tz_localize(None).normalize()
+            if df.empty or df.index[-1].strftime("%Y-%m-%d") != as_of:
+                continue
+            r = df.iloc[-1]
+            rows[t] = [num(r.get("Open")), num(r.get("High")), num(r.get("Low")), num(r.get("Close")),
+                       num(r.get("Adj Close")), int(num(r.get("Volume")) or 0)]
+        except (KeyError, TypeError, ValueError):
+            pass
+    if rows:
+        _gz_write(out, {"date": as_of, "fields": ["open", "high", "low", "close", "adjClose", "volume"], "bars": rows})
+        print(f"Archived {len(rows)} daily bars for {as_of}.")
 
 
 def watch_metrics(s):
@@ -377,10 +546,12 @@ def fmt_long(d):
 def build(template, data, summary):
     last = datetime.strptime(data["asOf"], "%Y-%m-%d")
     blob = json.dumps(data, separators=(",", ":")).replace("</", "<\\/")
-    summ = "".join(f"<p>{html.escape(p)}</p>" for p in summary) or "<p>Market data is being refreshed.</p>"
-    desc = summary[0] if summary else "Daily market data, sector performance and screened large caps."
+    def block(m, hidden):
+        body = "".join(f"<p>{html.escape(p)}</p>" for p in summary[m]) or "<p>Market data is being refreshed.</p>"
+        return f'<div class="summary" data-market="{m}"{" hidden" if hidden else ""}>{body}</div>'
+    desc = (summary["us"] or ["Daily US and Canadian market data, sector and commodity performance, and screened large caps."])[0]
     return (template.replace("{{DATA}}", blob)
-            .replace("{{SUMMARY}}", summ)
+            .replace("{{SUMMARY}}", block("us", False) + block("ca", True))
             .replace("{{DESCRIPTION}}", html.escape(desc[:155]))
             .replace("{{AS_OF}}", fmt_long(last))
             .replace("{{AS_OF_ISO}}", data["asOf"])
@@ -398,10 +569,14 @@ def write_sitemap(as_of):
 
 def main():
     content = load_json(CONTENT, {})
-    rebounder = fetch_rebounder()
+    rebounder, raw_screen = fetch_rebounder()
     watch = value_watch(rebounder)
 
-    tickers = [t for t, _ in INDICES + RATES + SECTORS]
+    tickers = {BENCH} | ({FX} if "ca" in MARKETS else set())
+    tickers |= {t for m in MARKETS for t, _, _ in TILES[m]}
+    tickers |= {t for m in MARKETS for g in GROUPS[m] for t, _ in g[3]}
+    tickers |= {BENCHMARKS[m][0] for m in MARKETS}
+    tickers = list(tickers)
     tickers += [h["ticker"] for h in content.get("holdings", []) if h.get("ticker")]
     hist = load_json(HISTORY, {"flags": {}})
     tickers += [m["ticker"] for m in watch] + list(hist.get("flags", {}).keys())
@@ -410,9 +585,11 @@ def main():
         sys.exit("S&P 500 prices could not be loaded; leaving the published page unchanged.")
 
     as_of = closes[BENCH].index[-1].strftime("%Y-%m-%d")
-    idx, rates, sectors = market_block(closes)
-    summary = market_summary(idx, rates, sectors)
+    tiles, groups, bench = market_block(closes)
+    summary = market_summary(closes, groups)
 
+    archive_screen(raw_screen, as_of)
+    archive_prices([s["ticker"] for s in rebounder] + tickers, as_of)
     prices_now = {t: rnd(float(s.iloc[-1])) for t, s in closes.items()}
     for m in watch:  # prefer today's close over the screen's price
         m["price"] = prices_now.get(m["ticker"], m["price"])
@@ -424,14 +601,15 @@ def main():
     data = {
         "asOf": as_of,
         "built": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "indices": idx, "rates": rates, "sectors": sectors,
+        "tiles": tiles, "groups": groups, "bench": bench,
+        "ccys": list(CCYS),
         "watch": watch, "watchRules": WATCH, "track": track,
         "portfolio": portfolio_block(content, closes),
         "notes": content.get("notes", []),
     }
     OUT.write_text(build(TEMPLATE.read_text(encoding="utf-8"), data, summary), encoding="utf-8")
     write_sitemap(as_of)
-    print(f"Built insights for {as_of}: {len(idx)} indices, {len(sectors)} sectors, "
+    print(f"Built insights for {as_of}: {sum(len(g['items']) for m in groups.values() for g in m)} performance rows, "
           f"{len(watch)} on value watch, portfolio {'on' if data['portfolio'] else 'off'}.")
 
 
