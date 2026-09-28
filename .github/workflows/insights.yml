@@ -2,7 +2,7 @@ name: Refresh Insights
 
 on:
   schedule:
-    - cron: "30 22 * * 1-5"
+    - cron: "30 22 * * 1-5"   # 22:30 UTC = 6:30 PM New York (5:30 PM in winter), after the US close
   workflow_dispatch:
   push:
     branches: [main]
@@ -22,7 +22,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -33,12 +33,19 @@ jobs:
       - run: pip install -r pipeline/requirements.txt
       - name: Build Insights
         run: python pipeline/build_insights.py
-      - name: Publish if anything changed
+      - name: Save data and publish
         run: |
           git config user.name "zetato-bot"
           git config user.email "zetato-bot@users.noreply.github.com"
           git add insights/index.html insights/data sitemap.xml
-          if git diff --cached --quiet; then echo "No changes."; exit 0; fi
-          git commit -m "Insights data for $(date -u +%F)"
-          git pull --rebase origin main
-          git push
+          if git diff --cached --quiet; then echo "No changes."; else
+            git commit -m "Insights data for $(date -u +%F)"
+            git pull --rebase origin main
+            git push
+          fi
+      - name: Check template version
+        run: |
+          if [ -f .template-mismatch ]; then
+            echo "::error::Template and pipeline versions don't match. Data was saved, but the page was not updated."
+            exit 1
+          fi
