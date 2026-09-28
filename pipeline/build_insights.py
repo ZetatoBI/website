@@ -32,6 +32,9 @@ CONTENT = INS / "content.json"
 HISTORY = INS / "data" / "watch-history.json"
 SITEMAP = ROOT / "sitemap.xml"
 SITE = "https://zetatobi.com"
+# Must match the marker at the top of insights/template.html. Bump both together whenever the data
+# format changes, so a half-finished upload can never publish a broken page.
+TEMPLATE_VERSION = "v4"
 REBOUNDER = "https://rebounder.zetatobi.com/data/screen.json"
 BENCH = "^GSPC"
 
@@ -607,7 +610,15 @@ def main():
         "portfolio": portfolio_block(content, closes),
         "notes": content.get("notes", []),
     }
-    OUT.write_text(build(TEMPLATE.read_text(encoding="utf-8"), data, summary), encoding="utf-8")
+    template = TEMPLATE.read_text(encoding="utf-8")
+    marker = f"zetato-insights-template {TEMPLATE_VERSION}"
+    if marker not in template:
+        # Data and archives above are already saved and will still be committed. The live page is left as is.
+        print(f"::error::insights/template.html is not {TEMPLATE_VERSION}. Upload the matching template.html "
+              f"into the insights folder. The live page was left unchanged.")
+        Path(ROOT / ".template-mismatch").write_text(TEMPLATE_VERSION)
+        return
+    OUT.write_text(build(template, data, summary), encoding="utf-8")
     write_sitemap(as_of)
     print(f"Built insights for {as_of}: {sum(len(g['items']) for m in groups.values() for g in m)} performance rows, "
           f"{len(watch)} on value watch, portfolio {'on' if data['portfolio'] else 'off'}.")
