@@ -1,0 +1,248 @@
+{
+ "asOf": "2026-09-28",
+ "funds": {
+  "SPY": [
+   {
+    "t": "NVDA",
+    "name": "NVIDIA Corp",
+    "w": 8.078709
+   },
+   {
+    "t": "AAPL",
+    "name": "Apple Inc",
+    "w": 7.03063
+   },
+   {
+    "t": "MSFT",
+    "name": "Microsoft Corp",
+    "w": 5.6930700000000005
+   },
+   {
+    "t": "AMZN",
+    "name": "Amazon.com Inc",
+    "w": 3.84188
+   },
+   {
+    "t": "GOOGL",
+    "name": "Alphabet Inc Class A",
+    "w": 3.00627
+   }
+  ],
+  "RSP": [
+   {
+    "t": "MRNA",
+    "name": "Moderna Inc",
+    "w": 0.57504
+   },
+   {
+    "t": "VEEV",
+    "name": "Veeva Systems Inc Class A",
+    "w": 0.32867999999999997
+   },
+   {
+    "t": "ZBRA",
+    "name": "Zebra Technologies Corp Ordinary Shares - Class A",
+    "w": 0.30728997999999996
+   },
+   {
+    "t": "CRL",
+    "name": "Charles River Laboratories International Inc",
+    "w": 0.2915
+   },
+   {
+    "t": "DASH",
+    "name": "DoorDash Inc Ordinary Shares - Class A",
+    "w": 0.28917
+   }
+  ],
+  "IVW": [
+   {
+    "t": "NVDA",
+    "name": "NVIDIA Corp",
+    "w": 14.84701
+   },
+   {
+    "t": "MSFT",
+    "name": "Microsoft Corp",
+    "w": 10.46282
+   },
+   {
+    "t": "AAPL",
+    "name": "Apple Inc",
+    "w": 6.46042
+   },
+   {
+    "t": "GOOGL",
+    "name": "Alphabet Inc Class A",
+    "w": 5.5247698
+   },
+   {
+    "t": "AVGO",
+    "name": "Broadcom Inc",
+    "w": 4.868399999999999
+   }
+  ],
+  "IVE": [
+   {
+    "t": "AAPL",
+    "name": "Apple Inc",
+    "w": 7.706549999999999
+   },
+   {
+    "t": "AMZN",
+    "name": "Amazon.com Inc",
+    "w": 3.9583698
+   },
+   {
+    "t": "XOM",
+    "name": "ExxonMobil Holdings Corp",
+    "w": 2.20955
+   },
+   {
+    "t": "WMT",
+    "name": "Walmart Inc",
+    "w": 1.52271995
+   },
+   {
+    "t": "INTC",
+    "name": "Intel Corp",
+    "w": 1.46322
+   }
+  ],
+  "IWM": [
+   {
+    "t": "FROG",
+    "name": "JFrog Ltd Ordinary Shares",
+    "w": 0.34870999999999996
+   },
+   {
+    "t": "MOG-A",
+    "name": "Moog Inc Class A",
+    "w": 0.33969
+   },
+   {
+    "t": "XTSLA",
+    "name": "BlackRock Cash Funds Treasury SL Agency",
+    "w": 0.33926002
+   },
+   {
+    "t": "UMBF",
+    "name": "UMB Financial Corp",
+    "w": 0.33773000000000003
+   },
+   {
+    "t": "GKOS",
+    "name": "Glaukos Corp",
+    "w": 0.32978998
+   }
+  ],
+  "MTUM": [
+   {
+    "t": "MU",
+    "name": "Micron Technology Inc",
+    "w": 5.1500200000000005
+   },
+   {
+    "t": "AMD",
+    "name": "Advanced Micro Devices Inc",
+    "w": 5.08026
+   },
+   {
+    "t": "INTC",
+    "name": "Intel Corp",
+    "w": 3.73048
+   },
+   {
+    "t": "CSCO",
+    "name": "Cisco Systems Inc",
+    "w": 3.6062200000000004
+   },
+   {
+    "t": "JNJ",
+    "name": "Johnson & Johnson",
+    "w": 3.40399
+   }
+  ],
+  "QUAL": [
+   {
+    "t": "MSFT",
+    "name": "Microsoft Corp",
+    "w": 7.75431
+   },
+   {
+    "t": "AAPL",
+    "name": "Apple Inc",
+    "w": 6.762170000000001
+   },
+   {
+    "t": "NVDA",
+    "name": "NVIDIA Corp",
+    "w": 6.3854999999999995
+   },
+   {
+    "t": "META",
+    "name": "Meta Platforms Inc Class A",
+    "w": 3.76128
+   },
+   {
+    "t": "LLY",
+    "name": "Eli Lilly and Co",
+    "w": 3.65899
+   }
+  ],
+  "USMV": [
+   {
+    "t": "MSFT",
+    "name": "Microsoft Corp",
+    "w": 1.5649
+   },
+   {
+    "t": "APH",
+    "name": "Amphenol Corp Class A",
+    "w": 1.51798995
+   },
+   {
+    "t": "NVDA",
+    "name": "NVIDIA Corp",
+    "w": 1.51613
+   },
+   {
+    "t": "MSI",
+    "name": "Motorola Solutions Inc",
+    "w": 1.5078699
+   },
+   {
+    "t": "WELL",
+    "name": "Welltower Inc",
+    "w": 1.49725
+   }
+  ],
+  "SCHD": [
+   {
+    "t": "MRK",
+    "name": "Merck & Co Inc",
+    "w": 4.77597
+   },
+   {
+    "t": "ABT",
+    "name": "Abbott Laboratories",
+    "w": 4.76579
+   },
+   {
+    "t": "AMGN",
+    "name": "Amgen Inc",
+    "w": 4.72101
+   },
+   {
+    "t": "KO",
+    "name": "Coca-Cola Co",
+    "w": 4.2037603
+   },
+   {
+    "t": "VZ",
+    "name": "Verizon Communications Inc",
+    "w": 3.9657999999999998
+   }
+  ]
+ }
+}
