@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- zetato-insights-template v4. Keep in step with TEMPLATE_VERSION in pipeline/build_insights.py -->
+<!-- zetato-insights-template v5. Keep in step with TEMPLATE_VERSION in pipeline/build_insights.py -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -83,9 +83,13 @@
   .pos { color: var(--mint); } .neg { color: var(--red); } .flat { color: var(--dim); }
 
   .panel { background: linear-gradient(180deg, rgba(24,58,102,0.45), rgba(10,31,61,0.9)); border: 1px solid var(--line); border-radius: 18px; padding: clamp(14px, 2.2vw, 24px); }
-  .tv { height: 460px; border-radius: 12px; overflow: hidden; position: relative; background: var(--navy-2); }
-  .tv .fallback { position: absolute; inset: 0; display: grid; place-items: center; color: var(--faint); font-size: 15px; text-align: center; padding: 20px; }
-  .tv .tradingview-widget-container { position: relative; z-index: 1; height: 100%; }
+  .cd-read { display: flex; flex-wrap: wrap; gap: 4px 18px; align-items: center; font-size: 14px; color: var(--dim); margin-bottom: 10px; font-variant-numeric: tabular-nums; min-height: 44px; }
+  .cd-read b { color: #fff; font-weight: 600; }
+  .cd-read .sw { display: inline-block; width: 14px; height: 3px; border-radius: 2px; margin-right: 6px; vertical-align: 3px; }
+  .cd-wrap { position: relative; width: 100%; touch-action: pan-y; border-radius: 12px; background: var(--navy-2); overflow: hidden; }
+  .cd-wrap svg { display: block; width: 100%; height: auto; user-select: none; -webkit-user-select: none; }
+  .cd-wrap text { font-family: var(--sans); font-size: 11px; fill: rgba(239,244,251,0.5); }
+  .cd-wrap .gl { stroke: rgba(239,244,251,0.07); }
   .credit { font-size: 12px; color: var(--faint); margin: 10px 0 0; }
   .credit a { color: var(--dim); }
 
@@ -95,7 +99,8 @@
   .seg button { background: none; border: 0; color: var(--dim); font: 600 14px var(--sans); padding: 8px 13px; border-radius: 9px; cursor: pointer; }
   .seg button[aria-pressed="true"] { background: var(--blue); color: #fff; }
 
-  .bars { display: grid; gap: 6px; }
+  .bars { display: grid; gap: 6px; grid-template-columns: minmax(0, 1fr); }
+  .bars > * { min-width: 0; }
   .bar-row { display: grid; grid-template-columns: 240px 1fr 70px; align-items: center; gap: 14px; font-size: 15px; }
   .bar-row .k { color: var(--dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .bar-row .k b { color: #fff; font-weight: 600; display: inline-block; width: 58px; }
@@ -129,6 +134,31 @@
   .badge.off { background: rgba(239,244,251,0.08); color: var(--faint); }
 
   .stack { display: grid; gap: 20px; }
+  .callout { display: flex; align-items: center; justify-content: space-between; gap: 18px 28px; flex-wrap: wrap; margin-top: 22px; padding: 22px 26px; border-radius: 16px; text-decoration: none; border: 1px solid rgba(142,193,255,0.28); background: linear-gradient(90deg, rgba(31,122,224,0.22), rgba(10,31,61,0.92) 72%); transition: border-color .2s; }
+  .callout:hover { border-color: rgba(142,193,255,0.65); }
+  .callout .lbl { display: block; font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--sky); }
+  .callout strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 28px; line-height: 1.1; margin: 2px 0 4px; letter-spacing: -0.01em; }
+  .callout .txt { display: block; color: var(--dim); font-size: 15px; max-width: 58ch; }
+  .callout-go { display: inline-flex; align-items: center; gap: 8px; font: 600 14px var(--sans); padding: 10px 18px; border-radius: 10px; background: var(--blue); color: #fff; white-space: nowrap; }
+  .callout-go svg { width: 16px; height: 16px; transition: transform .2s; }
+  .callout:hover .callout-go svg { transform: translateX(3px); }
+  .hint { font-size: 13px; color: var(--faint); margin: 0 0 12px; }
+  .bar-row.expandable { cursor: pointer; }
+  .bar-row.expandable .k::after { content: "\203A"; display: inline-block; margin-left: 8px; color: var(--sky); font-weight: 700; transition: transform .2s; }
+  .bar-row.expandable:hover .k, .bar-row.expandable[aria-expanded="true"] .k { color: #fff; }
+  .bar-row.expandable[aria-expanded="true"] .k::after { transform: rotate(90deg); }
+  .dive { margin: 6px 0 12px; padding: 20px 22px; border: 1px solid var(--line); border-left: 3px solid var(--blue); border-radius: 12px; background: rgba(3,28,58,0.6); display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .dive h4 { margin: 0; font-size: 17px; font-weight: 600; }
+  .dive h4 span { color: var(--faint); font-weight: 400; font-size: 14px; margin-left: 8px; }
+  .dive .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .dive p { margin: 0; color: var(--dim); font-size: 15px; }
+  .dive .lbl { display: block; font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--faint); margin-bottom: 4px; }
+  .dive .vs { color: #fff; }
+  .dive .stats { margin: 0; }
+  .dive .stat b { font-size: 22px; }
+  .dive table { min-width: 0; font-size: 14px; }
+  .dive td, .dive th { padding: 9px 10px; }
+  .dive .fine { font-size: 13px; color: var(--faint); }
   .stack > * { min-width: 0; }
   .periods { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
   .pick-inline select { min-width: 0; padding-top: 11px; padding-bottom: 11px; }
@@ -179,7 +209,12 @@
     .ctl > span { display: none; }
     .sticky-ctl .controls { flex-wrap: nowrap; gap: 10px; }
     .sticky-ctl .seg button { padding: 7px 10px; font-size: 13px; }
-    .tv { height: 360px; }
+    .dive .cols { grid-template-columns: 1fr; gap: 16px; }
+    .dive { padding: 16px; }
+    .dive th { white-space: normal; }
+    .dive td, .dive th { padding: 8px 5px; }
+    .cd-read { min-height: 66px; }
+    .callout { padding: 18px 20px; }
     .bar-row { grid-template-columns: 120px 1fr 58px; gap: 10px; font-size: 14px; }
     .bar-row .k b { display: none; }
   }
@@ -233,18 +268,20 @@
       </div>
       <div class="panel" style="margin-top:28px">
         <div class="head-row" style="margin-bottom:14px">
-          <div class="seg" role="group" aria-label="Chart" id="tv-pick">
+          <div class="seg" role="group" aria-label="Index" id="cd-pick">
             <button data-v="spx" aria-pressed="true">S&amp;P 500</button>
             <button data-v="dji" aria-pressed="false">Dow Jones</button>
             <button data-v="ndx" aria-pressed="false">Nasdaq 100</button>
           </div>
-          <span class="credit" style="margin:0">Daily candles. Drag or scroll to change the range.</span>
+          <div class="seg" role="group" aria-label="Range" id="cd-range">
+            <button data-v="63" aria-pressed="false">3M</button>
+            <button data-v="126" aria-pressed="true">6M</button>
+            <button data-v="252" aria-pressed="false">1Y</button>
+          </div>
         </div>
-        <div class="tv">
-          <div class="fallback">Loading the live chart. If it does not appear, your browser or network may be blocking the chart provider.</div>
-          <div class="tradingview-widget-container" id="tv"></div>
-        </div>
-        <p class="credit"><span id="tv-label">S&amp;P 500</span>. Live chart by <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">TradingView</a>, may be delayed.</p>
+        <div class="cd-read" id="cd-read"></div>
+        <div class="cd-wrap" id="cd"></div>
+        <p class="credit">Daily candles through the {{AS_OF}} close, with simple moving averages of the closing price. <a id="cd-live" href="https://www.tradingview.com/chart/?symbol=SP%3ASPX" rel="noopener nofollow" target="_blank">Open a live chart on TradingView</a>.</p>
       </div>
     </div>
   </section>
@@ -272,6 +309,7 @@
       </div>
       <div class="panel">
         <p class="group-desc" id="grp-desc"></p>
+        <p class="hint" id="grp-hint" hidden>Select a style to see how it is built and what $100,000 would have done.</p>
         <div class="bars" id="sec-bars"></div>
         <div class="legend"><span><i style="background:var(--amber);width:3px;height:12px;vertical-align:-1px"></i><span id="bench-label">S&amp;P 500</span> over the same period</span></div>
       </div>
@@ -310,7 +348,15 @@
           </div>
         </div>
       </div>
-      <p class="note-line">Screened daily with <a href="https://rebounder.zetatobi.com">Rebounder</a>, our stock screening app. A place on this list means a company meets the criteria above. It is not a recommendation.</p>
+      <a class="callout" href="https://rebounder.zetatobi.com/">
+        <span>
+          <span class="lbl">Behind this list</span>
+          <strong>Rebounder</strong>
+          <span class="txt">The screening app that finds these companies each day. Open it to explore the full screen, not only the names shown here.</span>
+        </span>
+        <span class="callout-go">Open Rebounder <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+      </a>
+      <p class="note-line">A place on this list means a company meets the criteria above. It is not a recommendation.</p>
     </div>
   </section>
 
@@ -393,11 +439,11 @@
     return '<svg viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="none" aria-hidden="true"><path d="' + d + '" fill="none" stroke="' + (up ? '#6FE3B5' : '#FF8A8A') + '" stroke-width="1.6" vector-effect="non-scaling-stroke"/></svg>';
   }
 
-  var S = { m: 'us', c: 'USD', g: 'sectors', p: '1m' };
+  var S = { m: 'us', c: 'USD', g: 'sectors', p: '1m', open: null };
   var MK = { us: { intro: 'Where the major US indices stand, and what changed.' },
              ca: { intro: 'Where Canadian markets stand, and what changed.' } };
-  var TV = { spx: ['FOREXCOM:SPXUSD', 'S&P 500'], dji: ['FOREXCOM:DJI', 'Dow Jones Industrial Average'], ndx: ['FOREXCOM:NSXUSD', 'Nasdaq 100'] };
-  var tvPick = 'spx';
+  var CH = { spx: ['^GSPC', 'S&P 500', 'SP%3ASPX'], dji: ['^DJI', 'Dow Jones Industrial Average', 'DJ%3ADJI'], ndx: ['^NDX', 'Nasdaq 100', 'NASDAQ%3ANDX'] };
+  var cdPick = 'spx', cdBars = 126;
   function segSet(id, v) { document.querySelectorAll('#' + id + ' button').forEach(function (b) { b.setAttribute('aria-pressed', (b.dataset.v || b.dataset.p) === v); }); }
 
   function renderTiles() {
@@ -418,16 +464,64 @@
     }).join('');
   }
 
-  var tvSym = null;
-  function renderTV() {
-    var sym = TV[tvPick][0]; if (sym === tvSym) return; tvSym = sym;
-    var box = document.getElementById('tv'); box.innerHTML = '<div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>';
-    var sc = document.createElement('script'); sc.src = 'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js'; sc.async = true;
-    sc.text = JSON.stringify({ autosize: true, symbol: sym, interval: 'D', range: '6M', timezone: 'America/Vancouver', theme: 'dark', style: '1', locale: 'en',
-      backgroundColor: 'rgba(10, 31, 61, 1)', gridColor: 'rgba(239, 244, 251, 0.06)', hide_top_toolbar: true, hide_legend: false, allow_symbol_change: false,
-      save_image: false, calendar: false, support_host: 'https://www.tradingview.com' });
-    box.appendChild(sc);
-    document.getElementById('tv-label').textContent = TV[tvPick][1];
+  function renderCandles() {
+    var box = document.getElementById('cd'), rd = document.getElementById('cd-read'), spec = CH[cdPick], C = D.charts && D.charts[spec[0]];
+    document.getElementById('cd-live').href = 'https://www.tradingview.com/chart/?symbol=' + spec[2];
+    if (!C || !C.d || C.d.length < 30) { box.innerHTML = ''; rd.textContent = 'Chart data is not available right now.'; return; }
+    var n = C.d.length, from = Math.max(0, n - cdBars), N = n - from;
+    var W = Math.max(280, box.clientWidth || 800), H = W < 600 ? 300 : 400, L = 8, R = 58, T = 12, B = 24, pw = W - L - R, ph = H - T - B;
+    var lo = Infinity, hi = -Infinity;
+    for (var i = from; i < n; i++) [C.l[i], C.h[i], C.s50[i], C.s200[i]].forEach(function (v) { if (v != null) { if (v < lo) lo = v; if (v > hi) hi = v; } });
+    var pad = (hi - lo) * 0.04; lo -= pad; hi += pad;
+    function X(i) { return L + (i - from + 0.5) * pw / N; }
+    function Y(v) { return T + (1 - (v - lo) / (hi - lo)) * ph; }
+    var bw = Math.max(1, Math.min(9, pw / N * 0.66)), up = '', dn = '', g = '', k;
+    for (k = 0; k <= 4; k++) { var gv = lo + (hi - lo) * k / 4; g += '<line class="gl" x1="' + L + '" x2="' + (W - R) + '" y1="' + Y(gv).toFixed(1) + '" y2="' + Y(gv).toFixed(1) + '"/><text x="' + (W - R + 6) + '" y="' + (Y(gv) + 4).toFixed(1) + '">' + num(gv, 0) + '</text>'; }
+    var ticks = 5, fmt = N > 130 ? { month: 'short', year: '2-digit' } : { month: 'short', day: 'numeric' };
+    for (k = 0; k < ticks; k++) { var ti = from + Math.round((N - 1) * k / (ticks - 1)); g += '<text x="' + X(ti).toFixed(1) + '" y="' + (H - 6) + '" text-anchor="' + (k === 0 ? 'start' : k === ticks - 1 ? 'end' : 'middle') + '">' + new Date(C.d[ti] + 'T12:00:00').toLocaleDateString('en-CA', fmt) + '</text>'; }
+    for (i = from; i < n; i++) {
+      var x = X(i), o = Y(C.o[i]), c = Y(C.c[i]), seg = 'M' + x.toFixed(1) + ' ' + Y(C.h[i]).toFixed(1) + 'V' + Y(C.l[i]).toFixed(1) + 'M' + (x - bw / 2).toFixed(1) + ' ' + Math.min(o, c).toFixed(1) + 'h' + bw.toFixed(1) + 'v' + Math.max(1, Math.abs(o - c)).toFixed(1) + 'h-' + bw.toFixed(1) + 'z';
+      if (C.c[i] >= C.o[i]) up += seg; else dn += seg;
+    }
+    function line(key) { var d = '', pen = false; for (var j = from; j < n; j++) { var v = C[key][j]; if (v == null) { pen = false; continue; } d += (pen ? 'L' : 'M') + X(j).toFixed(1) + ' ' + Y(v).toFixed(1); pen = true; } return d; }
+    box.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H + '" role="img" aria-label="Daily candlestick chart of the ' + esc(spec[1]) + ' with 50 and 200 day moving averages">' + g +
+      '<path d="' + up + '" fill="#6FE3B5" stroke="#6FE3B5" stroke-width="1"/><path d="' + dn + '" fill="#FF8A8A" stroke="#FF8A8A" stroke-width="1"/>' +
+      '<path d="' + line('s200') + '" fill="none" stroke="#F5B544" stroke-width="1.8" stroke-linejoin="round"/><path d="' + line('s50') + '" fill="none" stroke="#8EC1FF" stroke-width="1.8" stroke-linejoin="round"/>' +
+      '<line id="cd-x" y1="' + T + '" y2="' + (H - B) + '" stroke="rgba(239,244,251,0.35)" stroke-dasharray="3 3" visibility="hidden"/><rect id="cd-hit" x="' + L + '" y="0" width="' + pw + '" height="' + H + '" fill="transparent"/></svg>';
+    function readout(i) {
+      var prev = i > 0 ? C.c[i - 1] : null, ch = prev ? (C.c[i] / prev - 1) * 100 : null;
+      rd.innerHTML = '<span><b>' + esc(spec[1]) + '</b> ' + day(C.d[i]) + '</span>' +
+        '<span>O <b>' + num(C.o[i], 2) + '</b> H <b>' + num(C.h[i], 2) + '</b> L <b>' + num(C.l[i], 2) + '</b> C <b>' + num(C.c[i], 2) + '</b> <span class="' + cls(ch) + '">' + pct(ch, 2) + '</span></span>' +
+        '<span><i class="sw" style="background:#8EC1FF"></i>50-day <b>' + num(C.s50[i], 2) + '</b></span><span><i class="sw" style="background:#F5B544"></i>200-day <b>' + num(C.s200[i], 2) + '</b></span>';
+    }
+    readout(n - 1);
+    var hit = document.getElementById('cd-hit'), xl = document.getElementById('cd-x');
+    function at(e) { var r = box.getBoundingClientRect(), px = (e.clientX - r.left) * (W / r.width), i = from + Math.round((px - L) / pw * N - 0.5); i = Math.max(from, Math.min(n - 1, i)); xl.setAttribute('x1', X(i)); xl.setAttribute('x2', X(i)); xl.setAttribute('visibility', 'visible'); readout(i); }
+    hit.addEventListener('pointermove', at); hit.addEventListener('pointerdown', at);
+    hit.addEventListener('pointerleave', function () { xl.setAttribute('visibility', 'hidden'); readout(n - 1); });
+  }
+
+  function usd(v) { return v == null ? 'n/a' : '$' + Math.round(v).toLocaleString('en-US'); }
+  function gain(v) { return v == null ? 'n/a' : (v >= 0 ? '+' : '\u2212') + '$' + Math.abs(Math.round(v)).toLocaleString('en-US'); }
+  function diveHTML(s) {
+    var p = S.p, a = s.about, tot = s.ret[S.c].tot ? s.ret[S.c].tot[p] : null, dates = (D.periods || {})[p];
+    var B = D.bench[S.m], bt = B && B.ret[S.c].tot ? B.ret[S.c].tot[p] : null, base = 100000, isRef = s.t === 'SPY';
+    var h = '<div class="dive" role="region" aria-label="' + esc(a.fund) + '"><h4>' + esc(a.fund) + '<span>' + esc(s.t) + '</span></h4>' +
+      '<div class="cols"><div><span class="lbl">What it is</span><p>' + esc(a.what) + '</p></div><div><span class="lbl">How it tends to behave</span><p>' + esc(a.tends) + '</p></div></div>';
+    if (tot == null) return h + '<p class="fine">There is not enough price history to show this period.</p></div>';
+    var diff = bt == null ? null : tot - bt;
+    if (!isRef && diff != null) h += '<p class="vs">Over this period it returned ' + pct(tot) + ' against ' + pct(bt) + ' for the S&amp;P 500, ' + (diff >= 0 ? 'ahead by ' : 'behind by ') + Math.abs(diff).toFixed(1) + ' percentage points.</p>';
+    h += '<div><span class="lbl">If you had put $100,000 in</span>' + (dates ? '<p class="fine" style="margin-bottom:10px">Bought at the close on ' + day(dates[0]) + ', sold at the close on ' + day(dates[1]) + '. Dividends reinvested, no fees or taxes. An illustration, not a record of real trades.</p>' : '') +
+      '<div class="stats"><div class="stat"><span>Invested</span><b>' + usd(base) + '</b><em>' + day(dates ? dates[0] : D.asOf) + '</em></div>' +
+      '<div class="stat"><span>Worth</span><b>' + usd(base * (1 + tot / 100)) + '</b><em>' + day(dates ? dates[1] : D.asOf) + '</em></div>' +
+      '<div class="stat"><span>Gain</span><b class="' + cls(tot) + '">' + gain(base * tot / 100) + '</b><em>' + pct(tot) + ' in total</em></div>' +
+      (isRef || bt == null ? '' : '<div class="stat"><span>Same in the S&amp;P 500</span><b>' + usd(base * (1 + bt / 100)) + '</b><em>' + gain(base * bt / 100) + '</em></div>') + '</div></div>';
+    if (s.top && s.top.length) {
+      h += '<div><span class="lbl">Largest holdings today, priced over the same period</span><div class="tbl-wrap"><table><thead><tr><th>Company</th><th class="num">In fund</th><th class="num">Return</th><th class="num">Gain on $100k</th></tr></thead><tbody>' +
+        s.top.map(function (t) { var r = t.ret[S.c].tot ? t.ret[S.c].tot[p] : null; return '<tr><td><b>' + esc(t.t) + '</b><span class="sub">' + esc(t.name) + '</span></td><td class="num">' + num(t.w, 1) + '%</td><td class="num ' + cls(r) + '">' + pct(r) + '</td><td class="num ' + cls(r) + '">' + (r == null ? 'n/a' : gain(base * r / 100)) + '</td></tr>'; }).join('') +
+        '</tbody></table></div><p class="fine" style="margin-top:8px">These are the fund\u2019s largest holdings' + (D.holdingsAsOf ? ' as of ' + day(D.holdingsAsOf) : '') + ', valued over the period. The fund did not necessarily hold them, or hold them in these amounts, throughout, and its actual trades are not published here. n/a means the company was not yet listed.</p></div>';
+    }
+    return h + '</div>';
   }
 
   function renderGroups() {
@@ -439,33 +533,45 @@
     document.getElementById('grp-desc').textContent = g.desc + (pl ? ' ' + pl : '') + (D.ccys && D.ccys.length > 1 ? ' Returns in ' + S.c + '.' : '');
     var p = S.p, B = D.bench[S.m], b = B ? B.ret[S.c][p] : null;
     document.getElementById('bench-label').textContent = (B ? B.name : 'Benchmark') + (D.ccys && D.ccys.length > 1 ? ' (' + S.c + ')' : '');
+    document.getElementById('grp-hint').hidden = !g.items.some(function (x) { return x.about; });
     var rows = g.items.filter(function (s) { return s.ret[S.c][p] != null; }).sort(function (a, c) { return c.ret[S.c][p] - a.ret[S.c][p]; });
     var vals = rows.map(function (s) { return s.ret[S.c][p]; }).concat(b == null ? [] : [b], [0]);
     var mn = Math.min.apply(null, vals), mx = Math.max.apply(null, vals), span = (mx - mn) || 1;
     function X(v) { return (v - mn) / span * 100; }
     document.getElementById('sec-bars').innerHTML = rows.map(function (s) {
       var v = s.ret[S.c][p], a = X(Math.min(0, v)), w = Math.abs(X(v) - X(0)), tk = s.t.replace('.TO', '').replace('=F', '');
-      return '<div class="bar-row"><div class="k" title="' + esc(s.t) + '"><b>' + esc(tk) + '</b>' + esc(s.name) + '</div><div class="bar-track">' +
+      var ex = !!s.about, open = ex && S.open === s.t;
+      return '<div class="bar-row' + (ex ? ' expandable' : '') + '"' + (ex ? ' role="button" tabindex="0" aria-expanded="' + open + '" data-t="' + esc(s.t) + '"' : '') + '><div class="k" title="' + esc(s.t) + '"><b>' + esc(tk) + '</b>' + esc(s.name) + '</div><div class="bar-track">' +
         '<span class="zero" style="left:' + X(0) + '%"></span>' + (b == null ? '' : '<span class="bench" style="left:' + X(b) + '%"></span>') +
         '<span class="bar-fill ' + (v >= 0 ? 'up' : 'down') + '" style="left:' + a + '%;width:' + Math.max(w, 0.4) + '%"></span></div>' +
-        '<div class="v ' + cls(v) + '">' + pct(v) + '</div></div>';
+        '<div class="v ' + cls(v) + '">' + pct(v) + '</div></div>' + (open ? diveHTML(s) : '');
     }).join('');
   }
+  function toggleRow(e) {
+    if (e.type === 'keydown' && e.key !== 'Enter' && e.key !== ' ') return;
+    var r = e.target.closest('.bar-row.expandable'); if (!r) return;
+    e.preventDefault(); S.open = S.open === r.dataset.t ? null : r.dataset.t; renderGroups();
+    var again = document.querySelector('.bar-row.expandable[data-t="' + r.dataset.t + '"]'); if (again && e.type === 'keydown') again.focus();
+  }
+  document.getElementById('sec-bars').addEventListener('click', toggleRow);
+  document.getElementById('sec-bars').addEventListener('keydown', toggleRow);
 
   function renderAll() {
     segSet('sec-period', S.p);
     document.querySelectorAll('.summary').forEach(function (n) { n.hidden = n.getAttribute('data-market') !== S.m; });
     document.getElementById('market-intro').textContent = MK[S.m].intro;
-    [renderTiles, renderTV, renderGroups].forEach(function (f) { try { f(); } catch (e) { console.error(e); } });
+    [renderTiles, renderCandles, renderGroups].forEach(function (f) { try { f(); } catch (e) { console.error(e); } });
   }
-  document.getElementById('tv-pick').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; tvPick = b.dataset.v; segSet('tv-pick', tvPick); renderTV(); });
+  document.getElementById('cd-pick').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; cdPick = b.dataset.v; segSet('cd-pick', cdPick); renderCandles(); });
+  document.getElementById('cd-range').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; cdBars = +b.dataset.v; segSet('cd-range', b.dataset.v); renderCandles(); });
+  var rz; window.addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(renderCandles, 150); });
   var cy = document.getElementById('cal-year');
   (function () {
     var any = (D.groups[S.m] || [])[0], keys = any ? Object.keys(any.items[0].ret[S.c]).filter(function (k) { return /^cy/.test(k); }).sort().reverse() : [];
     cy.innerHTML += keys.map(function (k) { return '<option value="' + k + '">' + k.slice(2) + '</option>'; }).join('');
   })();
   cy.addEventListener('change', function () { if (!cy.value) return; S.p = cy.value; cy.classList.add('on'); segSet('sec-period', ''); renderGroups(); });
-  document.getElementById('grp-tabs').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; S.g = b.dataset.v; renderGroups(); });
+  document.getElementById('grp-tabs').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; S.g = b.dataset.v; S.open = null; renderGroups(); });
   document.getElementById('sec-period').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; S.p = b.dataset.p; cy.value = ''; cy.classList.remove('on'); segSet('sec-period', S.p); renderGroups(); });
   renderAll();
 

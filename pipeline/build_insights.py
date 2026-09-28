@@ -34,7 +34,7 @@ SITEMAP = ROOT / "sitemap.xml"
 SITE = "https://zetatobi.com"
 # Must match the marker at the top of insights/template.html. Bump both together whenever the data
 # format changes, so a half-finished upload can never publish a broken page.
-TEMPLATE_VERSION = "v4"
+TEMPLATE_VERSION = "v5"
 REBOUNDER = "https://rebounder.zetatobi.com/data/screen.json"
 BENCH = "^GSPC"
 
@@ -52,7 +52,7 @@ TILES = {
            ("XCS.TO", "TSX small caps (XCS)", "index"), ("CL=F", "WTI crude oil", "index"),
            ("GC=F", "Gold", "index"), (FX, "USD/CAD", "fx")],
 }
-BENCHMARKS = {"us": ("^GSPC", "S&P 500"), "ca": ("^GSPTSE", "S&P/TSX Composite")}
+BENCHMARKS = {"us": ("SPY", "S&P 500 (total return)"), "ca": ("^GSPTSE", "S&P/TSX Composite")}
 
 COMMODITIES = [("CL=F", "WTI crude oil"), ("BZ=F", "Brent crude oil"), ("NG=F", "Natural gas"), ("GC=F", "Gold"),
                ("SI=F", "Silver"), ("HG=F", "Copper"), ("LBR=F", "Lumber"), ("ZW=F", "Wheat"), ("ZC=F", "Corn")]
@@ -90,8 +90,44 @@ GROUPS = {
         ("global", "Global", "Country and regional stock markets, measured with US-listed funds.", GLOBAL),
     ],
 }
+for _m in GROUPS:  # keep Styles as the right-most tab
+    GROUPS[_m].sort(key=lambda g: g[0] == "styles")
+
+# Plain-language notes for the Styles deep dive. Written by hand: edit here, not in the page.
+STYLE_INFO = {
+    "SPY": {"fund": "SPDR S&P 500 ETF Trust",
+            "what": "The 500 largest US companies, each weighted by its market value, so the biggest companies have the biggest say.",
+            "tends": "The reference point for everything else in this tab. Because the largest companies dominate, its result can come down to a handful of stocks."},
+    "RSP": {"fund": "Invesco S&P 500 Equal Weight ETF",
+            "what": "The same 500 companies as the S&P 500, but each is held in roughly equal amounts and rebalanced regularly.",
+            "tends": "Leads when gains spread across many companies and trails when a few giants do the heavy lifting. Set beside the S&P 500, it shows how broad a rally is."},
+    "IVW": {"fund": "iShares S&P 500 Growth ETF",
+            "what": "The S&P 500 companies that score highest on growth: sales and earnings growth and price momentum. Technology and other fast growers are typically the heaviest.",
+            "tends": "Tends to lead when investors pay up for growth and interest rates ease, and to lag when they prefer cheaper, steadier companies."},
+    "IVE": {"fund": "iShares S&P 500 Value ETF",
+            "what": "The S&P 500 companies that look cheapest against their book value, earnings and sales. Financials, health care and industrials are typically the heaviest.",
+            "tends": "Tends to lead when the economy or higher rates favour older, cheaper businesses, and to lag when growth stocks run."},
+    "IWM": {"fund": "iShares Russell 2000 ETF",
+            "what": "Roughly 2,000 smaller US companies. Many depend more on the domestic economy and on borrowing costs than the large multinationals do.",
+            "tends": "Tends to lead early in economic recoveries and when rates fall, and to lag when credit tightens or investors want safety."},
+    "MTUM": {"fund": "iShares MSCI USA Momentum Factor ETF",
+             "what": "US stocks with the strongest price gains over roughly the past six to twelve months. The portfolio is reset a couple of times a year, so its holdings can change a lot.",
+             "tends": "Tends to do well in steady trends and to struggle when market leadership abruptly reverses."},
+    "QUAL": {"fund": "iShares MSCI USA Quality Factor ETF",
+             "what": "US companies with high profitability, steady earnings and modest debt.",
+             "tends": "Tends to hold up better when the economy weakens and to lag in sharp rallies led by weaker, more speculative companies."},
+    "USMV": {"fund": "iShares MSCI USA Min Vol Factor ETF",
+             "what": "US stocks chosen and weighted to make the whole portfolio less volatile than the market, within limits on how far it can lean toward any one sector.",
+             "tends": "Tends to fall less in sell-offs and to lag in strong rallies."},
+    "SCHD": {"fund": "Schwab U.S. Dividend Equity ETF",
+             "what": "About 100 US companies with long dividend records, screened for cash flow, balance-sheet strength, profitability and dividend growth.",
+             "tends": "Tends to hold up better when investors favour income and stability, and to lag when growth stocks lead."},
+}
+
 LOOKBACK = {"1d": 1, "1w": 5, "1m": 21, "3m": 63, "1y": 252}
 ANNUALIZED = {"3y": 3, "5y": 5}      # shown as per-year returns
+CHART_INDICES = [("^GSPC", "S&P 500"), ("^DJI", "Dow Jones Industrial Average"), ("^NDX", "Nasdaq 100")]
+CHART_BARS = 252                      # one year of daily candles; the page can show 3M, 6M or 1Y of them
 CALENDAR_YEARS = 5                    # the last five full calendar years
 
 # Value watch rules (same spirit as Rebounder's defaults, a little stricter for a public list)
@@ -138,6 +174,34 @@ def download(tickers, period="7y"):
     return closes
 
 
+def candle_block():
+    """Daily open/high/low/close plus 50 and 200-day simple moving averages for the chart indices.
+    The averages are calculated on the full history first, so they are correct from the first bar shown."""
+    out = {}
+    try:
+        raw = yf.download([t for t, _ in CHART_INDICES], period="3y", interval="1d", auto_adjust=True,
+                          group_by="ticker", progress=False, threads=True)
+    except Exception as e:
+        print(f"Candles unavailable: {e}", file=sys.stderr)
+        return out
+    for t, name in CHART_INDICES:
+        try:
+            df = (raw[t] if isinstance(raw.columns, pd.MultiIndex) else raw)[["Open", "High", "Low", "Close"]].dropna()
+            df.index = pd.to_datetime(df.index).tz_localize(None).normalize()
+            if len(df) < 200 + 30:
+                continue
+            df["s50"] = df["Close"].rolling(50).mean()
+            df["s200"] = df["Close"].rolling(200).mean()
+            df = df.tail(CHART_BARS)
+            col = lambda c: [rnd(num(v)) for v in df[c]]
+            out[t] = {"name": name, "d": [d.strftime("%Y-%m-%d") for d in df.index],
+                      "o": col("Open"), "h": col("High"), "l": col("Low"), "c": col("Close"),
+                      "s50": col("s50"), "s200": col("s200")}
+        except (KeyError, TypeError, ValueError):
+            print(f"No candles for {t}", file=sys.stderr)
+    return out
+
+
 def ret(s, n):
     if len(s) <= n:
         return None
@@ -163,15 +227,44 @@ def cal_year(s, y):
 
 
 def returns(s):
+    """Display returns (rounded) plus 'tot': exact total returns per period, used for dollar illustrations.
+    3y and 5y display as per-year averages; their totals live in 'tot'."""
     r = {k: rnd(ret(s, n)) for k, n in LOOKBACK.items()}
     r["ytd"] = rnd(ytd(s))
+    tot = {k: rnd(ret(s, LOOKBACK[k]), 3) for k in ("1m", "3m", "1y")}
+    tot["ytd"] = rnd(ytd(s), 3)
     for k, yrs in ANNUALIZED.items():
         n = 252 * yrs
-        r[k] = None if len(s) <= n else rnd(((s.iloc[-1] / s.iloc[-1 - n]) ** (1 / yrs) - 1) * 100)
+        if len(s) <= n:
+            r[k], tot[k] = None, None
+        else:
+            total = s.iloc[-1] / s.iloc[-1 - n]
+            r[k] = rnd((total ** (1 / yrs) - 1) * 100)
+            tot[k] = rnd((total - 1) * 100, 3)
     last = s.index[-1].year
     for y in range(last - CALENDAR_YEARS, last):
-        r[f"cy{y}"] = rnd(cal_year(s, y))
+        v = cal_year(s, y)
+        r[f"cy{y}"], tot[f"cy{y}"] = rnd(v), rnd(v, 3)
+    r["tot"] = tot
     return r
+
+
+def period_dates(s):
+    """The start and end close behind each period key, so the page can say when a hypothetical trade was bought and sold."""
+    idx, out = s.index, {}
+    end = idx[-1]
+    f = lambda d: d.strftime("%Y-%m-%d")
+    for k, n in list(LOOKBACK.items()) + [(k, 252 * y) for k, y in ANNUALIZED.items()]:
+        if len(idx) > n:
+            out[k] = [f(idx[-1 - n]), f(end)]
+    prior = idx[idx.year < end.year]
+    if len(prior):
+        out["ytd"] = [f(prior[-1]), f(end)]
+    for y in range(end.year - CALENDAR_YEARS, end.year):
+        a, b = idx[idx.year < y], idx[idx.year <= y]
+        if len(a) and len(b) and b[-1].year == y and b[-1].month == 12:
+            out[f"cy{y}"] = [f(a[-1]), f(b[-1])]
+    return out
 
 
 def spark(s, points=66):
@@ -206,7 +299,58 @@ def rets_all(s, t, fx):
     return {c: returns(convert(s, t, c, fx)) for c in CCYS}
 
 
-def market_block(closes):
+HOLDINGS_FILE = INS / "data" / "style-holdings.json"
+HOLDINGS_MAX_AGE_DAYS = 7
+TOP_N = 5
+
+
+def _top_holdings(fund):
+    df = yf.Ticker(fund).funds_data.top_holdings
+    if df is None or len(df) == 0:
+        return []
+    name_col = next((c for c in df.columns if "name" in str(c).lower()), None)
+    w_col = next((c for c in df.columns if "percent" in str(c).lower() or "weight" in str(c).lower()), df.columns[-1])
+    total = float(pd.to_numeric(df[w_col], errors="coerce").fillna(0).sum())
+    scale = 100 if total <= 1.0 else 1      # Yahoo reports fractions; ten holdings can never sum to under 1% as a percent
+    rows = []
+    for sym, r in df.iterrows():
+        w, sym = num(r[w_col]), str(sym).strip().upper()
+        if w is not None and sym:
+            rows.append({"t": sym, "name": str(r[name_col]) if name_col else sym, "w": w * scale})
+    rows.sort(key=lambda x: x["w"], reverse=True)
+    return rows[:TOP_N]
+
+
+def style_holdings():
+    """Largest holdings of each Styles fund. Refreshed weekly (holdings move slowly), kept in the repo,
+    and archived by date. If Yahoo fails, the last good copy is used and the page still works."""
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    cache = load_json(HOLDINGS_FILE, {})
+    try:
+        age = (datetime.strptime(today, "%Y-%m-%d") - datetime.strptime(cache.get("asOf", ""), "%Y-%m-%d")).days
+    except ValueError:
+        age = None
+    if age is not None and age < HOLDINGS_MAX_AGE_DAYS and cache.get("funds"):
+        return cache["funds"], cache["asOf"]
+    fresh = {}
+    for fund in STYLE_INFO:
+        try:
+            rows = _top_holdings(fund)
+            if rows:
+                fresh[fund] = rows
+        except Exception as e:
+            print(f"Holdings unavailable for {fund}: {e}", file=sys.stderr)
+    if not fresh:
+        return cache.get("funds", {}), cache.get("asOf")
+    funds = dict(cache.get("funds", {}))
+    funds.update(fresh)                      # a fund that failed today keeps its previous rows
+    HOLDINGS_FILE.parent.mkdir(parents=True, exist_ok=True)
+    HOLDINGS_FILE.write_text(json.dumps({"asOf": today, "funds": funds}, indent=1), encoding="utf-8")
+    _gz_write(ARCHIVE / "holdings" / today[:4] / f"{today}.json.gz", fresh)
+    return funds, today
+
+
+def market_block(closes, holdings=None):
     fx = closes.get(FX)
     tiles, groups, bench = {}, {}, {}
     for m, spec in ((m, TILES[m]) for m in MARKETS):
@@ -228,7 +372,21 @@ def market_block(closes):
     for m, spec in ((m, GROUPS[m]) for m in MARKETS):
         gs = []
         for gid, label, desc, items in spec:
-            rows = [{"t": t, "name": n, "ret": rets_all(closes[t], t, fx)} for t, n in items if t in closes]
+            rows = []
+            for t, n in items:
+                if t not in closes:
+                    continue
+                row = {"t": t, "name": n, "ret": rets_all(closes[t], t, fx)}
+                if gid == "styles" and t in STYLE_INFO:
+                    row["about"] = STYLE_INFO[t]
+                    tops = []
+                    for h in (holdings or {}).get(t, []):
+                        hs = closes.get(h["t"])
+                        if hs is not None and len(hs) > 60:
+                            tops.append({"t": h["t"], "name": h["name"], "w": rnd(h["w"], 1), "ret": rets_all(hs, h["t"], fx)})
+                    if tops:
+                        row["top"] = tops
+                rows.append(row)
             if rows:
                 gs.append({"id": gid, "label": label, "desc": desc, "items": rows})
         groups[m] = gs
@@ -583,12 +741,14 @@ def main():
     tickers += [h["ticker"] for h in content.get("holdings", []) if h.get("ticker")]
     hist = load_json(HISTORY, {"flags": {}})
     tickers += [m["ticker"] for m in watch] + list(hist.get("flags", {}).keys())
+    holdings, holdings_asof = style_holdings()
+    tickers += [h["t"] for hs in holdings.values() for h in hs]
     closes = download(tickers)
     if BENCH not in closes:
         sys.exit("S&P 500 prices could not be loaded; leaving the published page unchanged.")
 
     as_of = closes[BENCH].index[-1].strftime("%Y-%m-%d")
-    tiles, groups, bench = market_block(closes)
+    tiles, groups, bench = market_block(closes, holdings)
     summary = market_summary(closes, groups)
 
     archive_screen(raw_screen, as_of)
@@ -606,6 +766,9 @@ def main():
         "built": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "tiles": tiles, "groups": groups, "bench": bench,
         "ccys": list(CCYS),
+        "charts": candle_block(),
+        "periods": period_dates(closes[BENCH]),
+        "holdingsAsOf": holdings_asof,
         "watch": watch, "watchRules": WATCH, "track": track,
         "portfolio": portfolio_block(content, closes),
         "notes": content.get("notes", []),
