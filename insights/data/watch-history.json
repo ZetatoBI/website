@@ -7,7 +7,7 @@
    "price": 137.1,
    "bench": 7743.41,
    "active": true,
-   "lastPrice": 132.6
+   "lastPrice": 137.79
   },
   "UAL": {
    "name": "United Airlines Holdings, Inc.",
@@ -15,7 +15,7 @@
    "price": 113.99,
    "bench": 7743.41,
    "active": true,
-   "lastPrice": 111.51
+   "lastPrice": 112.65
   },
   "DECK": {
    "name": "Deckers Outdoor Corporation",
@@ -23,7 +23,7 @@
    "price": 78.67,
    "bench": 7743.41,
    "active": true,
-   "lastPrice": 78.36
+   "lastPrice": 77.68
   },
   "INTU": {
    "name": "Intuit Inc.",
@@ -31,7 +31,7 @@
    "price": 275.79,
    "bench": 7743.41,
    "active": true,
-   "lastPrice": 269.4
+   "lastPrice": 268.03
   },
   "LMT": {
    "name": "Lockheed Martin Corporation",
@@ -39,7 +39,7 @@
    "price": 519.56,
    "bench": 7743.41,
    "active": true,
-   "lastPrice": 518.1
+   "lastPrice": 512.21
   },
   "AKAM": {
    "name": "Akamai Technologies, Inc.",
@@ -47,17 +47,15 @@
    "price": 113.94,
    "bench": 7743.41,
    "active": true,
-   "lastPrice": 108.99
+   "lastPrice": 108.45
   },
   "UPS": {
    "name": "United Parcel Service, Inc.",
-   "flagged": "2026-09-25",
-   "price": 93.96,
-   "bench": 7743.41,
-   "active": false,
-   "lastPrice": 93.96,
-   "unflagged": "2026-09-28",
-   "exitPrice": 94.25
+   "flagged": "2026-09-29",
+   "price": 93.93,
+   "bench": 7670.84,
+   "active": true,
+   "lastPrice": 93.93
   },
   "TRMB": {
    "name": "Trimble Inc.",
@@ -75,15 +73,17 @@
    "price": 1053.98,
    "bench": 7683.69,
    "active": true,
-   "lastPrice": 1053.98
+   "lastPrice": 1065.08
   },
   "AVGO": {
    "name": "Broadcom Inc.",
    "flagged": "2026-09-28",
    "price": 349.57,
    "bench": 7683.69,
-   "active": true,
-   "lastPrice": 349.57
+   "active": false,
+   "lastPrice": 349.57,
+   "unflagged": "2026-09-29",
+   "exitPrice": 355.1
   }
  },
  "cohorts": {
@@ -169,6 +169,48 @@
     "t": "AVGO",
     "price": 349.57,
     "bench": 7683.69
+   }
+  ],
+  "2026-09-29": [
+   {
+    "t": "ORCL",
+    "price": 137.79,
+    "bench": 7670.84
+   },
+   {
+    "t": "MU",
+    "price": 1065.08,
+    "bench": 7670.84
+   },
+   {
+    "t": "UAL",
+    "price": 112.65,
+    "bench": 7670.84
+   },
+   {
+    "t": "DECK",
+    "price": 77.68,
+    "bench": 7670.84
+   },
+   {
+    "t": "INTU",
+    "price": 268.03,
+    "bench": 7670.84
+   },
+   {
+    "t": "AKAM",
+    "price": 108.45,
+    "bench": 7670.84
+   },
+   {
+    "t": "LMT",
+    "price": 512.21,
+    "bench": 7670.84
+   },
+   {
+    "t": "UPS",
+    "price": 93.93,
+    "bench": 7670.84
    }
   ]
  }
