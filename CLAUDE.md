@@ -17,6 +17,11 @@ which runs `pipeline/build_insights.py`.
   A mismatch keeps the old page live and turns the run red on purpose.
 - `robots.txt` blocks `/pipeline/` and `/insights/data/` from search engines.
 - Canada support is built but off: `MARKETS = ("us",)` in the pipeline. Turning it on is a deliberate decision.
+- **Strategy signals:** the pipeline reads `https://rebounder.zetatobi.com/data/signals.json` (built by the
+  `ZetatoBI/Rebounder` repo with each strategy's default settings) and keeps a forward-only record in
+  `insights/data/signal-history.json`. That file is the track record: never edit, rebuild, back-fill or delete
+  it, and never drop losing trades from it. If signals are unavailable, the page shows the last saved record.
+- The old Value watch cohort file (`insights/data/watch-history.json`) is retired from the page but kept as a record.
 
 ## Data and wording rules
 - Every number on the page is calculated from real data. Never invent or fill in sample values.

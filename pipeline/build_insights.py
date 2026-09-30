@@ -21,6 +21,8 @@ import urllib.request
 from datetime import date, datetime, timezone
 from pathlib import Path
 
+from zoneinfo import ZoneInfo
+
 import pandas as pd
 import yfinance as yf
 
@@ -32,9 +34,10 @@ CONTENT = INS / "content.json"
 HISTORY = INS / "data" / "watch-history.json"
 SITEMAP = ROOT / "sitemap.xml"
 SITE = "https://zetatobi.com"
+NY = ZoneInfo("America/New_York")
 # Must match the marker at the top of insights/template.html. Bump both together whenever the data
 # format changes, so a half-finished upload can never publish a broken page.
-TEMPLATE_VERSION = "v5"
+TEMPLATE_VERSION = "v6"
 REBOUNDER = "https://rebounder.zetatobi.com/data/screen.json"
 BENCH = "^GSPC"
 
@@ -627,6 +630,152 @@ def update_history(watch, prices_now, bench, today):
 
 
 # ---------------------------------------------------------------- tracked portfolio
+# ---------------------------------------------------------------- strategy signals (from Rebounder)
+SIGNALS_URL = "https://rebounder.zetatobi.com/data/signals.json"
+SIGNAL_HISTORY = INS / "data" / "signal-history.json"
+CLOSED_SHOWN = 60          # closed trades per strategy kept on the page (the file keeps all of them)
+NEAR_STOP_PCT = 2.0        # "near the stop" when price is within this % of it
+
+
+def fetch_signals():
+    try:
+        req = urllib.request.Request(SIGNALS_URL, headers={"User-Agent": "zetato-insights"})
+        with urllib.request.urlopen(req, timeout=60) as r:
+            data = json.loads(r.read().decode("utf-8"))
+    except Exception as e:
+        print(f"Rebounder signals unavailable: {e}", file=sys.stderr)
+        return None
+    if (data.get("meta") or {}).get("demo"):
+        print("Rebounder signals are demo data: ignored.", file=sys.stderr)
+        return None
+    return data if data.get("strategies") else None
+
+
+def _day(ts):
+    return datetime.fromtimestamp(ts, timezone.utc).astimezone(NY).strftime("%Y-%m-%d")
+
+
+def _bench_ret(spy, start_ts, end_ts=None):
+    """S&P 500 (SPY, dividends included) from the close before the entry day to the exit day's close."""
+    if spy is None:
+        return None
+    a = spy[spy.index < pd.Timestamp(_day(start_ts))]
+    b = spy if end_ts is None else spy[spy.index <= pd.Timestamp(_day(end_ts))]
+    if a.empty or b.empty:
+        return None
+    return rnd((b.iloc[-1] / a.iloc[-1] - 1) * 100, 2)
+
+
+def signal_block(sig, closes, as_of):
+    """Keeps a forward-only record of every strategy position: open ones are updated each day, and when
+    the rules exit one it moves to the closed list with its exit price and reason. Losses stay on record.
+    The first run marks positions that were already open as 'opened before tracking began'."""
+    hist = load_json(SIGNAL_HISTORY, {})
+    first = not hist
+    hist.setdefault("started", as_of)
+    hist.setdefault("open", {})
+    hist.setdefault("closed", [])
+    start_ts = datetime.strptime(hist["started"], "%Y-%m-%d").replace(tzinfo=NY).timestamp()
+    spy = closes.get("SPY")
+    fresh = sig is not None
+    meta = {"fresh": fresh, "asOf": (sig or {}).get("meta", {}).get("generated") or hist.get("signalsAsOf")}
+    if fresh:
+        hist["signalsAsOf"] = meta["asOf"]
+        known_closed = {(c["s"], c["t"], c["entryTime"]) for c in hist["closed"]}
+        # Trades that had already closed before recording began are remembered once and never counted.
+        before = hist.setdefault("closedBeforeStart", [])
+        if first:
+            before.extend(f"{st['id']}|{r['t']}|{r['entryTime']}" for st in sig["strategies"] for r in st.get("closed", []))
+        known_closed |= {tuple(k.rsplit("|", 2)[:2]) + (int(k.rsplit("|", 1)[1]),) for k in before}
+        for st in sig["strategies"]:
+            sid = st["id"]
+            live = {f"{sid}|{r['t']}|{r['entryTime']}": r for r in st.get("open", [])}
+            exits = {(r["t"], r["entryTime"]): r for r in st.get("closed", [])}
+            for key, r in live.items():
+                rec = hist["open"].get(key) or {"s": sid, "firstSeen": as_of,
+                                                   "pre": first or r["entryTime"] < start_ts}
+                rec.update({k: r.get(k) for k in ("t", "name", "sector", "entryTime", "entryRef", "entryKind",
+                                                   "ruleFill", "last", "lastTime", "ret", "stop", "target", "toStop",
+                                                   "toTarget", "filled", "of", "nextBuy", "toNextBuy", "peak")})
+                hist["open"][key] = rec
+            for key in [k for k, v in hist["open"].items() if v["s"] == sid and k not in live]:
+                rec = hist["open"].pop(key)
+                ex = exits.get((rec["t"], rec["entryTime"]))
+                if ex:
+                    rec.update({"exitTime": ex["exitTime"], "exit": ex["exit"], "reason": ex["reason"], "ret": ex["ret"]})
+                else:  # the rules no longer hold it but no exit was reported: close at the last recorded price
+                    rec.update({"exitTime": rec.get("lastTime"), "exit": rec.get("last"), "reason": "No longer held"})
+                hist["closed"].append(rec)
+                known_closed.add((sid, rec["t"], rec["entryTime"]))
+            # trades that opened and closed between two of our runs (common for the hourly strategy)
+            for r in st.get("closed", []):
+                if (sid, r["t"], r["entryTime"]) in known_closed or r["exitTime"] < start_ts or first:
+                    continue
+                if f"{sid}|{r['t']}|{r['entryTime']}" in hist["open"]:
+                    continue
+                hist["closed"].append({"s": sid, "firstSeen": as_of, "pre": r["entryTime"] < start_ts,
+                                       **{k: r.get(k) for k in ("t", "name", "sector", "entryTime", "entryRef",
+                                                                "entryKind", "ruleFill", "exitTime", "exit",
+                                                                "reason", "ret")}})
+                known_closed.add((sid, r["t"], r["entryTime"]))
+        SIGNAL_HISTORY.parent.mkdir(parents=True, exist_ok=True)
+        SIGNAL_HISTORY.write_text(json.dumps(hist, indent=1), encoding="utf-8")
+        _gz_write(ARCHIVE / "signals" / as_of[:4] / f"{as_of}.json.gz", sig)
+
+    order = [st["id"] for st in (sig or {}).get("strategies", [])] or ["rebound", "meanrev", "trend", "momentum"]
+    about = {st["id"]: st for st in (sig or {}).get("strategies", [])}
+    prev_about = hist.get("about", {})
+    if about:
+        hist["about"] = {k: {x: v.get(x) for x in ("name", "short", "tagline", "tf", "tfLabel", "exitRule",
+                                                    "usesValue", "usesAnalyst", "marketFilter")} for k, v in about.items()}
+        SIGNAL_HISTORY.write_text(json.dumps(hist, indent=1), encoding="utf-8")
+    about = hist.get("about", prev_about)
+    out = []
+    for sid in order:
+        if sid not in about:
+            continue
+        op = sorted([dict(v) for v in hist["open"].values() if v["s"] == sid], key=lambda r: -r["entryTime"])
+        for r in op:
+            r["bench"] = _bench_ret(spy, r["entryTime"])
+            r["nearStop"] = r.get("toStop") is not None and r["toStop"] <= NEAR_STOP_PCT
+        cl = sorted([dict(v) for v in hist["closed"] if v["s"] == sid], key=lambda r: -(r.get("exitTime") or 0))
+        for r in cl:
+            r["bench"] = _bench_ret(spy, r["entryTime"], r.get("exitTime"))
+        rets = [r["ret"] for r in cl if r.get("ret") is not None]
+        benches = [r["bench"] for r in cl if r.get("ret") is not None and r.get("bench") is not None]
+        stats = {"open": len(op), "closed": len(rets), "wins": sum(1 for v in rets if v > 0),
+                 "losses": sum(1 for v in rets if v <= 0),
+                 "avg": rnd(sum(rets) / len(rets), 2) if rets else None,
+                 "avgBench": rnd(sum(benches) / len(benches), 2) if benches else None,
+                 "best": rnd(max(rets), 2) if rets else None, "worst": rnd(min(rets), 2) if rets else None}
+        out.append({"id": sid, **about[sid], "stats": stats, "open": op, "closed": cl[:CLOSED_SHOWN]})
+    return {"started": hist["started"], "meta": meta, "strategies": out} if out else None
+
+
+# ---------------------------------------------------------------- price series for the drill-down charts
+def chart_series(closes, groups):
+    """Closes on shared calendars: daily for the last year, weekly (Friday) for the longer periods.
+    Each group row gets arrays aligned to D.cal.d and D.cal.w, so the page can draw any period."""
+    ref = closes[BENCH]
+    daily = ref.index[-253:]
+    weekly = ref.resample("W-FRI").last().dropna().index
+    weekly = weekly[weekly >= pd.Timestamp(f"{ref.index[-1].year - CALENDAR_YEARS - 1}-12-01")]
+    if weekly[-1] < ref.index[-1]:
+        weekly = weekly.append(pd.DatetimeIndex([ref.index[-1]]))
+    f = lambda idx: [d.strftime("%Y-%m-%d") for d in idx]
+    for m in groups.values():
+        for g in m:
+            for it in g["items"]:
+                sr = closes.get(it["t"])
+                if sr is None:
+                    continue
+                d = sr.reindex(sr.index.union(daily)).ffill().reindex(daily)
+                w = sr.resample("W-FRI").last().reindex(sr.resample("W-FRI").last().index.union(weekly)).ffill().reindex(weekly)
+                w.iloc[-1] = sr.iloc[-1]
+                it["px"] = {"d": [rnd(num(v), 2) for v in d], "w": [rnd(num(v), 2) for v in w]}
+    return {"d": f(daily), "w": f(weekly)}
+
+
 def portfolio_block(content, closes):
     holds = [h for h in content.get("holdings", []) if h.get("ticker") and h.get("bought")]
     if not holds:
@@ -730,8 +879,8 @@ def write_sitemap(as_of):
 
 def main():
     content = load_json(CONTENT, {})
-    rebounder, raw_screen = fetch_rebounder()
-    watch = value_watch(rebounder)
+    rebounder, raw_screen = fetch_rebounder()   # kept for the daily archive
+    signals = fetch_signals()
 
     tickers = {BENCH} | ({FX} if "ca" in MARKETS else set())
     tickers |= {t for m in MARKETS for t, _, _ in TILES[m]}
@@ -739,8 +888,7 @@ def main():
     tickers |= {BENCHMARKS[m][0] for m in MARKETS}
     tickers = list(tickers)
     tickers += [h["ticker"] for h in content.get("holdings", []) if h.get("ticker")]
-    hist = load_json(HISTORY, {"flags": {}})
-    tickers += [m["ticker"] for m in watch] + list(hist.get("flags", {}).keys())
+    tickers.append("SPY")
     holdings, holdings_asof = style_holdings()
     tickers += [h["t"] for hs in holdings.values() for h in hs]
     closes = download(tickers)
@@ -753,13 +901,8 @@ def main():
 
     archive_screen(raw_screen, as_of)
     archive_prices([s["ticker"] for s in rebounder] + tickers, as_of)
-    prices_now = {t: rnd(float(s.iloc[-1])) for t, s in closes.items()}
-    for m in watch:  # prefer today's close over the screen's price
-        m["price"] = prices_now.get(m["ticker"], m["price"])
-        for k in ("peDiscount", "offHigh", "upside", "pe", "peerPe"):
-            m[k] = rnd(m[k], 1)
-        m.pop("score", None)
-    track = update_history(watch, prices_now, closes[BENCH], as_of) if watch else None
+    sig = signal_block(signals, closes, as_of)
+    cal = chart_series(closes, groups)
 
     data = {
         "asOf": as_of,
@@ -769,7 +912,7 @@ def main():
         "charts": candle_block(),
         "periods": period_dates(closes[BENCH]),
         "holdingsAsOf": holdings_asof,
-        "watch": watch, "watchRules": WATCH, "track": track,
+        "signals": sig, "cal": cal,
         "portfolio": portfolio_block(content, closes),
         "notes": content.get("notes", []),
     }
@@ -784,7 +927,7 @@ def main():
     OUT.write_text(build(template, data, summary), encoding="utf-8")
     write_sitemap(as_of)
     print(f"Built insights for {as_of}: {sum(len(g['items']) for m in groups.values() for g in m)} performance rows, "
-          f"{len(watch)} on value watch, portfolio {'on' if data['portfolio'] else 'off'}.")
+          f"signals {'fresh' if signals else 'unavailable'}, portfolio {'on' if data['portfolio'] else 'off'}.")
 
 
 if __name__ == "__main__":
