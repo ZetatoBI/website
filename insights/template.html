@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- zetato-insights-template v5. Keep in step with TEMPLATE_VERSION in pipeline/build_insights.py -->
+<!-- zetato-insights-template v6. Keep in step with TEMPLATE_VERSION in pipeline/build_insights.py -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Zetato Insights | Daily market data, sector performance and value screens</title>
+<title>Zetato Insights | Daily market data, sector performance and strategy signals</title>
 <meta name="description" content="{{DESCRIPTION}}">
 <link rel="canonical" href="https://zetatobi.com/insights/">
 <meta name="robots" content="index, follow, max-snippet:-1">
@@ -16,7 +16,7 @@
 <meta name="theme-color" content="#031C3A">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebPage","name":"Zetato Insights","url":"https://zetatobi.com/insights/",
- "description":"Daily US and Canadian market data, S&P 500 sector performance and a screen of large caps trading below their industry peers.",
+ "description":"Daily US market data, S&P 500 sector, style, commodity, bond and global performance, and a public record of four rule-based stock strategies.",
  "dateModified":"{{BUILT_ISO}}","inLanguage":"en-CA",
  "publisher":{"@type":"Organization","name":"Zetato Business Intelligence Inc.","url":"https://zetatobi.com/"}}
 </script>
@@ -143,6 +143,33 @@
   .callout-go svg { width: 16px; height: 16px; transition: transform .2s; }
   .callout:hover .callout-go svg { transform: translateX(3px); }
   .hint { font-size: 13px; color: var(--faint); margin: 0 0 12px; }
+  .spark-dive { display: grid; gap: 8px; }
+  .spark-dive .cap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 14px; color: var(--dim); font-variant-numeric: tabular-nums; }
+  .spark-dive .cap b { color: #fff; font-weight: 600; }
+  .spark-dive svg { width: 100%; height: auto; display: block; }
+  .spark-dive svg text { font-family: var(--sans); font-size: 11px; fill: rgba(239,244,251,0.5); }
+  .dive.chart-only { gap: 10px; }
+  /* Signals */
+  .sig-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 14px 20px; flex-wrap: wrap; margin-bottom: 18px; }
+  .sig-desc { color: var(--dim); font-size: 15px; margin: 0 0 16px; max-width: 80ch; }
+  .sig-desc b { color: #fff; font-weight: 600; }
+  .sig-bar { display: flex; justify-content: space-between; align-items: center; gap: 10px 16px; flex-wrap: wrap; margin: 4px 0 12px; }
+  .sig-bar .fine { font-size: 13px; color: var(--faint); }
+  .stat b i { font-style: normal; }
+  .stat b.wl i + i { margin-left: 10px; }
+  .wl .w { color: var(--mint); } .wl .l { color: var(--red); }
+  .chip { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 6px; white-space: nowrap; background: rgba(239,244,251,0.08); color: var(--dim); }
+  .chip.good { background: rgba(111,227,181,0.14); color: var(--mint); }
+  .chip.bad { background: rgba(255,138,138,0.14); color: var(--red); }
+  .chip.warn { background: rgba(245,181,68,0.16); color: var(--amber); }
+  .dots { display: inline-flex; gap: 4px; vertical-align: middle; margin-right: 6px; }
+  .dots i { width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--sky); }
+  .dots i.on { background: var(--sky); }
+  .sig-table td:not(:first-child), .sig-table th { white-space: nowrap; }
+  .sig-table td b a { text-decoration: none; }
+  .sig-table td b a:hover { text-decoration: underline; }
+  .sig-empty { color: var(--dim); padding: 22px 4px; font-size: 15px; }
+  .fresh-warn { margin: 0 0 14px; padding: 10px 14px; border-radius: 10px; background: rgba(245,181,68,0.12); color: var(--amber); font-size: 14px; }
   .bar-row.expandable { cursor: pointer; }
   .bar-row.expandable .k::after { content: "\203A"; display: inline-block; margin-left: 8px; color: var(--sky); font-weight: 700; transition: transform .2s; }
   .bar-row.expandable:hover .k, .bar-row.expandable[aria-expanded="true"] .k { color: #fff; }
@@ -237,7 +264,7 @@
     <ul class="nav-links">
       <li><a href="#market">Market</a></li>
       <li><a href="#performance">Performance</a></li>
-      <li data-need="watch"><a href="#watch">Value watch</a></li>
+      <li data-need="signals"><a href="#signals">Signals</a></li>
       <li data-need="portfolio"><a href="#portfolio">Portfolio</a></li>
       <li data-need="notes"><a href="#research">Research</a></li>
       <li><a href="/">Consulting</a></li>
@@ -316,47 +343,33 @@
     </div>
   </section>
 
-  <section id="watch" aria-labelledby="watch-title" data-need="watch">
+  <section id="signals" aria-labelledby="signals-title" data-need="signals">
     <div class="wrap">
-      <h2 id="watch-title">Value watch</h2>
-      <p class="intro" id="watch-intro"></p>
-      <div class="stack">
-        <div class="panel tbl-wrap">
-          <table>
-            <caption>On the watch today <span id="watch-count"></span></caption>
-            <thead><tr><th>Company</th><th>Sector</th><th class="num">Price</th><th class="num">Forward P/E</th><th class="num">Peer P/E</th><th class="num">From 52-week high</th><th class="num">Analyst upside</th></tr></thead>
-            <tbody id="watch-rows"></tbody>
-          </table>
+      <h2 id="signals-title">Strategy signals</h2>
+      <p class="intro">Four rule-based strategies from Rebounder, run every day with their default settings on large US stocks. Every position is recorded from the day it appears, and every exit stays on the record, wins and losses alike.</p>
+      <div class="sig-top">
+        <div class="seg" role="tablist" aria-label="Strategy" id="sig-tabs"></div>
+      </div>
+      <div class="panel">
+        <p class="fresh-warn" id="sig-fresh" hidden></p>
+        <p class="sig-desc" id="sig-desc"></p>
+        <div class="stats" id="sig-stats"></div>
+        <div class="sig-bar">
+          <div class="seg" role="group" aria-label="Show" id="sig-view"></div>
+          <span class="fine" id="sig-since"></span>
         </div>
-        <div class="panel" id="track" hidden>
-          <div class="head-row" style="margin-bottom:14px">
-            <div>
-              <h3>Track record</h3>
-              <p class="intro" style="margin:0" id="track-intro"></p>
-            </div>
-            <label class="pick">List published on
-              <select id="track-date"></select>
-            </label>
-          </div>
-          <div class="stats" id="track-stats"></div>
-          <p class="note-line" id="track-wait" hidden style="margin:0 0 14px">This list was published at the latest close, so returns start counting after the next trading day.</p>
-          <div class="tbl-wrap">
-            <table>
-              <thead><tr><th>Company</th><th>Today</th><th class="num">Return since</th><th class="num">vs S&amp;P 500</th></tr></thead>
-              <tbody id="track-rows"></tbody>
-            </table>
-          </div>
-        </div>
+        <div class="tbl-wrap"><table class="sig-table"><thead id="sig-head"></thead><tbody id="sig-rows"></tbody></table></div>
+        <p class="note-line" id="sig-foot"></p>
       </div>
       <a class="callout" href="https://rebounder.zetatobi.com/">
         <span>
-          <span class="lbl">Behind this list</span>
+          <span class="lbl">Where these come from</span>
           <strong>Rebounder</strong>
-          <span class="txt">The screening app that finds these companies each day. Open it to explore the full screen, not only the names shown here.</span>
+          <span class="txt">The screening app behind these signals. Open it to see every stock under each strategy, change the rules, and test them on real price history.</span>
         </span>
         <span class="callout-go">Open Rebounder <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
       </a>
-      <p class="note-line">A place on this list means a company meets the criteria above. It is not a recommendation.</p>
+      <p class="note-line">Signals come from fixed rules applied the same way to every stock. They are a record of what the rules do, not a recommendation to buy or sell anything. Returns are hypothetical and exclude costs and taxes.</p>
     </div>
   </section>
 
@@ -394,7 +407,7 @@
       <div class="method">
         <div><h3>Closing prices only</h3><p>Returns use adjusted daily closes, so dividends and splits are accounted for. Nothing on this page is estimated or back-filled.</p></div>
         <div><h3>Relative to peers</h3><p>Valuations are compared with the median of the same industry, and analyst targets are weighted toward the most recent revisions.</p></div>
-        <div><h3>Measured in public</h3><p>Every flag and position is recorded with its date and compared with the S&amp;P 500, whether it worked or not.</p></div>
+        <div><h3>Measured in public</h3><p>Every signal is recorded forward from the day it appears, never back-filled, and compared with the S&amp;P 500 over the same days, whether it worked or not.</p></div>
       </div>
     </div>
   </section>
@@ -429,7 +442,7 @@
   function day(s) { return new Date(s + 'T12:00:00').toLocaleDateString('en-CA', { year: 'numeric', month: 'short', day: 'numeric' }); }
   document.getElementById('yr').textContent = new Date().getFullYear();
 
-  var has = { watch: !!(D.watch && D.watch.length), portfolio: !!(D.portfolio && D.portfolio.holdings.length), notes: !!(D.notes && D.notes.length) };
+  var has = { signals: !!(D.signals && D.signals.strategies && D.signals.strategies.length), portfolio: !!(D.portfolio && D.portfolio.holdings.length), notes: !!(D.notes && D.notes.length) };
   document.querySelectorAll('[data-need]').forEach(function (n) { if (!has[n.getAttribute('data-need')]) n.hidden = true; });
 
   function sparkSVG(pts, up) {
@@ -503,10 +516,44 @@
 
   function usd(v) { return v == null ? 'n/a' : '$' + Math.round(v).toLocaleString('en-US'); }
   function gain(v) { return v == null ? 'n/a' : (v >= 0 ? '+' : '\u2212') + '$' + Math.abs(Math.round(v)).toLocaleString('en-US'); }
+  function seriesFor(it, p) {
+    if (!it.px || !D.cal) return null;
+    var cy = /^cy/.test(p), longP = p === '3y' || p === '5y' || cy, dates = longP ? D.cal.w : D.cal.d, v = longP ? it.px.w : it.px.d, n = dates.length, from;
+    if (p === '1m') from = n - 22; else if (p === '3m') from = n - 64; else if (p === '1y') from = 0; else if (p === '3y') from = n - 158; else if (p === '5y') from = n - 262;
+    else if (p === 'ytd') { var y = dates[n - 1].slice(0, 4); from = dates.findIndex(function (d) { return d.slice(0, 4) === y; }) - 1; }
+    else if (cy) { var pd = (D.periods || {})[p]; if (!pd) return null; from = dates.findIndex(function (d) { return d >= pd[0]; }); var to = dates.findIndex(function (d) { return d > pd[1]; }); if (to > 0) { dates = dates.slice(0, to); v = v.slice(0, to); n = dates.length; } }
+    from = Math.max(0, from || 0);
+    return { d: dates.slice(from), v: v.slice(from) };
+  }
+  function lineChartHTML(it) {
+    var sr = seriesFor(it, S.p); if (!sr || sr.v.length < 3 || sr.v[0] == null) return '';
+    var ref = null; (D.groups[S.m] || []).forEach(function (g) { g.items.forEach(function (x) { if (x.t === 'SPY') ref = x; }); });
+    var rb = ref && it.t !== 'SPY' ? seriesFor(ref, S.p) : null;
+    var base = sr.v[0], P = sr.v.map(function (x) { return x == null ? null : (x / base - 1) * 100; });
+    var Bv = rb && rb.v[0] ? rb.v.map(function (x) { return x == null ? null : (x / rb.v[0] - 1) * 100; }) : null;
+    var W = 900, H = 230, L = 46, Rr = 12, T = 12, Bt = 24, n = P.length;
+    var all = P.concat(Bv || [], [0]).filter(function (x) { return x != null; });
+    var lo = Math.min.apply(null, all), hi = Math.max.apply(null, all), pad = Math.max(0.5, (hi - lo) * 0.08); lo -= pad; hi += pad;
+    function X(i) { return L + i * (W - L - Rr) / Math.max(1, n - 1); } function Y(v) { return T + (1 - (v - lo) / (hi - lo)) * (H - T - Bt); }
+    function path(a) { var d = '', on = false; a.forEach(function (v, i) { if (v == null) { on = false; return; } d += (on ? 'L' : 'M') + X(i).toFixed(1) + ' ' + Y(v).toFixed(1); on = true; }); return d; }
+    var g = '', k;
+    for (k = 0; k <= 4; k++) { var gv = lo + (hi - lo) * k / 4; g += '<line x1="' + L + '" x2="' + (W - Rr) + '" y1="' + Y(gv).toFixed(1) + '" y2="' + Y(gv).toFixed(1) + '" stroke="rgba(239,244,251,0.07)"/><text x="' + (L - 6) + '" y="' + (Y(gv) + 4).toFixed(1) + '" text-anchor="end">' + pct(gv, 0) + '</text>'; }
+    var ticks = 4, fmt = n > 80 ? { month: 'short', year: '2-digit' } : { month: 'short', day: 'numeric' };
+    for (k = 0; k < ticks; k++) { var ti = Math.round((n - 1) * k / (ticks - 1)); g += '<text x="' + X(ti).toFixed(1) + '" y="' + (H - 6) + '" text-anchor="' + (k === 0 ? 'start' : k === ticks - 1 ? 'end' : 'middle') + '">' + new Date(sr.d[ti] + 'T12:00:00').toLocaleDateString('en-CA', fmt) + '</text>'; }
+    var end = P[n - 1], mx = Math.max.apply(null, P.filter(function (x) { return x != null; })), mn = Math.min.apply(null, P.filter(function (x) { return x != null; }));
+    var col = end >= 0 ? '#6FE3B5' : '#FF8A8A';
+    return '<div class="spark-dive"><div class="cap"><span><b>' + esc(it.name) + '</b> ' + day(sr.d[0]) + ' to ' + day(sr.d[n - 1]) + '</span><span>Change <b class="' + cls(end) + '">' + pct(end) + '</b> &middot; High ' + pct(mx) + ' &middot; Low ' + pct(mn) + '</span></div>' +
+      '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + esc(it.name) + ' price change over the selected period">' + g +
+      '<line x1="' + L + '" x2="' + (W - Rr) + '" y1="' + Y(0).toFixed(1) + '" y2="' + Y(0).toFixed(1) + '" stroke="rgba(239,244,251,0.28)"/>' +
+      (Bv ? '<path d="' + path(Bv) + '" fill="none" stroke="rgba(239,244,251,0.5)" stroke-width="1.6" stroke-dasharray="5 5"/>' : '') +
+      '<path d="' + path(P) + '" fill="none" stroke="' + col + '" stroke-width="2.4" stroke-linejoin="round"/>' +
+      '<circle cx="' + X(n - 1).toFixed(1) + '" cy="' + Y(end).toFixed(1) + '" r="4" fill="' + col + '"/></svg>' +
+      '<div class="legend" style="margin-top:0"><span><i style="background:' + col + '"></i>' + esc(it.name) + '</span>' + (Bv ? '<span><i style="background:rgba(239,244,251,0.5)"></i>S&amp;P 500 (total return)</span>' : '') + '<span>Weekly points for 3Y, 5Y and calendar years; daily otherwise.</span></div></div>';
+  }
   function diveHTML(s) {
     var p = S.p, a = s.about, tot = s.ret[S.c].tot ? s.ret[S.c].tot[p] : null, dates = (D.periods || {})[p];
     var B = D.bench[S.m], bt = B && B.ret[S.c].tot ? B.ret[S.c].tot[p] : null, base = 100000, isRef = s.t === 'SPY';
-    var h = '<div class="dive" role="region" aria-label="' + esc(a.fund) + '"><h4>' + esc(a.fund) + '<span>' + esc(s.t) + '</span></h4>' +
+    var h = '<div class="dive" role="region" aria-label="' + esc(a.fund) + '"><h4>' + esc(a.fund) + '<span>' + esc(s.t) + '</span></h4>' + lineChartHTML(s) +
       '<div class="cols"><div><span class="lbl">What it is</span><p>' + esc(a.what) + '</p></div><div><span class="lbl">How it tends to behave</span><p>' + esc(a.tends) + '</p></div></div>';
     if (tot == null) return h + '<p class="fine">There is not enough price history to show this period.</p></div>';
     var diff = bt == null ? null : tot - bt;
@@ -533,28 +580,33 @@
     document.getElementById('grp-desc').textContent = g.desc + (pl ? ' ' + pl : '') + (D.ccys && D.ccys.length > 1 ? ' Returns in ' + S.c + '.' : '');
     var p = S.p, B = D.bench[S.m], b = B ? B.ret[S.c][p] : null;
     document.getElementById('bench-label').textContent = (B ? B.name : 'Benchmark') + (D.ccys && D.ccys.length > 1 ? ' (' + S.c + ')' : '');
-    document.getElementById('grp-hint').hidden = !g.items.some(function (x) { return x.about; });
+    var hint = document.getElementById('grp-hint');
+    hint.textContent = g.items.some(function (x) { return x.about; }) ? 'Select a style to see its chart, how it is built and what $100,000 would have done.' : 'Select any row to see its chart for this period.';
+    hint.hidden = !g.items.some(function (x) { return x.about || x.px; });
     var rows = g.items.filter(function (s) { return s.ret[S.c][p] != null; }).sort(function (a, c) { return c.ret[S.c][p] - a.ret[S.c][p]; });
     var vals = rows.map(function (s) { return s.ret[S.c][p]; }).concat(b == null ? [] : [b], [0]);
     var mn = Math.min.apply(null, vals), mx = Math.max.apply(null, vals), span = (mx - mn) || 1;
     function X(v) { return (v - mn) / span * 100; }
     document.getElementById('sec-bars').innerHTML = rows.map(function (s) {
       var v = s.ret[S.c][p], a = X(Math.min(0, v)), w = Math.abs(X(v) - X(0)), tk = s.t.replace('.TO', '').replace('=F', '');
-      var ex = !!s.about, open = ex && S.open === s.t;
+      var ex = !!(s.about || s.px), open = ex && S.open === s.t;
       return '<div class="bar-row' + (ex ? ' expandable' : '') + '"' + (ex ? ' role="button" tabindex="0" aria-expanded="' + open + '" data-t="' + esc(s.t) + '"' : '') + '><div class="k" title="' + esc(s.t) + '"><b>' + esc(tk) + '</b>' + esc(s.name) + '</div><div class="bar-track">' +
         '<span class="zero" style="left:' + X(0) + '%"></span>' + (b == null ? '' : '<span class="bench" style="left:' + X(b) + '%"></span>') +
         '<span class="bar-fill ' + (v >= 0 ? 'up' : 'down') + '" style="left:' + a + '%;width:' + Math.max(w, 0.4) + '%"></span></div>' +
-        '<div class="v ' + cls(v) + '">' + pct(v) + '</div></div>' + (open ? diveHTML(s) : '');
+        '<div class="v ' + cls(v) + '">' + pct(v) + '</div></div>' + (open ? (s.about ? diveHTML(s) : '<div class="dive chart-only">' + lineChartHTML(s) + '</div>') : '');
     }).join('');
   }
   function toggleRow(e) {
     if (e.type === 'keydown' && e.key !== 'Enter' && e.key !== ' ') return;
     var r = e.target.closest('.bar-row.expandable'); if (!r) return;
-    e.preventDefault(); S.open = S.open === r.dataset.t ? null : r.dataset.t; renderGroups();
+    e.preventDefault(); e.stopPropagation(); S.open = S.open === r.dataset.t ? null : r.dataset.t; renderGroups();
     var again = document.querySelector('.bar-row.expandable[data-t="' + r.dataset.t + '"]'); if (again && e.type === 'keydown') again.focus();
   }
   document.getElementById('sec-bars').addEventListener('click', toggleRow);
   document.getElementById('sec-bars').addEventListener('keydown', toggleRow);
+  // Only one row is ever open; clicking anywhere outside the list, or pressing Escape, closes it.
+  document.addEventListener('click', function (e) { if (S.open && !e.target.closest('#sec-bars') && !e.target.closest('#sec-period') && !e.target.closest('#cal-year')) { S.open = null; renderGroups(); } });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && S.open) { S.open = null; renderGroups(); } });
 
   function renderAll() {
     segSet('sec-period', S.p);
@@ -575,46 +627,72 @@
   document.getElementById('sec-period').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; S.p = b.dataset.p; cy.value = ''; cy.classList.remove('on'); segSet('sec-period', S.p); renderGroups(); });
   renderAll();
 
-  /* Value watch */
-  try { if (has.watch) {
-    var R = D.watchRules;
-    document.getElementById('watch-intro').textContent = 'Large US-listed companies, worth more than $' + (R.min_cap / 1e9) + ' billion, whose forward P/E is at least ' + R.min_pe_discount + '% below their industry median, that trade at least ' + R.min_off_high + '% below their 52-week high, and where recent analyst price targets sit at least ' + R.min_upside + '% above the current price.';
-    document.getElementById('watch-count').textContent = D.watch.length + (D.watch.length === 1 ? ' company' : ' companies');
-    document.getElementById('watch-rows').innerHTML = D.watch.map(function (m) {
-      return '<tr><td><a href="https://rebounder.zetatobi.com/"><b>' + esc(m.ticker) + '</b></a><span class="sub">' + esc(m.name) + '</span></td>' +
-        '<td>' + esc(m.sector) + '<span class="sub">' + esc(m.industry) + '</span></td>' +
-        '<td class="num">' + num(m.price, 2) + '</td><td class="num">' + num(m.pe, 1) + '</td><td class="num">' + num(m.peerPe, 1) + '<span class="sub">' + pct(-m.peDiscount, 0) + ' vs peers</span></td>' +
-        '<td class="num">' + pct(-m.offHigh) + '</td><td class="num">' + pct(m.upside) + '</td></tr>';
-    }).join('');
-    var T = D.track;
-    if (T && T.cohorts && T.cohorts.length) {
-      document.getElementById('track').hidden = false;
-      document.getElementById('track-intro').textContent = 'What happened to each published list if every company on it was held in equal amounts from that day\u2019s close to today, compared with the S&P 500 over the same period.';
-      var sel = document.getElementById('track-date');
-      sel.innerHTML = T.cohorts.map(function (c, i) { return '<option value="' + i + '">' + day(c.date) + ' (' + c.rows.length + (c.rows.length === 1 ? ' company' : ' companies') + ')</option>'; }).join('');
-      function showCohort(i) {
-        var c = T.cohorts[i], n = c.rows.length, avg = 0, beat = 0;
-        c.rows.forEach(function (x) { avg += x.ret; if (c.bench != null && x.ret > c.bench) beat++; }); avg /= n;
-        var fresh = c.date >= D.asOf;
-        document.getElementById('track-wait').hidden = !fresh;
-        document.getElementById('track-stats').innerHTML =
-          '<div class="stat"><span>Average return</span><b class="' + (fresh ? 'flat' : cls(avg)) + '">' + pct(avg) + '</b><em>Equal weight, since ' + day(c.date) + '</em></div>' +
-          '<div class="stat"><span>S&amp;P 500</span><b>' + pct(c.bench) + '</b><em>Same period</em></div>' +
-          '<div class="stat"><span>Difference</span><b class="' + (fresh ? 'flat' : cls(avg - c.bench)) + '">' + pct(c.bench == null ? null : avg - c.bench) + '</b><em>Percentage points</em></div>' +
-          '<div class="stat"><span>Beat the S&amp;P 500</span><b>' + beat + ' of ' + n + '</b><em>' + Math.round(beat / n * 100) + '% of companies</em></div>';
-        document.getElementById('track-rows').innerHTML = c.rows.map(function (x) {
-          var d = c.bench == null ? null : x.ret - c.bench;
-          return '<tr><td><b>' + esc(x.ticker) + '</b><span class="sub">' + esc(x.name) + '</span></td>' +
-            '<td>' + (x.on ? '<span class="badge">Still on the watch</span>' : '<span class="badge off">Left the list</span>') + '</td>' +
-            '<td class="num ' + (fresh ? 'flat' : cls(x.ret)) + '">' + pct(x.ret) + '</td><td class="num ' + (fresh ? 'flat' : cls(d)) + '">' + pct(d) + '</td></tr>';
-        }).join('');
+  /* Strategy signals */
+  try { if (has.signals) {
+    var G = D.signals, SS = { s: G.strategies[0].id, v: 'open' };
+    var KIND = { vwap: 'day\u2019s VWAP', dayavg: 'day\u2019s average', ladder: 'avg of limit fills', open: 'open' };
+    var money = function (v) { return v == null ? 'n/a' : '$' + num(v, 2); };
+    var when = function (ts, hourly) {
+      var d = new Date(ts * 1000), o = { timeZone: 'America/New_York' };
+      var ds = d.toLocaleDateString('en-CA', Object.assign({ year: 'numeric', month: 'short', day: 'numeric' }, o));
+      return hourly ? ds + '<span class="sub">' + d.toLocaleTimeString('en-US', Object.assign({ hour: 'numeric', minute: '2-digit' }, o)) + ' ET</span>' : ds;
+    };
+    var reasonChip = function (r) {
+      var c = /^Stop/.test(r) ? 'bad' : r === 'Target' ? 'good' : '';
+      return '<span class="chip ' + c + '">' + esc(r || 'Closed') + '</span>';
+    };
+    if (!G.meta.fresh) { var fw = document.getElementById('sig-fresh'); fw.hidden = false; fw.textContent = 'Rebounder\u2019s signals could not be refreshed today. This is the last saved record' + (G.meta.asOf ? ', from ' + day(String(G.meta.asOf).slice(0, 10)) : '') + '.'; }
+    function renderSignals() {
+      var st = G.strategies.filter(function (x) { return x.id === SS.s; })[0]; if (!st) return;
+      var hourly = st.tf === '1h', A = st.stats;
+      document.getElementById('sig-tabs').innerHTML = G.strategies.map(function (x) { return '<button role="tab" data-v="' + x.id + '" aria-pressed="' + (x.id === SS.s) + '" aria-selected="' + (x.id === SS.s) + '">' + esc(x.short) + '</button>'; }).join('');
+      var filt = st.usesValue || st.usesAnalyst ? ' Only stocks cheap against their peers and with analyst upside qualify.' : '';
+      document.getElementById('sig-desc').innerHTML = '<b>' + esc(st.name) + '.</b> ' + esc(st.tagline) + filt + ' Runs on ' + esc(st.tfLabel) + ' bars. <b>Exit:</b> ' + esc(st.exitRule) + '.';
+      var wr = A.closed ? Math.round(A.wins / A.closed * 100) : null;
+      document.getElementById('sig-stats').innerHTML =
+        '<div class="stat"><span>Open now</span><b>' + A.open + '</b><em>' + (A.open === 1 ? 'position' : 'positions') + ' held by the rules</em></div>' +
+        '<div class="stat"><span>Closed trades</span><b class="wl">' + (A.closed ? '<i class="w">' + A.wins + ' W</i><i class="l">' + A.losses + ' L</i>' : '0') + '</b><em>' + (A.closed ? wr + '% winners' : 'None closed yet') + '</em></div>' +
+        '<div class="stat"><span>Average closed trade</span><b class="' + cls(A.avg) + '">' + pct(A.avg) + '</b><em>' + (A.avgBench == null ? 'S&amp;P 500 comparison when available' : 'S&amp;P 500 same days ' + pct(A.avgBench)) + '</em></div>' +
+        '<div class="stat"><span>Best / worst</span><b>' + (A.closed ? '<i class="' + cls(A.best) + '">' + pct(A.best, 0) + '</i> <i class="flat">/</i> <i class="' + cls(A.worst) + '">' + pct(A.worst, 0) + '</i>' : 'n/a') + '</b><em>Single closed trade</em></div>';
+      document.getElementById('sig-view').innerHTML = '<button data-v="open" aria-pressed="' + (SS.v === 'open') + '">Open (' + A.open + ')</button><button data-v="closed" aria-pressed="' + (SS.v === 'closed') + '">Closed (' + A.closed + ')</button>';
+      document.getElementById('sig-since').textContent = 'Recorded since ' + day(G.started) + (G.meta.asOf ? ' \u00b7 signals as of ' + new Date(G.meta.asOf).toLocaleString('en-US', { timeZone: 'America/New_York', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }) + ' ET' : '');
+      var head = document.getElementById('sig-head'), body = document.getElementById('sig-rows'), foot = [], pre = false;
+      var co = function (r) { return '<td><b><a href="https://rebounder.zetatobi.com/">' + esc(r.t) + '</a></b><span class="sub">' + esc(r.name) + '</span></td>'; };
+      if (SS.v === 'open') {
+        var ladder = st.id === 'rebound';
+        head.innerHTML = '<tr><th>Company</th><th>Signal</th><th class="num">Entry</th><th class="num">Now</th><th class="num">Return</th><th class="num">vs S&amp;P 500</th><th class="num">Stop</th>' + (ladder ? '<th>Buying in thirds</th>' : '') + '</tr>';
+        body.innerHTML = st.open.length ? st.open.map(function (r) {
+          if (r.pre) pre = true;
+          var d = r.bench == null || r.ret == null ? null : r.ret - r.bench;
+          var stop = r.stop == null ? '<span class="flat">None</span><span class="sub">' + (st.id === 'momentum' ? 'monthly check' : 'rule or time exit') + '</span>'
+            : money(r.stop) + '<span class="sub">' + (r.nearStop ? '<span class="chip warn">Near: ' + pct(-r.toStop) + '</span>' : pct(-r.toStop) + ' away') + '</span>';
+          var build = '';
+          if (ladder) {
+            var dots = ''; for (var k = 0; k < (r.of || 3); k++) dots += '<i class="' + (k < (r.filled || 0) ? 'on' : '') + '"></i>';
+            build = '<td><span class="dots">' + dots + '</span>' + (r.filled || 0) + ' of ' + (r.of || 3) + (r.nextBuy ? '<span class="sub">Next at ' + money(r.nextBuy) + ', ' + pct(r.toNextBuy) + ' from here</span>' : '<span class="sub">Fully bought</span>') + '</td>';
+          }
+          return '<tr>' + co(r) + '<td>' + when(r.entryTime, hourly) + (r.pre ? ' \u2020' : '') + '</td><td class="num">' + money(r.entryRef) + '<span class="sub">' + (KIND[r.entryKind] || '') + '</span></td>' +
+            '<td class="num">' + money(r.last) + '</td><td class="num ' + cls(r.ret) + '">' + pct(r.ret) + '</td><td class="num ' + cls(d) + '">' + pct(d) + '</td><td class="num">' + stop + '</td>' + build + '</tr>';
+        }).join('') : '<tr><td colspan="' + (ladder ? 8 : 7) + '" class="sig-empty">The rules hold no positions right now. New signals appear here after the next refresh that finds one.</td></tr>';
+        if (ladder) foot.push('Buying in thirds: the rules place three limit orders inside the entry zone. If price keeps falling, the next third buys lower, which improves the average entry.');
+        foot.push('Entry is the price a person could realistically get: the day\u2019s volume-weighted average price for strategies that buy at the open, or the average of the filled limit orders.');
+      } else {
+        head.innerHTML = '<tr><th>Company</th><th>Entered</th><th>Exited</th><th>Result</th><th class="num">Entry</th><th class="num">Exit</th><th class="num">Return</th><th class="num">vs S&amp;P 500</th></tr>';
+        body.innerHTML = st.closed.length ? st.closed.map(function (r) {
+          if (r.pre) pre = true;
+          var d = r.bench == null || r.ret == null ? null : r.ret - r.bench;
+          return '<tr>' + co(r) + '<td>' + when(r.entryTime, hourly) + (r.pre ? ' \u2020' : '') + '</td><td>' + (r.exitTime ? when(r.exitTime, hourly) : 'n/a') + '</td><td>' + reasonChip(r.reason) + '</td>' +
+            '<td class="num">' + money(r.entryRef) + '</td><td class="num">' + money(r.exit) + '</td><td class="num ' + cls(r.ret) + '"><b>' + pct(r.ret) + '</b></td><td class="num ' + cls(d) + '">' + pct(d) + '</td></tr>';
+        }).join('') : '<tr><td colspan="8" class="sig-empty">No closed trades yet since recording began on ' + day(G.started) + '. Each exit will be listed here, winners and losers.</td></tr>';
+        foot.push('Every exit stays listed, including stops. A trade counts as a win when it closed above its entry price.');
       }
-      sel.addEventListener('change', function () { showCohort(+sel.value); });
-      showCohort(0);
+      if (pre) foot.push('\u2020 Already open when recording began, so its entry date is before ' + day(G.started) + '.');
+      document.getElementById('sig-foot').textContent = foot.join(' ');
     }
-  }
-
-  } catch (e) { console.error(e); }
+    document.getElementById('sig-tabs').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; SS.s = b.dataset.v; renderSignals(); });
+    document.getElementById('sig-view').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; SS.v = b.dataset.v; renderSignals(); });
+    renderSignals();
+  } } catch (e) { console.error(e); }
 
   /* Tracked portfolio */
   if (has.portfolio) {
