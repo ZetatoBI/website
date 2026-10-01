@@ -16,6 +16,7 @@ import gzip
 import html
 import json
 import math
+import os
 import sys
 import urllib.request
 from datetime import date, datetime, timezone
@@ -41,7 +42,7 @@ SITE = "https://zetatobi.com"
 NY = ZoneInfo("America/New_York")
 # Must match the marker at the top of insights/template.html. Bump both together whenever the data
 # format changes, so a half-finished upload can never publish a broken page.
-TEMPLATE_VERSION = "v7"
+TEMPLATE_VERSION = "v8"
 REBOUNDER = "https://rebounder.zetatobi.com/data/screen.json"
 BENCH = "^GSPC"
 
@@ -675,6 +676,93 @@ def price_only(tickers, period="15y"):
     return closes, splits
 
 
+# ---------------------------------------------------------------- sector valuation (from Rebounder's screen and its archive)
+VAL_FIELDS = ("fwdPE", "evEbitda", "ps", "fcfYield", "divYield")
+
+
+def _median(xs):
+    xs = sorted(x for x in xs if x is not None and math.isfinite(x))
+    if not xs:
+        return None
+    m = len(xs) // 2
+    return xs[m] if len(xs) % 2 else (xs[m - 1] + xs[m]) / 2
+
+
+def _group_stats(stocks):
+    out = {"n": len(stocks)}
+    for f in VAL_FIELDS:
+        vals = [num(s.get(f)) for s in stocks]
+        if f in ("fwdPE", "evEbitda", "ps"):
+            vals = [v for v in vals if v is not None and v > 0]    # negative earnings make a multiple meaningless
+        out[f] = rnd(_median(vals), 1)
+    return out
+
+
+def sector_valuation(raw_screen):
+    """Median valuation of each sector and industry across the large US companies in Rebounder's screen,
+    with the range of each sector's daily median across every archived screen (history grows daily)."""
+    days = {}
+    for path in sorted((ARCHIVE / "screens").glob("*/*.json.gz")):
+        try:
+            with gzip.open(path, "rt", encoding="utf-8") as fh:
+                days[path.name[:10]] = json.load(fh).get("stocks", [])
+        except Exception:
+            pass
+    if raw_screen and raw_screen.get("stocks"):
+        days[screen_date(raw_screen.get("meta"), date.today().isoformat())] = raw_screen["stocks"]
+    if not days:
+        return None
+    latest_day = max(days)
+    stocks = [s for s in days[latest_day] if s.get("sector")]
+    hist = {}
+    for d, st in days.items():
+        for sec in {s.get("sector") for s in st if s.get("sector")}:
+            m = _median([num(s.get("fwdPE")) for s in st if s.get("sector") == sec and (num(s.get("fwdPE")) or 0) > 0])
+            if m is not None:
+                hist.setdefault(sec, []).append(m)
+    sectors = []
+    for sec in sorted({s["sector"] for s in stocks}):
+        group = [s for s in stocks if s["sector"] == sec]
+        inds = []
+        for ind in sorted({s.get("industry") or "Other" for s in group}):
+            ig = [s for s in group if (s.get("industry") or "Other") == ind]
+            inds.append({"name": ind, **_group_stats(ig)})
+        inds.sort(key=lambda x: -(x["fwdPE"] or 0))
+        h = hist.get(sec, [])
+        sectors.append({"name": sec, **_group_stats(group), "industries": inds,
+                        "hist": {"days": len(h), "min": rnd(min(h), 1) if h else None, "max": rnd(max(h), 1) if h else None,
+                                 "median": rnd(_median(h), 1)}})
+    sectors.sort(key=lambda x: -(x["fwdPE"] or 0))
+    return {"asOf": latest_day, "since": min(days), "days": len(days), "overall": _group_stats(stocks), "sectors": sectors}
+
+
+def shared_context(leg, pe):
+    """Facts that help explain a shared move: the stock's price path and valuation. Not a reason, just context."""
+    if not leg or not leg.get("shared"):
+        return
+    tickers = [e["t"] for e in leg["shared"] if e.get("t")]
+    closes, _ = price_only(tickers, period="2y")
+    sec_pe = {s["name"]: s["fwdPE"] for s in (pe or {}).get("sectors", [])}
+    for e in leg["shared"]:
+        t, px = e.get("t"), closes.get(e.get("t"))
+        period = e["funds"][0]["period"]
+        if px is not None and len(px):
+            end = px[px.index <= pd.Timestamp(period)]
+            start = px[px.index <= pd.Timestamp(period) - pd.offsets.QuarterEnd(1)]
+            if len(end) and len(start):
+                e["qtrRet"] = rnd((float(end.iloc[-1]) / float(start.iloc[-1]) - 1) * 100, 1)
+            e["sinceRet"] = rnd((float(px.iloc[-1]) / float(end.iloc[-1]) - 1) * 100, 1) if len(end) else None
+            yr = px[px.index > px.index[-1] - pd.Timedelta(days=365)]
+            e["offHigh"] = rnd((1 - float(px.iloc[-1]) / float(yr.max())) * 100, 1) if len(yr) else None
+        try:
+            info = yf.Ticker(t).info if t else {}
+        except Exception:
+            info = {}
+        e["fwdPE"] = rnd(num(info.get("forwardPE")), 1)
+        e["sector"], e["industry"] = info.get("sector"), info.get("industry")
+        e["sectorPE"] = sec_pe.get(e["sector"])
+
+
 # ---------------------------------------------------------------- strategy signals (from Rebounder)
 SIGNALS_URL = "https://rebounder.zetatobi.com/data/signals.json"
 SIGNAL_HISTORY = INS / "data" / "signal-history.json"
@@ -951,6 +1039,12 @@ def main():
     vti, _ = price_only([valuation.MARKET_PROXY], period="2y")
     val = valuation.build(vti.get(valuation.MARKET_PROXY))
     leg = legends.build(content, INS / "data", price_only)
+    pe = sector_valuation(raw_screen)
+    shared_context(leg, pe)
+    summary_file = os.environ.get("GITHUB_STEP_SUMMARY")
+    if summary_file:
+        with open(summary_file, "a", encoding="utf-8") as fh:
+            fh.write(legends.summary_markdown())
 
     data = {
         "asOf": as_of,
@@ -960,7 +1054,7 @@ def main():
         "charts": candle_block(),
         "periods": period_dates(closes[BENCH]),
         "holdingsAsOf": holdings_asof,
-        "cal": cal, "valuation": val, "legends": leg,
+        "cal": cal, "valuation": val, "legends": leg, "pe": pe,
         "portfolio": portfolio_block(content, closes),
         "notes": content.get("notes", []),
     }

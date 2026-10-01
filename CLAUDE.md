@@ -21,7 +21,14 @@ which runs `pipeline/build_insights.py`.
   plus a daily estimate labelled as such. **Legends** (`pipeline/legends.py`): SEC 13F holdings for the funds in
   `LEGENDS` (or `content.json` "legends"). Each CIK is checked against EDGAR's company name before use.
   Filings are cached in `insights/data/legends/` (immutable, safe to keep; deleting forces a full re-download).
-  Average cost is an estimate and must stay labelled as one. Berkshire's cash comes from `content.json`
+  Avg purchase price is an estimate and must stay labelled as one. A fund can span several CIKs (`ciks` list,
+  e.g. Pershing Square moved to Pershing Square Inc., 2026053). Every run checks each filing's totals against
+  its own summary page, checks each ticker against the filing's quarter-end prices (mismatch: prices hidden),
+  and flags funds missing the latest quarter after the 45-day deadline. Results go to the Actions run summary.
+  `content.json` "reportedCost" holds costs a fund itself publishes (Berkshire's annual report), labelled
+  "reported". "Moved by more than one legend" shows facts only, never a guessed reason.
+- **Performance > Valuation tab:** sector and industry medians (forward P/E, EV/EBITDA, P/S, yields) of the
+  ~120 large companies in Rebounder's screen, with each sector's range over the archived screens. Berkshire's cash comes from `content.json`
   "berkshireCash" (update it from each quarterly report). "reported" holds self-reported moves (e.g. from an
   investor's own posts) with a date and source link; they must stay badged as not an SEC filing.
 - **Strategy signals:** no longer shown on Insights (Rebounder shows them), but the pipeline still records them. The pipeline reads `https://rebounder.zetatobi.com/data/signals.json` (built by the

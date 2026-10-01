@@ -3,8 +3,28 @@
   "holdings": [],
   "notes": [],
   "berkshireCash": [
-    { "date": "2026-03-31", "usdB": 380.2, "source": "Berkshire Hathaway Q1 2026 report (record)" },
-    { "date": "2026-06-30", "usdB": 364.7, "source": "Berkshire Hathaway Q2 2026 report" }
+    {
+      "date": "2026-03-31",
+      "usdB": 380.2,
+      "source": "Berkshire Hathaway Q1 2026 report (record)"
+    },
+    {
+      "date": "2026-06-30",
+      "usdB": 364.7,
+      "source": "Berkshire Hathaway Q2 2026 report"
+    }
   ],
-  "reported": []
+  "reported": [],
+  "reportedCost": {
+    "1067983": {
+      "AXP": {
+        "perShare": 8.49,
+        "source": "Berkshire Hathaway annual report: 151,610,700 shares at a cost of $1,287 million"
+      },
+      "KO": {
+        "perShare": 3.25,
+        "source": "Berkshire Hathaway annual report: 400,000,000 shares at a cost of $1,299 million"
+      }
+    }
+  }
 }
