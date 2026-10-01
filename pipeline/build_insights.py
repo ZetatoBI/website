@@ -26,6 +26,10 @@ from zoneinfo import ZoneInfo
 import pandas as pd
 import yfinance as yf
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import legends      # noqa: E402  SEC 13F holdings of well-known investors
+import valuation    # noqa: E402  Buffett indicator
+
 ROOT = Path(__file__).resolve().parent.parent
 INS = ROOT / "insights"
 TEMPLATE = INS / "template.html"
@@ -37,7 +41,7 @@ SITE = "https://zetatobi.com"
 NY = ZoneInfo("America/New_York")
 # Must match the marker at the top of insights/template.html. Bump both together whenever the data
 # format changes, so a half-finished upload can never publish a broken page.
-TEMPLATE_VERSION = "v6"
+TEMPLATE_VERSION = "v7"
 REBOUNDER = "https://rebounder.zetatobi.com/data/screen.json"
 BENCH = "^GSPC"
 
@@ -630,6 +634,47 @@ def update_history(watch, prices_now, bench, today):
 
 
 # ---------------------------------------------------------------- tracked portfolio
+# ---------------------------------------------------------------- price-only history for the legends and valuation
+SPLITS_FILE = INS / "data" / "legends" / "splits.json"
+
+
+def price_only(tickers, period="15y"):
+    """Daily closes adjusted for splits but not dividends (what a holder's price return looks like),
+    plus each ticker's split history (cached, refreshed weekly)."""
+    tickers = sorted(set(t for t in tickers if t))
+    closes = {}
+    if tickers:
+        try:
+            raw = yf.download(tickers, period=period, interval="1d", auto_adjust=False, group_by="ticker",
+                              progress=False, threads=True)
+            for t in tickers:
+                try:
+                    sr = (raw[t] if isinstance(raw.columns, pd.MultiIndex) else raw)["Close"].dropna()
+                    if len(sr):
+                        sr.index = pd.to_datetime(sr.index).tz_localize(None).normalize()
+                        closes[t] = sr
+                except (KeyError, TypeError):
+                    pass
+        except Exception as e:
+            print(f"Price-only download failed: {e}", file=sys.stderr)
+    cache = load_json(SPLITS_FILE, {"asOf": None, "splits": {}})
+    stale = cache.get("asOf") is None or (datetime.now(timezone.utc).date() - date.fromisoformat(cache["asOf"])).days >= 7
+    for t in tickers:
+        if stale or t not in cache["splits"]:
+            try:
+                sp = yf.Ticker(t).splits
+                cache["splits"][t] = {pd.Timestamp(d).tz_localize(None).strftime("%Y-%m-%d"): float(r)
+                                      for d, r in (sp.items() if sp is not None else [])}
+            except Exception:
+                cache["splits"].setdefault(t, {})
+    if stale:
+        cache["asOf"] = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    SPLITS_FILE.parent.mkdir(parents=True, exist_ok=True)
+    SPLITS_FILE.write_text(json.dumps(cache, indent=0, sort_keys=True), encoding="utf-8")
+    splits = {t: pd.Series({pd.Timestamp(d): r for d, r in v.items()}, dtype=float) for t, v in cache["splits"].items()}
+    return closes, splits
+
+
 # ---------------------------------------------------------------- strategy signals (from Rebounder)
 SIGNALS_URL = "https://rebounder.zetatobi.com/data/signals.json"
 SIGNAL_HISTORY = INS / "data" / "signal-history.json"
@@ -901,8 +946,11 @@ def main():
 
     archive_screen(raw_screen, as_of)
     archive_prices([s["ticker"] for s in rebounder] + tickers, as_of)
-    sig = signal_block(signals, closes, as_of)
+    signal_block(signals, closes, as_of)     # keeps recording the strategy track record; shown in Rebounder now
     cal = chart_series(closes, groups)
+    vti, _ = price_only([valuation.MARKET_PROXY], period="2y")
+    val = valuation.build(vti.get(valuation.MARKET_PROXY))
+    leg = legends.build(content, INS / "data", price_only)
 
     data = {
         "asOf": as_of,
@@ -912,7 +960,7 @@ def main():
         "charts": candle_block(),
         "periods": period_dates(closes[BENCH]),
         "holdingsAsOf": holdings_asof,
-        "signals": sig, "cal": cal,
+        "cal": cal, "valuation": val, "legends": leg,
         "portfolio": portfolio_block(content, closes),
         "notes": content.get("notes", []),
     }
@@ -927,7 +975,7 @@ def main():
     OUT.write_text(build(template, data, summary), encoding="utf-8")
     write_sitemap(as_of)
     print(f"Built insights for {as_of}: {sum(len(g['items']) for m in groups.values() for g in m)} performance rows, "
-          f"signals {'fresh' if signals else 'unavailable'}, portfolio {'on' if data['portfolio'] else 'off'}.")
+          f"valuation {'on' if val else 'off'}, legends {len(leg['funds']) if leg else 0}, signals recorded {'yes' if signals else 'no'}.")
 
 
 if __name__ == "__main__":

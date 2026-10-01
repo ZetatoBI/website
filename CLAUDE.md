@@ -17,7 +17,14 @@ which runs `pipeline/build_insights.py`.
   A mismatch keeps the old page live and turns the run red on purpose.
 - `robots.txt` blocks `/pipeline/` and `/insights/data/` from search engines.
 - Canada support is built but off: `MARKETS = ("us",)` in the pipeline. Turning it on is a deliberate decision.
-- **Strategy signals:** the pipeline reads `https://rebounder.zetatobi.com/data/signals.json` (built by the
+- **Valuation** (`pipeline/valuation.py`): the Buffett indicator from FRED (Fed Z.1 `NCBEILQ027S` / BEA `GDP`),
+  plus a daily estimate labelled as such. **Legends** (`pipeline/legends.py`): SEC 13F holdings for the funds in
+  `LEGENDS` (or `content.json` "legends"). Each CIK is checked against EDGAR's company name before use.
+  Filings are cached in `insights/data/legends/` (immutable, safe to keep; deleting forces a full re-download).
+  Average cost is an estimate and must stay labelled as one. Berkshire's cash comes from `content.json`
+  "berkshireCash" (update it from each quarterly report). "reported" holds self-reported moves (e.g. from an
+  investor's own posts) with a date and source link; they must stay badged as not an SEC filing.
+- **Strategy signals:** no longer shown on Insights (Rebounder shows them), but the pipeline still records them. The pipeline reads `https://rebounder.zetatobi.com/data/signals.json` (built by the
   `ZetatoBI/Rebounder` repo with each strategy's default settings) and keeps a forward-only record in
   `insights/data/signal-history.json`. That file is the track record: never edit, rebuild, back-fill or delete
   it, and never drop losing trades from it. If signals are unavailable, the page shows the last saved record.
