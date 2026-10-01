@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- zetato-insights-template v7. Keep in step with TEMPLATE_VERSION in pipeline/build_insights.py -->
+<!-- zetato-insights-template v8. Keep in step with TEMPLATE_VERSION in pipeline/build_insights.py -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -193,6 +193,20 @@
   .mv-group h4 b { color: #fff; }
   .chip.new { background: rgba(142,193,255,0.16); color: var(--sky); }
   .self { border-style: dashed; }
+  .stale-note { font-size: 13px; color: var(--amber); background: rgba(245,181,68,0.12); border-radius: 8px; padding: 6px 10px; }
+  .cash-bar { height: 6px; border-radius: 4px; background: rgba(142,193,255,0.25); overflow: hidden; margin-top: 6px; }
+  .cash-bar i { display: block; height: 100%; background: var(--sky); }
+  .shared { margin: 0 0 18px; display: grid; gap: 10px; }
+  .shared h3 { margin: 0; font-size: 16px; }
+  .shared h3 span { font-weight: 400; color: var(--faint); font-size: 13px; margin-left: 8px; }
+  .sh-row { display: grid; grid-template-columns: minmax(150px, 0.8fr) minmax(0, 2fr); gap: 6px 18px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 12px; background: rgba(3,28,58,0.55); font-size: 14px; }
+  .sh-row .who { color: var(--dim); }
+  .sh-row .ctx { grid-column: 2; color: var(--faint); font-size: 13px; }
+  .sh-row .ctx a { color: var(--sky); }
+  .sh-row b.tk { font-size: 15px; margin-right: 6px; }
+  .sh-row .sub { display: block; color: var(--faint); font-size: 13px; margin-top: 4px; }
+  .chip.split { background: rgba(245,181,68,0.16); color: var(--amber); }
+  .pe-v { font-variant-numeric: tabular-nums; }
   .badge-rep { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 6px; background: rgba(245,181,68,0.16); color: var(--amber); }
   /* Signals */
   .sig-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 14px 20px; flex-wrap: wrap; margin-bottom: 18px; }
@@ -283,6 +297,7 @@
     .sticky-ctl .seg button { padding: 7px 10px; font-size: 13px; }
     .dive .cols { grid-template-columns: 1fr; gap: 16px; }
     .val, .lg-grid { grid-template-columns: 1fr; }
+    .sh-row { grid-template-columns: 1fr; } .sh-row .ctx { grid-column: 1; }
     .lg-detail { padding: 14px; }
     .dive { padding: 16px; }
     .dive th { white-space: normal; }
@@ -398,7 +413,7 @@
         <p class="group-desc" id="grp-desc"></p>
         <p class="hint" id="grp-hint" hidden>Select a style to see how it is built and what $100,000 would have done.</p>
         <div class="bars" id="sec-bars"></div>
-        <div class="legend"><span><i style="background:var(--amber);width:3px;height:12px;vertical-align:-1px"></i><span id="bench-label">S&amp;P 500</span> over the same period</span></div>
+        <div class="legend"><span><i style="background:var(--amber);width:3px;height:12px;vertical-align:-1px"></i><span id="bench-label">S&amp;P 500</span><span id="bench-tail"> over the same period</span></span></div>
       </div>
     </div>
   </section>
@@ -406,9 +421,10 @@
   <section id="legends" aria-labelledby="legends-title" data-need="legends">
     <div class="wrap">
       <h2 id="legends-title">What the legends are doing</h2>
-      <p class="intro">Holdings from each investor&rsquo;s latest SEC 13F filing, updated automatically within a day of a new filing. Select an investor for their top holdings and recent buys and sales.</p>
+      <p class="intro">Holdings from each investor&rsquo;s latest SEC 13F filing, largest portfolio first, updated automatically within a day of a new filing. Select an investor for their top holdings and recent buys and sales.</p>
+      <div id="lg-shared"></div>
       <div class="lg-grid" id="lg-grid"></div>
-      <p class="note-line">13F filings arrive up to 45 days after each quarter ends and cover US-listed long positions only: no short positions, cash or most foreign shares. Average cost is an estimate, because filings do not report what an investor paid. Not a recommendation.</p>
+      <p class="note-line">13F filings arrive up to 45 days after each quarter ends and cover US-listed stock positions only: no short positions, cash, bonds or most foreign shares, so a fund&rsquo;s real size and cash are larger than shown. Filings do not report what an investor paid, so purchase prices are estimates unless marked as reported. Not a recommendation.</p>
     </div>
   </section>
 
@@ -610,10 +626,40 @@
     return h + '</div>';
   }
 
+  function renderPE() {
+    var P = D.pe, ov = P.overall, rows = P.sectors.filter(function (x) { return x.fwdPE != null; });
+    document.getElementById('grp-desc').textContent = 'Median forward P/E (price \u00f7 next year\u2019s expected earnings) of each sector, across the ' + ov.n + ' large US companies Rebounder tracks. Higher means investors pay more for each dollar of expected profit. Basic materials is not covered.';
+    var hint = document.getElementById('grp-hint'); hint.hidden = false; hint.textContent = 'Select a sector for its industries and other valuation measures.';
+    document.getElementById('bench-label').textContent = 'Median of all ' + ov.n + ' companies (' + num(ov.fwdPE, 1) + '\u00d7)'; document.getElementById('bench-tail').textContent = '';
+    var mx = Math.max.apply(null, rows.map(function (x) { return x.fwdPE; }).concat([ov.fwdPE])) * 1.05;
+    var X = function (v) { return v / mx * 100; };
+    document.getElementById('sec-bars').innerHTML = rows.map(function (x) {
+      var id = 'pe:' + x.name, open = S.open === id;
+      return '<div class="bar-row expandable" role="button" tabindex="0" aria-expanded="' + open + '" data-t="' + esc(id) + '"><div class="k">' + esc(x.name) + ' <span class="flat" style="font-size:12px">(' + x.n + ')</span></div><div class="bar-track">' +
+        '<span class="zero" style="left:0%"></span><span class="bench" style="left:' + X(ov.fwdPE) + '%"></span><span class="bar-fill ' + (x.fwdPE >= ov.fwdPE ? 'down' : 'up') + '" style="left:0%;width:' + X(x.fwdPE) + '%"></span></div>' +
+        '<div class="v pe-v">' + num(x.fwdPE, 1) + '\u00d7</div></div>' + (open ? peDive(x) : '');
+    }).join('');
+  }
+  function peDive(x) {
+    var h = x.hist, f = function (v, suf) { return v == null ? 'n/a' : num(v, 1) + (suf || '\u00d7'); };
+    return '<div class="dive chart-only"><h4>' + esc(x.name) + '<span>median of ' + x.n + ' companies</span></h4>' +
+      '<div class="stats"><div class="stat"><span>Forward P/E</span><b>' + f(x.fwdPE) + '</b><em>All companies ' + f(D.pe.overall.fwdPE) + '</em></div>' +
+      '<div class="stat"><span>EV / EBITDA</span><b>' + f(x.evEbitda) + '</b><em>All ' + f(D.pe.overall.evEbitda) + '</em></div>' +
+      '<div class="stat"><span>Price / sales</span><b>' + f(x.ps) + '</b><em>All ' + f(D.pe.overall.ps) + '</em></div>' +
+      '<div class="stat"><span>Free cash flow yield</span><b>' + f(x.fcfYield, '%') + '</b><em>Dividend yield ' + f(x.divYield, '%') + '</em></div></div>' +
+      '<p class="fine" style="margin:0;font-size:13px;color:var(--faint)">Where it has traded: the sector median ranged from ' + f(h.min) + ' to ' + f(h.max) + ' over ' + h.days + ' trading day' + (h.days === 1 ? '' : 's') + ' of history since ' + day(D.pe.since) + '. This range widens as the daily record grows.</p>' +
+      '<div class="tbl-wrap"><table><thead><tr><th>Industry</th><th class="num">Companies</th><th class="num">Forward P/E</th><th class="num">EV / EBITDA</th><th class="num">Price / sales</th><th class="num">FCF yield</th><th class="num">Dividend yield</th></tr></thead><tbody>' +
+      x.industries.map(function (i) { return '<tr><td>' + esc(i.name) + '</td><td class="num">' + i.n + '</td><td class="num">' + f(i.fwdPE) + '</td><td class="num">' + f(i.evEbitda) + '</td><td class="num">' + f(i.ps) + '</td><td class="num">' + f(i.fcfYield, '%') + '</td><td class="num">' + f(i.divYield, '%') + '</td></tr>'; }).join('') +
+      '</tbody></table></div><p class="fine" style="margin:0;font-size:13px;color:var(--faint)">' + (x.name === 'Real Estate' ? 'Real estate trusts are normally valued on funds from operations rather than earnings, so their P/E reads high. ' : '') + 'Industries with one or two companies are a small sample. Companies with negative earnings are left out of the multiples. Data as of ' + day(D.pe.asOf) + ', from Rebounder\u2019s daily screen.</p></div>';
+  }
   function renderGroups() {
-    var gs = D.groups[S.m] || [];
+    var gs = (D.groups[S.m] || []).slice();
+    if (D.pe && D.pe.sectors && D.pe.sectors.length) { var si = gs.findIndex(function (x) { return x.id === 'styles'; }); gs.splice(si < 0 ? gs.length : si, 0, { id: 'pe', label: 'Valuation' }); }
     if (!gs.some(function (g) { return g.id === S.g; })) S.g = gs.length ? gs[0].id : null;
     document.getElementById('grp-tabs').innerHTML = gs.map(function (g) { return '<button role="tab" data-v="' + g.id + '" aria-pressed="' + (g.id === S.g) + '" aria-selected="' + (g.id === S.g) + '">' + esc(g.label) + '</button>'; }).join('');
+    document.querySelector('.periods').style.display = S.g === 'pe' ? 'none' : '';
+    if (S.g === 'pe') { renderPE(); return; }
+    document.getElementById('bench-tail').textContent = ' over the same period';
     var g = gs.filter(function (x) { return x.id === S.g; })[0]; if (!g) return;
     var pl = /^cy/.test(S.p) ? 'Calendar year ' + S.p.slice(2) + '.' : (S.p === '3y' || S.p === '5y') ? 'Average return per year over ' + S.p.charAt(0) + ' years.' : '';
     document.getElementById('grp-desc').textContent = g.desc + (pl ? ' ' + pl : '') + (D.ccys && D.ccys.length > 1 ? ' Returns in ' + S.c + '.' : '');
@@ -693,50 +739,82 @@
 
   /* Legends */
   try { if (has.legends) {
-    var LG = D.legends, LO = null, LV = {};
-    var usdB = function (v) { return v >= 1e9 ? '$' + num(v / 1e9, 1) + 'B' : '$' + num(v / 1e6, 0) + 'M'; };
+    var LG = D.legends, LO = null, LV = {}, SH_ALL = false;
+    var usdB = function (v) { if (v == null) return 'n/a'; var a = Math.abs(v); return (a >= 1e9 ? '$' + num(a / 1e9, a >= 1e11 ? 0 : 1) + 'B' : a >= 1e6 ? '$' + num(a / 1e6, 0) + 'M' : '$' + num(a / 1e3, 0) + 'K'); };
     var qName = function (p) { var d = new Date(p + 'T12:00:00'); return 'Q' + (Math.floor(d.getMonth() / 3) + 1) + ' ' + d.getFullYear(); };
-    var actChip = function (a) { var c = a === 'New' ? 'new' : a === 'Added' ? 'good' : a === 'Sold out' ? 'bad' : 'warn'; return '<span class="chip ' + c + '">' + esc(a) + '</span>'; };
-    var gainTxt = function (h) { return h.before ? '<span class="flat">n/a</span>' : '<span class="' + cls(h.gain) + '">' + pct(h.gain, 0) + '</span>'; };
+    var BUY = { 'New': 1, 'Added': 1 };
+    var flow = function (b, s) { var p = []; if (b) p.push('<span class="pos">' + usdB(b) + ' bought</span>'); if (s) p.push('<span class="neg">' + usdB(s) + ' sold</span>'); return p.length ? 'est. ' + p.join(', ') : ''; };
+    var actChip = function (a) { return '<span class="chip ' + (BUY[a] ? 'good' : 'bad') + '">' + esc(a) + '</span>'; };
+    var gainTxt = function (h) { return h.gain == null ? '<span class="flat">' + (h.before && h.cost == null ? 'Unknown' : 'n/a') + '</span>' : '<span class="' + cls(h.gain) + '">' + pct(h.gain, 0) + '</span>'; };
+    function renderShared() {
+      var el = document.getElementById('lg-shared'), list = LG.shared || [];
+      if (!list.length) { el.innerHTML = ''; return; }
+      var shown = SH_ALL ? list : list.slice(0, 4);
+      el.innerHTML = '<div class="shared"><h3>Moved by more than one legend<span>latest filings</span></h3>' + shown.map(function (e) {
+        var kind = e.kind === 'buy' ? '<span class="chip good">All buying</span>' : e.kind === 'sell' ? '<span class="chip bad">All selling</span>' : '<span class="chip split">Split opinion</span>';
+        var who = e.funds.map(function (x) { return esc(x.fund) + ' <span class="' + (BUY[x.act] ? 'pos' : 'neg') + '">' + esc(x.act.toLowerCase()) + (x.estAmount ? ' ' + usdB(x.estAmount) : '') + '</span>'; }).join(' \u00b7 ');
+        var ctx = [];
+        if (e.qtrRet != null) ctx.push('price ' + (e.qtrRet >= 0 ? 'rose ' : 'fell ') + pct(Math.abs(e.qtrRet), 0).replace('+', '') + ' in ' + qName(e.funds[0].period));
+        if (e.offHigh != null) ctx.push(num(e.offHigh, 0) + '% below its 52-week high');
+        if (e.fwdPE != null) ctx.push('forward P/E ' + num(e.fwdPE, 1) + '\u00d7' + (e.sectorPE != null ? ' vs ' + num(e.sectorPE, 1) + '\u00d7 for ' + esc((e.sector || '').toLowerCase()) : ''));
+        if (e.sinceRet != null) ctx.push(pct(e.sinceRet, 0) + ' since quarter end');
+        var q = encodeURIComponent((e.name || e.t || '') + ' ' + e.funds.map(function (x) { return x.fund; }).slice(0, 2).join(' ') + ' stake');
+        return '<div class="sh-row"><div><b class="tk">' + esc(e.t || '\u2014') + '</b> ' + kind + '<span class="sub">' + esc(e.name) + (e.industry ? ' \u00b7 ' + esc(e.industry) : '') + '</span></div><div class="who">' + who + '</div>' +
+          '<div class="ctx">' + (ctx.length ? 'Context: ' + ctx.join(' \u00b7 ') + '. ' : '') + '<a href="https://news.google.com/search?q=' + q + '" target="_blank" rel="noopener">Search the news for reasons</a></div></div>';
+      }).join('') + (list.length > 4 ? '<button class="seg-link" id="sh-more" type="button" style="justify-self:start;background:none;border:0;color:var(--sky);font:600 14px var(--sans);cursor:pointer;padding:0">' + (SH_ALL ? 'Show fewer' : 'Show all ' + list.length) + '</button>' : '') +
+        '<p class="note-line" style="margin:0">Context is factual, not a reason: filings never say why a fund bought or sold.</p></div>';
+      var more = document.getElementById('sh-more'); if (more) more.addEventListener('click', function () { SH_ALL = !SH_ALL; renderShared(); });
+    }
     function cashLine(f) {
-      if (f.cik !== 1067983 || !(LG.berkshireCash || []).length) return '';
-      var c = LG.berkshireCash.slice().sort(function (a, b) { return a.date < b.date ? -1 : 1; }), last = c[c.length - 1], prev = c.length > 1 ? c[c.length - 2] : null;
-      return '<div class="lg-cash">Cash and Treasury bills: <b>$' + num(last.usdB, 1) + 'B</b> on ' + day(last.date) + (prev ? ' (' + (last.usdB >= prev.usdB ? 'up' : 'down') + ' from $' + num(prev.usdB, 1) + 'B on ' + day(prev.date) + ')' : '') + '</div>';
+      if (!f.cash) return '';
+      var hist = (LG.berkshireCash || []).slice().sort(function (a, b) { return a.date < b.date ? -1 : 1; }), prev = hist.length > 1 ? hist[hist.length - 2] : null, last = hist[hist.length - 1];
+      return '<div class="lg-cash">Cash and Treasury bills: <b>' + usdB(f.cash.usd) + '</b> on ' + day(f.cash.date) + (prev ? ', ' + (last.usdB >= prev.usdB ? 'up' : 'down') + ' from $' + num(prev.usdB, 1) + 'B' : '') +
+        '. <b>' + num(f.cash.share, 0) + '%</b> of cash plus listed stocks.<div class="cash-bar" aria-hidden="true"><i style="width:' + f.cash.share + '%"></i></div></div>';
     }
     function card(f, i) {
-      var latest = f.moves[0], cnt = latest ? latest.counts : null;
-      var mv = cnt ? ['New', 'Added', 'Trimmed', 'Sold out'].filter(function (a) { return cnt[a]; }).map(function (a) { return cnt[a] + ' ' + a.toLowerCase(); }).join(' \u00b7 ') : '';
+      var latest = f.moves[0], cnt = latest ? latest.counts : null, bits = [];
+      if (cnt) ['New', 'Added', 'Trimmed', 'Sold out'].forEach(function (a) { if (cnt[a]) bits.push('<span class="' + (BUY[a] ? 'pos' : 'neg') + '">' + cnt[a] + ' ' + a.toLowerCase() + '</span>'); });
       return '<button class="lg-card" type="button" data-i="' + i + '" aria-expanded="' + (LO === i) + '"><div class="lg-head"><h3>' + esc(f.name) + '<span class="who">' + esc(f.people) + '</span></h3><span class="chev" aria-hidden="true">\u203a</span></div>' +
-        '<div class="lg-meta"><span>' + qName(f.period) + ' filing, ' + day(f.filed) + '</span><span><b>' + usdB(f.total) + '</b> in ' + f.positions + ' stocks</span>' + (mv ? '<span>' + esc(mv) + '</span>' : '') + '</div>' +
-        '<div class="lg-top">' + f.holdings.slice(0, 3).map(function (h) { return '<div><span><b>' + esc(h.t || '') + '</b>' + esc(h.name) + '</span><span>' + num(h.w, 1) + '%</span><span>' + (h.before ? '<span class="flat">Long-held</span>' : gainTxt(h) + ' <span class="sub" style="display:inline">vs cost</span>') + '</span></div>'; }).join('') + '</div>' + cashLine(f) + '</button>';
+        (f.stale ? '<div class="stale-note">The ' + qName(f.expected) + ' filing has not been found yet. Showing ' + qName(f.period) + '.</div>' : '') +
+        '<div class="lg-meta"><span><b>' + usdB(f.total) + '</b> in ' + f.positions + ' stocks</span><span>' + qName(f.period) + ' filing, ' + day(f.filed) + '</span></div>' +
+        (bits.length ? '<div class="lg-meta">' + bits.join(' \u00b7 ') + (latest.bought || latest.sold ? '<span>' + flow(latest.bought, latest.sold) + '</span>' : '') + '</div>' : '') +
+        '<div class="lg-top">' + f.holdings.slice(0, 3).map(function (h) {
+          var g = h.gain == null ? '<span class="flat">' + (h.before ? 'Long-held' : 'n/a') + '</span>' : '<span class="' + cls(h.gain) + '">' + pct(h.gain, 0) + '</span>';
+          return '<div><span><b>' + esc(h.t || '') + '</b>' + esc(h.name) + '</span><span>' + usdB(h.value) + '</span><span>' + g + '</span></div>';
+        }).join('') + '</div>' + cashLine(f) + '</button>';
     }
     function detail(f, i) {
       var v = LV[i] || 'hold', h = '<div class="lg-detail" role="region" aria-label="' + esc(f.name) + ' holdings">' +
         '<div class="sig-bar" style="margin:0"><div class="seg" role="group" aria-label="Show"><button data-v="hold" aria-pressed="' + (v === 'hold') + '">Top holdings</button><button data-v="moves" aria-pressed="' + (v === 'moves') + '">Recent moves</button>' + (f.options.length ? '<button data-v="opt" aria-pressed="' + (v === 'opt') + '">Options</button>' : '') + '</div>' +
-        '<a class="fine" href="' + esc(f.secUrl) + '" target="_blank" rel="noopener" style="color:var(--sky);font-size:13px">All filings on SEC EDGAR</a></div>';
+        '<a href="' + esc(f.secUrl) + '" target="_blank" rel="noopener" style="color:var(--sky);font-size:13px">All filings on SEC EDGAR</a></div>';
       if (v === 'hold') {
-        h += '<div class="tbl-wrap"><table><thead><tr><th>Company</th><th class="num">Portfolio</th><th class="num">Shares</th><th class="num">Est. avg cost</th><th class="num">Price now</th><th class="num">vs est. cost</th><th>Held since</th></tr></thead><tbody>' +
+        h += '<div class="tbl-wrap"><table><thead><tr><th>Company</th><th class="num">Portfolio</th><th class="num">Value at filing</th><th class="num">Value now</th><th class="num">Shares</th><th class="num">Avg purchase price</th><th class="num">Price now</th><th class="num">Gain</th><th>Held since</th></tr></thead><tbody>' +
           f.holdings.map(function (x) {
-            return '<tr><td><b>' + esc(x.t || '\u2014') + '</b><span class="sub">' + esc(x.name) + '</span></td><td class="num">' + num(x.w, 1) + '%</td><td class="num">' + num(x.shares, 0) + '</td>' +
-              '<td class="num">' + (x.avgCost == null ? '<span class="flat">n/a</span>' : '$' + num(x.avgCost, 2)) + '</td><td class="num">' + (x.last == null ? 'n/a' : '$' + num(x.last, 2)) + '</td>' +
+            var cost = x.cost == null ? '<span class="flat">' + (x.before ? 'Unknown' : 'n/a') + '</span>' : '$' + num(x.cost, 2) + '<span class="sub">' + (x.costKind === 'reported' ? 'reported' : 'estimate') + '</span>';
+            return '<tr><td><b>' + esc(x.t || '\u2014') + '</b><span class="sub">' + esc(x.name) + '</span></td><td class="num">' + num(x.w, 1) + '%</td><td class="num">' + usdB(x.value) + '</td><td class="num">' + (x.valueNow == null ? 'n/a' : usdB(x.valueNow)) + '</td>' +
+              '<td class="num">' + num(x.shares, 0) + '</td><td class="num">' + cost + '</td><td class="num">' + (x.last == null ? 'n/a' : '$' + num(x.last, 2)) + '</td>' +
               '<td class="num">' + gainTxt(x) + '</td><td>' + (x.before ? 'Before ' + qName(f.firstPeriod) : x.since ? qName(x.since) : 'n/a') + '</td></tr>';
           }).join('') + '</tbody></table></div>' +
-          '<p class="fine">Top ' + f.holdings.length + ' of ' + f.positions + ' stock positions by value at ' + day(f.period) + '. Estimated average cost rebuilds each purchase from quarterly share changes at that quarter\u2019s average price, adjusted for splits; positions held before ' + qName(f.firstPeriod) + ' have no estimate. Price change excludes dividends.' + (f.amended ? ' This quarter was amended on ' + day(f.amended) + ' with positions first kept confidential.' : '') + '</p>';
+          '<p class="fine">Top ' + f.holdings.length + ' of ' + f.positions + ' stock positions, ' + usdB(f.total) + ' in total at ' + day(f.period) + '. <b>Avg purchase price</b> is estimated from each quarter\u2019s share increases at that quarter\u2019s average price, adjusted for splits. Sales do not change it, so it can differ from a fund\u2019s tax cost for the shares it still holds. <b>Reported</b>: the fund\u2019s own figure. <b>Unknown</b>: bought before ' + qName(f.firstPeriod) + ', when 13F data in this format begins. <b>n/a</b>: no verified ticker, so no price. Gains exclude dividends.' + (f.amended ? ' This quarter was amended on ' + day(f.amended) + ' with positions first kept confidential.' : '') + '</p>';
       } else if (v === 'moves') {
         h += f.moves.length ? f.moves.map(function (g) {
-          return '<div class="mv-group"><h4><b>' + qName(g.period) + '</b> \u00b7 filed ' + day(g.filed) + '</h4><div class="tbl-wrap"><table><thead><tr><th>Move</th><th>Company</th><th class="num">Change in shares</th><th class="num">Shares now</th><th class="num">Est. price that quarter</th></tr></thead><tbody>' +
+          return '<div class="mv-group"><h4><b>' + qName(g.period) + '</b> \u00b7 filed ' + day(g.filed) + (g.bought || g.sold ? ' \u00b7 ' + flow(g.bought, g.sold) : '') + '</h4><div class="tbl-wrap"><table><thead><tr><th>Move</th><th>Company</th><th class="num">Shares</th><th class="num">Change</th><th class="num">Est. price</th><th class="num">Est. amount</th><th class="num">Position after</th></tr></thead><tbody>' +
             (g.moves.length ? g.moves.map(function (m) {
-              return '<tr><td>' + actChip(m.act) + '</td><td><b>' + esc(m.t || '\u2014') + '</b><span class="sub">' + esc(m.issuer) + '</span></td><td class="num">' + (m.chg == null ? 'New position' : pct(m.chg, 0)) + '</td><td class="num">' + num(m.shares, 0) + '</td><td class="num">' + (m.estPrice == null ? 'n/a' : '$' + num(m.estPrice, 2)) + '</td></tr>';
-            }).join('') : '<tr><td colspan="5" class="sig-empty">No changes to stock positions this quarter.</td></tr>') + '</tbody></table></div>' + (g.more ? '<p class="fine">And ' + g.more + ' smaller moves.</p>' : '') + '</div>';
-        }).join('') + '<p class="fine">Moves compare share counts between consecutive filings, so the exact trade dates are not known. The estimated price is the stock\u2019s average close during that quarter.</p>' : '<p class="sig-empty">Not enough filings yet to compare.</p>';
+              var buy = !!BUY[m.act], c = buy ? 'pos' : 'neg';
+              return '<tr><td>' + actChip(m.act) + '</td><td><b>' + esc(m.t || '\u2014') + '</b><span class="sub">' + esc(m.issuer) + '</span></td>' +
+                '<td class="num ' + c + '">' + (buy ? '+' : '\u2212') + num(Math.abs(m.dShares), 0) + '</td><td class="num ' + c + '">' + (m.chg == null ? 'New' : pct(m.chg, 0)) + '</td>' +
+                '<td class="num">' + (m.estPrice == null ? 'n/a' : '$' + num(m.estPrice, 2)) + '</td><td class="num ' + c + '">' + (m.estAmount == null ? 'n/a' : (buy ? '+' : '\u2212') + usdB(m.estAmount)) + '</td>' +
+                '<td class="num">' + (m.act === 'Sold out' ? '<span class="flat">None</span>' : usdB(m.valueAfter)) + '</td></tr>';
+            }).join('') : '<tr><td colspan="7" class="sig-empty">No changes to stock positions this quarter.</td></tr>') + '</tbody></table></div>' + (g.more ? '<p class="fine">And ' + g.more + ' smaller moves.</p>' : '') + '</div>';
+        }).join('') + '<p class="fine">Moves compare share counts between filings, so exact trade dates and prices are not known. <b>Est. price</b> is the stock\u2019s average close that quarter, and <b>est. amount</b> is the change in shares times that price. <b>Position after</b> is the filing\u2019s reported value at quarter end. <b>n/a</b>: no verified ticker, so no price.</p>' : '<p class="sig-empty">Not enough filings yet to compare.</p>';
       } else {
-        h += '<div class="tbl-wrap"><table><thead><tr><th>Underlying</th><th>Type</th><th class="num">Reported notional value</th></tr></thead><tbody>' + f.options.map(function (o) { return '<tr><td><b>' + esc(o.t || '\u2014') + '</b><span class="sub">' + esc(o.name) + '</span></td><td>' + esc(o.type) + '</td><td class="num">' + usdB(o.value) + '</td></tr>'; }).join('') + '</tbody></table></div><p class="fine">13F filings report options at the value of the underlying shares, not what the options cost.</p>';
+        h += '<div class="tbl-wrap"><table><thead><tr><th>Underlying</th><th>Type</th><th class="num">Reported notional value</th></tr></thead><tbody>' + f.options.map(function (o) { return '<tr><td><b>' + esc(o.t || '\u2014') + '</b><span class="sub">' + esc(o.name) + '</span></td><td><span class="chip ' + (o.type === 'Put' ? 'bad' : 'good') + '">' + esc(o.type) + '</span></td><td class="num">' + usdB(o.value) + '</td></tr>'; }).join('') + '</tbody></table></div><p class="fine">13F filings report options at the value of the underlying shares, not what the options cost. A put gains when the price falls.</p>';
       }
       return h + '</div>';
     }
     function reportedCard(r) {
       return '<div class="lg-card self" style="cursor:default"><div class="lg-head"><h3>' + esc(r.name) + '<span class="who">' + esc(r.note || '') + '</span></h3><span class="badge-rep">Self-reported, not an SEC filing</span></div>' +
-        '<div class="lg-top">' + (r.moves || []).map(function (m) { return '<div style="grid-template-columns:minmax(0,1fr) auto"><span>' + actChip(m.act || 'Reported') + ' <b>' + esc(m.t || '') + '</b>' + esc(m.name || '') + '</span><span>' + (m.link ? '<a href="' + esc(m.link) + '" target="_blank" rel="noopener" style="color:var(--sky)">' + day(m.date) + '</a>' : day(m.date)) + '</span></div>'; }).join('') + '</div></div>';
+        '<div class="lg-top">' + (r.moves || []).map(function (m) { return '<div style="grid-template-columns:minmax(0,1fr) auto"><span>' + actChip(m.act || 'New') + ' <b>' + esc(m.t || '') + '</b>' + esc(m.name || '') + '</span><span>' + (m.link ? '<a href="' + esc(m.link) + '" target="_blank" rel="noopener" style="color:var(--sky)">' + day(m.date) + '</a>' : day(m.date)) + '</span></div>'; }).join('') + '</div></div>';
     }
     function renderLegends() {
       var cols = window.matchMedia('(max-width: 960px)').matches ? 1 : 2, html = '';
@@ -753,6 +831,7 @@
     document.addEventListener('click', function (e) { if (LO !== null && !e.target.closest('#lg-grid')) { LO = null; renderLegends(); } });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && LO !== null) { LO = null; renderLegends(); } });
     var rzl; window.addEventListener('resize', function () { clearTimeout(rzl); rzl = setTimeout(renderLegends, 150); });
+    renderShared();
     renderLegends();
   } } catch (e) { console.error(e); }
 
