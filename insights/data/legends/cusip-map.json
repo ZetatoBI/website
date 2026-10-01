@@ -200,8 +200,10 @@
 "t": "CMG"
 },
 "171757206": {
-"name": null,
-"t": null
+"name": "Cidara Therapeutics Inc",
+"t": null,
+"triedSec": true,
+"via": null
 },
 "172967424": {
 "name": "CITIGROUP INC",
@@ -536,12 +538,16 @@
 "t": "LEN-B"
 },
 "530307107": {
-"name": null,
-"t": null
+"name": "LIBERTY BROADBAND CORP",
+"t": null,
+"triedSec": true,
+"via": null
 },
 "530307305": {
-"name": null,
-"t": null
+"name": "LIBERTY BROADBAND CORP",
+"t": null,
+"triedSec": true,
+"via": null
 },
 "530909100": {
 "name": "LIBERTY LIVE HOLDINGS-A",
@@ -552,20 +558,26 @@
 "t": "LLYVK"
 },
 "531229722": {
-"name": null,
-"t": null
+"name": "LIBERTY MEDIA CORP DEL",
+"t": "FWONA",
+"triedSec": true,
+"via": "sec-name"
 },
 "531229748": {
-"name": null,
-"t": null
+"name": "LIBERTY MEDIA CORP DEL",
+"t": "FWONA",
+"triedSec": true,
+"via": "sec-name"
 },
 "531229755": {
 "name": "LIBERTY MEDIA CORP-C",
 "t": "FWONK"
 },
 "531229854": {
-"name": null,
-"t": null
+"name": "LIBERTY MEDIA CORP DEL",
+"t": "FWONA",
+"triedSec": true,
+"via": "sec-name"
 },
 "532457108": {
 "name": "ELI LILLY & CO",
@@ -639,6 +651,11 @@
 "name": "NEPTUNE INSURANCE HOLDI-CL A",
 "t": "NP"
 },
+"64110L106": {
+"name": "NETFLIX INC",
+"t": "NFLX",
+"via": "openfigi"
+},
 "650111107": {
 "name": "NEW YORK TIMES CO-A",
 "t": "NYT"
@@ -690,6 +707,11 @@
 "697435105": {
 "name": "PALO ALTO NETWORKS INC",
 "t": "PANW"
+},
+"71531T105": {
+"name": "PERSHING SQUARE USA LTD",
+"t": "PSUS",
+"via": "openfigi"
 },
 "71531U102": {
 "name": "PERSHING SQUARE INC",
@@ -778,6 +800,11 @@
 "77543R102": {
 "name": "ROKU INC",
 "t": "ROKU"
+},
+"78409V104": {
+"name": "S&P GLOBAL INC",
+"t": "SPGI",
+"via": "openfigi"
 },
 "78462F103": {
 "name": "SS SPDR S&P 500 ETF TRUST-US",
@@ -872,8 +899,10 @@
 "t": "TSLA"
 },
 "881624209": {
-"name": null,
-"t": null
+"name": "Teva Pharmaceutical Inds Ltd",
+"t": null,
+"triedSec": true,
+"via": null
 },
 "882681109": {
 "name": "TEXAS ROADHOUSE INC",
@@ -928,8 +957,10 @@
 "t": "VRSN"
 },
 "925050106": {
-"name": null,
-"t": null
+"name": "Verona Pharma Plc",
+"t": null,
+"triedSec": true,
+"via": null
 },
 "92552V100": {
 "name": "VIASAT INC",
@@ -1004,127 +1035,189 @@
 "t": "ZION"
 },
 "D18190898": {
-"name": null,
-"t": null
+"name": "DEUTSCHE BK AG",
+"t": null,
+"triedSec": true,
+"via": null
 },
 "G0176J109": {
-"name": null,
-"t": null
+"name": "ALLEGION PLC",
+"t": "ALLE",
+"triedSec": true,
+"via": "sec-name"
 },
 "G0250X107": {
-"name": null,
-"t": null
+"name": "AMCOR PLC",
+"t": "AMCR",
+"triedSec": true,
+"via": "sec-name"
 },
 "G0403H108": {
-"name": null,
-"t": null
+"name": "AON PLC",
+"t": "AON",
+"triedSec": true,
+"via": "sec-name"
 },
 "G0750C108": {
-"name": null,
-"t": null
+"name": "AXALTA COATING SYS LTD",
+"t": null,
+"triedSec": true,
+"via": null
 },
 "G0896C103": {
-"name": null,
-"t": null
+"name": "Bbb Foods Inc",
+"t": "TBBB",
+"triedSec": true,
+"via": "sec-name"
 },
 "G11448100": {
-"name": null,
-"t": null
+"name": "Bitdeer Technologies Group",
+"t": "BTDR",
+"triedSec": true,
+"via": "sec-name"
 },
 "G25508105": {
-"name": null,
-"t": null
+"name": "Crh Plc",
+"t": null,
+"triedSec": true,
+"via": null
 },
 "G3643J108": {
-"name": null,
-"t": null
+"name": "Flutter Entmt Plc",
+"t": null,
+"triedSec": true,
+"via": null
 },
 "G3730V105": {
-"name": null,
-"t": null
+"name": "Ftai Aviation Ltd",
+"t": "FTAI",
+"triedSec": true,
+"via": "sec-name"
 },
 "G4412G101": {
-"name": null,
-"t": null
+"name": "HERBALIFE LTD",
+"t": "HLF",
+"triedSec": true,
+"via": "sec-name"
 },
 "G4705A100": {
-"name": null,
-"t": null
+"name": "ICON PLC",
+"t": "ICLR",
+"triedSec": true,
+"via": "sec-name"
 },
 "G54950103": {
-"name": null,
-"t": null
+"name": "Linde Plc",
+"t": "LIN",
+"triedSec": true,
+"via": "sec-name"
 },
 "G61188101": {
-"name": null,
-"t": null
+"name": "LIBERTY GLOBAL LTD",
+"t": "LBTYA",
+"triedSec": true,
+"via": "sec-name"
 },
 "G61188127": {
-"name": null,
-"t": null
+"name": "LIBERTY GLOBAL LTD",
+"t": "LBTYA",
+"triedSec": true,
+"via": "sec-name"
 },
 "G65163100": {
-"name": null,
-"t": null
+"name": "Joby Aviation Inc",
+"t": "JOBY",
+"triedSec": true,
+"via": "sec-name"
 },
 "G66721104": {
-"name": null,
-"t": null
+"name": "NORWEGIAN CRUISE LINE HLDGS",
+"t": "NCLH",
+"triedSec": true,
+"via": "sec-name"
 },
 "G6683N103": {
-"name": null,
-"t": null
+"name": "Nu Hldgs Ltd",
+"t": "NU",
+"triedSec": true,
+"via": "sec-name"
 },
 "G68707101": {
-"name": null,
-"t": null
+"name": "PAGSEGURO DIGITAL LTD",
+"t": "PAGS",
+"triedSec": true,
+"via": "sec-name"
 },
 "G7997R103": {
-"name": null,
-"t": null
+"name": "Seagate Technology Hldngs Pl",
+"t": null,
+"triedSec": true,
+"via": null
 },
 "G9001E102": {
-"name": null,
-"t": null
+"name": "LIBERTY LATIN AMERICA LTD",
+"t": "LILA",
+"triedSec": true,
+"via": "sec-name"
 },
 "G9001E128": {
-"name": null,
-"t": null
+"name": "LIBERTY LATIN AMERICA LTD",
+"t": "LILA",
+"triedSec": true,
+"via": "sec-name"
 },
 "G96629103": {
-"name": null,
-"t": null
+"name": "WILLIS TOWERS WATSON PLC LTD",
+"t": "WTW",
+"triedSec": true,
+"via": "sec-name"
 },
 "H1467J104": {
-"name": null,
-"t": null
+"name": "CHUBB LIMITED",
+"t": null,
+"triedSec": true,
+"via": null
 },
 "M3760D101": {
-"name": null,
-"t": null
+"name": "Elbit Sys Ltd",
+"t": null,
+"triedSec": true,
+"via": null
 },
 "N07059210": {
-"name": null,
-"t": null
+"name": "ASML HLDG NV",
+"t": null,
+"triedSec": true,
+"via": null
 },
 "N4732M103": {
-"name": null,
-"t": null
+"name": "Jbs N.V.",
+"t": "JBS",
+"triedSec": true,
+"via": "sec-name"
 },
 "N53745100": {
-"name": null,
-"t": null
+"name": "Lyondellbasell Industries Nv",
+"t": null,
+"triedSec": true,
+"via": null
 },
 "N62509109": {
-"name": null,
-"t": null
+"name": "Newamsterdam Pharma Company",
+"t": null,
+"triedSec": true,
+"via": null
 },
 "Q4982L109": {
-"name": null,
-"t": null
+"name": "Iren Limited",
+"t": null,
+"triedSec": true,
+"via": null
 },
 "Y95308105": {
-"name": null,
-"t": null
+"name": "Wave Life Sciences Ltd",
+"t": "WVE",
+"triedSec": true,
+"via": "sec-name"
 }
 }
