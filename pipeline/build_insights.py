@@ -726,7 +726,9 @@ def sector_valuation(raw_screen):
         inds = []
         for ind in sorted({s.get("industry") or "Other" for s in group}):
             ig = [s for s in group if (s.get("industry") or "Other") == ind]
-            inds.append({"name": ind, **_group_stats(ig)})
+            cos = sorted(({"t": x["ticker"], "name": x.get("name") or x["ticker"], "fwdPE": rnd(num(x.get("fwdPE")), 1)}
+                          for x in ig), key=lambda c: -(c["fwdPE"] or 0))
+            inds.append({"name": ind, **_group_stats(ig), "cos": cos})
         inds.sort(key=lambda x: -(x["fwdPE"] or 0))
         h = hist.get(sec, [])
         sectors.append({"name": sec, **_group_stats(group), "industries": inds,

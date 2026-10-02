@@ -28,7 +28,9 @@ which runs `pipeline/build_insights.py`.
   `content.json` "reportedCost" holds costs a fund itself publishes (Berkshire's annual report), labelled
   "reported". "Moved by more than one legend" shows facts only, never a guessed reason.
 - **Performance > Valuation tab:** sector and industry medians (forward P/E, EV/EBITDA, P/S, yields) of the
-  ~120 large companies in Rebounder's screen, with each sector's range over the archived screens. Berkshire's cash comes from `content.json`
+  ~120 large companies in Rebounder's screen, with each sector's range over the archived screens.
+  Each sector lists its companies, linked to Rebounder. The page shows the 6 largest legends, with "Show all".
+  Index managers (Vanguard, BlackRock, State Street) are deliberately excluded: their 13Fs mirror the market. Berkshire's cash comes from `content.json`
   "berkshireCash" (update it from each quarterly report). "reported" holds self-reported moves (e.g. from an
   investor's own posts) with a date and source link; they must stay badged as not an SEC filing.
 - **Strategy signals:** no longer shown on Insights (Rebounder shows them), but the pipeline still records them. The pipeline reads `https://rebounder.zetatobi.com/data/signals.json` (built by the
