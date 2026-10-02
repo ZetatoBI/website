@@ -49,6 +49,14 @@ LEGENDS = [
     {"ciks": [1061768], "name": "Baupost Group", "people": "Seth Klarman", "match": "BAUPOST"},
     {"ciks": [1656456], "name": "Appaloosa", "people": "David Tepper", "match": "APPALOOSA"},
     {"ciks": [1536411], "name": "Duquesne Family Office", "people": "Stanley Druckenmiller", "match": "DUQUESNE"},
+    {"ciks": [1096343], "name": "Markel", "people": "Tom Gayner", "match": "MARKEL"},
+    {"ciks": [1709323], "name": "Himalaya Capital", "people": "Li Lu", "match": "HIMALAYA"},
+    {"ciks": [1040273], "name": "Third Point", "people": "Dan Loeb", "match": "THIRD POINT"},
+    {"ciks": [921669], "name": "Icahn", "people": "Carl Icahn", "match": "ICAHN"},
+    {"ciks": [1079114], "name": "Greenlight Capital", "people": "David Einhorn", "match": "GREENLIGHT"},
+    {"ciks": [1167483], "name": "Tiger Global", "people": "Chase Coleman", "match": "TIGER GLOBAL"},
+    {"ciks": [1135730], "name": "Coatue", "people": "Philippe Laffont", "match": "COATUE"},
+    {"ciks": [1112520], "name": "Akre Capital", "people": "Chuck Akre", "match": "AKRE"},
 ]
 
 AUDIT = []      # (fund, check, ok, detail) rows for the run summary

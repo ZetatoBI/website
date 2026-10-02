@@ -207,6 +207,10 @@
   .sh-row .sub { display: block; color: var(--faint); font-size: 13px; margin-top: 4px; }
   .chip.split { background: rgba(245,181,68,0.16); color: var(--amber); }
   .pe-v { font-variant-numeric: tabular-nums; }
+  .co-list { display: grid; gap: 6px; font-size: 14px; line-height: 1.6; }
+  .co-list a { color: var(--sky); text-decoration: none; font-weight: 600; }
+  .co-list a:hover { text-decoration: underline; }
+  .lg-more { justify-self: start; grid-column: 1 / -1; background: none; border: 1px solid var(--line); color: var(--sky); font: 600 14px var(--sans); border-radius: 10px; padding: 9px 16px; cursor: pointer; }
   .badge-rep { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 6px; background: rgba(245,181,68,0.16); color: var(--amber); }
   /* Signals */
   .sig-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 14px 20px; flex-wrap: wrap; margin-bottom: 18px; }
@@ -628,7 +632,7 @@
 
   function renderPE() {
     var P = D.pe, ov = P.overall, rows = P.sectors.filter(function (x) { return x.fwdPE != null; });
-    document.getElementById('grp-desc').textContent = 'Median forward P/E (price \u00f7 next year\u2019s expected earnings) of each sector, across the ' + ov.n + ' large US companies Rebounder tracks. Higher means investors pay more for each dollar of expected profit. Basic materials is not covered.';
+    document.getElementById('grp-desc').textContent = 'Median forward P/E (price \u00f7 next year\u2019s expected earnings) of each sector, across the ' + ov.n + ' large US companies Rebounder tracks: a large-cap sample, not the whole market. Higher means investors pay more for each dollar of expected profit. The number beside each sector is how many companies it holds; basic materials is not covered.';
     var hint = document.getElementById('grp-hint'); hint.hidden = false; hint.textContent = 'Select a sector for its industries and other valuation measures.';
     document.getElementById('bench-label').textContent = 'Median of all ' + ov.n + ' companies (' + num(ov.fwdPE, 1) + '\u00d7)'; document.getElementById('bench-tail').textContent = '';
     var mx = Math.max.apply(null, rows.map(function (x) { return x.fwdPE; }).concat([ov.fwdPE])) * 1.05;
@@ -650,7 +654,11 @@
       '<p class="fine" style="margin:0;font-size:13px;color:var(--faint)">Where it has traded: the sector median ranged from ' + f(h.min) + ' to ' + f(h.max) + ' over ' + h.days + ' trading day' + (h.days === 1 ? '' : 's') + ' of history since ' + day(D.pe.since) + '. This range widens as the daily record grows.</p>' +
       '<div class="tbl-wrap"><table><thead><tr><th>Industry</th><th class="num">Companies</th><th class="num">Forward P/E</th><th class="num">EV / EBITDA</th><th class="num">Price / sales</th><th class="num">FCF yield</th><th class="num">Dividend yield</th></tr></thead><tbody>' +
       x.industries.map(function (i) { return '<tr><td>' + esc(i.name) + '</td><td class="num">' + i.n + '</td><td class="num">' + f(i.fwdPE) + '</td><td class="num">' + f(i.evEbitda) + '</td><td class="num">' + f(i.ps) + '</td><td class="num">' + f(i.fcfYield, '%') + '</td><td class="num">' + f(i.divYield, '%') + '</td></tr>'; }).join('') +
-      '</tbody></table></div><p class="fine" style="margin:0;font-size:13px;color:var(--faint)">' + (x.name === 'Real Estate' ? 'Real estate trusts are normally valued on funds from operations rather than earnings, so their P/E reads high. ' : '') + 'Industries with one or two companies are a small sample. Companies with negative earnings are left out of the multiples. Data as of ' + day(D.pe.asOf) + ', from Rebounder\u2019s daily screen.</p></div>';
+      '</tbody></table></div>' +
+      '<div><span class="lbl" style="display:block;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin-bottom:6px">The ' + x.n + ' companies behind these numbers</span><div class="co-list">' +
+      x.industries.map(function (i) { return '<div><span class="flat">' + esc(i.name) + ':</span> ' + (i.cos || []).map(function (c) { return '<a href="https://rebounder.zetatobi.com/#meanrev/1d/' + encodeURIComponent(c.t) + '" title="' + esc(c.name) + ' in Rebounder">' + esc(c.t) + '</a>' + (c.fwdPE != null ? ' <span class="flat">' + num(c.fwdPE, 1) + '\u00d7</span>' : ''); }).join(' \u00b7 ') + '</div>'; }).join('') +
+      '</div><p class="fine" style="margin:6px 0 0;font-size:13px;color:var(--faint)">Select a ticker to open it in Rebounder.</p></div>' +
+      '<p class="fine" style="margin:0;font-size:13px;color:var(--faint)">' + (x.name === 'Real Estate' ? 'Real estate trusts are normally valued on funds from operations rather than earnings, so their P/E reads high. ' : '') + 'Industries with one or two companies are a small sample. Companies with negative earnings are left out of the multiples. Data as of ' + day(D.pe.asOf) + ', from Rebounder\u2019s daily screen.</p></div>';
   }
   function renderGroups() {
     var gs = (D.groups[S.m] || []).slice();
@@ -739,7 +747,7 @@
 
   /* Legends */
   try { if (has.legends) {
-    var LG = D.legends, LO = null, LV = {}, SH_ALL = false;
+    var LG = D.legends, LO = null, LV = {}, SH_ALL = false, LG_ALL = false, LG_SHOW = 6;
     var usdB = function (v) { if (v == null) return 'n/a'; var a = Math.abs(v); return (a >= 1e9 ? '$' + num(a / 1e9, a >= 1e11 ? 0 : 1) + 'B' : a >= 1e6 ? '$' + num(a / 1e6, 0) + 'M' : '$' + num(a / 1e3, 0) + 'K'); };
     var qName = function (p) { var d = new Date(p + 'T12:00:00'); return 'Q' + (Math.floor(d.getMonth() / 3) + 1) + ' ' + d.getFullYear(); };
     var BUY = { 'New': 1, 'Added': 1 };
@@ -818,12 +826,16 @@
     }
     function renderLegends() {
       var cols = window.matchMedia('(max-width: 960px)').matches ? 1 : 2, html = '';
-      LG.funds.forEach(function (f, i) { html += card(f, i); if (LO !== null && (i === LO && cols === 1 || (cols === 2 && i % 2 === 1 && (LO === i || LO === i - 1)) || (cols === 2 && i === LG.funds.length - 1 && LO === i))) html += detail(LG.funds[LO], LO); });
+      var shown = LG_ALL ? LG.funds : LG.funds.slice(0, LG_SHOW);
+      if (LO !== null && LO >= shown.length) LO = null;
+      shown.forEach(function (f, i) { html += card(f, i); if (LO !== null && (i === LO && cols === 1 || (cols === 2 && i % 2 === 1 && (LO === i || LO === i - 1)) || (cols === 2 && i === shown.length - 1 && LO === i))) html += detail(LG.funds[LO], LO); });
       html += (LG.reported || []).map(reportedCard).join('');
+      if (LG.funds.length > LG_SHOW) html += '<button class="lg-more" type="button" id="lg-more">' + (LG_ALL ? 'Show the ' + LG_SHOW + ' largest' : 'Show all ' + LG.funds.length + ' investors') + '</button>';
       document.getElementById('lg-grid').innerHTML = html;
     }
     var grid = document.getElementById('lg-grid');
     grid.addEventListener('click', function (e) {
+      if (e.target.closest('#lg-more')) { e.stopPropagation(); LG_ALL = !LG_ALL; LO = null; renderLegends(); return; }
       var sb = e.target.closest('.lg-detail [data-v]'); if (sb) { e.stopPropagation(); LV[LO] = sb.dataset.v; renderLegends(); return; }
       var c = e.target.closest('.lg-card[data-i]'); if (!c) return;
       e.stopPropagation(); var i = +c.dataset.i; LO = LO === i ? null : i; renderLegends();
