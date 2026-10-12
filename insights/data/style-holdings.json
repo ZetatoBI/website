@@ -1,247 +1,247 @@
 {
- "asOf": "2026-10-05",
+ "asOf": "2026-10-12",
  "funds": {
   "SPY": [
    {
     "t": "NVDA",
     "name": "NVIDIA Corp",
-    "w": 8.078709
+    "w": 8.36162
    },
    {
     "t": "AAPL",
     "name": "Apple Inc",
-    "w": 7.03063
+    "w": 7.35303
    },
    {
     "t": "MSFT",
     "name": "Microsoft Corp",
-    "w": 5.6930700000000005
+    "w": 5.76201
    },
    {
     "t": "AMZN",
     "name": "Amazon.com Inc",
-    "w": 3.84188
+    "w": 3.7000100000000002
    },
    {
     "t": "GOOGL",
     "name": "Alphabet Inc Class A",
-    "w": 3.00627
+    "w": 3.0545799
    }
   ],
   "RSP": [
    {
     "t": "MRNA",
     "name": "Moderna Inc",
-    "w": 0.57504
+    "w": 0.29185
    },
    {
-    "t": "VEEV",
-    "name": "Veeva Systems Inc Class A",
-    "w": 0.32867999999999997
+    "t": "P",
+    "name": "Everpure Inc Class A",
+    "w": 0.27695
    },
    {
-    "t": "ZBRA",
-    "name": "Zebra Technologies Corp Ordinary Shares - Class A",
-    "w": 0.30728997999999996
+    "t": "ILMN",
+    "name": "Illumina Inc",
+    "w": 0.27437999999999996
    },
    {
-    "t": "CRL",
-    "name": "Charles River Laboratories International Inc",
-    "w": 0.2915
+    "t": "CRWD",
+    "name": "CrowdStrike Holdings Inc Class A",
+    "w": 0.26183999999999996
    },
    {
-    "t": "DASH",
-    "name": "DoorDash Inc Ordinary Shares - Class A",
-    "w": 0.28917
+    "t": "RVTY",
+    "name": "Revvity Inc",
+    "w": 0.25371
    }
   ],
   "IVW": [
    {
     "t": "NVDA",
     "name": "NVIDIA Corp",
-    "w": 14.84701
+    "w": 14.99552
    },
    {
     "t": "MSFT",
     "name": "Microsoft Corp",
-    "w": 10.46282
+    "w": 10.33354
    },
    {
     "t": "AAPL",
     "name": "Apple Inc",
-    "w": 6.46042
+    "w": 6.59339
    },
    {
     "t": "GOOGL",
     "name": "Alphabet Inc Class A",
-    "w": 5.5247698
+    "w": 5.478199999999999
    },
    {
     "t": "AVGO",
     "name": "Broadcom Inc",
-    "w": 4.868399999999999
+    "w": 4.53294
    }
   ],
   "IVE": [
    {
     "t": "AAPL",
     "name": "Apple Inc",
-    "w": 7.706549999999999
+    "w": 8.33272
    },
    {
     "t": "AMZN",
     "name": "Amazon.com Inc",
-    "w": 3.9583698
+    "w": 3.9412998
    },
    {
     "t": "XOM",
     "name": "ExxonMobil Holdings Corp",
-    "w": 2.20955
+    "w": 2.29473
+   },
+   {
+    "t": "INTC",
+    "name": "Intel Corp",
+    "w": 2.04853
    },
    {
     "t": "WMT",
     "name": "Walmart Inc",
-    "w": 1.52271995
-   },
-   {
-    "t": "INTC",
-    "name": "Intel Corp",
-    "w": 1.46322
+    "w": 1.58804
    }
   ],
   "IWM": [
    {
-    "t": "FROG",
-    "name": "JFrog Ltd Ordinary Shares",
-    "w": 0.34870999999999996
+    "t": "XTSLA",
+    "name": "BlackRock Cash Funds Treasury SL Agency",
+    "w": 0.4783
+   },
+   {
+    "t": "TWST",
+    "name": "Twist Bioscience Corp",
+    "w": 0.42932
    },
    {
     "t": "MOG-A",
     "name": "Moog Inc Class A",
-    "w": 0.33969
+    "w": 0.36658002
    },
    {
-    "t": "XTSLA",
-    "name": "BlackRock Cash Funds Treasury SL Agency",
-    "w": 0.33926002
+    "t": "FROG",
+    "name": "JFrog Ltd Ordinary Shares",
+    "w": 0.35605001999999997
    },
    {
-    "t": "UMBF",
-    "name": "UMB Financial Corp",
-    "w": 0.33773000000000003
-   },
-   {
-    "t": "GKOS",
-    "name": "Glaukos Corp",
-    "w": 0.32978998
+    "t": "TXG",
+    "name": "10x Genomics Inc Ordinary Shares - Class A",
+    "w": 0.35516
    }
   ],
   "MTUM": [
    {
-    "t": "MU",
-    "name": "Micron Technology Inc",
-    "w": 5.1500200000000005
-   },
-   {
     "t": "AMD",
     "name": "Advanced Micro Devices Inc",
-    "w": 5.08026
+    "w": 6.2538800000000005
+   },
+   {
+    "t": "MU",
+    "name": "Micron Technology Inc",
+    "w": 5.41994
    },
    {
     "t": "INTC",
     "name": "Intel Corp",
-    "w": 3.73048
+    "w": 4.7462203
    },
    {
     "t": "CSCO",
     "name": "Cisco Systems Inc",
-    "w": 3.6062200000000004
+    "w": 3.32729
    },
    {
     "t": "JNJ",
     "name": "Johnson & Johnson",
-    "w": 3.40399
+    "w": 3.21081
    }
   ],
   "QUAL": [
    {
     "t": "MSFT",
     "name": "Microsoft Corp",
-    "w": 7.75431
+    "w": 7.8445100000000005
    },
    {
     "t": "AAPL",
     "name": "Apple Inc",
-    "w": 6.762170000000001
+    "w": 7.11131
    },
    {
     "t": "NVDA",
     "name": "NVIDIA Corp",
-    "w": 6.3854999999999995
+    "w": 6.6090599999999995
    },
    {
     "t": "META",
     "name": "Meta Platforms Inc Class A",
-    "w": 3.76128
+    "w": 4.7684299999999995
    },
    {
-    "t": "LLY",
-    "name": "Eli Lilly and Co",
-    "w": 3.65899
+    "t": "LRCX",
+    "name": "Lam Research Corp",
+    "w": 3.88643
    }
   ],
   "USMV": [
    {
-    "t": "MSFT",
-    "name": "Microsoft Corp",
-    "w": 1.5649
-   },
-   {
     "t": "APH",
     "name": "Amphenol Corp Class A",
-    "w": 1.51798995
+    "w": 1.67987
+   },
+   {
+    "t": "MSFT",
+    "name": "Microsoft Corp",
+    "w": 1.6465500000000002
    },
    {
     "t": "NVDA",
     "name": "NVIDIA Corp",
-    "w": 1.51613
-   },
-   {
-    "t": "MSI",
-    "name": "Motorola Solutions Inc",
-    "w": 1.5078699
+    "w": 1.6321100000000002
    },
    {
     "t": "WELL",
     "name": "Welltower Inc",
-    "w": 1.49725
+    "w": 1.5185799
+   },
+   {
+    "t": "JNJ",
+    "name": "Johnson & Johnson",
+    "w": 1.5054801
    }
   ],
   "SCHD": [
    {
+    "t": "TXN",
+    "name": "Texas Instruments Inc",
+    "w": 4.6566702
+   },
+   {
+    "t": "QCOM",
+    "name": "Qualcomm Inc",
+    "w": 4.56261
+   },
+   {
+    "t": "PG",
+    "name": "Procter & Gamble Co",
+    "w": 4.2315499999999995
+   },
+   {
     "t": "MRK",
     "name": "Merck & Co Inc",
-    "w": 4.77597
-   },
-   {
-    "t": "ABT",
-    "name": "Abbott Laboratories",
-    "w": 4.76579
-   },
-   {
-    "t": "AMGN",
-    "name": "Amgen Inc",
-    "w": 4.72101
+    "w": 4.14663
    },
    {
     "t": "KO",
     "name": "Coca-Cola Co",
-    "w": 4.2037603
-   },
-   {
-    "t": "VZ",
-    "name": "Verizon Communications Inc",
-    "w": 3.9657999999999998
+    "w": 4.145370000000001
    }
   ]
  }
