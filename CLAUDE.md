@@ -26,7 +26,17 @@ which runs `pipeline/build_insights.py`.
   its own summary page, checks each ticker against the filing's quarter-end prices (mismatch: prices hidden),
   and flags funds missing the latest quarter after the 45-day deadline. Results go to the Actions run summary.
   `content.json` "reportedCost" holds costs a fund itself publishes (Berkshire's annual report), labelled
-  "reported". "Moved by more than one legend" shows facts only, never a guessed reason.
+  "reported". The consensus board ("Across N legends") counts one vote per fund; a move counts only if it
+  changes the position by >= MIN_POS_CHG % and is worth >= MIN_PORT_CHG % of the portfolio (smaller = held);
+  a consensus label needs >= 3 movers (two-thirds rule). Share classes of one company are grouped by the
+  CUSIP's first six characters. Context beside a row is facts only, never a guessed reason.
+  Data fixes that must stay: per-filing unit detection (`fix_units`: some filers report thousands after 2023),
+  combining two filers for the same quarter (`combine`: Pershing Square), and showing a ticker only when it
+  passes the filing-price check (never fall back to an unverified ticker).
+- **Data status:** `data_status()` builds the "as of" line and section stamps (green/amber/red), and the page
+  itself turns red if it has not been rebuilt for 3+ weekdays. The run summary lists every source's status and
+  any Buffett indicator download errors. FRED is tried by CSV, then plain text, then the API if the optional
+  `FRED_API_KEY` repository secret is set; the last good download is kept in `insights/data/valuation-cache.json`.
 - **Performance > Valuation tab:** sector and industry medians (forward P/E, EV/EBITDA, P/S, yields) of the
   ~120 large companies in Rebounder's screen, with each sector's range over the archived screens.
   Each sector lists its companies, linked to Rebounder. The page shows the 6 largest legends, with "Show all".

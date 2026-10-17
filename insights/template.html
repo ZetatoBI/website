@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- zetato-insights-template v8. Keep in step with TEMPLATE_VERSION in pipeline/build_insights.py -->
+<!-- zetato-insights-template v9. Keep in step with TEMPLATE_VERSION in pipeline/build_insights.py -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -211,6 +211,59 @@
   .co-list a { color: var(--sky); text-decoration: none; font-weight: 600; }
   .co-list a:hover { text-decoration: underline; }
   .lg-more { justify-self: start; grid-column: 1 / -1; background: none; border: 1px solid var(--line); color: var(--sky); font: 600 14px var(--sans); border-radius: 10px; padding: 9px 16px; cursor: pointer; }
+  /* data status */
+  .st-pill { display: inline-flex; align-items: center; gap: 10px; color: var(--dim); font: 500 14px var(--sans); background: var(--navy-2); border: 1px solid var(--line); border-radius: 14px; padding: 7px 14px; cursor: pointer; text-align: left; }
+  .st-pill:hover { border-color: rgba(142,193,255,0.45); }
+  .st-pill .chev { color: var(--sky); font-weight: 700; transition: transform .2s; }
+  .st-pill[aria-expanded="true"] .chev { transform: rotate(90deg); }
+  .dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 0 4px rgba(111,227,181,0.16); }
+  .dot.amber { background: var(--amber); box-shadow: 0 0 0 4px rgba(245,181,68,0.18); }
+  .dot.red { background: var(--red); box-shadow: 0 0 0 4px rgba(255,138,138,0.2); }
+  .st-panel { margin-top: 12px; max-width: 760px; background: var(--navy-2); border: 1px solid var(--line); border-radius: 14px; padding: 6px 16px; }
+  .st-row { display: grid; grid-template-columns: 14px minmax(140px, 0.8fr) minmax(0, 1.4fr); gap: 4px 12px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+  .st-row:last-child { border-bottom: 0; }
+  .st-row .dot { align-self: center; }
+  .st-row b { font-weight: 600; }
+  .st-row span { color: var(--dim); }
+  .st-row em { grid-column: 3; font-style: normal; font-size: 13px; color: var(--faint); }
+  .stamp { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--faint); margin: -16px 0 22px; }
+  .stamp .dot { width: 6px; height: 6px; box-shadow: none; }
+  /* consensus board */
+  .board { margin: 0 0 22px; }
+  .board-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px 20px; flex-wrap: wrap; margin-bottom: 12px; }
+  .board-head h3 { margin: 0; font-size: 18px; }
+  .board-head h3 span { font-weight: 400; color: var(--faint); font-size: 13px; margin-left: 8px; }
+  table.bd { min-width: 0; font-size: 15px; table-layout: fixed; width: 100%; }
+  table.bd col.c-cnt { width: 84px; } table.bd col.c-net { width: 100px; } table.bd col.c-con { width: 150px; }
+  table.bd .sm, .bd-co .cons-m { display: none; }
+  table.bd td { vertical-align: middle; padding: 11px 10px; }
+  table.bd th { padding: 9px 10px; }
+  table.bd tr.bd-row { cursor: pointer; }
+  table.bd tr.bd-row:hover td, table.bd tr.bd-row[aria-expanded="true"] td { background: rgba(142,193,255,0.05); }
+  table.bd .cnt { font-variant-numeric: tabular-nums; font-weight: 600; text-align: center; width: 76px; }
+  table.bd tr.bd-detail td { background: rgba(3,28,58,0.55); padding: 14px 16px 18px; cursor: default; }
+  .bd-co b { margin-right: 8px; }
+  .bd-co .chev { color: var(--sky); font-weight: 700; margin-left: 6px; display: inline-block; transition: transform .2s; }
+  tr.bd-row[aria-expanded="true"] .bd-co .chev { transform: rotate(90deg); }
+  .chip.muted { background: rgba(239,244,251,0.06); color: var(--faint); }
+  .div-chart { display: grid; gap: 8px; margin: 2px 0 12px; }
+  .div-row { display: grid; grid-template-columns: minmax(110px, 170px) minmax(0, 1fr) minmax(250px, 330px); gap: 12px; align-items: center; font-size: 14px; }
+  .div-row .f { color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .div-track { position: relative; height: 16px; }
+  .div-track::before { content: ""; position: absolute; left: 50%; top: -4px; bottom: -4px; width: 1px; background: rgba(239,244,251,0.3); }
+  .div-track i { position: absolute; top: 2px; height: 12px; border-radius: 3px; }
+  .div-track i.b { left: 50%; background: var(--mint); } .div-track i.s { right: 50%; background: var(--red); }
+  .div-row .lab { font-variant-numeric: tabular-nums; color: var(--dim); font-size: 13px; }
+  .div-row .lab b { font-weight: 600; }
+  .bd-also { font-size: 13px; color: var(--dim); margin: 0 0 8px; }
+  .bd-ctx { font-size: 13px; color: var(--faint); margin: 0; }
+  .bd-ctx a { color: var(--sky); }
+  .bd-more { background: none; border: 1px solid var(--line); color: var(--sky); font: 600 14px var(--sans); border-radius: 10px; padding: 8px 14px; cursor: pointer; margin-top: 12px; }
+  /* fund size */
+  .size-chip { font-variant-numeric: tabular-nums; font-size: 13px; font-weight: 600; color: #fff; background: rgba(142,193,255,0.14); border-radius: 8px; padding: 3px 9px; white-space: nowrap; }
+  .size-bar { position: relative; height: 4px; border-radius: 3px; background: rgba(239,244,251,0.08); }
+  .size-bar i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 3px; background: var(--sky); opacity: .75; }
+  tr.small-mv td { opacity: .55; }
   .badge-rep { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 6px; background: rgba(245,181,68,0.16); color: var(--amber); }
   /* Signals */
   .sig-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 14px 20px; flex-wrap: wrap; margin-bottom: 18px; }
@@ -302,6 +355,14 @@
     .dive .cols { grid-template-columns: 1fr; gap: 16px; }
     .val, .lg-grid { grid-template-columns: 1fr; }
     .sh-row { grid-template-columns: 1fr; } .sh-row .ctx { grid-column: 1; }
+    .st-row { grid-template-columns: 14px 1fr; } .st-row span, .st-row em { grid-column: 2; }
+    table.bd .net, table.bd col.c-net, table.bd col.c-con, table.bd .con { display: none; }
+    table.bd col.c-cnt { width: 38px; }
+    table.bd .lg { display: none; } table.bd .sm { display: inline; }
+    table.bd td, table.bd th { padding-left: 6px; padding-right: 6px; }
+    .bd-co .flat { display: block; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .bd-co .cons-m { display: block; margin-top: 4px; }
+    .div-row { grid-template-columns: 1fr; gap: 4px; }
     .lg-detail { padding: 14px; }
     .dive { padding: 16px; }
     .dive th { white-space: normal; }
@@ -345,7 +406,8 @@
     <div class="wrap">
       <h1>Market analysis, built on data.</h1>
       <p class="lede">The big picture on US markets, updated every weekday: how indices, sectors, styles, commodities, bonds and global markets are moving, how expensive stocks are against the economy, and what some of the best-known investors hold.</p>
-      <p class="asof"><i aria-hidden="true"></i>Data as of the {{AS_OF}} close. Updated each weekday after the US market closes.</p>
+      <button class="st-pill" type="button" id="st-pill" aria-expanded="false" aria-controls="st-panel"><i class="dot" aria-hidden="true"></i><span id="st-text">Data as of the {{AS_OF}} close. Updated each weekday after the US market closes.</span><span class="chev" aria-hidden="true">›</span></button>
+      <div class="st-panel" id="st-panel" hidden></div>
     </div>
   </div>
 
@@ -353,6 +415,7 @@
     <div class="wrap">
       <h2 id="market-title">Market overview</h2>
       <p class="intro" id="market-intro">Where the major indices stand, and what changed.</p>
+      <p class="stamp" data-stamp="prices"></p>
       <div class="read">
         <div class="read-text">
           {{SUMMARY}}
@@ -384,6 +447,7 @@
     <div class="wrap">
       <h2 id="valuation-title">Valuation</h2>
       <p class="intro">How expensive US stocks are compared with the size of the economy: the Buffett indicator.</p>
+      <p class="stamp" data-stamp="valuation"></p>
       <div class="panel val">
         <div id="val-left"></div>
         <div class="val-chart" id="val-chart"></div>
@@ -397,6 +461,7 @@
       <div class="head-row">
         <div>
           <h2 id="perf-title">Performance</h2>
+          <p class="stamp" data-stamp="prices" style="margin:0 0 10px"></p>
           <div class="seg" role="tablist" aria-label="Asset group" id="grp-tabs" style="margin-top:6px"></div>
         </div>
         <div class="periods">
@@ -426,7 +491,8 @@
     <div class="wrap">
       <h2 id="legends-title">What the legends are doing</h2>
       <p class="intro">Holdings from each investor&rsquo;s latest SEC 13F filing, largest portfolio first, updated automatically within a day of a new filing. Select an investor for their top holdings and recent buys and sales.</p>
-      <div id="lg-shared"></div>
+      <p class="stamp" data-stamp="legends"></p>
+      <div id="lg-board"></div>
       <div class="lg-grid" id="lg-grid"></div>
       <p class="note-line">13F filings arrive up to 45 days after each quarter ends and cover US-listed stock positions only: no short positions, cash, bonds or most foreign shares, so a fund&rsquo;s real size and cash are larger than shown. Filings do not report what an investor paid, so purchase prices are estimates unless marked as reported. Not a recommendation.</p>
     </div>
@@ -503,6 +569,38 @@
 
   var has = { valuation: !!D.valuation, legends: !!(D.legends && ((D.legends.funds || []).length || (D.legends.reported || []).length)), portfolio: !!(D.portfolio && D.portfolio.holdings.length), notes: !!(D.notes && D.notes.length) };
   document.querySelectorAll('[data-need]').forEach(function (n) { if (!has[n.getAttribute('data-need')]) n.hidden = true; });
+
+  /* Data status */
+  try {
+    var ST = D.status || { rows: [], state: 'ok' }, stRows = ST.rows.slice(), stState = ST.state;
+    var wkdays = function (a, b) { var n = 0, d = new Date(a); while (d < b) { d.setDate(d.getDate() + 1); if (d.getDay() % 6) n++; } return n; };
+    var builtAgo = D.built ? wkdays(new Date(D.built), new Date()) : 0;
+    if (builtAgo > 2) {   // the page itself has not been rebuilt: the daily job may have stopped
+      stState = 'red';
+      stRows.unshift({ label: 'Page refresh', text: 'Last rebuilt ' + new Date(D.built).toLocaleDateString('en-CA', { year: 'numeric', month: 'short', day: 'numeric' }), state: 'red', note: 'Daily updates appear to have stopped, so everything below may be out of date' });
+    }
+    var dotCls = function (s) { return 'dot' + (s === 'ok' ? '' : ' ' + s); };
+    document.querySelector('#st-pill .dot').className = dotCls(stState);
+    document.getElementById('st-text').textContent = stState === 'ok' ? 'All data current · prices as of the ' + day(D.asOf) + ' close'
+      : (stState === 'amber' ? 'Some data delayed' : 'Some data unavailable') + ' · prices as of the ' + day(D.asOf) + ' close';
+    document.getElementById('st-panel').innerHTML = stRows.map(function (r) {
+      return '<div class="st-row"><i class="' + dotCls(r.state) + '" aria-hidden="true"></i><b>' + esc(r.label) + '</b><span>' + esc(r.text) + '</span>' + (r.note ? '<em>' + esc(r.note) + '</em>' : '') + '</div>';
+    }).join('') + '<div class="st-row" style="grid-template-columns:1fr"><em style="grid-column:1">The page is rebuilt every weekday after the US close. Green is on schedule, amber is behind its usual schedule, red is missing.</em></div>';
+    var pill = document.getElementById('st-pill');
+    pill.addEventListener('click', function () { var p = document.getElementById('st-panel'), o = p.hidden; p.hidden = !o; pill.setAttribute('aria-expanded', o); });
+    var byId = {}; stRows.forEach(function (r) { if (r.id) byId[r.id] = r; });
+    var stampText = {
+      prices: function (r) { return 'Prices as of the ' + day(D.asOf) + ' close'; },
+      valuation: function (r) { var V = D.valuation; return V ? 'Official reading ' + V.quarter + (V.estimate ? ' · estimate as of ' + day(V.estimate.asOf) : '') + (V.cached ? ' · last saved download' : '') : ''; },
+      legends: function (r) { var lf = (D.legends && D.legends.funds || []).reduce(function (m, f) { return f.filed > m ? f.filed : m; }, ''); return r.asOf ? 'Holdings as of ' + day(r.asOf) + ' (latest required filing)' + (lf ? ' \u00b7 latest filed ' + day(lf) : '') : ''; }
+    };
+    document.querySelectorAll('[data-stamp]').forEach(function (n) {
+      var r = byId[n.dataset.stamp], txt = r && stampText[n.dataset.stamp] ? stampText[n.dataset.stamp](r) : '';
+      if (!txt) { n.hidden = true; return; }
+      n.innerHTML = '<i class="' + dotCls(r.state) + '" aria-hidden="true"></i>' + txt;
+    });
+  } catch (e) { console.error(e); }
+
 
   function sparkSVG(pts, up) {
     if (!pts || pts.length < 2) return '';
@@ -747,31 +845,49 @@
 
   /* Legends */
   try { if (has.legends) {
-    var LG = D.legends, LO = null, LV = {}, SH_ALL = false, LG_ALL = false, LG_SHOW = 6;
+    var LG = D.legends, LO = null, LV = {}, LG_ALL = false, LG_SHOW = 6, BT = 'bought', BO = null, BD_ALL = false;
     var usdB = function (v) { if (v == null) return 'n/a'; var a = Math.abs(v); return (a >= 1e9 ? '$' + num(a / 1e9, a >= 1e11 ? 0 : 1) + 'B' : a >= 1e6 ? '$' + num(a / 1e6, 0) + 'M' : '$' + num(a / 1e3, 0) + 'K'); };
     var qName = function (p) { var d = new Date(p + 'T12:00:00'); return 'Q' + (Math.floor(d.getMonth() / 3) + 1) + ' ' + d.getFullYear(); };
     var BUY = { 'New': 1, 'Added': 1 };
     var flow = function (b, s) { var p = []; if (b) p.push('<span class="pos">' + usdB(b) + ' bought</span>'); if (s) p.push('<span class="neg">' + usdB(s) + ' sold</span>'); return p.length ? 'est. ' + p.join(', ') : ''; };
     var actChip = function (a) { return '<span class="chip ' + (BUY[a] ? 'good' : 'bad') + '">' + esc(a) + '</span>'; };
     var gainTxt = function (h) { return h.gain == null ? '<span class="flat">' + (h.before && h.cost == null ? 'Unknown' : 'n/a') + '</span>' : '<span class="' + cls(h.gain) + '">' + pct(h.gain, 0) + '</span>'; };
-    function renderShared() {
-      var el = document.getElementById('lg-shared'), list = LG.shared || [];
-      if (!list.length) { el.innerHTML = ''; return; }
-      var shown = SH_ALL ? list : list.slice(0, 4);
-      el.innerHTML = '<div class="shared"><h3>Moved by more than one legend<span>latest filings</span></h3>' + shown.map(function (e) {
-        var kind = e.kind === 'buy' ? '<span class="chip good">All buying</span>' : e.kind === 'sell' ? '<span class="chip bad">All selling</span>' : '<span class="chip split">Split opinion</span>';
-        var who = e.funds.map(function (x) { return esc(x.fund) + ' <span class="' + (BUY[x.act] ? 'pos' : 'neg') + '">' + esc(x.act.toLowerCase()) + (x.estAmount ? ' ' + usdB(x.estAmount) : '') + '</span>'; }).join(' \u00b7 ');
-        var ctx = [];
-        if (e.qtrRet != null) ctx.push('price ' + (e.qtrRet >= 0 ? 'rose ' : 'fell ') + pct(Math.abs(e.qtrRet), 0).replace('+', '') + ' in ' + qName(e.funds[0].period));
-        if (e.offHigh != null) ctx.push(num(e.offHigh, 0) + '% below its 52-week high');
-        if (e.fwdPE != null) ctx.push('forward P/E ' + num(e.fwdPE, 1) + '\u00d7' + (e.sectorPE != null ? ' vs ' + num(e.sectorPE, 1) + '\u00d7 for ' + esc((e.sector || '').toLowerCase()) : ''));
-        if (e.sinceRet != null) ctx.push(pct(e.sinceRet, 0) + ' since quarter end');
-        var q = encodeURIComponent((e.name || e.t || '') + ' ' + e.funds.map(function (x) { return x.fund; }).slice(0, 2).join(' ') + ' stake');
-        return '<div class="sh-row"><div><b class="tk">' + esc(e.t || '\u2014') + '</b> ' + kind + '<span class="sub">' + esc(e.name) + (e.industry ? ' \u00b7 ' + esc(e.industry) : '') + '</span></div><div class="who">' + who + '</div>' +
-          '<div class="ctx">' + (ctx.length ? 'Context: ' + ctx.join(' \u00b7 ') + '. ' : '') + '<a href="https://news.google.com/search?q=' + q + '" target="_blank" rel="noopener">Search the news for reasons</a></div></div>';
-      }).join('') + (list.length > 4 ? '<button class="seg-link" id="sh-more" type="button" style="justify-self:start;background:none;border:0;color:var(--sky);font:600 14px var(--sans);cursor:pointer;padding:0">' + (SH_ALL ? 'Show fewer' : 'Show all ' + list.length) + '</button>' : '') +
-        '<p class="note-line" style="margin:0">Context is factual, not a reason: filings never say why a fund bought or sold.</p></div>';
-      var more = document.getElementById('sh-more'); if (more) more.addEventListener('click', function () { SH_ALL = !SH_ALL; renderShared(); });
+    function renderBoard() {
+      var B = LG.board, el = document.getElementById('lg-board');
+      if (!B || !(B.held || []).length) { el.innerHTML = ''; return; }
+      var list = B[BT] || [], shown = BD_ALL ? list : list.slice(0, 10);
+      var consChip = function (c) { return c === 'buy' ? '<span class="chip good">Mostly buying</span>' : c === 'sell' ? '<span class="chip bad">Mostly selling</span>' : c === 'split' ? '<span class="chip split">Split</span>' : '<span class="chip muted" title="Fewer than 3 legends made a meaningful move">Too few to call</span>'; };
+      var tabs = [['bought', 'Most bought'], ['sold', 'Most sold'], ['held', 'Most widely held']];
+      var h = '<div class="board"><div class="board-head"><h3>Across ' + B.funds + ' legends<span>latest filings</span></h3>' +
+        '<div class="seg" role="tablist" aria-label="Board" id="bd-tabs">' + tabs.map(function (t) { return '<button role="tab" data-v="' + t[0] + '" aria-pressed="' + (BT === t[0]) + '" aria-selected="' + (BT === t[0]) + '">' + t[1] + '</button>'; }).join('') + '</div></div>' +
+        '<div class="panel tbl-wrap" style="padding:6px 8px"><table class="bd"><colgroup><col><col class="c-cnt"><col class="c-cnt"><col class="c-cnt"><col class="c-net"><col class="c-con"></colgroup><thead><tr><th>Company</th><th class="cnt"><span class="lg">Held by</span><span class="sm" title="Held by">Held</span></th><th class="cnt"><span class="lg">Adding</span><span class="sm" title="Adding">+</span></th><th class="cnt"><span class="lg">Reducing</span><span class="sm" title="Reducing">−</span></th><th class="num net">Est. net</th><th class="con">Consensus</th></tr></thead><tbody>' +
+        shown.map(function (r, i) {
+          var open = BO === BT + i;
+          return '<tr class="bd-row" tabindex="0" role="button" aria-expanded="' + open + '" data-i="' + i + '"><td class="bd-co"><b>' + esc(r.t || '—') + '</b><span class="flat">' + esc(r.issuer) + (r.classes > 1 ? ' (' + r.classes + ' share classes)' : '') + '</span><span class="chev" aria-hidden="true">›</span><span class="cons-m">' + consChip(r.cons) + '</span></td>' +
+            '<td class="cnt">' + r.holders + '</td><td class="cnt ' + (r.adders ? 'pos' : 'flat') + '">' + r.adders + '</td><td class="cnt ' + (r.reducers ? 'neg' : 'flat') + '">' + r.reducers + '</td>' +
+            '<td class="num net ' + cls(r.net) + '">' + (r.net ? (r.net > 0 ? '+' : '−') + usdB(r.net) : '—') + '</td><td class="con">' + consChip(r.cons) + '</td></tr>' +
+            (open ? '<tr class="bd-detail"><td colspan="6">' + boardDetail(r) + '</td></tr>' : '');
+        }).join('') + '</tbody></table></div>' +
+        (list.length > 10 ? '<button class="bd-more" type="button" id="bd-more">' + (BD_ALL ? 'Show top 10' : 'Show all ' + list.length) + '</button>' : '') +
+        '<p class="note-line">One vote per legend. A move counts as buying or selling when it changes the position by at least ' + B.rules.minPos + '% and is worth at least ' + B.rules.minPort + '% of that fund&rsquo;s portfolio; smaller changes count as held. Consensus needs at least 3 legends moving: two-thirds buying is &ldquo;mostly buying&rdquo;, two-thirds selling is &ldquo;mostly selling&rdquo;.' +
+        (B.excluded.length ? ' Not included until their latest filing is found: ' + B.excluded.map(esc).join(', ') + '.' : '') + '</p></div>';
+      el.innerHTML = h;
+    }
+    function boardDetail(r) {
+      var mx = Math.max.apply(null, r.movers.map(function (m) { return m.pct || 0; }).concat([0.1]));
+      var h = r.movers.length ? '<div class="div-chart" aria-label="Moves by each legend">' + r.movers.map(function (m) {
+        var buy = !!BUY[m.act], w = Math.max(1, (m.pct || 0) / mx * 50);
+        return '<div class="div-row"><span class="f">' + esc(m.fund) + '</span><span class="div-track"><i class="' + (buy ? 'b' : 's') + '" style="width:' + w.toFixed(1) + '%"></i></span>' +
+          '<span class="lab"><b class="' + (buy ? 'pos' : 'neg') + '">' + esc(m.act) + (m.chg != null && m.act !== 'New' && m.act !== 'Sold out' ? ' ' + pct(m.chg, 0) : '') + '</b> · ' + (buy ? '+' : '−') + usdB(m.amount) + ' · ' + num(m.pct, 1) + '% of portfolio' + (m.act !== 'Sold out' ? '<br>now ' + num(m.w, 1) + '% of portfolio' : '') + '</span></div>';
+      }).join('') + '</div>' : '';
+      if (r.held.length) h += '<p class="bd-also">Held with no major change by ' + r.held.map(function (x) { return esc(x.fund) + ' (' + num(x.w, 1) + '% of portfolio' + (x.small ? ', small adjustment' : '') + ')'; }).join(', ') + '.</p>';
+      var c = r.ctx || {}, ctx = [];
+      if (c.qtrRet != null) ctx.push('price ' + (c.qtrRet >= 0 ? 'rose ' : 'fell ') + num(Math.abs(c.qtrRet), 0) + '% in ' + qName(c.period));
+      if (c.sinceRet != null) ctx.push(pct(c.sinceRet, 0) + ' since that quarter ended');
+      if (c.offHigh != null) ctx.push(num(c.offHigh, 0) + '% below its 52-week high');
+      if (c.fwdPE != null) ctx.push('forward P/E ' + num(c.fwdPE, 1) + '×' + (c.sectorPE != null ? ' vs ' + num(c.sectorPE, 1) + '× for ' + esc((c.sector || '').toLowerCase()) : ''));
+      var q = encodeURIComponent(r.issuer + ' ' + r.movers.slice(0, 2).map(function (m) { return m.fund; }).join(' ') + ' stake');
+      return h + '<p class="bd-ctx">' + (ctx.length ? 'Context: ' + ctx.join(' · ') + '. ' : '') + 'Bars show each move as a share of that legend&rsquo;s portfolio; dollar amounts are estimates. <a href="https://news.google.com/search?q=' + q + '" target="_blank" rel="noopener">Search the news for reasons</a></p>';
     }
     function cashLine(f) {
       if (!f.cash) return '';
@@ -782,10 +898,12 @@
     function card(f, i) {
       var latest = f.moves[0], cnt = latest ? latest.counts : null, bits = [];
       if (cnt) ['New', 'Added', 'Trimmed', 'Sold out'].forEach(function (a) { if (cnt[a]) bits.push('<span class="' + (BUY[a] ? 'pos' : 'neg') + '">' + cnt[a] + ' ' + a.toLowerCase() + '</span>'); });
-      return '<button class="lg-card" type="button" data-i="' + i + '" aria-expanded="' + (LO === i) + '"><div class="lg-head"><h3>' + esc(f.name) + '<span class="who">' + esc(f.people) + '</span></h3><span class="chev" aria-hidden="true">\u203a</span></div>' +
+      var sz = Math.max(3, Math.min(100, (Math.log10(Math.max(f.total, 1e8)) - 8) / 4 * 100));
+      return '<button class="lg-card" type="button" data-i="' + i + '" aria-expanded="' + (LO === i) + '"><div class="lg-head"><h3>' + esc(f.name) + '<span class="who">' + esc(f.people) + '</span></h3><span style="display:flex;gap:10px;align-items:center"><span class="size-chip" title="Size of the US stock portfolio in the latest 13F filing">' + usdB(f.total) + '</span><span class="chev" aria-hidden="true">\u203a</span></span></div>' +
+        '<div class="size-bar" title="Portfolio size on a log scale, $100M to $1T" aria-hidden="true"><i style="width:' + sz.toFixed(0) + '%"></i></div>' +
         (f.stale ? '<div class="stale-note">The ' + qName(f.expected) + ' filing has not been found yet. Showing ' + qName(f.period) + '.</div>' : '') +
-        '<div class="lg-meta"><span><b>' + usdB(f.total) + '</b> in ' + f.positions + ' stocks</span><span>' + qName(f.period) + ' filing, ' + day(f.filed) + '</span></div>' +
-        (bits.length ? '<div class="lg-meta">' + bits.join(' \u00b7 ') + (latest.bought || latest.sold ? '<span>' + flow(latest.bought, latest.sold) + '</span>' : '') + '</div>' : '') +
+        '<div class="lg-meta"><span>' + f.positions + ' stocks</span><span>' + qName(f.period) + ' filing, ' + day(f.filed) + '</span></div>' +
+        (bits.length || (latest && latest.small) ? '<div class="lg-meta">' + bits.join(' \u00b7 ') + (latest.small ? '<span class="flat">+' + latest.small + ' small adjustment' + (latest.small === 1 ? '' : 's') + '</span>' : '') + (latest.bought || latest.sold ? '<span>' + flow(latest.bought, latest.sold) + '</span>' : '') + '</div>' : '') +
         '<div class="lg-top">' + f.holdings.slice(0, 3).map(function (h) {
           var g = h.gain == null ? '<span class="flat">' + (h.before ? 'Long-held' : 'n/a') + '</span>' : '<span class="' + cls(h.gain) + '">' + pct(h.gain, 0) + '</span>';
           return '<div><span><b>' + esc(h.t || '') + '</b>' + esc(h.name) + '</span><span>' + usdB(h.value) + '</span><span>' + g + '</span></div>';
@@ -806,15 +924,15 @@
           '<p class="fine">Top ' + f.holdings.length + ' of ' + f.positions + ' stock positions, ' + usdB(f.total) + ' in total at ' + day(f.period) + '. <b>Avg purchase price</b> is estimated from each quarter\u2019s share increases at that quarter\u2019s average price, adjusted for splits. Sales do not change it, so it can differ from a fund\u2019s tax cost for the shares it still holds. <b>Reported</b>: the fund\u2019s own figure. <b>Unknown</b>: bought before ' + qName(f.firstPeriod) + ', when 13F data in this format begins. <b>n/a</b>: no verified ticker, so no price. Gains exclude dividends.' + (f.amended ? ' This quarter was amended on ' + day(f.amended) + ' with positions first kept confidential.' : '') + '</p>';
       } else if (v === 'moves') {
         h += f.moves.length ? f.moves.map(function (g) {
-          return '<div class="mv-group"><h4><b>' + qName(g.period) + '</b> \u00b7 filed ' + day(g.filed) + (g.bought || g.sold ? ' \u00b7 ' + flow(g.bought, g.sold) : '') + '</h4><div class="tbl-wrap"><table><thead><tr><th>Move</th><th>Company</th><th class="num">Shares</th><th class="num">Change</th><th class="num">Est. price</th><th class="num">Est. amount</th><th class="num">Position after</th></tr></thead><tbody>' +
+          return '<div class="mv-group"><h4><b>' + qName(g.period) + '</b> \u00b7 filed ' + day(g.filed) + (g.bought || g.sold ? ' \u00b7 ' + flow(g.bought, g.sold) : '') + '</h4><div class="tbl-wrap"><table><thead><tr><th>Move</th><th>Company</th><th class="num">Shares</th><th class="num">Change</th><th class="num">Est. price</th><th class="num">Est. amount</th><th class="num">% of portfolio</th><th class="num">Position after</th></tr></thead><tbody>' +
             (g.moves.length ? g.moves.map(function (m) {
               var buy = !!BUY[m.act], c = buy ? 'pos' : 'neg';
-              return '<tr><td>' + actChip(m.act) + '</td><td><b>' + esc(m.t || '\u2014') + '</b><span class="sub">' + esc(m.issuer) + '</span></td>' +
+              return '<tr' + (m.material ? '' : ' class="small-mv"') + '><td>' + actChip(m.act) + (m.material ? '' : '<span class="sub">small</span>') + '</td><td><b>' + esc(m.t || '\u2014') + '</b><span class="sub">' + esc(m.issuer) + '</span></td>' +
                 '<td class="num ' + c + '">' + (buy ? '+' : '\u2212') + num(Math.abs(m.dShares), 0) + '</td><td class="num ' + c + '">' + (m.chg == null ? 'New' : pct(m.chg, 0)) + '</td>' +
-                '<td class="num">' + (m.estPrice == null ? 'n/a' : '$' + num(m.estPrice, 2)) + '</td><td class="num ' + c + '">' + (m.estAmount == null ? 'n/a' : (buy ? '+' : '\u2212') + usdB(m.estAmount)) + '</td>' +
+                '<td class="num">' + (m.estPrice == null ? 'n/a' : '$' + num(m.estPrice, 2)) + '</td><td class="num ' + c + '">' + (m.amount == null ? 'n/a' : (buy ? '+' : '\u2212') + usdB(m.amount)) + '</td><td class="num">' + (m.pct == null ? 'n/a' : num(m.pct, m.pct < 1 ? 2 : 1) + '%') + '</td>' +
                 '<td class="num">' + (m.act === 'Sold out' ? '<span class="flat">None</span>' : usdB(m.valueAfter)) + '</td></tr>';
-            }).join('') : '<tr><td colspan="7" class="sig-empty">No changes to stock positions this quarter.</td></tr>') + '</tbody></table></div>' + (g.more ? '<p class="fine">And ' + g.more + ' smaller moves.</p>' : '') + '</div>';
-        }).join('') + '<p class="fine">Moves compare share counts between filings, so exact trade dates and prices are not known. <b>Est. price</b> is the stock\u2019s average close that quarter, and <b>est. amount</b> is the change in shares times that price. <b>Position after</b> is the filing\u2019s reported value at quarter end. <b>n/a</b>: no verified ticker, so no price.</p>' : '<p class="sig-empty">Not enough filings yet to compare.</p>';
+            }).join('') : '<tr><td colspan="8" class="sig-empty">No changes to stock positions this quarter.</td></tr>') + '</tbody></table></div>' + (g.more ? '<p class="fine">And ' + g.more + ' smaller moves.</p>' : '') + '</div>';
+        }).join('') + '<p class="fine">Moves compare share counts between filings, so exact trade dates and prices are not known. <b>Est. price</b> is the stock\u2019s average close that quarter, and <b>est. amount</b> is the change in shares times that price (or times the filing\u2019s quarter-end price when no verified ticker is available). <b>% of portfolio</b> is that amount against the fund\u2019s reported US stock portfolio. Faded rows are <b>small</b> changes (under ' + LG.board.rules.minPos + '% of the position or ' + LG.board.rules.minPort + '% of the portfolio), counted as holding. <b>Position after</b> is the filing\u2019s reported value at quarter end. <b>n/a</b>: no verified ticker, so no price.</p>' : '<p class="sig-empty">Not enough filings yet to compare.</p>';
       } else {
         h += '<div class="tbl-wrap"><table><thead><tr><th>Underlying</th><th>Type</th><th class="num">Reported notional value</th></tr></thead><tbody>' + f.options.map(function (o) { return '<tr><td><b>' + esc(o.t || '\u2014') + '</b><span class="sub">' + esc(o.name) + '</span></td><td><span class="chip ' + (o.type === 'Put' ? 'bad' : 'good') + '">' + esc(o.type) + '</span></td><td class="num">' + usdB(o.value) + '</td></tr>'; }).join('') + '</tbody></table></div><p class="fine">13F filings report options at the value of the underlying shares, not what the options cost. A put gains when the price falls.</p>';
       }
@@ -843,7 +961,16 @@
     document.addEventListener('click', function (e) { if (LO !== null && !e.target.closest('#lg-grid')) { LO = null; renderLegends(); } });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && LO !== null) { LO = null; renderLegends(); } });
     var rzl; window.addEventListener('resize', function () { clearTimeout(rzl); rzl = setTimeout(renderLegends, 150); });
-    renderShared();
+    renderBoard();
+    var bd = document.getElementById('lg-board');
+    bd.addEventListener('click', function (e) {
+      var t = e.target.closest('#bd-tabs [data-v]'); if (t) { BT = t.dataset.v; BO = null; BD_ALL = false; renderBoard(); return; }
+      if (e.target.closest('#bd-more')) { BD_ALL = !BD_ALL; BO = null; renderBoard(); return; }
+      if (e.target.closest('a')) return;
+      var r = e.target.closest('tr.bd-row'); if (!r) return;
+      var k = BT + r.dataset.i; BO = BO === k ? null : k; renderBoard();
+    });
+    bd.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && e.target.closest('tr.bd-row')) { e.preventDefault(); e.target.click(); } });
     renderLegends();
   } } catch (e) { console.error(e); }
 
