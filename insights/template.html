@@ -353,7 +353,11 @@
   footer nav { display: flex; gap: 20px; flex-wrap: wrap; }
   footer a { color: var(--dim); text-decoration: none; }
 
+  .toc { display: none; }
   @media (max-width: 960px) {
+    .toc { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 16px; }
+    .toc span { flex: 0 0 100%; font-size: 13px; color: var(--faint); }
+    .toc a { padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; background: rgba(142,193,255,0.06); color: var(--sky); font: 600 14px var(--sans); text-decoration: none; }
     .read { grid-template-columns: 1fr; }
     .stats { grid-template-columns: 1fr 1fr; }
     .notes, .method { grid-template-columns: 1fr; }
@@ -418,6 +422,7 @@
       <p class="lede">The big picture on US markets, updated every weekday: how indices, sectors, styles, commodities, bonds and global markets are moving, how expensive stocks are against the economy, and what some of the best-known investors hold.</p>
       <button class="st-pill" type="button" id="st-pill" aria-expanded="false" aria-controls="st-panel"><i class="dot" aria-hidden="true"></i><span id="st-text">Data as of the {{AS_OF}} close. Updated each weekday after the US market closes.</span><span class="chev" aria-hidden="true">›</span></button>
       <div class="st-panel" id="st-panel" hidden></div>
+      <nav class="toc" aria-label="On this page"><span>On this page</span><a href="#market">Market</a><a href="#valuation" data-need="valuation">Valuation</a><a href="#performance">Performance</a><a href="#legends" data-need="legends">Legends</a><a href="#portfolio" data-need="portfolio">Portfolio</a><a href="#research" data-need="notes">Research</a></nav>
     </div>
   </div>
 
