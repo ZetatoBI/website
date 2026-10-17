@@ -24,6 +24,7 @@ from pathlib import Path
 
 from zoneinfo import ZoneInfo
 
+import numpy as np
 import pandas as pd
 import yfinance as yf
 
@@ -42,7 +43,7 @@ SITE = "https://zetatobi.com"
 NY = ZoneInfo("America/New_York")
 # Must match the marker at the top of insights/template.html. Bump both together whenever the data
 # format changes, so a half-finished upload can never publish a broken page.
-TEMPLATE_VERSION = "v8"
+TEMPLATE_VERSION = "v9"
 REBOUNDER = "https://rebounder.zetatobi.com/data/screen.json"
 BENCH = "^GSPC"
 
@@ -738,31 +739,99 @@ def sector_valuation(raw_screen):
     return {"asOf": latest_day, "since": min(days), "days": len(days), "overall": _group_stats(stocks), "sectors": sectors}
 
 
-def shared_context(leg, pe):
-    """Facts that help explain a shared move: the stock's price path and valuation. Not a reason, just context."""
-    if not leg or not leg.get("shared"):
+BOARD_CONTEXT_ROWS = 10    # rows per board tab that get price and valuation context
+
+
+def board_context(leg, pe):
+    """Facts beside a board row: the stock's price path and valuation. Context only; filings never give a reason."""
+    if not leg or not leg.get("board"):
         return
-    tickers = [e["t"] for e in leg["shared"] if e.get("t")]
+    B = leg["board"]
+    period = max((f["period"] for f in leg["funds"] if not f["stale"]), default=None)
+    rows = [r for k in ("bought", "sold", "held") for r in B[k][:BOARD_CONTEXT_ROWS] if r.get("t")]
+    tickers = sorted({r["t"] for r in rows})
     closes, _ = price_only(tickers, period="2y")
     sec_pe = {s["name"]: s["fwdPE"] for s in (pe or {}).get("sectors", [])}
-    for e in leg["shared"]:
-        t, px = e.get("t"), closes.get(e.get("t"))
-        period = e["funds"][0]["period"]
-        if px is not None and len(px):
+    info = {}
+    for t in tickers:
+        try:
+            info[t] = yf.Ticker(t).info or {}
+        except Exception:
+            info[t] = {}
+    for r in rows:
+        t, px = r["t"], closes.get(r["t"])
+        ctx = {}
+        if px is not None and len(px) and period:
             end = px[px.index <= pd.Timestamp(period)]
             start = px[px.index <= pd.Timestamp(period) - pd.offsets.QuarterEnd(1)]
             if len(end) and len(start):
-                e["qtrRet"] = rnd((float(end.iloc[-1]) / float(start.iloc[-1]) - 1) * 100, 1)
-            e["sinceRet"] = rnd((float(px.iloc[-1]) / float(end.iloc[-1]) - 1) * 100, 1) if len(end) else None
+                ctx["qtrRet"] = rnd((float(end.iloc[-1]) / float(start.iloc[-1]) - 1) * 100, 1)
+            if len(end):
+                ctx["sinceRet"] = rnd((float(px.iloc[-1]) / float(end.iloc[-1]) - 1) * 100, 1)
             yr = px[px.index > px.index[-1] - pd.Timedelta(days=365)]
-            e["offHigh"] = rnd((1 - float(px.iloc[-1]) / float(yr.max())) * 100, 1) if len(yr) else None
-        try:
-            info = yf.Ticker(t).info if t else {}
-        except Exception:
-            info = {}
-        e["fwdPE"] = rnd(num(info.get("forwardPE")), 1)
-        e["sector"], e["industry"] = info.get("sector"), info.get("industry")
-        e["sectorPE"] = sec_pe.get(e["sector"])
+            ctx["offHigh"] = rnd((1 - float(px.iloc[-1]) / float(yr.max())) * 100, 1) if len(yr) else None
+        i = info.get(t, {})
+        ctx.update({"fwdPE": rnd(num(i.get("forwardPE")), 1), "sector": i.get("sector"), "industry": i.get("industry"),
+                    "sectorPE": sec_pe.get(i.get("sector")), "period": period})
+        r["ctx"] = ctx
+
+
+# ---------------------------------------------------------------- data status ("as of" line)
+def _bdays(a, b):
+    """Weekdays from date a to date b (holidays not excluded, so one holiday reads as one day late)."""
+    try:
+        return int(np.busday_count(a, b))
+    except Exception:
+        return None
+
+
+def data_status(as_of, val, leg, pe):
+    """One row per source: what date the data is from and whether that is on schedule."""
+    today = datetime.now(NY).date().isoformat()
+    rows = []
+    lag = _bdays(as_of, today)
+    rows.append({"id": "prices", "label": "Prices and performance", "asOf": as_of,
+                 "text": f"{as_of} close", "state": "ok" if (lag or 0) <= 1 else "amber" if lag <= 3 else "red",
+                 "note": None if (lag or 0) <= 1 else f"{lag} trading days behind"})
+    if val:
+        old = (pd.Timestamp(today) - pd.Timestamp(val["quarterEnd"])).days > 200
+        rows.append({"id": "valuation", "label": "Buffett indicator", "asOf": val["quarterEnd"],
+                     "text": f"{val['quarter']} official" + (f", estimate {val['estimate']['asOf']}" if val.get("estimate") else ""),
+                     "state": "amber" if val.get("cached") or old else "ok",
+                     "note": "Showing the last saved download; the source could not be reached today" if val.get("cached")
+                     else "The official reading is older than usual" if old else None})
+    else:
+        rows.append({"id": "valuation", "label": "Buffett indicator", "asOf": None, "text": "Not available",
+                     "state": "red", "note": "The source could not be reached; the section is hidden"})
+    if leg and leg.get("funds"):
+        cur = [f for f in leg["funds"] if not f["stale"]]
+        late = [f["name"] for f in leg["funds"] if f["stale"]]
+        period = max((f["period"] for f in cur), default=leg["expected"])
+        q = pd.Timestamp(period)
+        rows.append({"id": "legends", "label": "Fund holdings (13F)", "asOf": period,
+                     "text": f"Q{q.quarter} {q.year} filings, latest filed {max(f['filed'] for f in leg['funds'])}",
+                     "state": "amber" if late else "ok",
+                     "note": (f"Latest required filing not found for: {', '.join(late)}" if late
+                              else "13F holdings are always one to four months old, by law")})
+    else:
+        rows.append({"id": "legends", "label": "Fund holdings (13F)", "asOf": None, "text": "Not available", "state": "red", "note": None})
+    if pe:
+        lag = _bdays(pe["asOf"], as_of)
+        rows.append({"id": "pe", "label": "Sector valuations", "asOf": pe["asOf"], "text": pe["asOf"],
+                     "state": "ok" if (lag or 0) <= 2 else "amber", "note": None if (lag or 0) <= 2 else f"{lag} trading days behind prices"})
+    else:
+        rows.append({"id": "pe", "label": "Sector valuations", "asOf": None, "text": "Not available", "state": "red", "note": None})
+    rank = {"ok": 0, "amber": 1, "red": 2}
+    return {"rows": rows, "state": max((r["state"] for r in rows), key=lambda x: rank[x]), "today": today}
+
+
+def status_markdown(st):
+    lines = ["## Data sources", "", "| Source | As of | Status | Note |", "|---|---|---|---|"]
+    for r in st["rows"]:
+        lines.append(f"| {r['label']} | {r['text']} | {r['state']} | {r['note'] or ''} |")
+    if valuation.ERRORS:
+        lines += ["", "**Buffett indicator download errors:** " + "; ".join(valuation.ERRORS)]
+    return "\n".join(lines) + "\n\n"
 
 
 # ---------------------------------------------------------------- strategy signals (from Rebounder)
@@ -1039,13 +1108,15 @@ def main():
     signal_block(signals, closes, as_of)     # keeps recording the strategy track record; shown in Rebounder now
     cal = chart_series(closes, groups)
     vti, _ = price_only([valuation.MARKET_PROXY], period="2y")
-    val = valuation.build(vti.get(valuation.MARKET_PROXY))
+    val = valuation.build(vti.get(valuation.MARKET_PROXY), INS / "data" / "valuation-cache.json")
     leg = legends.build(content, INS / "data", price_only)
     pe = sector_valuation(raw_screen)
-    shared_context(leg, pe)
+    board_context(leg, pe)
+    status = data_status(as_of, val, leg, pe)
     summary_file = os.environ.get("GITHUB_STEP_SUMMARY")
     if summary_file:
         with open(summary_file, "a", encoding="utf-8") as fh:
+            fh.write(status_markdown(status))
             fh.write(legends.summary_markdown())
 
     data = {
@@ -1056,7 +1127,7 @@ def main():
         "charts": candle_block(),
         "periods": period_dates(closes[BENCH]),
         "holdingsAsOf": holdings_asof,
-        "cal": cal, "valuation": val, "legends": leg, "pe": pe,
+        "cal": cal, "valuation": val, "legends": leg, "pe": pe, "status": status,
         "portfolio": portfolio_block(content, closes),
         "notes": content.get("notes", []),
     }

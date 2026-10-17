@@ -37,12 +37,15 @@ UA = "Zetato Insights Hello@ZetatoBI.com"   # the SEC asks automated clients to 
 SEC_PAUSE = 0.15                            # stay well under the SEC's 10 requests a second
 HISTORY_START = "2013-06-30"                # information tables are XML from mid-2013 onward
 TOP_N = 15
+MIN_POS_CHG = 10.0      # a change smaller than this % of the position counts as held, not bought or sold
+MIN_PORT_CHG = 0.1      # ...and so does a change worth less than this % of the fund's portfolio
+BOARD_ROWS = 25         # rows kept per board tab
 MOVE_FILINGS = 4
 PRICE_TOLERANCE = 0.08
 FILING_DEADLINE_DAYS = 45
 
 # ciks: every SEC filer ID the fund has used, oldest first (funds sometimes change filer, e.g. after a listing).
-# match: words that must appear in EDGAR's name for each CIK, which guards against typos.
+# match: words that must appear in EDGAR's name for each CIK (a list allows a renamed filer), which guards against typos.
 LEGENDS = [
     {"ciks": [1067983], "name": "Berkshire Hathaway", "people": "Greg Abel, CEO; Warren Buffett, chairman", "match": "BERKSHIRE HATHAWAY"},
     {"ciks": [1336528, 2026053], "name": "Pershing Square", "people": "Bill Ackman", "match": "PERSHING SQUARE"},
@@ -53,7 +56,7 @@ LEGENDS = [
     {"ciks": [1709323], "name": "Himalaya Capital", "people": "Li Lu", "match": "HIMALAYA"},
     {"ciks": [1040273], "name": "Third Point", "people": "Dan Loeb", "match": "THIRD POINT"},
     {"ciks": [921669], "name": "Icahn", "people": "Carl Icahn", "match": "ICAHN"},
-    {"ciks": [1079114], "name": "Greenlight Capital", "people": "David Einhorn", "match": "GREENLIGHT"},
+    {"ciks": [1079114, 1489933], "name": "Greenlight Capital", "people": "David Einhorn", "match": ["GREENLIGHT", "DME CAPITAL"]},
     {"ciks": [1167483], "name": "Tiger Global", "people": "Chase Coleman", "match": "TIGER GLOBAL"},
     {"ciks": [1135730], "name": "Coatue", "people": "Philippe Laffont", "match": "COATUE"},
     {"ciks": [1112520], "name": "Akre Capital", "people": "Chuck Akre", "match": "AKRE"},
@@ -95,8 +98,9 @@ def _strip(tag):
 def list_13f(cik, match):
     """All 13F-HR and 13F-HR/A filings for a CIK after HISTORY_START, oldest first."""
     sub = _json(f"https://data.sec.gov/submissions/CIK{cik:010d}.json")
-    if match.upper() not in (sub.get("name") or "").upper():
-        raise ValueError(f"CIK {cik} is '{sub.get('name')}', not {match}: check the CIK")
+    names = [match] if isinstance(match, str) else list(match)
+    if not any(m.upper() in (sub.get("name") or "").upper() for m in names):
+        raise ValueError(f"CIK {cik} is '{sub.get('name')}', not {' or '.join(names)}: check the CIK")
     blocks = [sub["filings"]["recent"]]
     for f in sub["filings"].get("files", []):
         time.sleep(SEC_PAUSE)
@@ -176,17 +180,50 @@ def fetch_filing(f):
     return {**f, **cover, "lines": lines, "rows": rows}
 
 
+TOTALS_RECENT = "2024-06-30"   # filings before this are checked but only summarised, not flagged one by one
+
+
 def check_totals(name, f):
-    """The parsed table must add up to what the filing itself declares."""
-    if f.get("declTotal") is None or f["form"] != "13F-HR":
+    """The parsed table must add up to the value the filing itself declares (line counts are only a note:
+    some filers count their lines differently)."""
+    if f.get("declTotal") is None or f["form"] != "13F-HR" or not f["declTotal"]:
         return True
     parsed = sum(r["value"] for r in f["rows"])
-    ok_val = abs(parsed - f["declTotal"]) <= max(1000.0 * (1000 if f["filed"] < "2023-01-03" else 1), 0.005 * f["declTotal"])
-    ok_n = f.get("declEntries") is None or f.get("lines") is None or f["lines"] == f["declEntries"]
-    if not (ok_val and ok_n):
+    ok = abs(parsed - f["declTotal"]) <= max(5000.0, 0.005 * f["declTotal"])
+    if not ok and f["period"] >= TOTALS_RECENT:
         audit(name, f"totals {f['period']}", False,
-              f"parsed ${parsed:,.0f} in {f.get('lines')} lines; filing declares ${f['declTotal']:,.0f} in {f.get('declEntries')}")
-    return ok_val and ok_n
+              f"parsed ${parsed:,.0f}; the filing declares ${f['declTotal']:,.0f}")
+    return ok
+
+
+def fix_units(f):
+    """Some filers keep reporting values in thousands after the 2023 switch to dollars (and a few did the
+    reverse before it). Each filing's own implied share prices tell which unit was used. Returns the factor."""
+    px = sorted(r["value"] / r["shares"] for r in f["rows"] if r["shares"] > 0 and r["value"] > 0 and not r["putCall"])
+    if not px:
+        return 1
+    med = px[len(px) // 2]
+    k = 1000 if f["filed"] >= "2023-01-03" and med < 1.0 else 0.001 if f["filed"] < "2023-01-03" and med > 5000 else 1
+    if k != 1:
+        for r in f["rows"]:
+            r["value"] *= k
+        if f.get("declTotal") is not None:
+            f["declTotal"] *= k
+    return k
+
+
+def combine(a, b):
+    """Two filers reporting the same quarter for one fund (e.g. a manager and its listed parent) cover separate
+    accounts, so their holdings add up. A line with identical share counts in both is the same holding reported
+    twice and is counted once."""
+    out = {k: dict(r) for k, r in a.items()}
+    for k, r in b.items():
+        if k not in out:
+            out[k] = dict(r)
+        elif abs(out[k]["shares"] - r["shares"]) > 0.5:
+            out[k]["shares"] += r["shares"]
+            out[k]["value"] += r["value"]
+    return out
 
 
 def quarters(L, cache_root):
@@ -223,19 +260,40 @@ def quarters(L, cache_root):
     cached = []
     for cik in L["ciks"]:
         cached += [json.loads(p.read_text()) for p in (cache_root / str(cik)).glob("*.json")]
-    by_q, bad = {}, 0
+    by_q, bad, old_bad, fixed, joined = {}, 0, 0, 0, 0
+    # per quarter and filer: the original (or a full restatement) replaces earlier versions; "new holdings"
+    # amendments add positions first kept confidential
+    per = {}
     for f in sorted(cached, key=lambda x: (x["period"], x["filed"])):
+        fixed += fix_units(f) != 1
         if not check_totals(L["name"], f):
             bad += 1
-        q = by_q.get(f["period"])
+            old_bad += f["period"] < TOTALS_RECENT
+        rows = {f"{r['cusip']}|{r['putCall'] or ''}": r for r in f["rows"]}
+        key = (f["period"], f.get("cik"))
+        q = per.get(key)
         if f["form"] == "13F-HR" or q is None or f.get("amendment") == "RESTATEMENT":
-            by_q[f["period"]] = {"period": f["period"], "filed": f["filed"], "acc": f["acc"], "cik": f.get("cik"),
-                                 "rows": {f"{r['cusip']}|{r['putCall'] or ''}": r for r in f["rows"]}}
+            per[key] = {"period": f["period"], "filed": f["filed"], "acc": f["acc"], "cik": f.get("cik"), "rows": rows}
         elif f.get("amendment") == "NEW HOLDINGS":
-            for r in f["rows"]:
-                q["rows"].setdefault(f"{r['cusip']}|{r['putCall'] or ''}", r)
+            for k, r in rows.items():
+                q["rows"].setdefault(k, r)
             q["amended"] = f["filed"]
-    audit(L["name"], "totals match each filing", bad == 0, f"{bad} filings differ" if bad else f"{len(cached)} filings")
+    for (period, cik), q in sorted(per.items(), key=lambda kv: (kv[0][0], kv[1]["filed"])):
+        if period not in by_q:
+            by_q[period] = q
+        else:      # a second filer for the same quarter
+            prev = by_q[period]
+            by_q[period] = {**prev, "rows": combine(prev["rows"], q["rows"]), "filed": max(prev["filed"], q["filed"]),
+                            "acc": q["acc"] if q["filed"] >= prev["filed"] else prev["acc"],
+                            "cik": q["cik"] if q["filed"] >= prev["filed"] else prev["cik"], "combined": True}
+            joined += 1
+    audit(L["name"], "totals match each filing", bad == old_bad,
+          f"{bad - old_bad} recent filings differ" if bad > old_bad else
+          f"{len(cached)} filings" + (f"; {old_bad} older than {TOTALS_RECENT} differ slightly" if old_bad else ""))
+    if fixed:
+        audit(L["name"], "value units", True, f"{fixed} filings reported values in thousands instead of dollars: corrected")
+    if joined:
+        audit(L["name"], "filers combined", True, f"{joined} quarters combine filings from more than one SEC filer")
     return names[-1], [by_q[k] for k in sorted(by_q)]
 
 
@@ -256,9 +314,19 @@ def _norm(name):
     return " ".join(w for w in s.split() if w not in drop)
 
 
+_NOT_COMMON = (" DEP", "PFD", "PREF", "NOTE", "DBCV", "SDCV", "BOND", " WT", "WARR", "RIGHT", " RT ", "UNIT", "%")
+
+
+def _looks_common(cls):
+    c = f" {(cls or '').upper()} "
+    return not any(x in c for x in _NOT_COMMON)
+
+
 def map_cusips(issuers, cache_path):
-    """issuers: {cusip: issuer name}. OpenFIGI first; SEC's own ticker list by exact normalized name as fallback.
-    Every mapping is later checked against the filing's own prices, so a wrong match is caught, not shown."""
+    """issuers: {cusip: (issuer name, title of class)}. OpenFIGI first; SEC's own ticker list by exact normalized
+    name as a fallback, for common-stock lines only (a company's notes or depositary shares share its name but not
+    its ticker). Every mapping is later checked against the filing's own prices, so a wrong match is not shown."""
+    issuers = {c: (v if isinstance(v, tuple) else (v, "")) for c, v in issuers.items()}
     cache = json.loads(cache_path.read_text()) if cache_path.exists() else {}
     todo = [c for c in issuers if c not in cache]
     for i in range(0, len(todo), 10):          # 10 per request and 25 requests a minute without an API key
@@ -273,7 +341,8 @@ def map_cusips(issuers, cache_path):
             d = (r.get("data") or [{}])[0]
             cache[c] = {"t": (d.get("ticker") or "").replace("/", "-") or None, "name": d.get("name"), "via": "openfigi"}
         time.sleep(2.6)
-    missing = [c for c in issuers if not (cache.get(c) or {}).get("t") and not (cache.get(c) or {}).get("triedSec")]
+    missing = [c for c in issuers
+               if not (cache.get(c) or {}).get("v2") and (not (cache.get(c) or {}).get("t") or (cache.get(c) or {}).get("via") == "sec-name")]
     if missing:
         try:
             sec = _json("https://www.sec.gov/files/company_tickers.json")
@@ -281,8 +350,10 @@ def map_cusips(issuers, cache_path):
             for v in sec.values():
                 by_name.setdefault(_norm(v["title"]), v["ticker"])
             for c in missing:
-                t = by_name.get(_norm(issuers[c]))
-                cache[c] = {"t": t.replace(".", "-") if t else None, "name": issuers[c], "via": "sec-name" if t else None, "triedSec": True}
+                name, cls = issuers[c]
+                t = by_name.get(_norm(name)) if _looks_common(cls) else None
+                cache[c] = {"t": t.replace(".", "-") if t else None, "name": name, "cls": cls,
+                            "via": "sec-name" if t else None, "triedSec": True, "v2": True}
         except Exception as e:
             print(f"SEC ticker list unavailable: {e}", file=sys.stderr)
     cache_path.parent.mkdir(parents=True, exist_ok=True)
@@ -352,15 +423,17 @@ def position_history(qs, key, px, splits):
 
 
 def moves(prev, cur, adj=None):
-    """New, added, trimmed and sold positions between two quarters (stock positions only), in today's share basis."""
+    """New, added, trimmed and sold positions between two quarters (stock positions only), in today's share basis.
+    amtQE: dollar size of the change at the filing's own quarter-end price (needs no ticker, so always available)."""
     adj = adj or (lambda c, p: 1.0)
     out = []
     keys = {k for k in list(prev["rows"]) + list(cur["rows"]) if not k.endswith("|Put") and not k.endswith("|Call")}
     for k in keys:
         a, b = prev["rows"].get(k), cur["rows"].get(k)
         r0 = b or a
-        sa = (a or {}).get("shares", 0.0) * adj(r0["cusip"], prev["period"])
-        sb = (b or {}).get("shares", 0.0) * adj(r0["cusip"], cur["period"])
+        c = r0["cusip"]
+        sa = (a or {}).get("shares", 0.0) * adj(c, prev["period"])
+        sb = (b or {}).get("shares", 0.0) * adj(c, cur["period"])
         if abs(sa - sb) < 1e-6:
             continue
         if sa == 0:
@@ -372,15 +445,107 @@ def moves(prev, cur, adj=None):
             if abs(ch) < 0.5:
                 continue
             act = "Added" if ch > 0 else "Trimmed"
-        out.append({"cusip": r0["cusip"], "issuer": r0["issuer"], "act": act, "chg": None if ch is None else round(ch, 1),
-                    "dShares": sb - sa, "shares": sb, "valueAfter": (b or {}).get("value", 0.0),
-                    "valueBefore": (a or {}).get("value", 0.0)})
+        if b and b["shares"]:
+            pq = b["value"] / b["shares"] / adj(c, cur["period"])
+        elif a and a["shares"]:
+            pq = a["value"] / a["shares"] / adj(c, prev["period"])
+        else:
+            pq = 0.0
+        out.append({"cusip": c, "issuer": r0["issuer"], "cls": r0.get("cls", ""), "act": act,
+                    "chg": None if ch is None else round(ch, 1), "dShares": sb - sa, "shares": sb,
+                    "valueAfter": (b or {}).get("value", 0.0), "amtQE": abs(sb - sa) * pq})
     return out
+
+
+def stock_total(q):
+    return sum(r["value"] for r in q["rows"].values() if not r["putCall"])
+
+
+def mark_material(ms, total):
+    """A move counts as buying or selling only if it changes the position by at least MIN_POS_CHG % and is worth
+    at least MIN_PORT_CHG % of the portfolio. Smaller ones are rebalancing noise and count as held."""
+    for m in ms:
+        pct = m["amtQE"] / total * 100 if total else 0.0
+        m["material"] = (m["act"] in ("New", "Sold out") or abs(m["chg"] or 0) >= MIN_POS_CHG) and pct >= MIN_PORT_CHG
+    return ms
 
 
 def _title(s):
     s = (s or "").strip()
     return s.title() if s.isupper() else s
+
+
+BUY = ("New", "Added")
+
+
+def _company(cusip, cls):
+    """Board key: a company's share classes (e.g. Alphabet's GOOGL and GOOG) share the CUSIP's first six characters."""
+    return cusip[:6] if _looks_common(cls) else cusip
+
+
+def board(current, verify, priced):
+    """Consensus board across funds' latest filings, one row per company, one vote per fund.
+    current: [{name, total, q, moves}] with priced moves."""
+    by = {}
+    for f in current:
+        for r in f["q"]["rows"].values():
+            if r["putCall"] or r["value"] <= 0:
+                continue
+            k = _company(r["cusip"], r.get("cls"))
+            e = by.setdefault(k, {"issuer": r["issuer"], "lines": {}, "hold": {}, "mv": {}})
+            e["lines"].setdefault(r["cusip"], [0.0, f["q"], r])[0] += r["value"]
+            h = e["hold"].setdefault(f["name"], {"w": 0.0, "value": 0.0})
+            h["value"] += r["value"]
+            h["w"] += r["value"] / f["total"] * 100
+        for m in f["moves"]:
+            k = _company(m["cusip"], m.get("cls"))
+            e = by.setdefault(k, {"issuer": m["issuer"], "lines": {}, "hold": {}, "mv": {}})
+            e["mv"].setdefault(f["name"], []).append(m)
+    rows = []
+    for e in by.values():
+        mv, small = [], []
+        for fund, parts in e["mv"].items():
+            mat = [m for m in parts if m["material"]]
+            if not mat:
+                small.append(fund)
+                continue
+            net = sum((m["amount"] or 0) * (1 if m["act"] in BUY else -1) for m in mat)
+            if len(mat) == 1:
+                act, chg = mat[0]["act"], mat[0]["chg"]
+            else:     # several share classes moved: the net dollar change decides the direction
+                acts = {m["act"] for m in mat}
+                act = acts.pop() if len(acts) == 1 else ("Added" if net > 0 else "Trimmed")
+                chg = None
+            mv.append({"fund": fund, "act": act, "chg": chg, "amount": round(abs(net)),
+                       "pct": round(sum(m["pct"] or 0 for m in mat if (m["act"] in BUY) == (act in BUY)), 2),
+                       "w": round(e["hold"].get(fund, {}).get("w", 0), 2)})
+        add = [m for m in mv if m["act"] in BUY]
+        red = [m for m in mv if m["act"] not in BUY]
+        n = len(mv)
+        cons = None if n < 3 else "buy" if len(add) * 3 >= n * 2 else "sell" if len(red) * 3 >= n * 2 else "split"
+        moved = {m["fund"] for m in mv}
+        lines = sorted(e["lines"].values(), key=lambda x: -x[0])
+        rows.append({"issuer": _title(e["issuer"]), "ref": (lines[0][1], lines[0][2]) if lines else None,
+                     "classes": len(lines), "holders": len(e["hold"]), "adders": len(add), "reducers": len(red),
+                     "unchanged": sum(1 for k in e["hold"] if k not in moved), "cons": cons,
+                     "value": round(sum(h["value"] for h in e["hold"].values())),
+                     "convBuy": round(sum(m["pct"] for m in add), 2), "convSell": round(sum(m["pct"] for m in red), 2),
+                     "net": round(sum(m["amount"] * (1 if m["act"] in BUY else -1) for m in mv)),
+                     "movers": sorted(mv, key=lambda x: -(x["pct"] or 0)),
+                     "held": sorted(({"fund": k, "w": round(v["w"], 2), "small": k in small}
+                                     for k, v in e["hold"].items() if k not in moved), key=lambda x: -x["w"])})
+    tabs = {
+        "bought": sorted((r for r in rows if r["adders"]), key=lambda r: (-r["adders"], r["reducers"], -r["convBuy"]))[:BOARD_ROWS],
+        "sold": sorted((r for r in rows if r["reducers"]), key=lambda r: (-r["reducers"], r["adders"], -r["convSell"]))[:BOARD_ROWS],
+        "held": sorted(rows, key=lambda r: (-r["holders"], -r["value"]))[:BOARD_ROWS],
+    }
+    for lst in tabs.values():
+        for r in lst:
+            if "ref" in r:
+                ref = r.pop("ref")
+                r["t"] = verify(None, *ref)[0] if ref else None
+                r["cusip"] = ref[1]["cusip"] if ref else None
+    return tabs
 
 
 def build(content, data_dir, price_loader):
@@ -405,34 +570,72 @@ def build(content, data_dir, price_loader):
     if not funds:
         return None
 
+    # securities that need a ticker: top holdings, options, recent moves, and board candidates
     issuers = {}
-    for L, _, qs, _ in funds:
+    def need(r):
+        issuers[r["cusip"]] = (r["issuer"], r.get("cls", ""))
+    pre = []
+    for L, _, qs, stale in funds:
         cur = qs[-1]["rows"]
         stock = sorted((r for r in cur.values() if not r["putCall"]), key=lambda r: -r["value"])
         for r in stock[:TOP_N] + [r for r in cur.values() if r["putCall"]]:
-            issuers[r["cusip"]] = r["issuer"]
+            need(r)
         for i in range(max(1, len(qs) - MOVE_FILINGS), len(qs)):
             for m in moves(qs[i - 1], qs[i]):
-                issuers[m["cusip"]] = m["issuer"]
+                need(m)
+        if len(qs) > 1 and not stale:
+            ms = mark_material(moves(qs[-2], qs[-1]), stock_total(qs[-1]))
+            for m in ms:
+                m["amount"], m["pct"] = m["amtQE"], m["amtQE"] / (stock_total(qs[-1]) or 1) * 100
+            pre.append({"name": L["name"], "total": stock_total(qs[-1]) or 1, "q": qs[-1], "moves": ms})
+    for lst in board(pre, lambda L, q, r: (None, None), {}).values():
+        for r in lst:
+            if r.get("cusip"):
+                issuers.setdefault(r["cusip"], (r["issuer"], ""))
     figi = map_cusips(issuers, root / "cusip-map.json")
     tick = lambda c: (figi.get(c) or {}).get("t")
+    via = lambda c: (figi.get(c) or {}).get("via")
     closes, splits = price_loader(sorted({tick(c) for c in issuers if tick(c)}))
     reported = content.get("reportedCost", {})
 
-    # a ticker is trusted only if the filing's own quarter-end prices agree with it
-    trusted = {}
-    def ok_ticker(L, q, r):
-        t = tick(r["cusip"])
-        if not t or t not in closes:
-            return None
-        key = (t, q["period"])
-        if key not in trusted:
-            trusted[key] = price_agrees(r, q["period"], closes[t], splits.get(t))
-            if trusted[key] is False:
-                audit(L["name"], "ticker check", False, f"{_title(r['issuer'])} ({t}) price disagrees with the filing at {q['period']}: price figures hidden")
-        return t if trusted[key] is not False else None
+    # A ticker is shown only when the filing's own quarter-end prices agree with it. Prices are used only then.
+    checked = {}
+    def verify(L, q, r):
+        """-> (ticker to show, ticker trusted for price figures)"""
+        c = r["cusip"]
+        t = tick(c)
+        if not t:
+            return None, None
+        if t not in closes:
+            return (t if via(c) != "sec-name" else None), None
+        key = (c, q["period"])
+        if key not in checked:
+            checked[key] = price_agrees(r, q["period"], closes[t], splits.get(t))
+            if checked[key] is False:
+                audit(L["name"] if L else "Board", "ticker check", False,
+                      f"{_title(r['issuer'])} ({t}) price disagrees with the filing at {q['period']}: ticker and prices hidden")
+        if checked[key] is False:
+            return None, None
+        if checked[key] is None and via(c) == "sec-name":
+            return None, None
+        return t, t
 
-    out = []
+    def price_moves(L, ms, q, prev, total):
+        """Dollar size of each move: shares changed x that quarter's average close when the ticker is verified,
+        otherwise x the filing's own quarter-end price. Both are estimates and labelled so."""
+        for m in ms:
+            row, rq = q["rows"].get(f"{m['cusip']}|"), q
+            if not row:                   # sold out: check the ticker against the previous filing instead
+                row, rq = prev["rows"].get(f"{m['cusip']}|"), prev
+            show, t = verify(L, rq, row) if row else (None, None)
+            est = _qavg(closes.get(t), q["period"]) if t else None
+            m["t"] = show
+            m["estPrice"] = None if est is None else round(est, 2)
+            m["amount"] = round(abs(m["dShares"]) * est) if est else round(m["amtQE"])
+            m["pct"] = round(m["amount"] / total * 100, 2) if total else None
+        return ms
+
+    out, current = [], []
     for L, edgar_name, qs, stale in funds:
         cur = qs[-1]
         stock = sorted([(k, r) for k, r in cur["rows"].items() if not r["putCall"]], key=lambda kr: -kr[1]["value"])
@@ -440,8 +643,8 @@ def build(content, data_dir, price_loader):
         rep = reported.get(str(L["ciks"][0])) or reported.get(L["name"]) or {}
         holdings, mapped = [], 0
         for k, r in stock[:TOP_N]:
-            t = ok_ticker(L, cur, r)
-            mapped += 1 if t else 0
+            show, t = verify(L, cur, r)
+            mapped += 1 if show else 0
             px = closes.get(t) if t else None
             h = position_history(qs, k, px, splits.get(t) if t else None)
             last = float(px.iloc[-1]) if px is not None and len(px) else None
@@ -449,7 +652,7 @@ def build(content, data_dir, price_loader):
             cost = rc["perShare"] if rc else (None if h["before"] else h["avgCost"])
             gain = (last / cost - 1) * 100 if last and cost else None
             shares_now = h["shares"] or r["shares"]
-            holdings.append({"t": t or tick(r["cusip"]), "name": _title(r["issuer"]), "w": round(r["value"] / total * 100, 2),
+            holdings.append({"t": show, "name": _title(r["issuer"]), "w": round(r["value"] / total * 100, 2),
                              "value": round(r["value"]), "valueNow": round(shares_now * last) if last else None,
                              "shares": round(shares_now), "cost": None if cost is None else round(cost, 2),
                              "costKind": "reported" if rc else ("estimate" if cost else None),
@@ -457,31 +660,26 @@ def build(content, data_dir, price_loader):
                              "last": None if last is None else round(last, 2), "gain": None if gain is None else round(gain, 1),
                              "since": h["since"], "before": h["before"], "checked": bool(t)})
         audit(L["name"], "tickers verified", mapped == len(holdings), f"{mapped} of {len(holdings)} top holdings")
-        options = [{"t": tick(r["cusip"]), "name": _title(r["issuer"]), "type": r["putCall"], "value": round(r["value"])}
+        options = [{"t": verify(L, cur, r)[0], "name": _title(r["issuer"]), "type": r["putCall"], "value": round(r["value"])}
                    for k, r in sorted(cur["rows"].items(), key=lambda kr: -kr[1]["value"]) if r["putCall"]]
         hist = []
+        adj = lambda c, p: _split_factor(splits.get(tick(c)) if tick(c) else None, p)
         for i in range(len(qs) - 1, max(0, len(qs) - 1 - MOVE_FILINGS), -1):
             if i < 1:
                 break
-            adj = lambda c, p: _split_factor(splits.get(tick(c)) if tick(c) else None, p)
-            ms = moves(qs[i - 1], qs[i], adj)
-            for m in ms:
-                row = qs[i]["rows"].get(f"{m['cusip']}|") or qs[i - 1]["rows"].get(f"{m['cusip']}|")
-                t = ok_ticker(L, qs[i] if f"{m['cusip']}|" in qs[i]["rows"] else qs[i - 1], row) if row else None
-                est = _qavg(closes.get(t), qs[i]["period"]) if t else None
-                m.update({"t": t or tick(m["cusip"]), "issuer": _title(m["issuer"]),
-                          "estPrice": None if est is None else round(est, 2),
-                          "estAmount": None if est is None else round(abs(m["dShares"]) * est),
-                          "dShares": round(m["dShares"]), "shares": round(m["shares"]),
-                          "valueAfter": round(m["valueAfter"])})
-                m.pop("cusip", None)
-                m.pop("valueBefore", None)
-            ms.sort(key=lambda m: -(m["estAmount"] or abs(m["valueAfter"]) or 0))
+            tot_i = stock_total(qs[i])
+            ms = price_moves(L, mark_material(moves(qs[i - 1], qs[i], adj), tot_i), qs[i], qs[i - 1], tot_i)
+            if i == len(qs) - 1 and not stale:
+                current.append({"name": L["name"], "total": tot_i or 1, "q": qs[i], "moves": ms})
+            shown = sorted(ms, key=lambda m: (not m["material"], -(m["amount"] or 0)))
             hist.append({"period": qs[i]["period"], "filed": qs[i]["filed"], "acc": qs[i]["acc"],
-                         "counts": {a: sum(1 for m in ms if m["act"] == a) for a in ("New", "Added", "Trimmed", "Sold out")},
-                         "bought": round(sum(m["estAmount"] or 0 for m in ms if m["act"] in ("New", "Added"))),
-                         "sold": round(sum(m["estAmount"] or 0 for m in ms if m["act"] in ("Trimmed", "Sold out"))),
-                         "moves": ms[:25], "more": max(0, len(ms) - 25)})
+                         "counts": {a: sum(1 for m in ms if m["act"] == a and m["material"]) for a in ("New", "Added", "Trimmed", "Sold out")},
+                         "small": sum(1 for m in ms if not m["material"]),
+                         "bought": round(sum(m["amount"] or 0 for m in ms if m["act"] in BUY)),
+                         "sold": round(sum(m["amount"] or 0 for m in ms if m["act"] not in BUY)),
+                         "moves": [{k: (round(v) if k in ("dShares", "shares", "valueAfter") else v) for k, v in m.items()
+                                    if k not in ("cusip", "cls", "amtQE")} for m in shown[:25]],
+                         "more": max(0, len(ms) - 25)})
         cash = None
         if L["ciks"][0] == 1067983 and content.get("berkshireCash"):
             c = sorted(content["berkshireCash"], key=lambda x: x["date"])[-1]
@@ -489,37 +687,16 @@ def build(content, data_dir, price_loader):
         latest_cik = cur.get("cik") or L["ciks"][-1]
         out.append({"cik": int(latest_cik), "name": L["name"], "people": L.get("people", ""), "edgarName": edgar_name,
                     "period": cur["period"], "filed": cur["filed"], "acc": cur["acc"], "amended": cur.get("amended"),
-                    "stale": stale, "expected": want if stale else None,
+                    "combined": bool(cur.get("combined")), "stale": stale, "expected": want if stale else None,
                     "total": round(total), "positions": len(stock), "options": options, "cash": cash,
                     "holdings": holdings, "moves": hist, "firstPeriod": qs[0]["period"],
                     "secUrl": f"https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK={int(latest_cik)}&type=13F-HR"})
     out.sort(key=lambda f: -f["total"])
-    return {"funds": out, "shared": shared_moves(out), "reported": content.get("reported", []), "berkshireCash": content.get("berkshireCash", []),
+    tabs = board(current, lambda L, q, r: verify(L, q, r), {})
+    return {"funds": out, "board": {**tabs, "funds": len(current), "excluded": [f["name"] for f in out if f["stale"]],
+                                    "rules": {"minPos": MIN_POS_CHG, "minPort": MIN_PORT_CHG}},
+            "reported": content.get("reported", []), "berkshireCash": content.get("berkshireCash", []),
             "expected": want, "built": datetime.utcnow().strftime("%Y-%m-%d")}
-
-
-def shared_moves(funds):
-    """Stocks that two or more funds moved in their latest filing: all buying, all selling, or split."""
-    by = {}
-    for f in funds:
-        if not f["moves"]:
-            continue
-        g = f["moves"][0]
-        for m in g["moves"]:
-            k = m.get("t") or m["issuer"]
-            e = by.setdefault(k, {"t": m.get("t"), "name": m["issuer"], "funds": []})
-            e["funds"].append({"fund": f["name"], "act": m["act"], "chg": m["chg"], "estAmount": m.get("estAmount"),
-                               "estPrice": m.get("estPrice"), "period": g["period"]})
-    out = []
-    for e in by.values():
-        if len(e["funds"]) < 2:
-            continue
-        buys = sum(1 for x in e["funds"] if x["act"] in ("New", "Added"))
-        e["kind"] = "buy" if buys == len(e["funds"]) else "sell" if buys == 0 else "split"
-        e["total"] = sum(x["estAmount"] or 0 for x in e["funds"])
-        out.append(e)
-    out.sort(key=lambda e: (-len(e["funds"]), {"buy": 0, "sell": 1, "split": 2}[e["kind"]], -e["total"]))
-    return out[:12]
 
 
 def summary_markdown():
