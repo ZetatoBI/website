@@ -3,6 +3,50 @@
 "name": "ADMA BIOLOGICS INC",
 "t": "ADMA"
 },
+"00090Q103": {
+"name": "ADT INC",
+"t": "ADT",
+"via": "openfigi"
+},
+"00130H105": {
+"name": "AES CORP",
+"t": "AES",
+"via": "openfigi"
+},
+"00130H204": {
+"cls": "UNIT 99/99/9999",
+"name": "AES CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"00138L108": {
+"name": "ATRENEW INC",
+"t": "RERE",
+"via": "openfigi"
+},
+"00162Q452": {
+"name": "ALERIAN MLP ETF",
+"t": "AMLP",
+"via": "openfigi"
+},
+"00162Q866": {
+"cls": "ALERIAN MLP",
+"name": "ALPS ETF TR",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"00165C104": {
+"cls": "CL A COM",
+"name": "AMC ENTMT HLDGS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "00165C302": {
 "name": "AMC ENTERTAINMENT HLDS-CL A",
 "t": "AMC",
@@ -13,15 +57,63 @@
 "t": "APG",
 "via": "openfigi"
 },
+"00206R102": {
+"name": "AT&T INC",
+"t": "T",
+"via": "openfigi"
+},
+"00214Q104": {
+"name": "ARK INNOVATION ETF",
+"t": "ARKK",
+"via": "openfigi"
+},
+"00217D100": {
+"name": "AST SPACEMOBILE INC",
+"t": "ASTS",
+"via": "openfigi"
+},
+"002535300": {
+"cls": "COM",
+"name": "Aaron's Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"002824100": {
+"name": "ABBOTT LABORATORIES",
+"t": "ABT",
+"via": "openfigi"
+},
+"00287Y109": {
+"name": "ABBVIE INC",
+"t": "ABBV",
+"via": "openfigi"
+},
+"00288U106": {
+"name": "ABCELLERA BIOLOGICS INC",
+"t": "ABCL",
+"via": "openfigi"
+},
+"003654100": {
+"cls": "COM",
+"name": "ABIOMED INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "00404A109": {
 "name": "ACADIA HEALTHCARE CO INC",
 "t": "ACHC",
 "via": "openfigi"
 },
 "00507V109": {
+"cls": "COM",
 "name": "ACTIVISION BLIZZARD INC",
 "t": null,
 "triedSec": true,
+"v2": true,
 "via": null
 },
 "00724F101": {
@@ -34,18 +126,62 @@
 "t": "AAP",
 "via": "openfigi"
 },
+"00766T100": {
+"name": "AECOM",
+"t": "ACM",
+"via": "openfigi"
+},
 "007903107": {
 "name": "ADVANCED MICRO DEVICES",
 "t": "AMD"
+},
+"00791N102": {
+"cls": "COM CL A",
+"name": "ADVANTAGE SOLUTIONS INC",
+"t": "ADV",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"00817Y108": {
+"cls": "COM",
+"name": "AETNA INC NEW",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"00827B106": {
+"name": "AFFIRM HOLDINGS INC",
+"t": "AFRM",
+"via": "openfigi"
 },
 "00835Q202": {
 "name": "AEVA TECHNOLOGIES INC",
 "t": "AEVA"
 },
+"00846U101": {
+"name": "AGILENT TECHNOLOGIES INC",
+"t": "A",
+"via": "openfigi"
+},
+"008474108": {
+"name": "AGNICO EAGLE MINES LTD",
+"t": "AEM",
+"via": "openfigi"
+},
 "00851L103": {
 "name": "AGORA INC-ADR",
 "t": "API",
 "via": "openfigi"
+},
+"008916108": {
+"cls": "COM",
+"name": "Agrium Inc.",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "009066101": {
 "name": "AIRBNB INC-CLASS A",
@@ -57,19 +193,96 @@
 "t": "APD",
 "via": "openfigi"
 },
+"00971T101": {
+"name": "AKAMAI TECHNOLOGIES INC",
+"t": "AKAM",
+"via": "openfigi"
+},
+"00972D105": {
+"name": "AKEBIA THERAPEUTICS INC",
+"t": "AKBA",
+"via": "openfigi"
+},
+"012653101": {
+"name": "ALBEMARLE CORP",
+"t": "ALB",
+"via": "openfigi"
+},
+"013817101": {
+"cls": "COM",
+"name": "ALCOA INC",
+"t": "AA",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
 "013872106": {
 "name": "ALCOA CORP",
 "t": "AA"
+},
+"015351109": {
+"cls": "COM",
+"name": "ALEXION PHARMACEUTICALS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "01609W102": {
 "name": "ALIBABA GROUP HOLDING-SP ADR",
 "t": "BABA"
 },
+"016255101": {
+"name": "ALIGN TECHNOLOGY INC",
+"t": "ALGN",
+"via": "openfigi"
+},
 "01626W101": {
+"cls": "COM CL A",
 "name": "ALIGHT INC",
 "t": null,
 "triedSec": true,
+"v2": true,
 "via": null
+},
+"01741R102": {
+"name": "ATI INC",
+"t": "ATI",
+"via": "openfigi"
+},
+"018490102": {
+"cls": "COM",
+"name": "ALLERGAN INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"018581108": {
+"name": "BREAD FINANCIAL HOLDINGS INC",
+"t": "BFH",
+"via": "openfigi"
+},
+"01861G100": {
+"cls": "COM",
+"name": "Alliance Holdings GP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"018772103": {
+"cls": "COM",
+"name": "ALLIANCE ONE INTL INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"020002101": {
+"name": "ALLSTATE CORP",
+"t": "ALL",
+"via": "openfigi"
 },
 "02005N100": {
 "name": "ALLY FINANCIAL INC",
@@ -78,6 +291,16 @@
 "020398707": {
 "name": "ALMONTY INDUSTRIES INC",
 "t": "ALM"
+},
+"02043Q107": {
+"name": "ALNYLAM PHARMACEUTICALS INC",
+"t": "ALNY",
+"via": "openfigi"
+},
+"020764106": {
+"name": "ALPHA METALLURGICAL RESOURCE",
+"t": "AMR",
+"via": "openfigi"
 },
 "02079K107": {
 "name": "ALPHABET INC-CL C",
@@ -103,9 +326,48 @@
 "v2": true,
 "via": null
 },
+"021346101": {
+"cls": "COM",
+"name": "ALTABA INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"02156B103": {
+"cls": "COM CL A",
+"name": "Alteryx Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"02156K103": {
+"name": "OPTIMUM COMMUNICATIONS INC-A",
+"t": "OPTU",
+"via": "openfigi"
+},
+"02209S103": {
+"name": "ALTRIA GROUP INC",
+"t": "MO",
+"via": "openfigi"
+},
 "023135106": {
 "name": "AMAZON.COM INC",
 "t": "AMZN"
+},
+"02314M108": {
+"cls": "COM",
+"name": "AMAYA INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"023586100": {
+"name": "U-HAUL HOLDING CO",
+"t": "UHAL",
+"via": "openfigi"
 },
 "02376R102": {
 "name": "AMERICAN AIRLINES GROUP INC",
@@ -116,14 +378,48 @@
 "t": "DCH",
 "via": "openfigi"
 },
+"02503X105": {
+"cls": "COM",
+"name": "AMERICAN CAPITAL AGENCY CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "025537101": {
 "name": "AMERICAN ELECTRIC POWER",
 "t": "AEP",
 "via": "openfigi"
 },
+"02553E106": {
+"name": "AMERICAN EAGLE OUTFITTERS",
+"t": "AEO",
+"via": "openfigi"
+},
 "025816109": {
 "name": "AMERICAN EXPRESS CO",
 "t": "AXP"
+},
+"026874156": {
+"cls": "*W EXP 01/19/202",
+"name": "AMERICAN INTL GROUP INC",
+"t": "AIG",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"026874784": {
+"name": "AMERICAN INTERNATIONAL GROUP",
+"t": "AIG",
+"via": "openfigi"
+},
+"02916P103": {
+"cls": "COM",
+"name": "AMERICAN RAILCAR INDS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "03027X100": {
 "name": "AMERICAN TOWER CORP",
@@ -134,15 +430,75 @@
 "name": "AMERICOLD REALTY TRUST INC",
 "t": "COLD"
 },
+"03073E105": {
+"name": "CENCORA INC",
+"t": "COR",
+"via": "openfigi"
+},
+"031100100": {
+"name": "AMETEK INC",
+"t": "AME",
+"via": "openfigi"
+},
+"031162100": {
+"name": "AMGEN INC",
+"t": "AMGN",
+"via": "openfigi"
+},
+"032095101": {
+"name": "AMPHENOL CORP-CL A",
+"t": "APH",
+"via": "openfigi"
+},
+"032359309": {
+"cls": "COM",
+"name": "AMTRUST FINL SVCS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"032511107": {
+"cls": "COM",
+"name": "ANADARKO PETE CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "032654105": {
 "name": "ANALOG DEVICES INC",
 "t": "ADI",
 "via": "openfigi"
 },
+"03272L108": {
+"cls": "COM",
+"name": "Anaplan Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"03349M105": {
+"cls": "COM",
+"name": "Andeavor",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "03524A108": {
 "name": "ANHEUSER-BUSCH INBEV-SPN ADR",
 "t": "BUD",
 "via": "openfigi"
+},
+"03662Q105": {
+"cls": "COM",
+"name": "ANSYS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "03674X106": {
 "name": "ANTERO RESOURCES CORP",
@@ -152,6 +508,30 @@
 "036752103": {
 "name": "ELEVANCE HEALTH INC",
 "t": "ELV"
+},
+"037411105": {
+"cls": "COM",
+"name": "Apache Corp",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"037612306": {
+"cls": "COM",
+"name": "Apollo Global Management - A",
+"t": "APO",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"03768E105": {
+"cls": "COM",
+"name": "Apollo Global Management - A",
+"t": "APO",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
 },
 "03769M106": {
 "name": "APOLLO GLOBAL MANAGEMENT INC",
@@ -189,6 +569,30 @@
 "t": "ABR",
 "via": "openfigi"
 },
+"03938L104": {
+"cls": "NY REGISTRY SH",
+"name": "ARCELORMITTAL SA LUXEMBOURG",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"03940F103": {
+"cls": "COM CL A",
+"name": "ARCHAEA ENERGY INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"03940R107": {
+"cls": "CL A",
+"name": "Arch Resources Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "039483102": {
 "name": "ARCHER-DANIELS-MIDLAND CO",
 "t": "ADM",
@@ -208,9 +612,67 @@
 "name": "ARGAN INC",
 "t": "AGX"
 },
+"040413106": {
+"cls": "COM",
+"name": "Arista Networks Inc",
+"t": "ANET",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
 "042068205": {
 "name": "ARM HOLDINGS PLC-ADR",
 "t": "ARM"
+},
+"04271T100": {
+"name": "ARRAY TECHNOLOGIES INC",
+"t": "ARRY",
+"via": "openfigi"
+},
+"04342Y104": {
+"name": "ASANA INC - CL A",
+"t": "ASAN",
+"via": "openfigi"
+},
+"04351P101": {
+"cls": "SPONSORED ADR",
+"name": "Ascendis Pharma A/S",
+"t": "ASND",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"044209104": {
+"cls": "COM",
+"name": "ASHLAND INC NEW",
+"t": "ASH",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"045327103": {
+"cls": "COM",
+"name": "Aspen Technology Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"046353108": {
+"cls": "SPONS ADR",
+"name": "Astrazeneca PLC",
+"t": "AZN",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"046513107": {
+"cls": "COM",
+"name": "ATARA BIOTHERAPEUTICS INC",
+"t": "ATRA",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
 },
 "04681Y103": {
 "name": "ATEGRITY SPECIALTY HOLDINGS",
@@ -221,6 +683,14 @@
 "name": "ATLANTA BRAVES HOLDINGS IN-C",
 "t": "BATRK"
 },
+"049164205": {
+"cls": "COM NEW",
+"name": "ATLAS AIR WORLDWIDE HLDGS IN",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "049468101": {
 "name": "ATLASSIAN CORP-CL A",
 "t": "TEAM",
@@ -230,9 +700,60 @@
 "name": "AURORA INNOVATION INC",
 "t": "AUR"
 },
+"052769106": {
+"name": "AUTODESK INC",
+"t": "ADSK",
+"via": "openfigi"
+},
+"05278C107": {
+"name": "AUTOHOME INC-ADR",
+"t": "ATHM",
+"via": "openfigi"
+},
+"053015103": {
+"name": "AUTOMATIC DATA PROCESSING",
+"t": "ADP",
+"via": "openfigi"
+},
+"053332102": {
+"name": "AUTOZONE INC",
+"t": "AZO",
+"via": "openfigi"
+},
+"05351W103": {
+"cls": "COM",
+"name": "AVANGRID INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"05352A100": {
+"name": "AVANTOR INC",
+"t": "AVTR",
+"via": "openfigi"
+},
+"053774105": {
+"name": "AVIS BUDGET GROUP INC",
+"t": "CAR",
+"via": "openfigi"
+},
 "05464C101": {
 "name": "AXON ENTERPRISE INC",
 "t": "AXON",
+"via": "openfigi"
+},
+"054937107": {
+"cls": "COM",
+"name": "BB&T Corp",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"055622104": {
+"name": "BP PLC-SPONS ADR",
+"t": "BP",
 "via": "openfigi"
 },
 "05603J108": {
@@ -244,9 +765,33 @@
 "name": "BWX TECHNOLOGIES INC",
 "t": "BWXT"
 },
+"05615F102": {
+"cls": "COM",
+"name": "BABCOCK & WILCOX CO NEW",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "056752108": {
 "name": "BAIDU INC - SPON ADR",
 "t": "BIDU"
+},
+"056752908": {
+"cls": "Spon ADR A",
+"name": "Baidu Inc",
+"t": "BIDU",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"057224107": {
+"cls": "COM",
+"name": "Baker Hughes Inc.",
+"t": "BKR",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
 },
 "058498106": {
 "name": "BALL CORP",
@@ -269,6 +814,19 @@
 "name": "BARCLAYS PLC-SPONS ADR",
 "t": "BCS"
 },
+"067901108": {
+"cls": "COM",
+"name": "Barrick Gold Corp",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"070830104": {
+"name": "BATH & BODY WORKS INC",
+"t": "BBWI",
+"via": "openfigi"
+},
 "071705107": {
 "name": "BAUSCH + LOMB CORP",
 "t": "BLCO",
@@ -279,18 +837,63 @@
 "t": "BHC",
 "via": "openfigi"
 },
+"07177M103": {
+"cls": "COM",
+"name": "BAXALTA INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"071813109": {
+"name": "BAXTER INTERNATIONAL INC",
+"t": "BAX",
+"via": "openfigi"
+},
+"073302101": {
+"cls": "COM",
+"name": "B/E AEROSPACE INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "073463119": {
 "name": "BEACHBODY CO-CW27",
 "t": "BODYW",
 "via": "openfigi"
 },
+"073730103": {
+"cls": "COM",
+"name": "BEAM INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "07373V105": {
 "name": "BEAM THERAPEUTICS INC",
 "t": "BEAM"
 },
+"075896100": {
+"cls": "COM",
+"name": "BED BATH & BEYOND INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "07782B104": {
 "name": "BELITE BIO INC - ADR",
 "t": "BLTE"
+},
+"078314101": {
+"cls": "COM",
+"name": "BELLATRIX EXPLORATION LTD",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "084670108": {
 "name": "BERKSHIRE HATHAWAY INC-CL A",
@@ -301,6 +904,16 @@
 "name": "BERKSHIRE HATHAWAY INC-CL B",
 "t": "BRK-B"
 },
+"086516101": {
+"name": "BEST BUY CO INC",
+"t": "BBY",
+"via": "openfigi"
+},
+"088606108": {
+"name": "BHP GROUP LTD-SPON ADR",
+"t": "BHP",
+"via": "openfigi"
+},
 "08862E109": {
 "cls": "COM",
 "name": "BEYOND MEAT INC",
@@ -309,11 +922,67 @@
 "v2": true,
 "via": "sec-name"
 },
+"090043100": {
+"name": "BILL HOLDINGS INC",
+"t": "BILL",
+"via": "openfigi"
+},
+"09061G101": {
+"name": "BIOMARIN PHARMACEUTICAL INC",
+"t": "BMRN",
+"via": "openfigi"
+},
+"09062X103": {
+"name": "BIOGEN INC",
+"t": "BIIB",
+"via": "openfigi"
+},
+"09075V102": {
+"name": "BIONTECH SE-ADR",
+"t": "BNTX",
+"via": "openfigi"
+},
+"091727107": {
+"cls": "SPONSORED ADS",
+"name": "BITAUTO HLDGS LTD",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "09215C105": {
+"cls": "COM",
 "name": "BLACK KNIGHT INC",
 "t": null,
 "triedSec": true,
+"v2": true,
 "via": null
+},
+"09228F103": {
+"name": "BLACKBERRY LTD",
+"t": "BB",
+"via": "openfigi"
+},
+"09247X101": {
+"cls": "COM",
+"name": "Blackrock Inc",
+"t": "BLK",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"09253U108": {
+"cls": "COM",
+"name": "Blackstone Group",
+"t": "BX",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"09260D107": {
+"name": "BLACKSTONE INC",
+"t": "BX",
+"via": "openfigi"
 },
 "09263B116": {
 "name": "BLACKSKY TECHNOLOGY INC",
@@ -331,6 +1000,11 @@
 "t": "BLK",
 "via": "openfigi"
 },
+"09352U108": {
+"name": "BLEND LABS INC-A",
+"t": "BLND",
+"via": "openfigi"
+},
 "093671105": {
 "name": "H&R BLOCK INC",
 "t": "HRB",
@@ -340,31 +1014,103 @@
 "name": "BLOOM ENERGY CORP- A",
 "t": "BE"
 },
+"09609G100": {
+"cls": "COM",
+"name": "Bluebird Bio Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "097023105": {
 "name": "BOEING CO/THE",
 "t": "BA"
+},
+"09857L108": {
+"name": "BOOKING HOLDINGS INC",
+"t": "BKNG",
+"via": "openfigi"
 },
 "099502106": {
 "name": "BOOZ ALLEN HAMILTON HOLDINGS",
 "t": "BAH",
 "via": "openfigi"
 },
+"101137107": {
+"name": "BOSTON SCIENTIFIC CORP",
+"t": "BSX",
+"via": "openfigi"
+},
+"10316T104": {
+"name": "BOX INC - CLASS A",
+"t": "BOX",
+"via": "openfigi"
+},
+"103304101": {
+"name": "BOYD GAMING CORP",
+"t": "BYD",
+"via": "openfigi"
+},
+"10920V107": {
+"cls": "COM",
+"name": "BRIGHT HEALTH GROUP INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "10922N103": {
 "name": "BRIGHTHOUSE FINANCIAL INC",
 "t": "BHF",
 "via": "openfigi"
 },
+"110122108": {
+"name": "BRISTOL-MYERS SQUIBB CO",
+"t": "BMY",
+"via": "openfigi"
+},
+"111320107": {
+"cls": "CL A",
+"name": "BROADCOM CORP",
+"t": "AVGO",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
 "11135F101": {
 "name": "BROADCOM INC",
 "t": "AVGO"
+},
+"112585104": {
+"cls": "COM",
+"name": "Brookfield Asset Management",
+"t": "BAM",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
 },
 "11271J107": {
 "name": "BROOKFIELD CORP",
 "t": "BN"
 },
+"113004105": {
+"name": "BROOKFIELD ASSET MGMT-A",
+"t": "BAM",
+"via": "openfigi"
+},
 "115236101": {
 "name": "BROWN & BROWN INC",
 "t": "BRO",
+"via": "openfigi"
+},
+"115637100": {
+"name": "BROWN-FORMAN CORP-CLASS A",
+"t": "BF-A",
+"via": "openfigi"
+},
+"115637209": {
+"name": "BROWN-FORMAN CORP-CLASS B",
+"t": "BF-B",
 "via": "openfigi"
 },
 "117043109": {
@@ -376,10 +1122,44 @@
 "name": "BUILDERS FIRSTSOURCE INC",
 "t": "BLDR"
 },
+"121220107": {
+"cls": "COM",
+"name": "BURGER KING WORLDWIDE INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"122017106": {
+"name": "BURLINGTON STORES INC",
+"t": "BURL",
+"via": "openfigi"
+},
+"12468P104": {
+"name": "C3.AI INC-A",
+"t": "AI",
+"via": "openfigi"
+},
+"124857202": {
+"cls": "CL B",
+"name": "CBS CORP NEW",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "12503M108": {
 "name": "CBOE GLOBAL MARKETS INC",
 "t": "CBOE",
 "via": "openfigi"
+},
+"12508E101": {
+"cls": "COM",
+"name": "CDK Global Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "12510Q100": {
 "name": "CCC INTELLIGENT SOLUTIONS HO",
@@ -389,10 +1169,23 @@
 "name": "CDW CORP/DE",
 "t": "CDW"
 },
+"125269100": {
+"name": "CF INDUSTRIES HOLDINGS INC",
+"t": "CF",
+"via": "openfigi"
+},
 "12541W209": {
 "name": "C.H. ROBINSON WORLDWIDE INC",
 "t": "CHRW",
 "via": "openfigi"
+},
+"125509109": {
+"cls": "COM",
+"name": "CIGNA CORPORATION",
+"t": "CI",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
 },
 "125523100": {
 "name": "THE CIGNA GROUP",
@@ -402,6 +1195,14 @@
 "12572Q105": {
 "name": "CME GROUP INC",
 "t": "CME"
+},
+"12592V100": {
+"cls": "COM UNIT RP LP",
+"name": "CNX COAL RES LP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "126408103": {
 "name": "CSX CORP",
@@ -423,40 +1224,159 @@
 "t": "UAN",
 "via": "openfigi"
 },
+"126650100": {
+"name": "CVS HEALTH CORP",
+"t": "CVS",
+"via": "openfigi"
+},
+"12685J105": {
+"name": "CABLE ONE INC",
+"t": "CABO",
+"via": "openfigi"
+},
+"127097103": {
+"name": "COTERRA ENERGY INC",
+"t": "CTRA",
+"via": "openfigi"
+},
 "127387108": {
 "name": "CADENCE DESIGN SYS INC",
 "t": "CDNS",
 "via": "openfigi"
 },
+"127686103": {
+"cls": "COM",
+"name": "CAESARS ENTMT CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "12769G100": {
 "name": "CAESARS ENTERTAINMENT INC",
 "t": "CZR"
+},
+"128030202": {
+"name": "CAL-MAINE FOODS INC",
+"t": "CALM",
+"via": "openfigi"
+},
+"131347304": {
+"cls": "COM NEW",
+"name": "CALPINE CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"133131102": {
+"name": "CAMDEN PROPERTY TRUST",
+"t": "CPT",
+"via": "openfigi"
+},
+"13321L108": {
+"name": "CAMECO CORP",
+"t": "CCJ",
+"via": "openfigi"
+},
+"134429109": {
+"name": "THE CAMPBELL'S COMPANY",
+"t": "CPB",
+"via": "openfigi"
 },
 "136375102": {
 "name": "CANADIAN NATL RAILWAY CO",
 "t": "CNI",
 "via": "openfigi"
 },
+"13645T100": {
+"cls": "COM",
+"name": "CANADIAN PAC RY LTD",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "13646K108": {
 "name": "CANADIAN PACIFIC KANSAS CITY",
 "t": "CP"
+},
+"13781Y103": {
+"cls": "COM CL A",
+"name": "CANO HEALTH INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"137833100": {
+"cls": "COM",
+"name": "APPLE INC",
+"t": "AAPL",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
 },
 "14040H105": {
 "name": "CAPITAL ONE FINANCIAL CORP",
 "t": "COF"
 },
+"140781105": {
+"cls": "COM",
+"name": "Carbo Ceramics Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"14149Y108": {
+"name": "CARDINAL HEALTH INC",
+"t": "CAH",
+"via": "openfigi"
+},
 "142152107": {
 "name": "CARIS LIFE SCIENCES INC",
 "t": "CAI"
+},
+"14309L102": {
+"cls": "COM",
+"name": "The Carlyle Group",
+"t": "CG",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
 },
 "143130102": {
 "name": "CARMAX INC",
 "t": "KMX",
 "via": "openfigi"
 },
+"14316J108": {
+"name": "CARLYLE GROUP INC/THE",
+"t": "CG",
+"via": "openfigi"
+},
+"143658300": {
+"cls": "PAIRED CTF",
+"name": "Carnival Corp",
+"t": "CCL",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
 "144285103": {
 "name": "CARPENTER TECHNOLOGY",
 "t": "CRS"
+},
+"14575E105": {
+"name": "CARS.COM INC",
+"t": "CARS",
+"via": "openfigi"
+},
+"146229109": {
+"name": "CARTER'S INC",
+"t": "CRI",
+"via": "openfigi"
 },
 "146869102": {
 "name": "CARVANA CO",
@@ -466,6 +1386,14 @@
 "name": "CASEY'S GENERAL STORES INC",
 "t": "CASY",
 "via": "openfigi"
+},
+"148806102": {
+"cls": "COM",
+"name": "CATALENT INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "149123101": {
 "name": "CATERPILLAR INC",
@@ -485,9 +1413,27 @@
 "name": "CELESTICA INC",
 "t": "CLS"
 },
+"151020104": {
+"cls": "COM",
+"name": "CELGENE CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"151290889": {
+"name": "CEMEX SAB-SPONS ADR PART CER",
+"t": "CX",
+"via": "openfigi"
+},
 "15135B101": {
 "name": "CENTENE CORP",
 "t": "CNC",
+"via": "openfigi"
+},
+"15135U109": {
+"name": "CENOVUS ENERGY INC",
+"t": "CVE",
 "via": "openfigi"
 },
 "155923105": {
@@ -504,6 +1450,14 @@
 "name": "CHAGEE HOLDINGS LTD-ADR",
 "t": "CHA",
 "via": "openfigi"
+},
+"15912K100": {
+"cls": "COM",
+"name": "CHANGE HEALTHCARE INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "15961R105": {
 "cls": "COM CL A",
@@ -526,6 +1480,14 @@
 "v2": true,
 "via": null
 },
+"16117M305": {
+"cls": "CL A NEW",
+"name": "CHARTER COMMUNICATIONS INC D",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "16119P108": {
 "name": "CHARTER COMMUNICATIONS INC-A",
 "t": "CHTR"
@@ -534,9 +1496,58 @@
 "name": "CHEMOURS CO/THE",
 "t": "CC"
 },
+"163893209": {
+"cls": "COM NEW",
+"name": "CHEMTURA CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"16411R208": {
+"name": "CHENIERE ENERGY INC",
+"t": "LNG",
+"via": "openfigi"
+},
+"165167107": {
+"cls": "COM",
+"name": "CHESAPEAKE ENERGY CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"165167164": {
+"name": "CHESAPEAKE ENERGY CORP -CW26",
+"t": "EXEEW",
+"via": "openfigi"
+},
+"165167172": {
+"name": "CHESAPEAKE ENERGY -CW26",
+"t": "EXEEZ",
+"via": "openfigi"
+},
+"165167180": {
+"name": "CHESAPEAKE ENERGY CORP -CW26",
+"t": "EXEEL",
+"via": "openfigi"
+},
+"165167735": {
+"name": "EXPAND ENERGY CORP",
+"t": "EXE",
+"via": "openfigi"
+},
 "166764100": {
 "name": "CHEVRON CORP",
 "t": "CVX"
+},
+"167250109": {
+"cls": "N Y REGISTRY SH",
+"name": "CHICAGO BRIDGE & IRON CO N V",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "16935C109": {
 "name": "CHIME FINANCIAL INC-CL A",
@@ -546,10 +1557,34 @@
 "name": "CHIPOTLE MEXICAN GRILL INC",
 "t": "CMG"
 },
+"16965P103": {
+"cls": "SPONSORED ADR",
+"name": "CHIPMOS TECHNOLOGIES INC",
+"t": "IMOS",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
 "169905106": {
 "name": "CHOICE HOTELS INTL INC",
 "t": "CHH",
 "via": "openfigi"
+},
+"171232101": {
+"cls": "COM",
+"name": "Chubb Corp",
+"t": "CB",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"171439102": {
+"cls": "CL A",
+"name": "CHURCHILL CAPITAL CORP IV",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "171757206": {
 "cls": "COM NEW",
@@ -558,6 +1593,11 @@
 "triedSec": true,
 "v2": true,
 "via": null
+},
+"17243V102": {
+"name": "CINEMARK HOLDINGS INC",
+"t": "CNK",
+"via": "openfigi"
 },
 "17253J106": {
 "name": "CIPHER DIGITAL INC",
@@ -574,6 +1614,14 @@
 "t": "CSCO",
 "via": "openfigi"
 },
+"172967226": {
+"cls": "*W EXP 01/04/201",
+"name": "CITIGROUP INC",
+"t": "C",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
 "172967424": {
 "name": "CITIGROUP INC",
 "t": "C"
@@ -582,31 +1630,130 @@
 "name": "CITIZENS FINANCIAL GROUP",
 "t": "CFG"
 },
+"177376100": {
+"cls": "COM",
+"name": "CITRIX SYS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"178787107": {
+"cls": "COM",
+"name": "CIVEO CORP",
+"t": "CVEO",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
 "17888H103": {
+"cls": "COM NEW",
 "name": "CIVITAS RESOURCES INC",
 "t": null,
 "triedSec": true,
+"v2": true,
 "via": null
 },
 "185899101": {
 "name": "CLEVELAND-CLIFFS INC",
 "t": "CLF"
 },
+"18914U100": {
+"cls": "COM",
+"name": "CLOUDERA INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "18915M107": {
 "name": "CLOUDFLARE INC - CLASS A",
 "t": "NET"
+},
+"189464100": {
+"cls": "COM",
+"name": "CLOVIS ONCOLOGY INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "191216100": {
 "name": "COCA-COLA CO/THE",
 "t": "KO"
 },
+"19122T109": {
+"cls": "COM",
+"name": "COCA COLA ENTERPRISES INC NE",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "19240Q201": {
 "name": "COGENT BIOSCIENCES INC",
 "t": "COGT"
 },
+"192422103": {
+"name": "COGNEX CORP",
+"t": "CGNX",
+"via": "openfigi"
+},
+"192446102": {
+"name": "COGNIZANT TECH SOLUTIONS-A",
+"t": "CTSH",
+"via": "openfigi"
+},
 "19247G107": {
 "name": "COHERENT CORP",
 "t": "COHR"
+},
+"19260Q107": {
+"name": "COINBASE GLOBAL INC -CLASS A",
+"t": "COIN",
+"via": "openfigi"
+},
+"194014106": {
+"cls": "COM",
+"name": "Colfax Corporation",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"194014502": {
+"name": "ENOVIS CORP",
+"t": "ENOV",
+"via": "openfigi"
+},
+"194162103": {
+"name": "COLGATE-PALMOLIVE CO",
+"t": "CL",
+"via": "openfigi"
+},
+"19624R106": {
+"cls": "CL A",
+"name": "COLONY CAP INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"19625W104": {
+"cls": "CL A COM",
+"name": "COLONY NORTHSTAR INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"19626G108": {
+"cls": "CL A COM",
+"name": "COLONY CAP INC NEW",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "199908104": {
 "name": "COMFORT SYSTEMS USA INC",
@@ -627,16 +1774,99 @@
 "t": "CYH",
 "via": "openfigi"
 },
+"204833107": {
+"cls": "COM CL A",
+"name": "COMPUTE HEALTH ACQUISITIN CO",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"205363104": {
+"cls": "COM",
+"name": "COMPUTER SCIENCES CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"205768302": {
+"name": "COMSTOCK RESOURCES INC",
+"t": "CRK",
+"via": "openfigi"
+},
+"205887102": {
+"name": "CONAGRA BRANDS INC",
+"t": "CAG",
+"via": "openfigi"
+},
 "20602D101": {
 "name": "CONCENTRIX CORP",
 "t": "CNXC",
 "via": "openfigi"
 },
+"20605P101": {
+"cls": "COM",
+"name": "Concho Res Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"206787103": {
+"name": "CONDUENT INC",
+"t": "CNDT",
+"via": "openfigi"
+},
+"20717M103": {
+"cls": "CLASS A COM",
+"name": "CONFLUENT INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"208242107": {
+"cls": "COM",
+"name": "CONNS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"20825C104": {
+"name": "CONOCOPHILLIPS",
+"t": "COP",
+"via": "openfigi"
+},
 "20854L108": {
+"cls": "COM",
 "name": "CONSOL ENERGY INC NEW",
 "t": null,
 "triedSec": true,
+"v2": true,
 "via": null
+},
+"20854P109": {
+"cls": "COM",
+"name": "CONSOL ENERGY INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"20855T100": {
+"cls": "COM UNIT",
+"name": "CONSOL COAL RES LP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"209115104": {
+"name": "CONSOLIDATED EDISON INC",
+"t": "ED",
+"via": "openfigi"
 },
 "21036P108": {
 "name": "CONSTELLATION BRANDS INC-A",
@@ -646,6 +1876,22 @@
 "name": "CONSTELLATION ENERGY",
 "t": "CEG",
 "via": "openfigi"
+},
+"21077C107": {
+"cls": "COM CL A",
+"name": "CONTEXTLOGIC INC",
+"t": "LOGC",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"214199105": {
+"cls": "COM",
+"name": "Deere & Co",
+"t": "DE",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
 },
 "217204106": {
 "name": "COPART INC",
@@ -659,6 +1905,11 @@
 "21874A106": {
 "name": "CORE SCIENTIFIC INC",
 "t": "CORZ",
+"via": "openfigi"
+},
+"21874C102": {
+"name": "CORE & MAIN INC-CLASS A",
+"t": "CNM",
 "via": "openfigi"
 },
 "218937100": {
@@ -675,10 +1926,23 @@
 "t": "CPAY",
 "via": "openfigi"
 },
+"22160K105": {
+"name": "COSTCO WHOLESALE CORP",
+"t": "COST",
+"via": "openfigi"
+},
 "22160N109": {
 "name": "COSTAR GROUP INC",
 "t": "CSGP",
 "via": "openfigi"
+},
+"22266L106": {
+"cls": "COM",
+"name": "Coupa Software Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "22266T109": {
 "name": "COUPANG INC",
@@ -688,6 +1952,27 @@
 "name": "COYA THERAPEUTICS INC",
 "t": "COYA",
 "via": "openfigi"
+},
+"225310101": {
+"name": "CREDIT ACCEPTANCE CORP",
+"t": "CACC",
+"via": "openfigi"
+},
+"225447101": {
+"cls": "COM",
+"name": "CREE INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"22663K107": {
+"cls": "COM",
+"name": "Crinetics Pharmaceuticals In",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "227046109": {
 "name": "CROCS INC",
@@ -699,9 +1984,48 @@
 "t": "CRWD",
 "via": "openfigi"
 },
+"228227104": {
+"cls": "COM",
+"name": "Crwn Castle Int'l Corp.",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "228368106": {
 "name": "CROWN HOLDINGS INC",
 "t": "CCK",
+"via": "openfigi"
+},
+"22943F100": {
+"cls": "AMERICAN DEP SHS",
+"name": "Ctrip.com Int'l Ltd",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"229678107": {
+"cls": "COM",
+"name": "Cubist Pharms Inc.",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"231021106": {
+"name": "CUMMINS INC",
+"t": "CMI",
+"via": "openfigi"
+},
+"23292E108": {
+"name": "DIDI GLOBAL INC",
+"t": "DIDIY",
+"via": "openfigi"
+},
+"233051879": {
+"name": "XTRACKERS HARVEST CSI 300 CH",
+"t": "ASHR",
 "via": "openfigi"
 },
 "23306J309": {
@@ -712,18 +2036,59 @@
 "name": "DR HORTON INC",
 "t": "DHI"
 },
+"233326107": {
+"cls": "COM",
+"name": "DST SYS INC DEL",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"23334L102": {
+"cls": "CL A",
+"name": "DSW INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"23355L106": {
+"name": "DXC TECHNOLOGY CO",
+"t": "DXC",
+"via": "openfigi"
+},
 "234264109": {
 "name": "DAKTRONICS INC",
 "t": "DAKT"
+},
+"235825205": {
+"name": "DANA INC",
+"t": "DAN",
+"via": "openfigi"
 },
 "235851102": {
 "name": "DANAHER CORP",
 "t": "DHR"
 },
 "236272100": {
+"cls": "COM CL A",
 "name": "DANIMER SCIENTIFIC INC",
 "t": null,
 "triedSec": true,
+"v2": true,
+"via": null
+},
+"23804L103": {
+"name": "DATADOG INC - CLASS A",
+"t": "DDOG",
+"via": "openfigi"
+},
+"23834J102": {
+"cls": "CLASS A COM",
+"name": "DAVE INC",
+"t": null,
+"triedSec": true,
+"v2": true,
 "via": null
 },
 "23918K108": {
@@ -744,17 +2109,134 @@
 "name": "DEFINIUM THERAPEUTICS INC",
 "t": "DFTX"
 },
+"24702R101": {
+"cls": "COM",
+"name": "DELL INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"24703L103": {
+"cls": "COM CL V",
+"name": "DELL TECHNOLOGIES INC",
+"t": "DELL",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"24703L202": {
+"name": "DELL TECHNOLOGIES -C",
+"t": "DELL",
+"via": "openfigi"
+},
 "247361702": {
 "name": "DELTA AIR LINES INC",
 "t": "DAL"
+},
+"24790A101": {
+"cls": "COM",
+"name": "DENBURY INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"24906P109": {
+"name": "DENTSPLY SIRONA INC",
+"t": "XRAY",
+"via": "openfigi"
+},
+"25179M103": {
+"name": "DEVON ENERGY CORP",
+"t": "DVN",
+"via": "openfigi"
+},
+"252131107": {
+"name": "DEXCOM INC",
+"t": "DXCM",
+"via": "openfigi"
 },
 "25243Q205": {
 "name": "DIAGEO PLC-SPONSORED ADR",
 "t": "DEO"
 },
+"25278X109": {
+"name": "DIAMONDBACK ENERGY INC",
+"t": "FANG",
+"via": "openfigi"
+},
 "253393102": {
 "name": "DICK'S SPORTING GOODS INC",
 "t": "DKS"
+},
+"25401T108": {
+"cls": "CL A COM",
+"name": "DIGITALBRIDGE GROUP INC",
+"t": "DBRHP",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"25402D102": {
+"name": "DIGITALOCEAN HOLDINGS INC",
+"t": "DOCN",
+"via": "openfigi"
+},
+"254067101": {
+"name": "DILLARDS INC-CL A",
+"t": "DDS",
+"via": "openfigi"
+},
+"25445D101": {
+"name": "DINGDONG CAYMAN LTD -SPN ADR",
+"t": "DDL",
+"via": "openfigi"
+},
+"254687106": {
+"name": "WALT DISNEY CO/THE",
+"t": "DIS",
+"via": "openfigi"
+},
+"254709108": {
+"cls": "COM",
+"name": "Discover Finl Svcs",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"25470F104": {
+"cls": "COM SER A",
+"name": "DISCOVERY INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"25470F302": {
+"cls": "COM",
+"name": "Discovery Communications",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"25470M109": {
+"cls": "CL A",
+"name": "DISH Network Corp",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"25490A309": {
+"cls": "COM",
+"name": "DIRECTV",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "256163106": {
 "name": "DOCUSIGN INC",
@@ -764,13 +2246,106 @@
 "name": "DOLLAR GENERAL CORP",
 "t": "DG"
 },
+"256746108": {
+"name": "DOLLAR TREE INC",
+"t": "DLTR",
+"via": "openfigi"
+},
 "25754A201": {
 "name": "DOMINO'S PIZZA INC",
 "t": "DPZ"
 },
+"257867101": {
+"cls": "COM",
+"name": "DONNELLEY R R & SONS CO",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "25809K105": {
 "name": "DOORDASH INC - A",
 "t": "DASH"
+},
+"25862V105": {
+"name": "DOUBLEVERIFY HOLDINGS INC",
+"t": "DV",
+"via": "openfigi"
+},
+"260003108": {
+"name": "DOVER CORP",
+"t": "DOV",
+"via": "openfigi"
+},
+"260543103": {
+"cls": "COM",
+"name": "Dow Chemical Co",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"26078J100": {
+"cls": "COM",
+"name": "DOWDUPONT INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"26142V105": {
+"name": "DRAFTKINGS INC-CL A",
+"t": "DKNG",
+"via": "openfigi"
+},
+"26210C104": {
+"name": "DROPBOX INC-CLASS A",
+"t": "DBX",
+"via": "openfigi"
+},
+"26441C204": {
+"name": "DUKE ENERGY CORP",
+"t": "DUK",
+"via": "openfigi"
+},
+"26614N102": {
+"cls": "COM",
+"name": "DUPONT DE NEMOURS INC",
+"t": "DD",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"268150109": {
+"name": "DYNATRACE INC",
+"t": "DT",
+"via": "openfigi"
+},
+"26853A100": {
+"cls": "SPON ADS CL A",
+"name": "EHI CAR SVCS LTD",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"268648102": {
+"cls": "COM",
+"name": "E M C CORP MASS",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"26874R108": {
+"name": "ENI SPA-SPONSORED ADR",
+"t": "E",
+"via": "openfigi"
+},
+"26875P101": {
+"name": "EOG RESOURCES INC",
+"t": "EOG",
+"via": "openfigi"
 },
 "26884L109": {
 "name": "EQT CORP",
@@ -785,13 +2360,136 @@
 "t": "EWBC",
 "via": "openfigi"
 },
+"278642103": {
+"name": "EBAY INC",
+"t": "EBAY",
+"via": "openfigi"
+},
 "278768106": {
 "name": "ECHOSTAR CORP-A",
 "t": "ECHO"
 },
+"278865100": {
+"name": "ECOLAB INC",
+"t": "ECL",
+"via": "openfigi"
+},
+"281020107": {
+"name": "EDISON INTERNATIONAL",
+"t": "EIX",
+"via": "openfigi"
+},
+"28257U104": {
+"cls": "COM",
+"name": "EINSTEIN NOAH REST GROUP INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"282914100": {
+"name": "8X8 INC",
+"t": "EGHT",
+"via": "openfigi"
+},
+"284131208": {
+"cls": "ADR",
+"name": "ELAN PLC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"28414H103": {
+"name": "ELANCO ANIMAL HEALTH INC",
+"t": "ELAN",
+"via": "openfigi"
+},
+"28470R102": {
+"cls": "COM",
+"name": "ELDORADO RESORTS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"285512109": {
+"cls": "COM",
+"name": "Electronic Arts Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"29079J103": {
+"cls": "COM",
+"name": "EMBARK TECHNOLOGY INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"291011104": {
+"name": "EMERSON ELECTRIC CO",
+"t": "EMR",
+"via": "openfigi"
+},
+"29260Y109": {
+"cls": "CL A COM",
+"name": "ENDEAVOR GROUP HLDGS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"29261A100": {
+"name": "ENCOMPASS HEALTH CORP",
+"t": "EHC",
+"via": "openfigi"
+},
+"29264F205": {
+"cls": "COM",
+"name": "Endo Health Sol'ns Inc.",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"29265N108": {
+"cls": "COM",
+"name": "ENERGEN CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"29266R108": {
+"cls": "COM",
+"name": "ENERGIZER HLDGS INC",
+"t": "ENR",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"29273R109": {
+"cls": "UNIT LTD PARTN",
+"name": "ENERGY TRANSFER PRTNRS L P",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "29273V100": {
 "name": "ENERGY TRANSFER LP",
 "t": "ET"
+},
+"29278N103": {
+"cls": "UNIT LTD PRT INT",
+"name": "ENERGY TRANSFER PARTNERS LP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "29337E102": {
 "name": "ENLIVEN THERAPEUTICS INC",
@@ -800,6 +2498,11 @@
 "29355A107": {
 "name": "ENPHASE ENERGY INC",
 "t": "ENPH",
+"via": "openfigi"
+},
+"293594107": {
+"name": "ENOVIX CORP",
+"t": "ENVX",
 "via": "openfigi"
 },
 "29362U104": {
@@ -811,6 +2514,19 @@
 "t": "EPD",
 "via": "openfigi"
 },
+"294429105": {
+"name": "EQUIFAX INC",
+"t": "EFX",
+"via": "openfigi"
+},
+"29444U502": {
+"cls": "COM NEW",
+"name": "EQUINIX INC",
+"t": "EQIX",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
 "29444U700": {
 "name": "EQUINIX INC",
 "t": "EQIX"
@@ -820,15 +2536,91 @@
 "t": "EQPT",
 "via": "openfigi"
 },
+"294600101": {
+"cls": "COM",
+"name": "EQUITRANS MIDSTREAM CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "296013105": {
 "name": "EROCK INC-A",
 "t": "EROC",
+"via": "openfigi"
+},
+"29605J106": {
+"name": "ESAB CORP",
+"t": "ESAB",
+"via": "openfigi"
+},
+"29786A106": {
+"name": "ETSY INC",
+"t": "ETSY",
+"via": "openfigi"
+},
+"29788T103": {
+"cls": "COM CL A",
+"name": "E2OPEN PARENT HOLDINGS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"29975E109": {
+"cls": "COM CL A",
+"name": "EVENTBRITE INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"30034W106": {
+"name": "EVERGY INC",
+"t": "EVRG",
+"via": "openfigi"
+},
+"30162V102": {
+"cls": "COM",
+"name": "EXELA TECHNOLOGIES INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"302104104": {
+"cls": "COM",
+"name": "EXONE CO",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"30212P303": {
+"name": "EXPEDIA GROUP INC",
+"t": "EXPE",
 "via": "openfigi"
 },
 "302130109": {
 "name": "EXPEDITORS INTL WASH INC",
 "t": "EXPD",
 "via": "openfigi"
+},
+"30219G108": {
+"cls": "COM",
+"name": "EXPRESS SCRIPTS HLDG CO",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"30227M303": {
+"cls": "COM",
+"name": "EXTRACTION OIL & GAS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "30231G102": {
 "cls": "COM",
@@ -837,6 +2629,11 @@
 "triedSec": true,
 "v2": true,
 "via": null
+},
+"302491303": {
+"name": "FMC CORP",
+"t": "FMC",
+"via": "openfigi"
 },
 "30303M102": {
 "name": "META PLATFORMS INC-CLASS A",
@@ -850,6 +2647,42 @@
 "303250104": {
 "name": "FAIR ISAAC CORP",
 "t": "FICO",
+"via": "openfigi"
+},
+"303901102": {
+"name": "FAIRFAX FINANCIAL HLDGS LTD",
+"t": "FRFHF",
+"via": "openfigi"
+},
+"30734W109": {
+"cls": "CL A FOUNDERS SH",
+"name": "FAR PT ACQUISITION CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"30744W107": {
+"name": "FARFETCH LTD-CLASS A",
+"t": "FTCHQ",
+"via": "openfigi"
+},
+"31188V100": {
+"name": "FASTLY INC - CLASS A",
+"t": "FSLY",
+"via": "openfigi"
+},
+"313549404": {
+"cls": "COM",
+"name": "FEDERAL MOGUL CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"314211103": {
+"name": "FEDERATED HERMES INC",
+"t": "FHI",
 "via": "openfigi"
 },
 "31428X106": {
@@ -869,10 +2702,47 @@
 "name": "FIDELITY NATIONAL INFO SERV",
 "t": "FIS"
 },
+"31620R105": {
+"cls": "CL A",
+"name": "FIDELITY NATIONAL FINANCIAL",
+"t": "FNF",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"31620R303": {
+"name": "FIDELITY NATIONAL FINANCIAL",
+"t": "FNF",
+"via": "openfigi"
+},
+"31680Q104": {
+"cls": "SPON ADR REP A",
+"name": "58 COM INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "316841105": {
 "name": "FIGMA INC-CL A",
 "t": "FIG",
 "via": "openfigi"
+},
+"31787A507": {
+"cls": "COM NEW",
+"name": "FINISAR CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"318085107": {
+"cls": "CL A",
+"name": "FINSERV ACQUISITION CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "31809Y111": {
 "name": "FINSERV ACQUISITION CORP II",
@@ -896,6 +2766,11 @@
 "t": "FHN",
 "via": "openfigi"
 },
+"336433107": {
+"name": "FIRST SOLAR INC",
+"t": "FSLR",
+"via": "openfigi"
+},
 "33733E807": {
 "name": "FIRST TRUST NATURAL GAS ETF",
 "t": "FCG",
@@ -904,6 +2779,32 @@
 "337738108": {
 "name": "FISERV INC",
 "t": "FISV"
+},
+"337932107": {
+"name": "FIRSTENERGY CORP",
+"t": "FE",
+"via": "openfigi"
+},
+"33812L102": {
+"cls": "CL A",
+"name": "FITBIT INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"33829M101": {
+"name": "FIVE BELOW",
+"t": "FIVE",
+"via": "openfigi"
+},
+"339041105": {
+"cls": "COM",
+"name": "FLEETCOR TECHNOLOGIES INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "339750101": {
 "name": "FLOOR & DECOR HOLDINGS INC-A",
@@ -918,6 +2819,43 @@
 "name": "FLOWSERVE CORP",
 "t": "FLS",
 "via": "openfigi"
+},
+"34431F104": {
+"cls": "COM CL A",
+"name": "FOLEY TRASIMENE ACQUISTN COR",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"344328109": {
+"cls": "COM CL A",
+"name": "FOLEY TRASIMENE ACQUISITION",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"344849104": {
+"cls": "COM",
+"name": "Foot Locker Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"345370860": {
+"name": "FORD MOTOR CO",
+"t": "F",
+"via": "openfigi"
+},
+"345838106": {
+"cls": "COM",
+"name": "FOREST LABS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "34631F102": {
 "name": "FORGENT POWER SOLUTIONS-CL A",
@@ -938,6 +2876,27 @@
 "t": "FBIN",
 "via": "openfigi"
 },
+"34965K107": {
+"name": "FORTREA HOLDINGS INC",
+"t": "FTRE",
+"via": "openfigi"
+},
+"34983P104": {
+"cls": "COM",
+"name": "Forty Seven Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"34986J105": {
+"cls": "SPONSORED ADR",
+"name": "FORWARD PHARMA A/S",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "35137L105": {
 "name": "FOX CORP - CLASS A",
 "t": "FOXA"
@@ -955,6 +2914,27 @@
 "name": "FREEPORT-MCMORAN INC",
 "t": "FCX"
 },
+"358054104": {
+"name": "FRESHWORKS INC-CL A",
+"t": "FRSH",
+"via": "openfigi"
+},
+"35906A108": {
+"cls": "COM",
+"name": "FRONTIER COMMUNICATIONS CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"35953D104": {
+"cls": "COM",
+"name": "FUBOTV INC",
+"t": "FUBO",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
 "361008105": {
 "name": "FUNKO INC-CLASS A",
 "t": "FNKO",
@@ -969,6 +2949,19 @@
 "name": "GDS HOLDINGS LTD - ADR",
 "t": "GDS"
 },
+"362019101": {
+"cls": "COM",
+"name": "GO ACQUISITION CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"36257Y109": {
+"name": "GAOTU TECHEDU INC",
+"t": "GOTU",
+"via": "openfigi"
+},
 "36269B105": {
 "name": "GAIN THERAPEUTICS INC",
 "t": "GANX",
@@ -978,6 +2971,37 @@
 "name": "LAKEFRONT BIOTHERAPEUTIC-ADR",
 "t": "LKFT",
 "via": "openfigi"
+},
+"36467W109": {
+"name": "GAMESTOP CORP-CLASS A",
+"t": "GME",
+"via": "openfigi"
+},
+"364730101": {
+"cls": "COM",
+"name": "GANNETT INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"364760108": {
+"name": "GAP INC/THE",
+"t": "GAP",
+"via": "openfigi"
+},
+"366505105": {
+"name": "GARRETT MOTION INC",
+"t": "GTX",
+"via": "openfigi"
+},
+"366505204": {
+"cls": "PFD CONV SER A",
+"name": "GARRETT MOTION INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "366651107": {
 "name": "GARTNER INC",
@@ -998,9 +3022,50 @@
 "t": "GNRC",
 "via": "openfigi"
 },
+"369550108": {
+"name": "GENERAL DYNAMICS CORP",
+"t": "GD",
+"via": "openfigi"
+},
+"369604103": {
+"cls": "COM",
+"name": "General Electric Co",
+"t": "GE",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"369604301": {
+"name": "GENERAL ELECTRIC",
+"t": "GE",
+"via": "openfigi"
+},
+"370023103": {
+"cls": "COM",
+"name": "GENERAL GROWTH PPTYS INC NEW",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"37045V100": {
+"name": "GENERAL MOTORS CO",
+"t": "GM",
+"via": "openfigi"
+},
 "372460105": {
 "name": "GENUINE PARTS CO",
 "t": "GPC"
+},
+"375558103": {
+"name": "GILEAD SCIENCES INC",
+"t": "GILD",
+"via": "openfigi"
+},
+"37637K108": {
+"name": "GITLAB INC-CL A",
+"t": "GTLB",
+"via": "openfigi"
 },
 "37940X102": {
 "name": "GLOBAL PAYMENTS INC",
@@ -1019,6 +3084,22 @@
 "name": "GOODYEAR TIRE & RUBBER CO",
 "t": "GT"
 },
+"38259P508": {
+"cls": "CL A",
+"name": "Google Inc.",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"38259P706": {
+"cls": "CL C",
+"name": "Google Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "38267D109": {
 "name": "GOOSEHEAD INSURANCE INC -A",
 "t": "GSHD",
@@ -1029,15 +3110,54 @@
 "t": "GPRO",
 "via": "openfigi"
 },
+"38388F108": {
+"cls": "COM",
+"name": "GRACE W R & CO DEL NEW",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"384637104": {
+"name": "GRAHAM HOLDINGS CO-CLASS B",
+"t": "GHC",
+"via": "openfigi"
+},
 "388689101": {
 "name": "GRAPHIC PACKAGING HOLDING CO",
 "t": "GPK",
+"via": "openfigi"
+},
+"389375106": {
+"name": "GRAY MEDIA INC",
+"t": "GTN",
 "via": "openfigi"
 },
 "392709101": {
 "name": "GREEN BRICK PARTNERS INC",
 "t": "GRBK",
 "via": "openfigi"
+},
+"39304D102": {
+"name": "GREEN DOT CORP-CLASS A",
+"t": "GDOT",
+"via": "openfigi"
+},
+"393122106": {
+"cls": "COM",
+"name": "GREEN MTN COFFEE ROASTERS IN",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"399473107": {
+"cls": "COM CL A",
+"name": "GROUPON INC",
+"t": "GRPN",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
 },
 "399909100": {
 "name": "GRUPO FINANCIERO GALICIA-ADR",
@@ -1046,6 +3166,11 @@
 "40054J109": {
 "name": "GRUPO AEROMEXICO SAB DE CV",
 "t": "AERO"
+},
+"40131M109": {
+"name": "GUARDANT HEALTH INC",
+"t": "GH",
+"via": "openfigi"
 },
 "402635502": {
 "name": "GULFPORT ENERGY CORP",
@@ -1057,14 +3182,99 @@
 "t": "HCA",
 "via": "openfigi"
 },
+"40415F101": {
+"name": "HDFC BANK LTD-ADR",
+"t": "HDB",
+"via": "openfigi"
+},
+"40416M105": {
+"cls": "COM",
+"name": "HD SUPPLY HLDGS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "40434L105": {
 "name": "HP INC",
 "t": "HPQ",
 "via": "openfigi"
 },
+"405166109": {
+"name": "HAGERTY INC-A",
+"t": "HGTY",
+"via": "openfigi"
+},
+"405166909": {
+"cls": "COM CL A",
+"name": "HAGERTY INC",
+"t": "HGTY",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"405217100": {
+"name": "HAIN CELESTIAL GROUP INC",
+"t": "HAIN",
+"via": "openfigi"
+},
+"406216101": {
+"name": "HALLIBURTON CO",
+"t": "HAL",
+"via": "openfigi"
+},
+"40650V100": {
+"cls": "COM",
+"name": "HALYARD HEALTH INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"410867105": {
+"name": "HANOVER INSURANCE GROUP INC/",
+"t": "THG",
+"via": "openfigi"
+},
+"412822108": {
+"name": "HARLEY-DAVIDSON INC",
+"t": "HOG",
+"via": "openfigi"
+},
+"413875105": {
+"cls": "COM",
+"name": "HARRIS CORP DEL",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"416515104": {
+"name": "HARTFORD INSURANCE GROUP INC",
+"t": "HIG",
+"via": "openfigi"
+},
 "418056107": {
 "name": "HASBRO INC",
 "t": "HAS"
+},
+"41902R103": {
+"cls": "COM",
+"name": "HATTERAS FINL CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"421906108": {
+"name": "HEALTHCARE SERVICES GROUP",
+"t": "HCSG",
+"via": "openfigi"
+},
+"42250P103": {
+"name": "HEALTHPEAK PROPERTIES INC",
+"t": "DOC",
+"via": "openfigi"
 },
 "422806208": {
 "name": "HEICO CORP-CLASS A",
@@ -1080,6 +3290,22 @@
 "t": "HSY",
 "via": "openfigi"
 },
+"42805T105": {
+"cls": "COM",
+"name": "HERTZ GLOBAL HOLDINGS INC",
+"t": "HTZ",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"42806J106": {
+"cls": "COM",
+"name": "HERTZ RENT CAR HLDG CO INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "42806J148": {
 "name": "HERTZ GLOBAL HLDGS INC -CW51",
 "t": "HTZWW",
@@ -1088,6 +3314,32 @@
 "42806J700": {
 "name": "HERTZ GLOBAL HLDGS INC",
 "t": "HTZ"
+},
+"42809H107": {
+"cls": "COM",
+"name": "HESS CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"42824C109": {
+"name": "HEWLETT PACKARD ENTERPRISE",
+"t": "HPE",
+"via": "openfigi"
+},
+"43283X105": {
+"name": "HILTON GRAND VACATIONS INC",
+"t": "HGV",
+"via": "openfigi"
+},
+"43300A104": {
+"cls": "COM",
+"name": "HILTON WORLDWIDE HLDGS INC",
+"t": "HLT",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
 },
 "43300A203": {
 "name": "HILTON WORLDWIDE HOLDINGS IN",
@@ -1098,35 +3350,108 @@
 "t": "HNGE",
 "via": "openfigi"
 },
+"436440101": {
+"cls": "COM",
+"name": "HOLOGIC INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "437076102": {
 "name": "HOME DEPOT INC",
 "t": "HD",
 "via": "openfigi"
 },
+"438516106": {
+"cls": "COM",
+"name": "HONEYWELL INTL INC",
+"t": "HON",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"44267D107": {
+"cls": "COM",
+"name": "HOWARD HUGHES CORP",
+"t": "HHH",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
 "44267T102": {
 "name": "HOWARD HUGHES HOLDINGS INC",
 "t": "HHH"
 },
+"443573100": {
+"name": "HUBSPOT INC",
+"t": "HUBS",
+"via": "openfigi"
+},
 "444859102": {
 "name": "HUMANA INC",
 "t": "HUM"
+},
+"446150104": {
+"name": "HUNTINGTON BANCSHARES INC",
+"t": "HBAN",
+"via": "openfigi"
 },
 "446413106": {
 "name": "HUNTINGTON INGALLS INDUSTRIE",
 "t": "HII",
 "via": "openfigi"
 },
+"447011107": {
+"name": "HUNTSMAN CORP",
+"t": "HUN",
+"via": "openfigi"
+},
 "44812J104": {
 "name": "HUT 8 CORP",
 "t": "HUT"
+},
+"44891N208": {
+"name": "PEOPLE INC",
+"t": "PPLI",
+"via": "openfigi"
 },
 "44916Y106": {
 "name": "HYPERLIQUID STRATEGIES",
 "t": "PURR"
 },
+"44919P508": {
+"cls": "COM PAR $.001",
+"name": "IAC INTERACTIVECORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"449253103": {
+"cls": "COM",
+"name": "IAA INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "451100101": {
 "name": "ICAHN ENTERPRISES LP",
 "t": "IEP",
+"via": "openfigi"
+},
+"45166R204": {
+"cls": "COM",
+"name": "IDENIX PHARMACEUTICALS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"452308109": {
+"name": "ILLINOIS TOOL WORKS",
+"t": "ITW",
 "via": "openfigi"
 },
 "452327109": {
@@ -1138,18 +3463,62 @@
 "t": "IMVT",
 "via": "openfigi"
 },
+"45337C102": {
+"name": "INCYTE CORP",
+"t": "INCY",
+"via": "openfigi"
+},
 "456788108": {
 "name": "INFOSYS LTD-SP ADR",
 "t": "INFY",
 "via": "openfigi"
 },
+"45685E106": {
+"cls": "COM",
+"name": "ING U S INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"45687V106": {
+"name": "INGERSOLL-RAND INC",
+"t": "IR",
+"via": "openfigi"
+},
+"457153104": {
+"cls": "CL A",
+"name": "INGRAM MICRO INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "457669307": {
 "name": "INSMED INC",
 "t": "INSM"
 },
+"45773H201": {
+"cls": "COM NEW",
+"name": "INOVIO PHARMACEUTICALS INC",
+"t": "INO",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
 "45778Q107": {
 "name": "INSPERITY INC",
 "t": "NSP",
+"via": "openfigi"
+},
+"45781M101": {
+"name": "INNOVIVA INC",
+"t": "INVA",
+"via": "openfigi"
+},
+"45784P101": {
+"name": "INSULET CORP",
+"t": "PODD",
 "via": "openfigi"
 },
 "458140100": {
@@ -1161,9 +3530,27 @@
 "t": "ICE",
 "via": "openfigi"
 },
+"459200101": {
+"name": "INTL BUSINESS MACHINES CORP",
+"t": "IBM",
+"via": "openfigi"
+},
 "459506101": {
 "name": "INTL FLAVORS & FRAGRANCES",
 "t": "IFF",
+"via": "openfigi"
+},
+"459902102": {
+"cls": "COM",
+"name": "International Game Technology",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"460146103": {
+"name": "INTERNATIONAL PAPER CO",
+"t": "IP",
 "via": "openfigi"
 },
 "46090F100": {
@@ -1181,6 +3568,14 @@
 "t": "ISRG",
 "via": "openfigi"
 },
+"46122T102": {
+"cls": "COM",
+"name": "INTREXON CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "46137V100": {
 "name": "INVESCO AEROSPACE & DEFENSE",
 "t": "PPA",
@@ -1190,9 +3585,19 @@
 "name": "INVESCO S&P 500 EQUAL WEIGHT",
 "t": "RSP"
 },
+"461804106": {
+"name": "INVESTORS TITLE CO",
+"t": "ITIC",
+"via": "openfigi"
+},
 "46266C105": {
 "name": "IQVIA HOLDINGS INC",
 "t": "IQV"
+},
+"46267X108": {
+"name": "IQIYI INC-ADR",
+"t": "IQ",
+"via": "openfigi"
 },
 "464286400": {
 "name": "ISHARES MSCI BRAZIL ETF",
@@ -1210,9 +3615,19 @@
 "name": "ISHARES MSCI EMERGING MARKET",
 "t": "EEM"
 },
+"464287556": {
+"name": "ISHARES BIOTECHNOLOGY ETF",
+"t": "IBB",
+"via": "openfigi"
+},
 "464287655": {
 "name": "ISHARES RUSSELL 2000 ETF",
 "t": "IWM"
+},
+"464288281": {
+"name": "ISHARES JP MORGAN USD EMERGI",
+"t": "EMB",
+"via": "openfigi"
 },
 "46428Q109": {
 "name": "ISHARES SILVER TRUST",
@@ -1222,6 +3637,11 @@
 "46428R107": {
 "name": "ISHARES S&P GSCI COMMODITY I",
 "t": "GSG"
+},
+"46429B598": {
+"name": "ISHARES MSCI INDIA ETF",
+"t": "INDA",
+"via": "openfigi"
 },
 "46438F101": {
 "name": "ISHARES BITCOIN TRUST ETF",
@@ -1233,14 +3653,32 @@
 "t": "JOYY",
 "via": "openfigi"
 },
+"46625H100": {
+"name": "JPMORGAN CHASE & CO",
+"t": "JPM",
+"via": "openfigi"
+},
 "466313103": {
 "name": "JABIL INC",
 "t": "JBL"
+},
+"466367109": {
+"name": "JACK IN THE BOX INC",
+"t": "JACK",
+"via": "openfigi"
 },
 "46982L108": {
 "name": "JACOBS SOLUTIONS INC",
 "t": "J",
 "via": "openfigi"
+},
+"47074L105": {
+"cls": "COM",
+"name": "JAMF HLDG CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "47215P106": {
 "name": "JD.COM INC-ADR",
@@ -1251,10 +3689,41 @@
 "t": "JBLU",
 "via": "openfigi"
 },
+"478160104": {
+"name": "JOHNSON & JOHNSON",
+"t": "JNJ",
+"via": "openfigi"
+},
+"48205A109": {
+"cls": "COM",
+"name": "Juno Therapeutics Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"48238T109": {
+"name": "OPENLANE INC",
+"t": "OPLN",
+"via": "openfigi"
+},
+"48242W106": {
+"name": "KBR INC",
+"t": "KBR",
+"via": "openfigi"
+},
 "482480100": {
 "name": "KLA CORP",
 "t": "KLAC",
 "via": "openfigi"
+},
+"48248M102": {
+"cls": "COM",
+"name": "KKR & Co LLC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "482497104": {
 "name": "KE HOLDINGS INC-ADR",
@@ -1265,6 +3734,19 @@
 "t": "KKR",
 "via": "openfigi"
 },
+"482539103": {
+"cls": "COM",
+"name": "KLX INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"48553T106": {
+"name": "KANZHUN LTD - ADR",
+"t": "BZ",
+"via": "openfigi"
+},
 "485859110": {
 "cls": "*W EXP 06/09/202",
 "name": "KATAPULT HOLDINGS INC",
@@ -1273,10 +3755,44 @@
 "v2": true,
 "via": "sec-name"
 },
+"485865109": {
+"cls": "COM",
+"name": "KATE SPADE & CO",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"48666K109": {
+"name": "KB HOME",
+"t": "KBH",
+"via": "openfigi"
+},
+"489170100": {
+"name": "KENNAMETAL INC",
+"t": "KMT",
+"via": "openfigi"
+},
 "49177J102": {
 "name": "KENVUE INC",
 "t": "KVUE",
 "via": "openfigi"
+},
+"492515101": {
+"cls": "COM",
+"name": "KERYX BIOPHARMACEUTICALS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"49271M100": {
+"cls": "COM",
+"name": "KEURIG GREEN MTN INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "493267108": {
 "name": "KEYCORP",
@@ -1291,6 +3807,11 @@
 "name": "KINDER MORGAN INC",
 "t": "KMI"
 },
+"500255104": {
+"name": "KOHLS CORP",
+"t": "KSS",
+"via": "openfigi"
+},
 "500754106": {
 "name": "KRAFT HEINZ CO/THE",
 "t": "KHC"
@@ -1299,6 +3820,14 @@
 "name": "KRANESH CSI CHINA INTERNET",
 "t": "KWEB"
 },
+"50076Q106": {
+"cls": "COM",
+"name": "KRAFT FOODS GROUP INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "501044101": {
 "name": "KROGER CO",
 "t": "KR"
@@ -1306,6 +3835,24 @@
 "50155Q100": {
 "name": "KYNDRYL HOLDINGS INC",
 "t": "KD",
+"via": "openfigi"
+},
+"501797104": {
+"cls": "COM",
+"name": "L BRANDS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"501889208": {
+"name": "LKQ CORP",
+"t": "LKQ",
+"via": "openfigi"
+},
+"50202M102": {
+"name": "LI AUTO INC - ADR",
+"t": "LI",
 "via": "openfigi"
 },
 "50212V100": {
@@ -1317,6 +3864,14 @@
 "name": "L3HARRIS TECHNOLOGIES INC",
 "t": "LHX"
 },
+"512807108": {
+"cls": "COM",
+"name": "LAM RESEARCH CORP",
+"t": "LRCX",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
 "512807306": {
 "name": "LAM RESEARCH CORP",
 "t": "LRCX"
@@ -1324,6 +3879,24 @@
 "512816109": {
 "name": "LAMAR ADVERTISING CO-A",
 "t": "LAMR"
+},
+"513272104": {
+"name": "LAMB WESTON HOLDINGS INC",
+"t": "LW",
+"via": "openfigi"
+},
+"516012101": {
+"cls": "COM",
+"name": "LANNET INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"517834107": {
+"name": "LAS VEGAS SANDS CORP",
+"t": "LVS",
+"via": "openfigi"
 },
 "518415104": {
 "name": "LATTICE SEMICONDUCTOR CORP",
@@ -1334,6 +3907,19 @@
 "t": "EL",
 "via": "openfigi"
 },
+"524901105": {
+"cls": "COM",
+"name": "LEGG MASON INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"52603B107": {
+"name": "LENDINGTREE INC",
+"t": "TREE",
+"via": "openfigi"
+},
 "526057104": {
 "name": "LENNAR CORP-A",
 "t": "LEN"
@@ -1341,6 +3927,30 @@
 "526057302": {
 "name": "LENNAR CORP - B SHS",
 "t": "LEN-B"
+},
+"527064109": {
+"cls": "COM",
+"name": "LESLIES INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"527288104": {
+"cls": "COM",
+"name": "Leucadia National Corp",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"52729N308": {
+"cls": "COM NEW",
+"name": "LEVEL 3 COMMUNICATIONS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "528877103": {
 "name": "LEXINFINTECH HOLDINGS L-ADR",
@@ -1363,6 +3973,22 @@
 "v2": true,
 "via": null
 },
+"53071M856": {
+"cls": "LBT VEN COM A NE",
+"name": "LIBERTY INTERACTIVE CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"53071M880": {
+"cls": "LBT VENT COM A",
+"name": "LIBERTY INTERACTIVE CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "530909100": {
 "name": "LIBERTY LIVE HOLDINGS-A",
 "t": "LLYVA"
@@ -1370,6 +3996,38 @@
 "530909308": {
 "name": "LIBERTY LIVE HOLDINGS-C",
 "t": "LLYVK"
+},
+"531229102": {
+"cls": "CL A",
+"name": "LIBERTY MEDIA CORP DELAWARE",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"531229300": {
+"cls": "COM SER C",
+"name": "LIBERTY MEDIA CORP DELAWARE",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"531229409": {
+"cls": "COM A SIRIUSXM",
+"name": "LIBERTY MEDIA CORP DEL",
+"t": "FWONA",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"531229607": {
+"cls": "COM C SIRIUSXM",
+"name": "LIBERTY MEDIA CORP DELAWARE",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "531229722": {
 "cls": "COM LBTY LIV S C",
@@ -1391,6 +4049,22 @@
 "name": "LIBERTY MEDIA CORP-C",
 "t": "FWONK"
 },
+"531229789": {
+"cls": "COM LBTY SRM S C",
+"name": "LIBERTY MEDIA CORP DEL",
+"t": "FWONA",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"531229813": {
+"cls": "COM LBTY SRM S A",
+"name": "LIBERTY MEDIA CORP DEL",
+"t": "FWONA",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
 "531229854": {
 "cls": "COM SER C FRMLA",
 "name": "LIBERTY MEDIA CORP DEL",
@@ -1399,9 +4073,54 @@
 "v2": true,
 "via": "sec-name"
 },
+"531229888": {
+"cls": "COM C BRAVES GRP",
+"name": "LIBERTY MEDIA CORP DELAWARE",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"53217R207": {
+"cls": "COM",
+"name": "LIFE TIME FITNESS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"53224V100": {
+"cls": "COM",
+"name": "LIFELOCK INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "532457108": {
 "name": "ELI LILLY & CO",
 "t": "LLY"
+},
+"535678106": {
+"cls": "COM",
+"name": "Linear Technology Corp",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"53578A108": {
+"cls": "COM CL A",
+"name": "LINKEDIN CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"536797103": {
+"name": "LITHIA MOTORS INC",
+"t": "LAD",
+"via": "openfigi"
 },
 "538034109": {
 "name": "LIVE NATION ENTERTAINMENT IN",
@@ -1411,6 +4130,11 @@
 "539830109": {
 "name": "LOCKHEED MARTIN CORP",
 "t": "LMT",
+"via": "openfigi"
+},
+"540424108": {
+"name": "LOEWS CORP",
+"t": "L",
 "via": "openfigi"
 },
 "548661107": {
@@ -1439,6 +4163,16 @@
 "name": "LYFT INC-A",
 "t": "LYFT"
 },
+"55261F104": {
+"name": "M & T BANK CORP",
+"t": "MTB",
+"via": "openfigi"
+},
+"552953101": {
+"name": "MGM RESORTS INTERNATIONAL",
+"t": "MGM",
+"via": "openfigi"
+},
 "55336V100": {
 "name": "MPLX LP",
 "t": "MPLX"
@@ -1448,9 +4182,68 @@
 "t": "MSCI",
 "via": "openfigi"
 },
+"554382101": {
+"name": "MACERICH CO/THE",
+"t": "MAC",
+"via": "openfigi"
+},
+"556099109": {
+"name": "MACROGENICS INC",
+"t": "MGNX",
+"via": "openfigi"
+},
 "55616P104": {
 "name": "MACY'S INC",
 "t": "M"
+},
+"558256103": {
+"name": "MADISON SQUARE GARDEN ENTERT",
+"t": "MSGE",
+"via": "openfigi"
+},
+"55826T102": {
+"name": "SPHERE ENTERTAINMENT CO",
+"t": "SPHR",
+"via": "openfigi"
+},
+"565394103": {
+"name": "MAPLEBEAR INC",
+"t": "CART",
+"via": "openfigi"
+},
+"56585A102": {
+"name": "MARATHON PETROLEUM CORP",
+"t": "MPC",
+"via": "openfigi"
+},
+"570535104": {
+"name": "MARKEL GROUP INC",
+"t": "MKL",
+"via": "openfigi"
+},
+"57060U100": {
+"cls": "GOLD MINER ETF",
+"name": "Mkt Vectors Gld Miners ETF",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"570759100": {
+"cls": "UNIT LTD PARTN",
+"name": "MARKWEST ENERGY PARTNERS L P",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"57142B104": {
+"cls": "CLASS A COM",
+"name": "MARQETA INC",
+"t": "MQ",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
 },
 "571748102": {
 "name": "MARSH & MCLENNAN COS",
@@ -1467,6 +4260,19 @@
 "t": "MRVL",
 "via": "openfigi"
 },
+"574599106": {
+"name": "MASCO CORP",
+"t": "MAS",
+"via": "openfigi"
+},
+"575385109": {
+"cls": "COM",
+"name": "MASONITE INTL CORP NEW",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "576323109": {
 "name": "MASTEC INC",
 "t": "MTZ",
@@ -1476,10 +4282,86 @@
 "name": "MASTERCARD INC - A",
 "t": "MA"
 },
+"57667L107": {
+"name": "MATCH GROUP INC",
+"t": "MTCH",
+"via": "openfigi"
+},
+"577081102": {
+"name": "MATTEL INC",
+"t": "MAT",
+"via": "openfigi"
+},
+"577096100": {
+"cls": "COM CL A",
+"name": "MATTERPORT INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"57772K101": {
+"cls": "COM",
+"name": "Maxim Integrated Products",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"580037109": {
+"cls": "COM",
+"name": "McDermott Int'l Inc.",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"580037703": {
+"cls": "COM",
+"name": "MCDERMOTT INTL INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"580135101": {
+"name": "MCDONALD'S CORP",
+"t": "MCD",
+"via": "openfigi"
+},
+"580645109": {
+"cls": "COM",
+"name": "McGraw Hill Financial",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"58155Q103": {
+"name": "MCKESSON CORP",
+"t": "MCK",
+"via": "openfigi"
+},
+"582839106": {
+"cls": "COM",
+"name": "Mead Johnson Nut'n Co",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "58463J304": {
 "name": "MEDICAL PROPERTIES TRUST INC",
 "t": "MPT",
 "via": "openfigi"
+},
+"584688105": {
+"cls": "COM",
+"name": "Medicines Co",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "586001109": {
 "cls": "COM CL A",
@@ -1489,17 +4371,40 @@
 "v2": true,
 "via": null
 },
+"587200106": {
+"cls": "COM",
+"name": "MENTOR GRAPHICS CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "58733R102": {
 "name": "MERCADOLIBRE INC",
 "t": "MELI"
+},
+"58933Y105": {
+"name": "MERCK & CO. INC.",
+"t": "MRK",
+"via": "openfigi"
 },
 "594918104": {
 "name": "MICROSOFT CORP",
 "t": "MSFT"
 },
+"595017104": {
+"name": "MICROCHIP TECHNOLOGY INC",
+"t": "MCHP",
+"via": "openfigi"
+},
 "595112103": {
 "name": "MICRON TECHNOLOGY INC",
 "t": "MU"
+},
+"59522J103": {
+"name": "MID-AMERICA APARTMENT COMM",
+"t": "MAA",
+"via": "openfigi"
 },
 "60741F104": {
 "name": "MOBILEYE GLOBAL INC-A",
@@ -1519,6 +4424,16 @@
 "name": "MOLINA HEALTHCARE INC",
 "t": "MOH"
 },
+"60871R209": {
+"name": "MOLSON COORS BEVERAGE CO - B",
+"t": "TAP",
+"via": "openfigi"
+},
+"609207105": {
+"name": "MONDELEZ INTERNATIONAL INC-A",
+"t": "MDLZ",
+"via": "openfigi"
+},
 "60937P106": {
 "name": "MONGODB INC",
 "t": "MDB"
@@ -1528,6 +4443,14 @@
 "t": "MNRO",
 "via": "openfigi"
 },
+"61166W101": {
+"cls": "COM",
+"name": "MOSANTO CO NEW",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "61225M102": {
 "name": "MONTE ROSA THERAPEUTICS INC",
 "t": "GLUE"
@@ -1535,6 +4458,21 @@
 "615369105": {
 "name": "MOODY'S CORP",
 "t": "MCO"
+},
+"617446448": {
+"name": "MORGAN STANLEY",
+"t": "MS",
+"via": "openfigi"
+},
+"61945C103": {
+"name": "MOSAIC CO/THE",
+"t": "MOS",
+"via": "openfigi"
+},
+"620076307": {
+"name": "MOTOROLA SOLUTIONS INC",
+"t": "MSI",
+"via": "openfigi"
 },
 "62482R107": {
 "cls": "COM",
@@ -1547,6 +4485,16 @@
 "62548M209": {
 "name": "CLARITEV CORP",
 "t": "CTEV",
+"via": "openfigi"
+},
+"62855J104": {
+"name": "MYRIAD GENETICS INC",
+"t": "MYGN",
+"via": "openfigi"
+},
+"62886E108": {
+"name": "NCR VOYIX CORP",
+"t": "VYX",
 "via": "openfigi"
 },
 "629377508": {
@@ -1562,14 +4510,46 @@
 "name": "NATERA INC",
 "t": "NTRA"
 },
+"636518102": {
+"cls": "COM",
+"name": "NATIONAL INSTRS CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"637071101": {
+"cls": "COM",
+"name": "NATIONAL OILWELL VARCO INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "639193101": {
 "name": "NAVAN INC-CL A",
 "t": "NAVN",
 "via": "openfigi"
 },
+"63934E108": {
+"cls": "NEW COM",
+"name": "NAVISTAR INTL CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "63942X106": {
 "name": "NAVITAS SEMICONDUCTOR CORP",
 "t": "NVTS"
+},
+"640268108": {
+"cls": "COM",
+"name": "Nektar Therapeutics",
+"t": "NKTR",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
 },
 "64073B103": {
 "name": "NEPTUNE INSURANCE HOLDI-CL A",
@@ -1585,15 +4565,22 @@
 "t": "NFLX",
 "via": "openfigi"
 },
+"64110W102": {
+"name": "NETEASE INC-ADR",
+"t": "NTES",
+"via": "openfigi"
+},
 "64119N608": {
 "name": "NETSKOPE INC-CL A",
 "t": "NTSK",
 "via": "openfigi"
 },
 "64132K102": {
+"cls": "COM",
 "name": "NEUBASE THERAPEUTICS INC",
 "t": null,
 "triedSec": true,
+"v2": true,
 "via": null
 },
 "64132K201": {
@@ -1602,24 +4589,166 @@
 "triedSec": true,
 "via": null
 },
+"644393100": {
+"cls": "COM CL A",
+"name": "New Fortress Energy Inc",
+"t": "NFE",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"647581107": {
+"cls": "SPON ADR",
+"name": "NEW ORIENTAL ED & TECH GRP I",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"647581206": {
+"name": "NEW ORIENTAL EDUCATIO-SP ADR",
+"t": "EDU",
+"via": "openfigi"
+},
+"64829B100": {
+"cls": "COM",
+"name": "NEW RELIC INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "649445103": {
+"cls": "COM",
 "name": "NEW YORK CMNTY BANCORP INC",
 "t": null,
 "triedSec": true,
+"v2": true,
 "via": null
 },
 "650111107": {
 "name": "NEW YORK TIMES CO-A",
 "t": "NYT"
 },
+"651229106": {
+"name": "NEWELL BRANDS INC",
+"t": "NWL",
+"via": "openfigi"
+},
+"651639106": {
+"name": "NEWMONT CORP",
+"t": "NEM",
+"via": "openfigi"
+},
+"65248E104": {
+"cls": "CL A",
+"name": "NEWS CORP",
+"t": "NWSA",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"65249B109": {
+"name": "NEWS CORP - CLASS A",
+"t": "NWSA",
+"via": "openfigi"
+},
+"65249B208": {
+"name": "NEWS CORP - CLASS B",
+"t": "NWS",
+"via": "openfigi"
+},
 "65336K103": {
 "name": "NEXSTAR MEDIA GROUP INC",
 "t": "NXST",
 "via": "openfigi"
 },
+"65339F101": {
+"name": "NEXTERA ENERGY INC",
+"t": "NEE",
+"via": "openfigi"
+},
+"654106103": {
+"name": "NIKE INC -CL B",
+"t": "NKE",
+"via": "openfigi"
+},
+"654110105": {
+"cls": "COM",
+"name": "NIKOLA CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"654902204": {
+"name": "NOKIA CORP-SPON ADR",
+"t": "NOK",
+"via": "openfigi"
+},
+"655044105": {
+"cls": "COM",
+"name": "Noble Energy Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"655664100": {
+"cls": "COM",
+"name": "NORDSTROM INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "655844108": {
 "name": "NORFOLK SOUTHERN CORP",
 "t": "NSC",
+"via": "openfigi"
+},
+"665859104": {
+"name": "NORTHERN TRUST CORP",
+"t": "NTRS",
+"via": "openfigi"
+},
+"666807102": {
+"name": "NORTHROP GRUMMAN CORP",
+"t": "NOC",
+"via": "openfigi"
+},
+"66704R100": {
+"cls": "COM",
+"name": "NORTHSTAR RLTY FIN CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"66704R803": {
+"cls": "COM",
+"name": "NORTHSTAR RLTY FIN CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"66705Y104": {
+"cls": "COM",
+"name": "NORTHSTAR ASSET MGMT GROUP I",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"668771108": {
+"name": "GEN DIGITAL INC",
+"t": "GEN",
+"via": "openfigi"
+},
+"66987E206": {
+"name": "NOVAGOLD RESOURCES INC",
+"t": "NG",
 "via": "openfigi"
 },
 "670002401": {
@@ -1636,9 +4765,25 @@
 "name": "DNOW INC",
 "t": "DNOW"
 },
+"67020Y100": {
+"cls": "COM",
+"name": "NUANCE COMMUNICATIONS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "670346105": {
 "name": "NUCOR CORP",
 "t": "NUE"
+},
+"67058H102": {
+"cls": "UNIT COM",
+"name": "NUSTAR ENERGY LP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "67066G104": {
 "name": "NVIDIA CORP",
@@ -1666,9 +4811,40 @@
 "t": "ORLY",
 "via": "openfigi"
 },
+"674001201": {
+"cls": "COM",
+"name": "Oaktree Capital Group LLC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "674599105": {
 "name": "OCCIDENTAL PETROLEUM CORP",
 "t": "OXY"
+},
+"674599162": {
+"name": "OCCIDENTAL PETROLEUM-CW27",
+"t": "OXY-WS",
+"via": "openfigi"
+},
+"675746309": {
+"cls": "COM NEW",
+"name": "OCWEN FINL CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"678026105": {
+"name": "OIL STATES INTERNATIONAL INC",
+"t": "OIS",
+"via": "openfigi"
+},
+"679295105": {
+"name": "OKTA INC",
+"t": "OKTA",
+"via": "openfigi"
 },
 "679369108": {
 "cls": "COM",
@@ -1687,9 +4863,30 @@
 "name": "OLEMA PHARMACEUTICALS INC",
 "t": "OLMA"
 },
+"680665205": {
+"name": "OLIN CORP",
+"t": "OLN",
+"via": "openfigi"
+},
+"682163100": {
+"cls": "COM",
+"name": "ON DECK CAP INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "682189105": {
 "name": "ON SEMICONDUCTOR",
 "t": "ON"
+},
+"68269G107": {
+"cls": "COM",
+"name": "1LIFE HEALTHCARE INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "68389X105": {
 "name": "ORACLE CORP",
@@ -1699,18 +4896,57 @@
 "name": "OPTION CARE HEALTH INC",
 "t": "OPCH"
 },
+"687793109": {
+"name": "OSCAR HEALTH INC - CLASS A",
+"t": "OSCR",
+"via": "openfigi"
+},
 "68902V107": {
 "name": "OTIS WORLDWIDE CORP",
 "t": "OTIS",
+"via": "openfigi"
+},
+"69047Q102": {
+"name": "OVINTIV INC",
+"t": "OVV",
 "via": "openfigi"
 },
 "690742101": {
 "name": "OWENS CORNING",
 "t": "OC"
 },
+"690768403": {
+"cls": "COM NEW",
+"name": "OWENS ILL INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"69269L104": {
+"cls": "SPONSORED ADS",
+"name": "OZON HLDGS PLC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"69318G106": {
+"name": "PBF ENERGY INC-CLASS A",
+"t": "PBF",
+"via": "openfigi"
+},
 "69331C108": {
 "name": "P G & E CORP",
 "t": "PCG"
+},
+"69331C140": {
+"cls": "UNIT 99/99/9999",
+"name": "PG&E CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "69331C306": {
 "cls": "PFD CONV SER A",
@@ -1720,18 +4956,82 @@
 "v2": true,
 "via": null
 },
+"693475105": {
+"name": "PNC FINANCIAL SERVICES GROUP",
+"t": "PNC",
+"via": "openfigi"
+},
+"693506107": {
+"name": "PPG INDUSTRIES INC",
+"t": "PPG",
+"via": "openfigi"
+},
+"69351T106": {
+"name": "PPL CORP",
+"t": "PPL",
+"via": "openfigi"
+},
 "693656100": {
 "name": "PVH CORP",
 "t": "PVH",
+"via": "openfigi"
+},
+"69370C100": {
+"name": "PTC INC",
+"t": "PTC",
+"via": "openfigi"
+},
+"69608A108": {
+"name": "PALANTIR TECHNOLOGIES INC-A",
+"t": "PLTR",
 "via": "openfigi"
 },
 "697435105": {
 "name": "PALO ALTO NETWORKS INC",
 "t": "PANW"
 },
+"697660207": {
+"name": "PAMPA ENERGIA SA-SPON ADR",
+"t": "PAM",
+"via": "openfigi"
+},
+"698354107": {
+"cls": "COM",
+"name": "PANDORA MEDIA INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "69932A204": {
 "name": "SKYDANCE CORP",
 "t": "SKYD",
+"via": "openfigi"
+},
+"699374302": {
+"cls": "COM",
+"name": "PARATEK PHARMACEUTICALS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"701094104": {
+"name": "PARKER HANNIFIN CORP",
+"t": "PH",
+"via": "openfigi"
+},
+"701877102": {
+"cls": "CL A",
+"name": "PARSLEY ENERGY INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"704326107": {
+"name": "PAYCHEX INC",
+"t": "PAYX",
 "via": "openfigi"
 },
 "70450C101": {
@@ -1754,6 +5054,19 @@
 "t": "PENN",
 "via": "openfigi"
 },
+"708160106": {
+"cls": "COM",
+"name": "PENNEY J C INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"713448108": {
+"name": "PEPSICO INC",
+"t": "PEP",
+"via": "openfigi"
+},
 "71377A103": {
 "name": "PERFORMANCE FOOD GROUP CO",
 "t": "PFGC",
@@ -1764,6 +5077,14 @@
 "t": "PRM",
 "via": "openfigi"
 },
+"71531R109": {
+"cls": "COM CL A",
+"name": "PERSHING SQUARE TONTINE HLDG",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "71531T105": {
 "name": "PERSHING SQUARE USA LTD",
 "t": "PSUS",
@@ -1773,9 +5094,29 @@
 "name": "PERSHING SQUARE INC",
 "t": "PS"
 },
+"71654V408": {
+"name": "PETROLEO BRASILEIRO-SPON ADR",
+"t": "PBR",
+"via": "openfigi"
+},
+"717081103": {
+"name": "PFIZER INC",
+"t": "PFE",
+"via": "openfigi"
+},
 "718172109": {
 "name": "PHILIP MORRIS INTERNATIONAL",
 "t": "PM"
+},
+"718546104": {
+"name": "PHILLIPS 66",
+"t": "PSX",
+"via": "openfigi"
+},
+"72147K108": {
+"name": "PILGRIM'S PRIDE CORP",
+"t": "PPC",
+"via": "openfigi"
 },
 "722304102": {
 "name": "PDD HOLDINGS INC",
@@ -1786,10 +5127,49 @@
 "t": "PINS",
 "via": "openfigi"
 },
+"723787107": {
+"cls": "COM",
+"name": "PIONEER NAT RES CO",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"72703H101": {
+"name": "PLANET FITNESS INC - CL A",
+"t": "PLNT",
+"via": "openfigi"
+},
+"72766Q105": {
+"cls": "COM",
+"name": "PLATFORM SPECIALTY PRODS COR",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"72814P109": {
+"name": "PLAYBOY INC",
+"t": "PLBY",
+"via": "openfigi"
+},
+"72815L107": {
+"name": "PLAYTIKA HOLDING CORP",
+"t": "PLTK",
+"via": "openfigi"
+},
 "72919P202": {
 "name": "PLUG POWER INC",
 "t": "PLUG",
 "via": "openfigi"
+},
+"729251108": {
+"cls": "COM",
+"name": "Plum Creek Lumber MLP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "731105102": {
 "name": "POLESTAR AUTOMOTIVE HLDG UK",
@@ -1810,15 +5190,78 @@
 "name": "POST HOLDINGS INC",
 "t": "POST"
 },
+"73755L107": {
+"cls": "COM",
+"name": "Potash Corp of Sask Inc.",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"73935A104": {
+"cls": "UNIT SER 1",
+"name": "POWERSHARES QQQ TRUST",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"74005P104": {
+"cls": "COM",
+"name": "Praxair Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"740189105": {
+"cls": "COM",
+"name": "PRECISION CASTPARTS CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"74144T108": {
+"name": "T ROWE PRICE GROUP INC",
+"t": "TROW",
+"via": "openfigi"
+},
+"741503403": {
+"cls": "COM",
+"name": "Priceline Group Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "741623102": {
 "name": "PRIMO BRANDS CORP",
 "t": "PRMB",
+"via": "openfigi"
+},
+"742718109": {
+"name": "PROCTER & GAMBLE CO/THE",
+"t": "PG",
 "via": "openfigi"
 },
 "74275K108": {
 "name": "PROCORE TECHNOLOGIES INC",
 "t": "PCOR",
 "via": "openfigi"
+},
+"74276L105": {
+"name": "PROCEPT BIOROBOTICS CORP",
+"t": "PRCT",
+"via": "openfigi"
+},
+"742962103": {
+"cls": "COM",
+"name": "PRIVATEBANCORP INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "743315103": {
 "name": "PROGRESSIVE CORP",
@@ -1833,9 +5276,43 @@
 "name": "PROTAGONIST THERAPEUTICS INC",
 "t": "PTGX"
 },
+"745867101": {
+"name": "PULTEGROUP INC",
+"t": "PHM",
+"via": "openfigi"
+},
 "74623V103": {
 "name": "PURECYCLE TECHNOLOGIES INC",
 "t": "PCT"
+},
+"74624M102": {
+"name": "EVERPURE INC-A",
+"t": "P",
+"via": "openfigi"
+},
+"74734M109": {
+"cls": "ADS",
+"name": "QIHOO 360 TECHNOLOGY CO LTD",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"74735M108": {
+"cls": "SPON ADR REP B",
+"name": "QIWI PLC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"74736K101": {
+"cls": "COM",
+"name": "QORVO INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "74743L100": {
 "name": "QNITY ELECTRONICS INC",
@@ -1844,6 +5321,14 @@
 "747525103": {
 "name": "QUALCOMM INC",
 "t": "QCOM"
+},
+"747601201": {
+"cls": "COM CL A",
+"name": "QUALTRICS INTL INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "74767V109": {
 "name": "QUANTUMSCAPE CORP",
@@ -1855,9 +5340,51 @@
 "t": "RBA",
 "via": "openfigi"
 },
+"749607107": {
+"name": "RLI CORP",
+"t": "RLI",
+"via": "openfigi"
+},
 "74967X103": {
 "name": "RH",
 "t": "RH"
+},
+"74969N103": {
+"name": "RLX TECHNOLOGY INC-ADR",
+"t": "RLX",
+"via": "openfigi"
+},
+"74978Q105": {
+"cls": "COM",
+"name": "RSP PERMIAN INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"749941100": {
+"cls": "COM",
+"name": "RF MICRODEVICES INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"750086100": {
+"cls": "COM",
+"name": "RACKSPACE HOSTING INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"750481103": {
+"cls": "COM CL A",
+"name": "RADIUS GLOBAL INFRASTRCTRE I",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "750917106": {
 "name": "RAMBUS INC",
@@ -1868,13 +5395,86 @@
 "t": "RAL",
 "via": "openfigi"
 },
+"75281A109": {
+"name": "RANGE RESOURCES CORP",
+"t": "RRC",
+"via": "openfigi"
+},
+"755111507": {
+"cls": "COM",
+"name": "Raytheon Co",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"755130000": {
+"cls": "COM",
+"name": "RTX CORPORATION",
+"t": "RTX",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
 "75513E101": {
 "name": "RTX CORP",
 "t": "RTX"
 },
+"75605Y106": {
+"cls": "COM",
+"name": "REALOGY HLDGS CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"75615P103": {
+"cls": "CL A",
+"name": "Reata Pharmaceuticals Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"75629V104": {
+"name": "RECURSION PHARMACEUTICALS-A",
+"t": "RXRX",
+"via": "openfigi"
+},
+"756577102": {
+"cls": "COM",
+"name": "RED HAT INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "75734B100": {
 "name": "REDDIT INC-CL A",
 "t": "RDDT"
+},
+"75737F108": {
+"cls": "COM",
+"name": "REDFIN CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"758750103": {
+"name": "REGAL REXNORD CORP",
+"t": "RRX",
+"via": "openfigi"
+},
+"75886F107": {
+"name": "REGENERON PHARMACEUTICALS",
+"t": "REGN",
+"via": "openfigi"
+},
+"7591EP100": {
+"name": "REGIONS FINANCIAL CORP",
+"t": "RF",
+"via": "openfigi"
 },
 "75943R102": {
 "name": "RELAY THERAPEUTICS INC",
@@ -1884,10 +5484,31 @@
 "name": "REPLIGEN CORP",
 "t": "RGEN"
 },
+"760975102": {
+"cls": "COM",
+"name": "RESEARCH IN MOTION LTD",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"761152107": {
+"name": "RESMED INC",
+"t": "RMD",
+"via": "openfigi"
+},
 "76118Y104": {
 "name": "RESIDEO TECHNOLOGIES INC",
 "t": "REZI",
 "via": "openfigi"
+},
+"761283100": {
+"cls": "COM",
+"name": "RESTORATION HARDWARE HLDGS I",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "76131D103": {
 "name": "RESTAURANT BRANDS INTERN",
@@ -1901,6 +5522,14 @@
 "name": "RHYTHM PHARMACEUTICALS INC",
 "t": "RYTM"
 },
+"762760106": {
+"cls": "COM",
+"name": "RICE ENERGY INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "76680R206": {
 "name": "RINGCENTRAL INC-CLASS A",
 "t": "RNG",
@@ -1910,14 +5539,42 @@
 "name": "RIOT PLATFORMS INC",
 "t": "RIOT"
 },
+"767754104": {
+"cls": "COM",
+"name": "RITE AID CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"76954A103": {
+"name": "RIVIAN AUTOMOTIVE INC-A",
+"t": "RIVN",
+"via": "openfigi"
+},
+"770700102": {
+"name": "ROBINHOOD MARKETS INC - A",
+"t": "HOOD",
+"via": "openfigi"
+},
 "770701100": {
 "name": "ROBINHOOD VENTURES FUND I",
 "t": "RVI",
 "via": "openfigi"
 },
+"771049103": {
+"name": "ROBLOX CORP -CLASS A",
+"t": "RBLX",
+"via": "openfigi"
+},
 "77311W101": {
 "name": "ROCKET COS INC-CLASS A",
 "t": "RKT"
+},
+"773903109": {
+"name": "ROCKWELL AUTOMATION INC",
+"t": "ROK",
+"via": "openfigi"
 },
 "77543R102": {
 "name": "ROKU INC",
@@ -1933,9 +5590,40 @@
 "t": "ROP",
 "via": "openfigi"
 },
+"778296103": {
+"name": "ROSS STORES INC",
+"t": "ROST",
+"via": "openfigi"
+},
+"779376102": {
+"cls": "COM",
+"name": "ROVI CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"78388J106": {
+"cls": "COM",
+"name": "SBA Comms Corp",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "78409V104": {
 "name": "S&P GLOBAL INC",
 "t": "SPGI",
+"via": "openfigi"
+},
+"78410G104": {
+"name": "SBA COMMUNICATIONS CORP",
+"t": "SBAC",
+"via": "openfigi"
+},
+"784117103": {
+"name": "SEI INVESTMENTS COMPANY",
+"t": "SEIC",
 "via": "openfigi"
 },
 "78442P106": {
@@ -1952,14 +5640,63 @@
 "t": "GLD",
 "via": "openfigi"
 },
+"78463V907": {
+"cls": "GOLD SHS",
+"name": "SPDR Gold Trust",
+"t": "GLD",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
 "78464A631": {
 "name": "SS SPDR S&P AEROSPACE DEF",
 "t": "XAR",
 "via": "openfigi"
 },
+"78464A698": {
+"name": "SS SPDR S&P REGIONAL BANK",
+"t": "KRE",
+"via": "openfigi"
+},
+"78464A730": {
+"cls": "S&P OILGAS EXP",
+"name": "SPDR SERIES TRUST",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "78464A797": {
 "name": "SS SPDR S&P BANK ETF",
 "t": "KBE"
+},
+"78464A870": {
+"name": "SS SPDR S&P BIOTECH ETF",
+"t": "XBI",
+"via": "openfigi"
+},
+"78467J100": {
+"name": "SS&C TECHNOLOGIES HOLDINGS",
+"t": "SSNC",
+"via": "openfigi"
+},
+"78467X109": {
+"name": "SS SPDR DOW JONES INDUS AVG",
+"t": "DIA",
+"via": "openfigi"
+},
+"78468R556": {
+"name": "SS SPDR S&P OG EXP & PROD",
+"t": "XOP",
+"via": "openfigi"
+},
+"78489X103": {
+"cls": "COM",
+"name": "SVMK INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "78573M104": {
 "name": "SABRE CORP",
@@ -1971,10 +5708,39 @@
 "t": "SOC",
 "via": "openfigi"
 },
+"790849103": {
+"cls": "COM",
+"name": "ST JUDE MED INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "79466L302": {
 "name": "SALESFORCE INC",
 "t": "CRM",
 "via": "openfigi"
+},
+"79589L106": {
+"name": "SAMSARA INC-CL A",
+"t": "IOT",
+"via": "openfigi"
+},
+"800013104": {
+"cls": "COM",
+"name": "SANDERSON FARMS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"80004C101": {
+"cls": "COM",
+"name": "SanDisk Corp",
+"t": "SNDK",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
 },
 "80004C200": {
 "name": "SANDISK CORP",
@@ -1985,14 +5751,37 @@
 "t": "SD",
 "via": "openfigi"
 },
+"80283M101": {
+"cls": "COM",
+"name": "SANTANDER CONSUMER USA HDG I",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"803607100": {
+"name": "SAREPTA THERAPEUTICS INC",
+"t": "SRPT",
+"via": "openfigi"
+},
 "806407102": {
 "name": "HENRY SCHEIN INC",
 "t": "HSIC",
 "via": "openfigi"
 },
+"806857108": {
+"name": "SLB LTD",
+"t": "SLB",
+"via": "openfigi"
+},
 "808513105": {
 "name": "SCHWAB (CHARLES) CORP",
 "t": "SCHW",
+"via": "openfigi"
+},
+"80874P109": {
+"name": "LIGHT & WONDER INC",
+"t": "LNWO",
 "via": "openfigi"
 },
 "810186106": {
@@ -2004,6 +5793,14 @@
 "name": "SEA LTD-ADR",
 "t": "SE"
 },
+"81211K100": {
+"cls": "COM",
+"name": "SEALED AIR CORP NEW",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "812215200": {
 "name": "SEAPORT ENTERTAINMENT GROUP",
 "t": "SEG"
@@ -2013,13 +5810,51 @@
 "t": "PRKS",
 "via": "openfigi"
 },
+"81369Y209": {
+"name": "SS HEALTH CARE SELECT SECTOR",
+"t": "XLV",
+"via": "openfigi"
+},
+"81369Y407": {
+"name": "SS CONSUMER DISC SELECT SECT",
+"t": "XLY",
+"via": "openfigi"
+},
+"81369Y506": {
+"name": "SS ENERGY SELECT SECTOR",
+"t": "XLE",
+"via": "openfigi"
+},
 "81369Y605": {
 "name": "SS FINANCIAL SELECT SECTOR",
 "t": "XLF"
 },
+"81369Y704": {
+"name": "SS INDUSTRIAL SELECT SECTOR",
+"t": "XLI",
+"via": "openfigi"
+},
+"81369Y803": {
+"name": "SS TECHNOLOGY SELECT SECTOR",
+"t": "XLK",
+"via": "openfigi"
+},
 "816850101": {
 "name": "SEMTECH CORP",
 "t": "SMTC"
+},
+"81730H109": {
+"name": "SENTINELONE INC -CLASS A",
+"t": "S",
+"via": "openfigi"
+},
+"81761R109": {
+"cls": "COM",
+"name": "SERVICEMASTER GLOBAL HLDGS I",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "81762P102": {
 "name": "SERVICENOW INC",
@@ -2031,19 +5866,104 @@
 "t": "TTAN",
 "via": "openfigi"
 },
+"82028K200": {
+"cls": "CL B CONV",
+"name": "SHAW COMMUNICATIONS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "824348106": {
 "name": "SHERWIN-WILLIAMS CO/THE",
 "t": "SHW",
 "via": "openfigi"
+},
+"82481R106": {
+"cls": "SPONSORED ADR",
+"name": "SHIRE PLC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"82509L107": {
+"name": "SHOPIFY INC - CLASS A",
+"t": "SHOP",
+"via": "openfigi"
+},
+"82568P304": {
+"cls": "COM",
+"name": "SHUTTERFLY INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"82811P101": {
+"cls": "CL A",
+"name": "SILVER RUN ACQUISITION CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"82812A103": {
+"cls": "COM CL A",
+"name": "SILVER RUN ACQUISITION",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"82812A202": {
+"cls": "UNIT 99/99/9999",
+"name": "SILVER RUN ACQUISITION",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "82835W108": {
 "name": "ARS PHARMACEUTICALS INC",
 "t": "SPRY",
 "via": "openfigi"
 },
+"829226109": {
+"cls": "CL A",
+"name": "SINCLAIR BROADCAST GROUP INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"82967N108": {
+"cls": "COM",
+"name": "SIRIUS XM RADIO INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"82968B103": {
+"cls": "COM",
+"name": "SIRIUS XM HLDGS INC",
+"t": "SIRI",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
 "829933100": {
 "name": "SIRIUS XM HOLDINGS INC",
 "t": "SIRI"
+},
+"830566105": {
+"cls": "CL A",
+"name": "Skechers U S A Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "83056P715": {
 "name": "SKEENA RESOURCES LTD",
@@ -2063,9 +5983,45 @@
 "t": "SLDE",
 "via": "openfigi"
 },
+"83200N103": {
+"cls": "COM CL A",
+"name": "Smartsheet Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"832696405": {
+"name": "JM SMUCKER CO/THE",
+"t": "SJM",
+"via": "openfigi"
+},
+"83304A106": {
+"name": "SNAP INC - A",
+"t": "SNAP",
+"via": "openfigi"
+},
 "833445109": {
 "name": "SNOWFLAKE INC",
 "t": "SNOW",
+"via": "openfigi"
+},
+"83406F102": {
+"name": "SOFI TECHNOLOGIES INC",
+"t": "SOFI",
+"via": "openfigi"
+},
+"83416T100": {
+"cls": "COM",
+"name": "SOLARCITY CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"83417M104": {
+"name": "SOLAREDGE TECHNOLOGIES INC",
+"t": "SEDG",
 "via": "openfigi"
 },
 "83418M103": {
@@ -2076,14 +6032,55 @@
 "name": "SOLSTICE ADV MATERIALS INC",
 "t": "SOLS"
 },
+"83444M101": {
+"name": "SOLVENTUM CORP",
+"t": "SOLV",
+"via": "openfigi"
+},
+"835699307": {
+"name": "SONY GROUP CORP - SP ADR",
+"t": "SONY",
+"via": "openfigi"
+},
+"83570H108": {
+"name": "SONOS INC",
+"t": "SONO",
+"via": "openfigi"
+},
+"835898107": {
+"cls": "COM",
+"name": "SOTHEBYS",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "83601L102": {
 "name": "SOTERA HEALTH CO",
 "t": "SHC",
 "via": "openfigi"
 },
+"836034108": {
+"cls": "ADR",
+"name": "SOUFUN HLDGS LTD",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"842587107": {
+"name": "SOUTHERN CO/THE",
+"t": "SO",
+"via": "openfigi"
+},
 "84265V105": {
 "name": "SOUTHERN COPPER CORP",
 "t": "SCCO"
+},
+"844741108": {
+"name": "SOUTHWEST AIRLINES CO",
+"t": "LUV",
+"via": "openfigi"
 },
 "844895102": {
 "name": "SOUTHWEST GAS HOLDINGS INC",
@@ -2091,9 +6088,11 @@
 "via": "openfigi"
 },
 "845467109": {
+"cls": "COM",
 "name": "SOUTHWESTERN ENERGY CO",
 "t": null,
 "triedSec": true,
+"v2": true,
 "via": null
 },
 "84615Q103": {
@@ -2105,6 +6104,46 @@
 "t": "SPB",
 "via": "openfigi"
 },
+"848574109": {
+"cls": "COM CL A",
+"name": "SPIRIT AEROSYSTEMS HLDGS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"84860W102": {
+"cls": "COM",
+"name": "SPIRIT RLTY CAP INC NEW",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"848637104": {
+"cls": "COM",
+"name": "SPLUNK INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"85205L107": {
+"cls": "COM",
+"name": "Springworks Therapeutics Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"85207U105": {
+"cls": "COM",
+"name": "SPRINT CORPORATION",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "85208M102": {
 "name": "SPROUTS FARMERS MARKET INC",
 "t": "SFM",
@@ -2113,6 +6152,61 @@
 "852234103": {
 "name": "BLOCK INC",
 "t": "XYZ"
+},
+"852857200": {
+"cls": "COM NEW",
+"name": "Stamps Com Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"854502101": {
+"name": "STANLEY BLACK & DECKER INC",
+"t": "SWK",
+"via": "openfigi"
+},
+"855244109": {
+"name": "STARBUCKS CORP",
+"t": "SBUX",
+"via": "openfigi"
+},
+"85570W100": {
+"cls": "COM",
+"name": "STARS GROUP INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"85572U102": {
+"cls": "CL A COM",
+"name": "STARRY GROUP HOLDINGS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"85590A401": {
+"cls": "COM",
+"name": "STARWOOD HOTELS&RESORTS WRLD",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"857477103": {
+"name": "STATE STREET CORP",
+"t": "STT",
+"via": "openfigi"
+},
+"858912108": {
+"cls": "COM",
+"name": "Stericycle Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "860897107": {
 "name": "STITCH FIX INC-CLASS A",
@@ -2123,19 +6217,129 @@
 "name": "STMICROELECTRONICS NV-NY SHS",
 "t": "STM"
 },
+"863667101": {
+"name": "STRYKER CORP",
+"t": "SYK",
+"via": "openfigi"
+},
 "86384P109": {
 "name": "STUBHUB HOLDINGS INC-CLASS A",
 "t": "STUB"
+},
+"86614U100": {
+"cls": "CL A",
+"name": "SUMMIT MATLS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"86646P103": {
+"cls": "COM",
+"name": "SUMO LOGIC INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "866966104": {
 "name": "SUNBELT RENTALS HOLDINGS INC",
 "t": "SUNB",
 "via": "openfigi"
 },
+"867224107": {
+"name": "SUNCOR ENERGY INC",
+"t": "SU",
+"via": "openfigi"
+},
+"86732Y109": {
+"cls": "COM",
+"name": "SUNEDISON INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"867652406": {
+"cls": "COM",
+"name": "Sunpower Corp",
+"t": "SPWR",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"86771W105": {
+"name": "SUNRUN INC",
+"t": "RUN",
+"via": "openfigi"
+},
+"867914103": {
+"cls": "COM",
+"name": "SunTrust Banks Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"867975104": {
+"cls": "ADS CL A",
+"name": "SUNRISE COMMUNICATIONS AG",
+"t": "SNNRF",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"86800U302": {
+"name": "SUPER MICRO COMPUTER INC",
+"t": "SMCI",
+"via": "openfigi"
+},
+"86846V108": {
+"cls": "COM CL A",
+"name": "SUPERNOVA PARTNERS ACQUISITI",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"868536103": {
+"cls": "COM",
+"name": "SUPERVALU INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"871503108": {
+"cls": "COM",
+"name": "SYMANTEC CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"871565107": {
+"name": "ASCENT INDUSTRIES CO",
+"t": "ACNT",
+"via": "openfigi"
+},
+"87157D109": {
+"name": "SYNAPTICS INC",
+"t": "SYNA",
+"via": "openfigi"
+},
 "871607107": {
 "name": "SYNOPSYS INC",
 "t": "SNPS",
 "via": "openfigi"
+},
+"87160A100": {
+"cls": "SPONSORED ADR",
+"name": "SYNGENTA AG",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "87162W100": {
 "name": "TD SYNNEX CORP",
@@ -2151,16 +6355,55 @@
 "t": "SYY",
 "via": "openfigi"
 },
+"87236Y108": {
+"cls": "COM",
+"name": "TD AMERITRADE HLDG CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"872540109": {
+"name": "TJX COMPANIES INC",
+"t": "TJX",
+"via": "openfigi"
+},
+"87256C101": {
+"name": "TKO GROUP HOLDINGS INC",
+"t": "TKO",
+"via": "openfigi"
+},
+"872590104": {
+"name": "T-MOBILE US INC",
+"t": "TMUS",
+"via": "openfigi"
+},
 "87261Y114": {
 "name": "TMC THE METALS COMPANY INC",
 "t": "TMC",
 "triedSec": true,
 "via": "sec-name"
 },
+"87265H109": {
+"cls": "COM",
+"name": "TRI POINTE HOMES INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "87305R109": {
 "name": "TTM TECHNOLOGIES",
 "t": "TTMI",
 "via": "openfigi"
+},
+"87336U105": {
+"cls": "CL A",
+"name": "Tableau Software Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "874039100": {
 "name": "TAIWAN SEMICONDUCTOR-SP ADR",
@@ -2169,6 +6412,16 @@
 "874054109": {
 "name": "TAKE-TWO INTERACTIVE SOFTWRE",
 "t": "TTWO",
+"via": "openfigi"
+},
+"874060205": {
+"name": "TAKEDA PHARMACEUTIC-SP ADR",
+"t": "TAK",
+"via": "openfigi"
+},
+"874080104": {
+"name": "TAL EDUCATION GROUP- ADR",
+"t": "TAL",
 "via": "openfigi"
 },
 "87422Q109": {
@@ -2187,6 +6440,14 @@
 "t": "TLIS",
 "via": "openfigi"
 },
+"87425E103": {
+"cls": "COM",
+"name": "TALISMAN ENERGY INC.",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "87507T101": {
 "name": "TAMBORAN RESOURCES CORP",
 "t": "TBN"
@@ -2196,14 +6457,37 @@
 "t": "TGT",
 "via": "openfigi"
 },
+"87652V109": {
+"name": "TASKUS INC-A",
+"t": "TASK",
+"via": "openfigi"
+},
 "878742204": {
 "name": "TECK RESOURCES LTD-CLS B",
 "t": "TECK",
 "via": "openfigi"
 },
+"87901J105": {
+"name": "TEGNA INC",
+"t": "TGNA",
+"via": "openfigi"
+},
+"87918A105": {
+"name": "TELADOC HEALTH INC",
+"t": "TDOC",
+"via": "openfigi"
+},
 "879369106": {
 "name": "TELEFLEX INC",
 "t": "TFX"
+},
+"87936R106": {
+"cls": "SPONSORED ADR",
+"name": "TELEFONICA BRASIL SA",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "879433829": {
 "name": "TELEPHONE AND DATA SYSTEMS",
@@ -2229,6 +6513,32 @@
 "t": "TME",
 "via": "openfigi"
 },
+"880770102": {
+"name": "TERADYNE INC",
+"t": "TER",
+"via": "openfigi"
+},
+"88080T104": {
+"name": "TERAWULF INC",
+"t": "WULF",
+"via": "openfigi"
+},
+"88104R100": {
+"cls": "CL A COM",
+"name": "TERRAFORM PWR INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"88104R209": {
+"cls": "COM CL A",
+"name": "TERRAFORM PWR INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "88160R101": {
 "name": "TESLA INC",
 "t": "TSLA"
@@ -2251,9 +6561,19 @@
 "t": "TXRH"
 },
 "88337F105": {
+"cls": "COM",
 "name": "THE ODP CORP",
 "t": null,
 "triedSec": true,
+"v2": true,
+"via": null
+},
+"88338T104": {
+"cls": "COM",
+"name": "THERAVANCE INC",
+"t": null,
+"triedSec": true,
+"v2": true,
 "via": null
 },
 "88339J105": {
@@ -2265,9 +6585,64 @@
 "name": "THERMO FISHER SCIENTIFIC INC",
 "t": "TMO"
 },
+"88554D205": {
+"name": "3D SYSTEMS CORP",
+"t": "DDD",
+"via": "openfigi"
+},
 "88579Y101": {
 "name": "3M CO",
 "t": "MMM",
+"via": "openfigi"
+},
+"88632Q103": {
+"cls": "COM",
+"name": "TIBCO SOFTWARE INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"886547108": {
+"cls": "COM",
+"name": "TIFFANY &amp; CO NEW",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"887228104": {
+"cls": "COM",
+"name": "TIME INC NEW",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"887317303": {
+"cls": "COM NEW",
+"name": "TIME WARNER INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"88732J207": {
+"cls": "COM",
+"name": "TIME WARNER CABLE INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"888787108": {
+"name": "TOAST INC-CLASS A",
+"t": "TOST",
+"via": "openfigi"
+},
+"892672106": {
+"name": "TRADEWEB MARKETS INC-CLASS A",
+"t": "TW",
 "via": "openfigi"
 },
 "893641100": {
@@ -2275,9 +6650,61 @@
 "t": "TDG",
 "via": "openfigi"
 },
+"89374L104": {
+"cls": "COM",
+"name": "TRANSLATE BIO INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "89400J107": {
 "name": "TRANSUNION",
 "t": "TRU",
+"via": "openfigi"
+},
+"89417E109": {
+"name": "TRAVELERS COS INC/THE",
+"t": "TRV",
+"via": "openfigi"
+},
+"896047503": {
+"cls": "CL A",
+"name": "TRIBUNE MEDIA CO",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"89610F101": {
+"cls": "COM",
+"name": "Tricida Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"89621C105": {
+"name": "TRILOGY METALS INC",
+"t": "TMQ",
+"via": "openfigi"
+},
+"896288107": {
+"name": "TRINET GROUP INC",
+"t": "TNET",
+"via": "openfigi"
+},
+"89674K103": {
+"cls": "COM",
+"name": "TRINQUINT SEMICONDUCTOR INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"89677Q107": {
+"name": "TRIP.COM GROUP LTD-ADR",
+"t": "TCOM",
 "via": "openfigi"
 },
 "89679E300": {
@@ -2285,14 +6712,46 @@
 "t": "TFIN",
 "via": "openfigi"
 },
+"896818101": {
+"cls": "COM",
+"name": "TRIUMPH GROUP INC NEW",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "896945201": {
 "name": "TRIPADVISOR INC",
 "t": "TRIP",
 "via": "openfigi"
 },
+"897888103": {
+"cls": "COM",
+"name": "TRULIA INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "89832Q109": {
 "name": "TRUIST FINANCIAL CORP",
 "t": "TFC"
+},
+"90130A101": {
+"cls": "CL A",
+"name": "TWENTY FIRST CENTY FOX INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"90130A200": {
+"cls": "CL B",
+"name": "TWENTY FIRST CENTY FOX INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "90138F102": {
 "name": "TWILIO INC - A",
@@ -2308,15 +6767,68 @@
 "name": "TWIST BIOSCIENCE CORP",
 "t": "TWST"
 },
+"90184L102": {
+"cls": "COM",
+"name": "TWITTER INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "902494103": {
 "name": "TYSON FOODS INC-CL A",
 "t": "TSN",
 "via": "openfigi"
 },
+"902748102": {
+"cls": "COM",
+"name": "UIL Holdings Corporation",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "90278Q108": {
 "name": "UFP INDUSTRIES INC",
 "t": "UFPI",
 "via": "openfigi"
+},
+"902973304": {
+"name": "US BANCORP",
+"t": "USB",
+"via": "openfigi"
+},
+"903236107": {
+"cls": "COM",
+"name": "URS CORP NEW",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"903293405": {
+"cls": "COM NEW",
+"name": "U S G CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"90341W108": {
+"cls": "COM",
+"name": "US Airways Group Inc.",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"90347A100": {
+"cls": "COM",
+"name": "UBIQUITI NETWORKS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "90353T100": {
 "name": "UBER TECHNOLOGIES INC",
@@ -2327,6 +6839,32 @@
 "t": "PATH",
 "via": "openfigi"
 },
+"90384S303": {
+"name": "ULTA BEAUTY INC",
+"t": "ULTA",
+"via": "openfigi"
+},
+"904311107": {
+"name": "UNDER ARMOUR INC-CLASS A",
+"t": "UAA",
+"via": "openfigi"
+},
+"904767704": {
+"cls": "COM",
+"name": "Unilever PLC ADR",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"90662P104": {
+"cls": "COM",
+"name": "Union First Market Bankshares",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "907818108": {
 "name": "UNION PACIFIC CORP",
 "t": "UNP"
@@ -2334,6 +6872,37 @@
 "910047109": {
 "name": "UNITED AIRLINES HOLDINGS INC",
 "t": "UAL"
+},
+"911312106": {
+"name": "UNITED PARCEL SERVICE-CL B",
+"t": "UPS",
+"via": "openfigi"
+},
+"911363109": {
+"name": "UNITED RENTALS INC",
+"t": "URI",
+"via": "openfigi"
+},
+"912008109": {
+"name": "US FOODS HOLDING CORP",
+"t": "USFD",
+"via": "openfigi"
+},
+"912909108": {
+"cls": "COM",
+"name": "United States Stl Corp New",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"913017109": {
+"cls": "COM",
+"name": "UNITED TECHNOLOGIES CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "91324P102": {
 "name": "UNITEDHEALTH GROUP INC",
@@ -2343,14 +6912,48 @@
 "name": "UNITY SOFTWARE INC",
 "t": "U"
 },
+"91336L107": {
+"cls": "COM",
+"name": "UNIVAR INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "91680M107": {
 "name": "UPSTART HOLDINGS INC",
 "t": "UPST",
 "via": "openfigi"
 },
+"91818X108": {
+"cls": "ADS",
+"name": "UXIN LTD",
+"t": "UXIN",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
 "91823B109": {
 "name": "UWM HOLDINGS CORP",
 "t": "UWMC"
+},
+"91911K102": {
+"cls": "COM",
+"name": "VALEANT PHARMACEUTICALS INTL",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"91912E105": {
+"name": "VALE SA-SP ADR",
+"t": "VALE",
+"via": "openfigi"
+},
+"91913Y100": {
+"name": "VALERO ENERGY CORP",
+"t": "VLO",
+"via": "openfigi"
 },
 "92189F106": {
 "name": "VANECK GOLD MINERS ETF",
@@ -2362,10 +6965,26 @@
 "t": "SMH",
 "via": "openfigi"
 },
+"92189F718": {
+"cls": "OIL SVCS ETF",
+"name": "VANECK VECTORS ETF TR",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "92189H607": {
 "name": "VANECK OIL SERVICES ETF",
 "t": "OIH",
 "via": "openfigi"
+},
+"92210H105": {
+"cls": "CL A",
+"name": "VANTIV INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "92243G108": {
 "name": "VAXCYTE INC",
@@ -2376,9 +6995,38 @@
 "t": "VEEV",
 "via": "openfigi"
 },
+"92332V107": {
+"cls": "COM",
+"name": "VENTYX BIOSCIENCES INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "92343E102": {
 "name": "VERISIGN INC",
 "t": "VRSN"
+},
+"92343V104": {
+"name": "VERIZON COMMUNICATIONS INC",
+"t": "VZ",
+"via": "openfigi"
+},
+"92343X100": {
+"cls": "COM",
+"name": "VERINT SYS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"923454102": {
+"cls": "COM",
+"name": "VERITIV CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "92345Y106": {
 "name": "VERISK ANALYTICS INC",
@@ -2398,6 +7046,11 @@
 "t": "VSNT",
 "via": "openfigi"
 },
+"92532F100": {
+"name": "VERTEX PHARMACEUTICALS INC",
+"t": "VRTX",
+"via": "openfigi"
+},
 "92537N108": {
 "name": "VERTIV HOLDINGS CO-A",
 "t": "VRT",
@@ -2406,6 +7059,22 @@
 "92552V100": {
 "name": "VIASAT INC",
 "t": "VSAT"
+},
+"92553P201": {
+"cls": "CL B",
+"name": "VIACOM INC NEW",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"92556H206": {
+"cls": "CLASS B COM",
+"name": "PARAMOUNT GLOBAL",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "92556V106": {
 "name": "VIATRIS INC",
@@ -2426,6 +7095,11 @@
 "name": "VIKING THERAPEUTICS INC",
 "t": "VKTX"
 },
+"92763W103": {
+"name": "VIPSHOP HOLDINGS LTD - ADR",
+"t": "VIPS",
+"via": "openfigi"
+},
 "92826C839": {
 "name": "VISA INC-CLASS A SHARES",
 "t": "V"
@@ -2438,22 +7112,141 @@
 "name": "VISTRA CORP",
 "t": "VST"
 },
+"92854Q106": {
+"cls": "COM",
+"name": "VIVINT SOLAR INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"928563402": {
+"cls": "CL A COM",
+"name": "VMWARE INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"929089100": {
+"name": "VOYA FINANCIAL INC",
+"t": "VOYA",
+"via": "openfigi"
+},
+"929160109": {
+"name": "VULCAN MATERIALS CO",
+"t": "VMC",
+"via": "openfigi"
+},
+"92936P100": {
+"cls": "COM",
+"name": "WMIH CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"92936U109": {
+"name": "WP CAREY INC",
+"t": "WPC",
+"via": "openfigi"
+},
+"92939U106": {
+"name": "WEC ENERGY GROUP INC",
+"t": "WEC",
+"via": "openfigi"
+},
 "929740108": {
 "name": "WABTEC CORP",
 "t": "WAB"
 },
+"931142103": {
+"name": "WALMART INC",
+"t": "WMT",
+"via": "openfigi"
+},
+"931422109": {
+"cls": "COM",
+"name": "Walgreen Co",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"931427108": {
+"cls": "COM",
+"name": "Walgreens Boots Alliance Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"93403J106": {
+"name": "WARBY PARKER INC-CLASS A",
+"t": "WRBY",
+"via": "openfigi"
+},
 "934423104": {
 "name": "WARNER BROS DISCOVERY INC",
 "t": "WBD"
+},
+"939640108": {
+"cls": "CL B",
+"name": "WASHINGTON POST CO",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "942622200": {
 "name": "WATSCO INC",
 "t": "WSO",
 "via": "openfigi"
 },
+"94419L101": {
+"name": "WAYFAIR INC- CLASS A",
+"t": "W",
+"via": "openfigi"
+},
 "947002101": {
 "name": "WEALTHFRONT CORP",
 "t": "WLTH",
+"via": "openfigi"
+},
+"94724R108": {
+"name": "WEAVE COMMUNICATIONS INC",
+"t": "WEAV",
+"via": "openfigi"
+},
+"948596101": {
+"name": "WEIBO CORP-SPON ADR",
+"t": "WB",
+"via": "openfigi"
+},
+"949090104": {
+"cls": "COM",
+"name": "Welbilt Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"94973V107": {
+"cls": "COM",
+"name": "Wellpoint Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"949746101": {
+"name": "WELLS FARGO & CO",
+"t": "WFC",
+"via": "openfigi"
+},
+"95058W100": {
+"name": "WENDY'S CO/THE",
+"t": "WEN",
 "via": "openfigi"
 },
 "95082P105": {
@@ -2463,6 +7256,11 @@
 "957638109": {
 "name": "WESTERN ALLIANCE BANCORP",
 "t": "WAL"
+},
+"958102105": {
+"name": "WESTERN DIGITAL CORP",
+"t": "WDC",
+"via": "openfigi"
 },
 "960413102": {
 "name": "WESTLAKE CORP",
@@ -2477,6 +7275,55 @@
 "name": "WHIRLPOOL CORP",
 "t": "WHR"
 },
+"966244105": {
+"cls": "COM",
+"name": "WhiteWave Foods Co",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"966837106": {
+"cls": "COM",
+"name": "WHOLE FOODS MKT INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"969457100": {
+"name": "WILLIAMS COS INC",
+"t": "WMB",
+"via": "openfigi"
+},
+"96949L105": {
+"cls": "COM UNIT LTD PAR",
+"name": "WILLIAMS PARTNERS L P NEW",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"969904101": {
+"name": "WILLIAMS-SONOMA INC",
+"t": "WSM",
+"via": "openfigi"
+},
+"971378104": {
+"name": "WILLSCOT HOLDINGS CORP",
+"t": "WSC",
+"via": "openfigi"
+},
+"97717W422": {
+"name": "WISDOMTREE INDIA EARNINGS",
+"t": "EPI",
+"via": "openfigi"
+},
+"97717W851": {
+"name": "WISDOMTREE JAPAN HEDGED EQ",
+"t": "DXJ",
+"via": "openfigi"
+},
 "97785W106": {
 "name": "WOLFSPEED INC",
 "t": "WOLF"
@@ -2490,6 +7337,27 @@
 "t": "WDAY",
 "via": "openfigi"
 },
+"981558109": {
+"cls": "CL A",
+"name": "WORLDPAY INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"98212B103": {
+"cls": "COM",
+"name": "WPX ENERGY INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"983134107": {
+"name": "WYNN RESORTS LTD",
+"t": "WYNN",
+"via": "openfigi"
+},
 "983793100": {
 "name": "XPO INC",
 "t": "XPO"
@@ -2499,13 +7367,92 @@
 "t": "XNDU",
 "via": "openfigi"
 },
+"983919101": {
+"cls": "COM",
+"name": "Xilinx Inc",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"984121103": {
+"cls": "COM",
+"name": "XEROX CORP",
+"t": "XRX",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"984121608": {
+"cls": "COM NEW",
+"name": "XEROX CORP",
+"t": "XRX",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
 "98420N105": {
 "name": "XENON PHARMACEUTICALS INC",
 "t": "XENE"
 },
+"98421M106": {
+"name": "XEROX HOLDINGS CORP",
+"t": "XRX",
+"via": "openfigi"
+},
+"98422D105": {
+"name": "XPENG INC - ADR",
+"t": "XPEV",
+"via": "openfigi"
+},
 "984245100": {
 "name": "YPF S.A.-SPONSORED ADR",
 "t": "YPF"
+},
+"98426T106": {
+"cls": "ADS REPCOM CLA",
+"name": "YY INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"984332106": {
+"cls": "COM",
+"name": "YAHOO INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"98462Y100": {
+"cls": "COM",
+"name": "YAMANA GOLD INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"985194109": {
+"cls": "ADS",
+"name": "YATSEN HLDG LTD",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"985817105": {
+"name": "YELP INC",
+"t": "YELP",
+"via": "openfigi"
+},
+"98742U100": {
+"cls": "SPONSORED ADR",
+"name": "YOUKU TUDOU INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "988498101": {
 "name": "YUM! BRANDS INC",
@@ -2522,6 +7469,30 @@
 "t": "ZKH",
 "via": "openfigi"
 },
+"98919V105": {
+"cls": "COM",
+"name": "ZAYO GROUP HLDGS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"98936J101": {
+"cls": "COM",
+"name": "ZENDESK INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"98954A107": {
+"cls": "CL A",
+"name": "ZILLOW INC",
+"t": "ZG",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
 "98954M101": {
 "name": "ZILLOW GROUP INC - A",
 "t": "ZG",
@@ -2530,6 +7501,11 @@
 "98954M200": {
 "name": "ZILLOW GROUP INC - C",
 "t": "Z"
+},
+"98956P102": {
+"name": "ZIMMER BIOMET HOLDINGS INC",
+"t": "ZBH",
+"via": "openfigi"
 },
 "989701107": {
 "name": "ZIONS BANCORP NA",
@@ -2540,9 +7516,19 @@
 "t": "ZTS",
 "via": "openfigi"
 },
+"98980F104": {
+"name": "ZOOMINFO TECHNOLOGIES INC",
+"t": "GTM",
+"via": "openfigi"
+},
 "98980G102": {
 "name": "ZSCALER INC",
 "t": "ZS",
+"via": "openfigi"
+},
+"98980L101": {
+"name": "ZOOM COMMUNICATIONS INC",
+"t": "ZM",
 "via": "openfigi"
 },
 "D18190898": {
@@ -2552,6 +7538,30 @@
 "triedSec": true,
 "v2": true,
 "via": null
+},
+"G00349103": {
+"cls": "ORD SHS",
+"name": "ABENGOA YIELD PLC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"G0083B108": {
+"cls": "SHS",
+"name": "ACTAVIS PLC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"G0084W101": {
+"cls": "ORD SHS",
+"name": "ADIENT PLC",
+"t": "ADNT",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
 },
 "G00894108": {
 "cls": "CL A",
@@ -2569,10 +7579,34 @@
 "v2": true,
 "via": "sec-name"
 },
+"G0177J108": {
+"cls": "SHS",
+"name": "ALLERGAN PLC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "G0250X107": {
 "cls": "ORD",
 "name": "AMCOR PLC",
 "t": "AMCR",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"G02602103": {
+"cls": "ORD",
+"name": "AMDOCS LTD",
+"t": "DOX",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"G037AX101": {
+"cls": "SHS",
+"name": "AMBARELLA INC",
+"t": "AMBA",
 "triedSec": true,
 "v2": true,
 "via": "sec-name"
@@ -2585,15 +7619,63 @@
 "v2": true,
 "via": "sec-name"
 },
+"G05384105": {
+"cls": "SHS",
+"name": "ASPEN INSURANCE HOLDINGS LTD",
+"t": "AHL-PD",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"G0551A103": {
+"cls": "SHS",
+"name": "ARRIS INTL INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"G06242104": {
+"cls": "CL A",
+"name": "ATLASSIAN CORP PLC",
+"t": "TEAM",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
 "G06536125": {
 "name": "WAVERLEY CAPITAL ACQUIS CORP",
 "t": null,
 "triedSec": true,
 "via": null
 },
+"G0682V109": {
+"cls": "SHS CL A",
+"name": "AVANTI ACQUISITION CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"G0684D107": {
+"cls": "CL A",
+"name": "ATHENE HLDG LTD",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "G0750C108": {
 "cls": "COM",
 "name": "AXALTA COATING SYS LTD",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"G0751N103": {
+"cls": "SHS",
+"name": "ATLANTICA YIELD PLC",
 "t": null,
 "triedSec": true,
 "v2": true,
@@ -2615,6 +7697,14 @@
 "v2": true,
 "via": "sec-name"
 },
+"G1151C101": {
+"cls": "COM",
+"name": "Accenture",
+"t": "ACN",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
 "G16910120": {
 "cls": "ORD SHS",
 "name": "BULLISH",
@@ -2631,6 +7721,22 @@
 "v2": true,
 "via": null
 },
+"G2110R114": {
+"cls": "SHS",
+"name": "CHIPMOS TECH BERMUDA LTD",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"G21810109": {
+"cls": "ORD SHS",
+"name": "CLARIVATE PLC",
+"t": "CLVT",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
 "G25508105": {
 "cls": "ORD",
 "name": "CRH PLC",
@@ -2638,6 +7744,46 @@
 "triedSec": true,
 "v2": true,
 "via": null
+},
+"G2554F113": {
+"cls": "SHS",
+"name": "COVIDIEN PLC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"G25839104": {
+"cls": "SHS",
+"name": "COCA COLA EUROPEAN PARTNERS",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"G27358103": {
+"cls": "ORD SHS",
+"name": "DESPEGAR COM CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"G27823106": {
+"cls": "SHS",
+"name": "DELPHI AUTOMOTIVE PLC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"G29018101": {
+"cls": "CLASS A COM",
+"name": "DLOCAL LTD",
+"t": "DLO",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
 },
 "G29183103": {
 "cls": "SHS",
@@ -2647,6 +7793,22 @@
 "v2": true,
 "via": "sec-name"
 },
+"G3075P101": {
+"cls": "SHS",
+"name": "ENSTAR GROUP LIMITED",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"G3157S106": {
+"cls": "SHS CLASS A",
+"name": "ENSCO PLC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "G32089107": {
 "cls": "SHS CL A",
 "name": "ETORO GROUP LTD",
@@ -2654,6 +7816,14 @@
 "triedSec": true,
 "v2": true,
 "via": "sec-name"
+},
+"G3421J106": {
+"cls": "SHS",
+"name": "FERGUSON PLC NEW",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "G3643J108": {
 "cls": "SHS",
@@ -2679,6 +7849,14 @@
 "v2": true,
 "via": null
 },
+"G4182A110": {
+"cls": "UNIT 99/99/9999",
+"name": "GTY TECHNOLOGY HOLDINGS INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "G4412G101": {
 "cls": "COM SHS",
 "name": "HERBALIFE LTD",
@@ -2695,6 +7873,14 @@
 "v2": true,
 "via": "sec-name"
 },
+"G47791101": {
+"cls": "SHS",
+"name": "INGERSOLL-RAND PLC",
+"t": "IR",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
 "G48833118": {
 "cls": "ORD SHS",
 "name": "WEATHERFORD INTL PLC",
@@ -2703,10 +7889,74 @@
 "v2": true,
 "via": "sec-name"
 },
+"G50737108": {
+"cls": "SHS CL A",
+"name": "JAWS MUSTANG ACQUISITION COR",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"G50737116": {
+"cls": "UNIT 99/99/9999",
+"name": "JAWS MUSTANG ACQUISITION COR",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"G50744104": {
+"cls": "SHS",
+"name": "JAWS ACQUISITION CORP",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"G50871105": {
+"cls": "SHS USD",
+"name": "JAZZ PHARMACEUTICALS PLC",
+"t": "JAZZ",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"G5258J109": {
+"cls": "ORD SHS",
+"name": "KING DIGITAL ENTMT PLC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "G5279N105": {
 "cls": "SHS",
 "name": "KLARNA GROUP PLC",
 "t": "KLAR",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"G5480U104": {
+"cls": "SHS CL A",
+"name": "LIBERTY GLOBAL PLC",
+"t": "LBTYA",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"G5480U120": {
+"cls": "SHS CL C",
+"name": "LIBERTY GLOBAL PLC",
+"t": "LBTYA",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"G5494J103": {
+"cls": "SHS",
+"name": "Linde Plc",
+"t": "LIN",
 "triedSec": true,
 "v2": true,
 "via": "sec-name"
@@ -2720,9 +7970,51 @@
 "via": "sec-name"
 },
 "G5509L101": {
+"cls": "SHS",
 "name": "LIVANOVA PLC",
 "t": "LIVN",
 "triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"G5785G107": {
+"cls": "SHS",
+"name": "MALLINCKRODT PUB LTD CO",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"G5876H105": {
+"cls": "ORD",
+"name": "MARVELL TECHNOLOGY GROUP LTD",
+"t": "MRVL",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"G5960L103": {
+"cls": "SHS",
+"name": "MEDTRONIC PLC",
+"t": "MDT",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"G60754101": {
+"cls": "SHS",
+"name": "MICHAEL KORS HLDGS LTD",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"G6095L109": {
+"cls": "SHS",
+"name": "APTIV PLC",
+"t": "APTV",
+"triedSec": true,
+"v2": true,
 "via": "sec-name"
 },
 "G61188101": {
@@ -2741,6 +8033,14 @@
 "v2": true,
 "via": "sec-name"
 },
+"G6455X107": {
+"cls": "COM",
+"name": "NETSHOES CAYMAN LTD",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "G65163100": {
 "cls": "COMMON STOCK",
 "name": "Joby Aviation Inc",
@@ -2748,6 +8048,14 @@
 "triedSec": true,
 "v2": true,
 "via": "sec-name"
+},
+"G6564A105": {
+"cls": "USD ORD SHS",
+"name": "NOMAD HLDGS LTD",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "G66721104": {
 "cls": "SHS",
@@ -2761,6 +8069,14 @@
 "cls": "ORD SHS CL A",
 "name": "NU HLDGS LTD",
 "t": "NU",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"G6700G107": {
+"cls": "SHS",
+"name": "Nvent Electric Plc",
+"t": "NVT",
 "triedSec": true,
 "v2": true,
 "via": "sec-name"
@@ -2779,10 +8095,42 @@
 "triedSec": true,
 "via": null
 },
+"G6964L107": {
+"cls": "ORD",
+"name": "PAYSAFE LIMITED",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "G6964L115": {
 "name": "PAYSAFE LIMITED",
 "t": null,
 "triedSec": true,
+"via": null
+},
+"G7483N129": {
+"cls": "CL A",
+"name": "REINVENT TECHNOLOGY PARTNERS",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"G7484L106": {
+"cls": "CLASS A ORD SHS",
+"name": "REINVENT TECHNOLOGY PARTNERS",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"G7484L114": {
+"cls": "UNIT 03/12/2026",
+"name": "REINVENT TECHNOLOGY PARTNERS",
+"t": null,
+"triedSec": true,
+"v2": true,
 "via": null
 },
 "G75529100": {
@@ -2823,6 +8171,54 @@
 "v2": true,
 "via": "sec-name"
 },
+"G81276100": {
+"cls": "SHS",
+"name": "SIGNET JEWELERS LIMITED",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"G81477104": {
+"cls": "Ord",
+"name": "Sina Corp",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"G8354H126": {
+"cls": "CL A SHS",
+"name": "SOARING EAGLE ACQUISITION CO",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"G85158106": {
+"cls": "COM CL A",
+"name": "STONECO LTD",
+"t": "STNE",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"G87210103": {
+"cls": "ORD",
+"name": "UTI WORLDWIDE INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"G8807B106": {
+"cls": "COM",
+"name": "THERAVANCE BIOPHARMA INC",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "G9001E102": {
 "cls": "COM CL A",
 "name": "LIBERTY LATIN AMERICA LTD",
@@ -2835,6 +8231,14 @@
 "cls": "COM CL C",
 "name": "LIBERTY LATIN AMERICA LTD",
 "t": "LILA",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"G9470A102": {
+"cls": "SHS CL A",
+"name": "VTEX",
+"t": "VTEX",
 "triedSec": true,
 "v2": true,
 "via": "sec-name"
@@ -2863,6 +8267,38 @@
 "v2": true,
 "via": "sec-name"
 },
+"G97822103": {
+"cls": "SHS",
+"name": "PERRIGO CO PLC",
+"t": "PRGO",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"G98239109": {
+"cls": "CL A",
+"name": "XP INC",
+"t": "XP",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"H0023R105": {
+"cls": "SHS",
+"name": "ACE LTD",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"H00263105": {
+"cls": "SHS",
+"name": "Ac Immune Sa",
+"t": "ACIU",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
 "H1467J104": {
 "cls": "COM",
 "name": "CHUBB LIMITED",
@@ -2870,6 +8306,54 @@
 "triedSec": true,
 "v2": true,
 "via": null
+},
+"H33700107": {
+"cls": "ORD SHS",
+"name": "GLOBAL BLUE GROUP HOLDING AG",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"H42097107": {
+"cls": "SHS",
+"name": "UBS GROUP AG",
+"t": "UBS",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"H84989104": {
+"cls": "REG SHS",
+"name": "TE CONNECTIVITY LTD",
+"t": "TEL",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"H8817H100": {
+"cls": "REG SHS",
+"name": "Transocean Ltd",
+"t": "RIG",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"L5140P101": {
+"cls": "COM",
+"name": "Intelsat S A",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"L7579L106": {
+"cls": "COMMON STOCK",
+"name": "PERIMETER SOLUTIONS SA",
+"t": "PRM",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
 },
 "L8681T102": {
 "cls": "SHS",
@@ -2886,6 +8370,70 @@
 "triedSec": true,
 "v2": true,
 "via": null
+},
+"M51363113": {
+"cls": "SHS",
+"name": "Mellanox Tech's Ltd",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"M5216V106": {
+"cls": "SHS",
+"name": "Global E Online Ltd",
+"t": "GLBE",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"M5R75Y101": {
+"cls": "CL A ORD SHS",
+"name": "IRONSOURCE LTD",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"M7S64H106": {
+"cls": "SHS",
+"name": "MONDAY COM LTD",
+"t": "MNDY",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"M7S64L115": {
+"cls": "CL A SHS",
+"name": "PAGAYA TECHNOLOGIES LTD",
+"t": "PGY",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"M85548101": {
+"cls": "SHS",
+"name": "STRATASYS LTD",
+"t": "SSYS",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"M87245102": {
+"cls": "ORD SHS",
+"name": "SYNERON MEDICAL LTD",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"M87915274": {
+"cls": "SHS NEW",
+"name": "TOWER SEMICONDUCTOR LTD",
+"t": "TSEM",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
 },
 "M98068105": {
 "cls": "SHS",
@@ -2904,9 +8452,11 @@
 "via": null
 },
 "N00985106": {
+"cls": "SHS",
 "name": "AERCAP HOLDINGS NV",
 "t": null,
 "triedSec": true,
+"v2": true,
 "via": null
 },
 "N07059210": {
@@ -2933,6 +8483,30 @@
 "v2": true,
 "via": null
 },
+"N22717107": {
+"cls": "COM",
+"name": "Core Labs NV",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"N3167Y103": {
+"cls": "COM",
+"name": "FERRARI N V",
+"t": "RACE",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"N31738102": {
+"cls": "SHS",
+"name": "FIAT CHRYSLER AUTOMOBILES N",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "N4732M103": {
 "cls": "CL A SHS",
 "name": "Jbs N.V.",
@@ -2941,9 +8515,25 @@
 "v2": true,
 "via": "sec-name"
 },
+"N51488117": {
+"cls": "ORD SHS",
+"name": "MOBILEYE N V AMSTELVEEN",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "N53745100": {
 "cls": "SHS - A -",
 "name": "Lyondellbasell Industries Nv",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"N59465109": {
+"cls": "SHS EURO",
+"name": "MYLAN N V",
 "t": null,
 "triedSec": true,
 "v2": true,
@@ -2957,6 +8547,46 @@
 "v2": true,
 "via": null
 },
+"N63218106": {
+"cls": "COM",
+"name": "NIELSEN HOLDINGS N V",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"N6596X109": {
+"cls": "COM",
+"name": "NXP SEMICONDUCTORS N V",
+"t": "NXPI",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"N7902X106": {
+"cls": "SHS",
+"name": "Sensata Technologies Hldng NV",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"N82405106": {
+"cls": "SHS",
+"name": "Stellantis N.V",
+"t": "STLA",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"N97284108": {
+"cls": "SHS CLASS A",
+"name": "YANDEX N V",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
 "Q4982L109": {
 "cls": "ORDINARY SHARES",
 "name": "Iren Limited",
@@ -2964,6 +8594,38 @@
 "triedSec": true,
 "v2": true,
 "via": null
+},
+"V5633W109": {
+"cls": "SHS",
+"name": "MAKEMYTRIP LIMITED MAURITIUS",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"V7780T103": {
+"cls": "COM",
+"name": "Royal Carib'n Cruises Ltd",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"Y0486S104": {
+"cls": "SHS",
+"name": "AVAGO TECHNOLOGIES LTD",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"Y09827109": {
+"cls": "SHS",
+"name": "Broadcom Ltd",
+"t": "AVGO",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
 },
 "Y2065G121": {
 "cls": "SHS NEW",
@@ -2980,6 +8642,22 @@
 "triedSec": true,
 "v2": true,
 "via": "sec-name"
+},
+"Y41053102": {
+"cls": "COM",
+"name": "INTERNATIONAL SEAWAYS INC",
+"t": "INSW",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"Y8213L102": {
+"cls": "SHS",
+"name": "SUNEDISON SEMICONDUCTOR LTD",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
 },
 "Y95308105": {
 "cls": "SHS",
