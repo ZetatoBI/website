@@ -33,6 +33,13 @@ which runs `pipeline/build_insights.py`.
   Data fixes that must stay: per-filing unit detection (`fix_units`: some filers report thousands after 2023),
   combining two filers for the same quarter (`combine`: Pershing Square), and showing a ticker only when it
   passes the filing-price check (never fall back to an unverified ticker).
+- **Track record** (`track_records` in `legends.py`, "Track record" tab and a line on each card): each fund's disclosed
+  US stocks held from one quarter end to the next at the filed weights, dividends reinvested (monthly Yahoo
+  data), against SPY over the same quarters, as an annual rate. It is an estimate, never the fund's own return,
+  and must stay labelled so. Only the largest positions making up 95% of each filing are priced, and only when
+  the ticker passes the filing-price check; a record shows only with >= 3 years and >= 75% of value priced on
+  average. Derived quarterly returns are cached in `insights/data/legends/track-cache.json` (never raw prices);
+  bump `TRACK_V` to recompute. History starts mid-2013, when 13F tables became XML.
 - **Data status:** `data_status()` builds the "as of" line and section stamps (green/amber/red), and the page
   itself turns red if it has not been rebuilt for 3+ weekdays. The run summary lists every source's status and
   any Buffett indicator download errors. FRED is tried by CSV, then plain text, then the API if the optional
