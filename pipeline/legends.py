@@ -19,6 +19,12 @@ Checks on every run (results go to the GitHub Actions run summary):
   - Freshness: once the 13F deadline for a quarter has passed (45 days), a fund without that quarter is
     flagged on the page.
 
+Track record (estimated, labelled as such): the return of each fund's disclosed US stocks, held from one
+quarter end to the next at the weights filed, dividends reinvested, against the S&P 500 (SPY) over the same
+quarters. Only positions whose ticker passes the price check count; the share of value covered is shown.
+It is not the fund's own return: no shorts, options, cash, foreign shares, trading within a quarter or fees.
+Only the derived quarterly returns are saved (insights/data/legends/track-cache.json), never prices.
+
 13F limits: filed up to 45 days after quarter end; US-listed long positions and listed options only (no
 shorts, cash, bonds or most foreign shares); options are reported at the notional value of the underlying.
 """
@@ -328,7 +334,7 @@ def map_cusips(issuers, cache_path):
     its ticker). Every mapping is later checked against the filing's own prices, so a wrong match is not shown."""
     issuers = {c: (v if isinstance(v, tuple) else (v, "")) for c, v in issuers.items()}
     cache = json.loads(cache_path.read_text()) if cache_path.exists() else {}
-    todo = [c for c in issuers if c not in cache]
+    todo = [c for c in issuers if c not in cache or (cache[c] or {}).get("figiPending")]   # pending: OpenFIGI never answered
     for i in range(0, len(todo), 10):          # 10 per request and 25 requests a minute without an API key
         batch = todo[i:i + 10]
         try:
@@ -338,6 +344,8 @@ def map_cusips(issuers, cache_path):
             print(f"OpenFIGI unavailable: {e}", file=sys.stderr)
             break
         for c, r in zip(batch, res):
+            if r.get("error") and "rate" in str(r.get("error")).lower():
+                continue
             d = (r.get("data") or [{}])[0]
             cache[c] = {"t": (d.get("ticker") or "").replace("/", "-") or None, "name": d.get("name"), "via": "openfigi"}
         time.sleep(2.6)
@@ -352,8 +360,11 @@ def map_cusips(issuers, cache_path):
             for c in missing:
                 name, cls = issuers[c]
                 t = by_name.get(_norm(name)) if _looks_common(cls) else None
+                pending = (cache.get(c) or {}).get("via") != "openfigi" and (c not in cache or (cache[c] or {}).get("figiPending"))
                 cache[c] = {"t": t.replace(".", "-") if t else None, "name": name, "cls": cls,
                             "via": "sec-name" if t else None, "triedSec": True, "v2": True}
+                if pending:
+                    cache[c]["figiPending"] = True
         except Exception as e:
             print(f"SEC ticker list unavailable: {e}", file=sys.stderr)
     cache_path.parent.mkdir(parents=True, exist_ok=True)
@@ -548,7 +559,168 @@ def board(current, verify, priced):
     return tabs
 
 
-def build(content, data_dir, price_loader):
+# ---------------------------------------------------------------- track record
+TRACK_V = 1             # bump to recompute every cached quarter
+TRACK_SHARE = 0.95      # positions priced each quarter: the largest ones making up this share of the portfolio
+TRACK_SHOW_COV = 75.0   # average % of reported value with verified prices needed to show a record
+TRACK_RETRY_COV = 0.6   # quarters covered less than this are recomputed on later runs
+TRACK_MIN_YEARS = 3
+
+
+def _qe(p):
+    return (pd.Timestamp(p) + pd.offsets.QuarterEnd(0)).normalize()
+
+
+def track_rows(q):
+    """The largest stock positions making up TRACK_SHARE of the filing, and the filing's stock total."""
+    tot = stock_total(q) or 1.0
+    rows = sorted((r for r in q["rows"].values() if not r["putCall"] and r["value"] > 0 and r["shares"] > 0),
+                  key=lambda r: -r["value"])
+    out, acc = [], 0.0
+    for r in rows:
+        if acc >= TRACK_SHARE * tot:
+            break
+        out.append(r)
+        acc += r["value"]
+    return out, tot
+
+
+def track_plan(qs, last_qe):
+    """[(start, end, filing held)] for each quarter from the first filing to last_qe. A filing is carried forward
+    one quarter at most (a late or missing filing); a longer gap restarts the record."""
+    if not qs:
+        return []
+    plan, i, Q = [], 0, _qe(qs[0]["period"])
+    while Q < last_qe:
+        Qn = (Q + pd.offsets.QuarterEnd(1)).normalize()
+        while i + 1 < len(qs) and _qe(qs[i + 1]["period"]) <= Q:
+            i += 1
+        h = qs[i]
+        if (Q - _qe(h["period"])).days > 100:
+            plan = []
+        else:
+            plan.append((Q, Qn, h))
+        Q = Qn
+    return plan
+
+
+def _at(df, col, d):
+    try:
+        v = float(df.at[d, col])
+    except (KeyError, TypeError, ValueError):
+        return None
+    return v if v == v and v > 0 else None
+
+
+def quarter_return(h, Q, Qn, tick, monthly, splits):
+    """Value-weighted total return of the filing's priced positions from Q to Qn, and the share of the filing's
+    stock value it covers. A position counts only if the filing's own price agrees with the ticker's close."""
+    rows, tot = track_rows(h)
+    w = acc = 0.0
+    for r in rows:
+        t = tick(r["cusip"])
+        df = monthly.get(t) if t else None
+        if df is None:
+            continue
+        close, a0, a1 = _at(df, "close", _qe(h["period"])), _at(df, "adj", Q), _at(df, "adj", Qn)
+        if not (close and a0 and a1):
+            continue
+        market = close * _split_factor(splits.get(t), h["period"])
+        if abs(r["value"] / r["shares"] / market - 1) > PRICE_TOLERANCE:
+            continue
+        ret = a1 / a0 - 1
+        if ret > 4:           # a five-fold quarter is far more likely a data glitch than a real move
+            continue
+        w += r["value"]
+        acc += r["value"] * ret
+    return (acc / w if w else None), w / tot
+
+
+def _cagr(rs):
+    g = 1.0
+    for r in rs:
+        g *= 1 + r
+    return (g ** (4 / len(rs)) - 1) * 100 if rs else None
+
+
+def track_records(funds, root, monthly_loader, tick, today=None):
+    """{fund name: record}. Cached quarters are reused; only new or weakly covered quarters need prices."""
+    path = root / "track-cache.json"
+    try:
+        cache = json.loads(path.read_text())
+    except (FileNotFoundError, json.JSONDecodeError):
+        cache = {}
+    if cache.get("v") != TRACK_V:
+        cache = {"v": TRACK_V, "spy": {}, "funds": {}}
+    last_qe = (pd.Timestamp(today or date.today()) - pd.offsets.QuarterEnd(1)).normalize()
+    plans = {L["name"]: track_plan(qs, last_qe) for L, _, qs, _ in funds}
+    key = lambda d: d.strftime("%Y-%m-%d")
+    retry = pd.Timestamp(today or date.today()).weekday() == 0     # weakly covered quarters: retried on Mondays
+    todo, need = [], set()
+    for name, plan in plans.items():
+        fc = cache["funds"].get(name, {})
+        for Q, Qn, h in plan:
+            c = fc.get(key(Q))
+            if c and c[2] == h["acc"] and (c[1] >= TRACK_RETRY_COV or not retry):
+                continue
+            todo.append((name, Q, Qn, h))
+            need |= {tick(r["cusip"]) for r in track_rows(h)[0] if tick(r["cusip"])}
+    spy_todo = sorted({Q for plan in plans.values() for Q, _, _ in plan if key(Q) not in cache["spy"]})
+    monthly, splits = ({}, {})
+    if todo or spy_todo:
+        try:
+            monthly, splits = monthly_loader(sorted(need | {"SPY"}))
+        except Exception as e:
+            audit("Track record", "prices", False, f"monthly prices unavailable: {e}")
+    spy = monthly.get("SPY")
+    for Q in spy_todo:
+        if spy is not None:
+            a0, a1 = _at(spy, "adj", Q), _at(spy, "adj", (Q + pd.offsets.QuarterEnd(1)).normalize())
+            if a0 and a1:
+                cache["spy"][key(Q)] = round(a1 / a0 - 1, 6)
+    for name, Q, Qn, h in todo:
+        if not monthly:
+            break
+        r, cov = quarter_return(h, Q, Qn, tick, monthly, splits)
+        old = cache["funds"].get(name, {}).get(key(Q))
+        if not old or old[2] != h["acc"] or cov >= old[1]:
+            cache["funds"].setdefault(name, {})[key(Q)] = [None if r is None else round(r, 6), round(cov, 4), h["acc"]]
+    path.write_text(json.dumps(cache, separators=(",", ":"), sort_keys=True), encoding="utf-8")
+
+    out = {}
+    for name, plan in plans.items():
+        fc, run = cache["funds"].get(name, {}), []
+        for Q, Qn, h in plan:            # the latest unbroken run of quarters with both returns
+            c, s = fc.get(key(Q)), cache["spy"].get(key(Q))
+            if c is None or c[0] is None or s is None or c[2] != h["acc"]:
+                run = []
+                continue
+            run.append((Q, Qn, c[0], s, c[1]))
+        if not run:
+            audit(name, "track record", False, "no quarters could be priced")
+            continue
+        fr, sr, cov = [x[2] for x in run], [x[3] for x in run], [x[4] * 100 for x in run]
+        years = len(run) / 4
+        growth, gf, gs = [[key(run[0][0]), 1.0, 1.0]], 1.0, 1.0
+        for Q, Qn, a, b, _ in run:
+            gf, gs = gf * (1 + a), gs * (1 + b)
+            growth.append([key(Qn), round(gf, 4), round(gs, 4)])
+        span = lambda n: None if len(run) < n else {"ret": round(_cagr(fr[-n:]), 1), "spy": round(_cagr(sr[-n:]), 1)}
+        avg_cov = sum(cov) / len(cov)
+        rec = {"start": key(run[0][0]), "end": key(run[-1][1]), "years": years, "quarters": len(run),
+               "ret": round(_cagr(fr), 1), "spy": round(_cagr(sr), 1), "y5": span(20), "y10": span(40),
+               "best": round(max(fr) * 100, 1), "worst": round(min(fr) * 100, 1),
+               "cov": round(avg_cov, 0), "covMin": round(min(cov), 0),
+               "show": years >= TRACK_MIN_YEARS and avg_cov >= TRACK_SHOW_COV, "growth": growth}
+        out[name] = rec
+        audit(name, "track record", rec["show"],
+              f"{years:g} years from {rec['start']}: {rec['ret']}%/yr vs S&P 500 {rec['spy']}%/yr; "
+              f"{rec['cov']:.0f}% of value priced on average (lowest {rec['covMin']:.0f}%)"
+              + ("" if rec["show"] else "; hidden: too little priced or too short"))
+    return out
+
+
+def build(content, data_dir, price_loader, monthly_loader=None):
     """Returns the page block. price_loader(tickers) -> (closes: dict[ticker, Series], splits: dict)."""
     AUDIT.clear()
     cfg = content.get("legends") or LEGENDS
@@ -592,7 +764,14 @@ def build(content, data_dir, price_loader):
         for r in lst:
             if r.get("cusip"):
                 issuers.setdefault(r["cusip"], (r["issuer"], ""))
-    figi = map_cusips(issuers, root / "cusip-map.json")
+    hist_issuers = {}
+    if monthly_loader:                   # the track record prices each filing's largest positions (monthly only)
+        for _, _, qs, _ in funds:
+            for q in qs:
+                for r in track_rows(q)[0]:
+                    if r["cusip"] not in issuers:
+                        hist_issuers.setdefault(r["cusip"], (r["issuer"], r.get("cls", "")))
+    figi = map_cusips({**hist_issuers, **issuers}, root / "cusip-map.json")
     tick = lambda c: (figi.get(c) or {}).get("t")
     via = lambda c: (figi.get(c) or {}).get("via")
     closes, splits = price_loader(sorted({tick(c) for c in issuers if tick(c)}))
@@ -634,6 +813,13 @@ def build(content, data_dir, price_loader):
             m["amount"] = round(abs(m["dShares"]) * est) if est else round(m["amtQE"])
             m["pct"] = round(m["amount"] / total * 100, 2) if total else None
         return ms
+
+    track = {}
+    if monthly_loader:
+        try:
+            track = track_records(funds, root, monthly_loader, tick)
+        except Exception as e:
+            audit("Track record", "built", False, f"skipped: {e}")
 
     out, current = [], []
     for L, edgar_name, qs, stale in funds:
@@ -689,7 +875,7 @@ def build(content, data_dir, price_loader):
                     "period": cur["period"], "filed": cur["filed"], "acc": cur["acc"], "amended": cur.get("amended"),
                     "combined": bool(cur.get("combined")), "stale": stale, "expected": want if stale else None,
                     "total": round(total), "positions": len(stock), "options": options, "cash": cash,
-                    "holdings": holdings, "moves": hist, "firstPeriod": qs[0]["period"],
+                    "holdings": holdings, "moves": hist, "firstPeriod": qs[0]["period"], "track": track.get(L["name"]),
                     "secUrl": f"https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK={int(latest_cik)}&type=13F-HR"})
     out.sort(key=lambda f: -f["total"])
     tabs = board(current, lambda L, q, r: verify(L, q, r), {})

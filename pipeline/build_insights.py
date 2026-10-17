@@ -43,7 +43,7 @@ SITE = "https://zetatobi.com"
 NY = ZoneInfo("America/New_York")
 # Must match the marker at the top of insights/template.html. Bump both together whenever the data
 # format changes, so a half-finished upload can never publish a broken page.
-TEMPLATE_VERSION = "v9"
+TEMPLATE_VERSION = "v10"
 REBOUNDER = "https://rebounder.zetatobi.com/data/screen.json"
 BENCH = "^GSPC"
 
@@ -677,6 +677,38 @@ def price_only(tickers, period="15y"):
     return closes, splits
 
 
+def monthly_history(tickers, start=legends.HISTORY_START[:4] + "-05-01"):
+    """Month-end closes (split-adjusted, for the filing price check) and total-return closes (dividends
+    reinvested), plus split history, for the legends track record. Kept in memory only: just the derived
+    quarterly returns are saved."""
+    out, splits = {}, {}
+    tickers = sorted(set(t for t in tickers if t))
+    for i in range(0, len(tickers), 150):
+        batch = tickers[i:i + 150]
+        try:
+            raw = yf.download(batch, start=start, interval="1mo", auto_adjust=False, actions=True,
+                              group_by="ticker", progress=False, threads=True)
+        except Exception as e:
+            print(f"Monthly history download failed for {len(batch)} tickers: {e}", file=sys.stderr)
+            continue
+        for t in batch:
+            try:
+                df = raw[t] if isinstance(raw.columns, pd.MultiIndex) else raw
+                d = pd.DataFrame({"close": df["Close"], "adj": df["Adj Close"]}).dropna()
+                if not len(d):
+                    continue
+                d.index = (pd.to_datetime(d.index).tz_localize(None) + pd.offsets.MonthEnd(0)).normalize()
+                out[t] = d[~d.index.duplicated(keep="last")]
+                if "Stock Splits" in df:
+                    sp = df["Stock Splits"].dropna()
+                    sp = sp[sp > 0]
+                    splits[t] = pd.Series(sp.values.astype(float), index=pd.to_datetime(sp.index).tz_localize(None))
+            except (KeyError, TypeError, ValueError):
+                pass
+    print(f"Track record: monthly history for {len(out)} of {len(tickers)} tickers")
+    return out, splits
+
+
 # ---------------------------------------------------------------- sector valuation (from Rebounder's screen and its archive)
 VAL_FIELDS = ("fwdPE", "evEbitda", "ps", "fcfYield", "divYield")
 
@@ -1109,7 +1141,7 @@ def main():
     cal = chart_series(closes, groups)
     vti, _ = price_only([valuation.MARKET_PROXY], period="2y")
     val = valuation.build(vti.get(valuation.MARKET_PROXY), INS / "data" / "valuation-cache.json")
-    leg = legends.build(content, INS / "data", price_only)
+    leg = legends.build(content, INS / "data", price_only, monthly_history)
     pe = sector_valuation(raw_screen)
     board_context(leg, pe)
     status = data_status(as_of, val, leg, pe)

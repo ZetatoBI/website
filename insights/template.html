@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- zetato-insights-template v9. Keep in step with TEMPLATE_VERSION in pipeline/build_insights.py -->
+<!-- zetato-insights-template v10. Keep in step with TEMPLATE_VERSION in pipeline/build_insights.py -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -259,6 +259,15 @@
   .bd-ctx { font-size: 13px; color: var(--faint); margin: 0; }
   .bd-ctx a { color: var(--sky); }
   .bd-more { background: none; border: 1px solid var(--line); color: var(--sky); font: 600 14px var(--sans); border-radius: 10px; padding: 8px 14px; cursor: pointer; margin-top: 12px; }
+  table.bd.trk col.c-yr { width: 124px; } table.bd.trk col.c-since { width: 90px; }
+  table.bd.trk .num { text-align: right; font-variant-numeric: tabular-nums; }
+  table.bd.trk th .u { display: block; font-weight: 400; font-size: 12px; color: var(--faint); text-transform: none; letter-spacing: 0; }
+  table.bd.trk th { vertical-align: bottom; white-space: normal; line-height: 1.25; }
+  .trk-chart { width: 100%; max-width: 760px; height: auto; display: block; margin: 0 0 10px; }
+  .trk-chart text { fill: var(--faint); font: 12px var(--sans); }
+  .trk-chart .gl { stroke: rgba(239,244,251,0.08); }
+  .trk-key { display: flex; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--dim); margin: 0 0 8px; }
+  .trk-key i { display: inline-block; width: 18px; height: 3px; border-radius: 2px; vertical-align: middle; margin-right: 6px; }
   /* fund size */
   .size-chip { font-variant-numeric: tabular-nums; font-size: 13px; font-weight: 600; color: #fff; background: rgba(142,193,255,0.14); border-radius: 8px; padding: 3px 9px; white-space: nowrap; }
   .size-bar { position: relative; height: 4px; border-radius: 3px; background: rgba(239,244,251,0.08); }
@@ -358,6 +367,7 @@
     .st-row { grid-template-columns: 14px 1fr; } .st-row span, .st-row em { grid-column: 2; }
     table.bd .net, table.bd col.c-net, table.bd col.c-con, table.bd .con { display: none; }
     table.bd col.c-cnt { width: 38px; }
+    table.bd.trk .hide-m, table.bd.trk col.hide-m { display: none; } table.bd.trk col.c-yr { width: 74px; }
     table.bd .lg { display: none; } table.bd .sm { display: inline; }
     table.bd td, table.bd th { padding-left: 6px; padding-right: 6px; }
     .bd-co .flat { display: block; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -858,8 +868,11 @@
       var list = B[BT] || [], shown = BD_ALL ? list : list.slice(0, 10);
       var consChip = function (c) { return c === 'buy' ? '<span class="chip good">Mostly buying</span>' : c === 'sell' ? '<span class="chip bad">Mostly selling</span>' : c === 'split' ? '<span class="chip split">Split</span>' : '<span class="chip muted" title="Fewer than 3 legends made a meaningful move">Too few to call</span>'; };
       var tabs = [['bought', 'Most bought'], ['sold', 'Most sold'], ['held', 'Most widely held']];
+      if (LG.funds.some(function (f) { return f.track && f.track.show; })) tabs.push(['track', 'Track record']);
+      if (BT === 'track' && tabs.length < 4) BT = 'bought';
       var h = '<div class="board"><div class="board-head"><h3>Across ' + B.funds + ' legends<span>latest filings</span></h3>' +
         '<div class="seg" role="tablist" aria-label="Board" id="bd-tabs">' + tabs.map(function (t) { return '<button role="tab" data-v="' + t[0] + '" aria-pressed="' + (BT === t[0]) + '" aria-selected="' + (BT === t[0]) + '">' + t[1] + '</button>'; }).join('') + '</div></div>' +
+        (BT === 'track' ? trackTable() :
         '<div class="panel tbl-wrap" style="padding:6px 8px"><table class="bd"><colgroup><col><col class="c-cnt"><col class="c-cnt"><col class="c-cnt"><col class="c-net"><col class="c-con"></colgroup><thead><tr><th>Company</th><th class="cnt"><span class="lg">Held by</span><span class="sm" title="Held by">Held</span></th><th class="cnt"><span class="lg">Adding</span><span class="sm" title="Adding">+</span></th><th class="cnt"><span class="lg">Reducing</span><span class="sm" title="Reducing">−</span></th><th class="num net">Est. net</th><th class="con">Consensus</th></tr></thead><tbody>' +
         shown.map(function (r, i) {
           var open = BO === BT + i;
@@ -870,8 +883,45 @@
         }).join('') + '</tbody></table></div>' +
         (list.length > 10 ? '<button class="bd-more" type="button" id="bd-more">' + (BD_ALL ? 'Show top 10' : 'Show all ' + list.length) + '</button>' : '') +
         '<p class="note-line">One vote per legend. A move counts as buying or selling when it changes the position by at least ' + B.rules.minPos + '% and is worth at least ' + B.rules.minPort + '% of that fund&rsquo;s portfolio; smaller changes count as held. Consensus needs at least 3 legends moving: two-thirds buying is &ldquo;mostly buying&rdquo;, two-thirds selling is &ldquo;mostly selling&rdquo;.' +
-        (B.excluded.length ? ' Not included until their latest filing is found: ' + B.excluded.map(esc).join(', ') + '.' : '') + '</p></div>';
+        (B.excluded.length ? ' Not included until their latest filing is found: ' + B.excluded.map(esc).join(', ') + '.' : '') + '</p>') + '</div>';
       el.innerHTML = h;
+    }
+    var yr = function (v) { return v == null ? 'n/a' : pct(v, 1); };
+    function trackFunds() {
+      return LG.funds.filter(function (f) { return f.track && f.track.show; }).sort(function (a, b) { return (b.track.ret - b.track.spy) - (a.track.ret - a.track.spy); });
+    }
+    function trackTable() {
+      var list = trackFunds(), hidden = LG.funds.filter(function (f) { return f.track && !f.track.show; });
+      return '<div class="panel tbl-wrap" style="padding:6px 8px"><table class="bd trk"><colgroup><col><col class="c-since hide-m"><col class="c-yr"><col class="c-yr hide-m"><col class="c-yr"><col class="c-yr hide-m"></colgroup><thead><tr><th>Legend</th><th class="hide-m">Since</th><th class="num">Their stocks<span class="u">per year</span></th><th class="num hide-m">S&amp;P 500<span class="u">per year</span></th><th class="num"><span class="lg">Difference</span><span class="sm">vs S&amp;P</span><span class="u">per year</span></th><th class="num hide-m">Last 5 years<span class="u">difference</span></th></tr></thead><tbody>' +
+        list.map(function (f, i) {
+          var t = f.track, d = t.ret - t.spy, d5 = t.y5 ? t.y5.ret - t.y5.spy : null, open = BO === 'track' + i;
+          return '<tr class="bd-row" tabindex="0" role="button" aria-expanded="' + open + '" data-i="' + i + '"><td class="bd-co"><b>' + esc(f.name) + '</b><span class="flat">' + esc(f.people) + '</span><span class="chev" aria-hidden="true">›</span></td>' +
+            '<td class="hide-m">' + qName(t.start) + '</td><td class="num ' + cls(t.ret) + '">' + yr(t.ret) + '</td><td class="num hide-m">' + yr(t.spy) + '</td>' +
+            '<td class="num ' + cls(d) + '"><b>' + yr(d) + '</b></td><td class="num hide-m ' + cls(d5) + '">' + yr(d5) + '</td></tr>' +
+            (open ? '<tr class="bd-detail"><td colspan="6">' + trackDetail(f) + '</td></tr>' : '');
+        }).join('') + '</tbody></table></div>' +
+        '<p class="note-line">How the US stocks each legend disclosed would have done if held from one quarter end to the next at the weights filed, with dividends reinvested, against the S&amp;P 500 over the same quarters. <b>This is not the fund&rsquo;s own return</b>: 13F filings leave out short positions, cash, bonds, most foreign shares and trading within each quarter, and fees are not deducted. Only positions whose ticker matches the filing&rsquo;s own prices are counted. Past results say nothing about future ones.' +
+        (hidden.length ? ' Not shown, because too few of their positions could be priced or the record is under 3 years: ' + hidden.map(function (f) { return esc(f.name); }).join(', ') + '.' : '') + '</p>';
+    }
+    function trackDetail(f) {
+      var t = f.track, g = t.growth, n = g.length, sm = window.matchMedia('(max-width: 600px)').matches, W = sm ? 360 : 760, H = sm ? 190 : 200, L = 40, R = 8, T = 12, Bm = 26;
+      var vals = g.map(function (x) { return x[1]; }).concat(g.map(function (x) { return x[2]; }));
+      var lo = Math.log(Math.min.apply(null, vals.concat([1]))), hi = Math.log(Math.max.apply(null, vals.concat([1])));
+      if (hi - lo < 0.1) { hi += 0.05; lo -= 0.05; }
+      var X = function (i) { return L + i * (W - L - R) / Math.max(1, n - 1); }, Y = function (v) { return T + (1 - (Math.log(v) - lo) / (hi - lo)) * (H - T - Bm); };
+      var line = function (k) { return g.map(function (x, i) { return (i ? 'L' : 'M') + X(i).toFixed(1) + ' ' + Y(x[k]).toFixed(1); }).join(' '); };
+      var svg = '<svg class="trk-chart" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Growth of $1: ' + esc(f.name) + ' disclosed stocks against the S&amp;P 500">';
+      var ticks = [0.5, 1, 2, 3, 5, 10, 20].filter(function (v) { return Math.log(v) >= lo - 0.01 && Math.log(v) <= hi + 0.01; });
+      ticks.forEach(function (v) { svg += '<line class="gl" x1="' + L + '" x2="' + (W - R) + '" y1="' + Y(v).toFixed(1) + '" y2="' + Y(v).toFixed(1) + '"/><text x="' + (L - 8) + '" y="' + (Y(v) + 4).toFixed(1) + '" text-anchor="end">$' + v + '</text>'; });
+      var step = Math.max(1, Math.ceil(n / (sm ? 4 : 7)));
+      g.forEach(function (x, i) { if (i % step === 0) svg += '<text x="' + X(i).toFixed(1) + '" y="' + (H - 6) + '" text-anchor="middle">' + x[0].slice(0, 4) + '</text>'; });
+      svg += '<path d="' + line(2) + '" fill="none" stroke="rgba(239,244,251,0.55)" stroke-width="2" stroke-dasharray="6 5"/><path d="' + line(1) + '" fill="none" stroke="#1F7AE0" stroke-width="2.5" stroke-linejoin="round"/></svg>';
+      var last = g[n - 1], parts = [];
+      if (t.y10) parts.push('last 10 years ' + yr(t.y10.ret) + ' a year vs ' + yr(t.y10.spy));
+      if (t.y5) parts.push('last 5 years ' + yr(t.y5.ret) + ' vs ' + yr(t.y5.spy));
+      return '<div class="trk-key"><span><i style="background:#1F7AE0"></i>' + esc(f.name) + '&rsquo;s disclosed stocks</span><span><i style="background:rgba(239,244,251,0.55)"></i>S&amp;P 500</span></div>' + svg +
+        '<p class="bd-also">$1 at the end of ' + qName(t.start) + ' became <b>$' + num(last[1], 2) + '</b>, against $' + num(last[2], 2) + ' in the S&amp;P 500, by ' + day(t.end) + ' (' + num(t.years, 2) + ' years). ' + (parts.length ? 'Over the ' + parts.join('; ') + '. ' : '') + 'Best quarter ' + pct(t.best, 0) + ', worst ' + pct(t.worst, 0) + '.</p>' +
+        '<p class="bd-ctx">Positions with a verified price made up ' + num(t.cov, 0) + '% of the reported portfolio on average (lowest quarter ' + num(t.covMin, 0) + '%); the rest, often companies since taken over or delisted, are left out. Log scale.</p>';
     }
     function boardDetail(r) {
       var mx = Math.max.apply(null, r.movers.map(function (m) { return m.pct || 0; }).concat([0.1]));
@@ -904,6 +954,7 @@
         (f.stale ? '<div class="stale-note">The ' + qName(f.expected) + ' filing has not been found yet. Showing ' + qName(f.period) + '.</div>' : '') +
         '<div class="lg-meta"><span>' + f.positions + ' stocks</span><span>' + qName(f.period) + ' filing, ' + day(f.filed) + '</span></div>' +
         (bits.length || (latest && latest.small) ? '<div class="lg-meta">' + bits.join(' \u00b7 ') + (latest.small ? '<span class="flat">+' + latest.small + ' small adjustment' + (latest.small === 1 ? '' : 's') + '</span>' : '') + (latest.bought || latest.sold ? '<span>' + flow(latest.bought, latest.sold) + '</span>' : '') + '</div>' : '') +
+        (f.track && f.track.show ? '<div class="lg-meta"><span>Track record: <b class="' + cls(f.track.ret - f.track.spy) + '">' + yr(f.track.ret) + '/yr</b> since ' + f.track.start.slice(0, 4) + ', S&amp;P 500 ' + yr(f.track.spy) + '/yr</span></div>' : '') +
         '<div class="lg-top">' + f.holdings.slice(0, 3).map(function (h) {
           var g = h.gain == null ? '<span class="flat">' + (h.before ? 'Long-held' : 'n/a') + '</span>' : '<span class="' + cls(h.gain) + '">' + pct(h.gain, 0) + '</span>';
           return '<div><span><b>' + esc(h.t || '') + '</b>' + esc(h.name) + '</span><span>' + usdB(h.value) + '</span><span>' + g + '</span></div>';
