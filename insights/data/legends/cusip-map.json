@@ -1368,6 +1368,11 @@
 "name": "CARPENTER TECHNOLOGY",
 "t": "CRS"
 },
+"14448C104": {
+"name": "CARRIER GLOBAL CORP",
+"t": "CARR",
+"via": "openfigi"
+},
 "14575E105": {
 "name": "CARS.COM INC",
 "t": "CARS",
@@ -2630,6 +2635,11 @@
 "v2": true,
 "via": null
 },
+"30233Q108": {
+"name": "EXXONMOBIL HOLDINGS CORP",
+"t": "XOM",
+"via": "openfigi"
+},
 "302491303": {
 "name": "FMC CORP",
 "t": "FMC",
@@ -3075,6 +3085,11 @@
 "37950E259": {
 "name": "GLOBAL X MSCI ARGENTINA ETF",
 "t": "ARGT"
+},
+"37954A303": {
+"name": "CHIRON REAL ESTATE INC",
+"t": "XRN",
+"via": "openfigi"
 },
 "38141G104": {
 "name": "GOLDMAN SACHS GROUP INC",
@@ -4409,6 +4424,11 @@
 "60741F104": {
 "name": "MOBILEYE GLOBAL INC-A",
 "t": "MBLY",
+"via": "openfigi"
+},
+"60744M106": {
+"name": "MOBILITY GLOBAL INC",
+"t": "MBGL",
 "via": "openfigi"
 },
 "60770K107": {
@@ -5900,6 +5920,11 @@
 "v2": true,
 "via": null
 },
+"826919102": {
+"name": "SILICON LABORATORIES INC",
+"t": "SLAB",
+"via": "openfigi"
+},
 "82811P101": {
 "cls": "CL A",
 "name": "SILVER RUN ACQUISITION CORP",
@@ -5952,6 +5977,11 @@
 "triedSec": true,
 "v2": true,
 "via": "sec-name"
+},
+"82982L103": {
+"name": "SITEONE LANDSCAPE SUPPLY INC",
+"t": "SITE",
+"via": "openfigi"
 },
 "829933100": {
 "name": "SIRIUS XM HOLDINGS INC",
@@ -6775,6 +6805,11 @@
 "v2": true,
 "via": null
 },
+"902252105": {
+"name": "TYLER TECHNOLOGIES INC",
+"t": "TYL",
+"via": "openfigi"
+},
 "902494103": {
 "name": "TYSON FOODS INC-CL A",
 "t": "TSN",
@@ -6955,6 +6990,11 @@
 "t": "VLO",
 "via": "openfigi"
 },
+"92047W101": {
+"name": "VALVOLINE INC",
+"t": "VVV",
+"via": "openfigi"
+},
 "92189F106": {
 "name": "VANECK GOLD MINERS ETF",
 "t": "GDX",
@@ -7100,6 +7140,11 @@
 "t": "VIPS",
 "via": "openfigi"
 },
+"927926303": {
+"name": "VISTA GOLD CORP",
+"t": "VGZ",
+"via": "openfigi"
+},
 "92826C839": {
 "name": "VISA INC-CLASS A SHARES",
 "t": "V"
@@ -7201,6 +7246,11 @@
 "942622200": {
 "name": "WATSCO INC",
 "t": "WSO",
+"via": "openfigi"
+},
+"942749102": {
+"name": "WATTS WATER TECHNOLOGIES-A",
+"t": "WTS",
 "via": "openfigi"
 },
 "94419L101": {
@@ -7362,6 +7412,11 @@
 "name": "XPO INC",
 "t": "XPO"
 },
+"98379L100": {
+"name": "XPEL INC",
+"t": "XPEL",
+"via": "openfigi"
+},
 "98390R102": {
 "name": "XANADU QUANTUM TECHNOLO-CL B",
 "t": "XNDU",
@@ -7390,6 +7445,11 @@
 "triedSec": true,
 "v2": true,
 "via": "sec-name"
+},
+"98419M100": {
+"name": "XYLEM INC",
+"t": "XYL",
+"via": "openfigi"
 },
 "98420N105": {
 "name": "XENON PHARMACEUTICALS INC",
@@ -7476,6 +7536,11 @@
 "triedSec": true,
 "v2": true,
 "via": null
+},
+"989207105": {
+"name": "ZEBRA TECHNOLOGIES CORP-CL A",
+"t": "ZBRA",
+"via": "openfigi"
 },
 "98936J101": {
 "cls": "COM",
