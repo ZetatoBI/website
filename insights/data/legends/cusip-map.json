@@ -3378,6 +3378,11 @@
 "t": "HD",
 "via": "openfigi"
 },
+"43849R105": {
+"name": "HONEYWELL AEROSPACE INC",
+"t": "HONA",
+"via": "openfigi"
+},
 "438516106": {
 "cls": "COM",
 "name": "HONEYWELL INTL INC",
@@ -8392,6 +8397,14 @@
 "cls": "SHS",
 "name": "UBS GROUP AG",
 "t": "UBS",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
+"H82027105": {
+"cls": "ORDINARY SHARES",
+"name": "SOPHIA GENETICS SA",
+"t": "SOPH",
 "triedSec": true,
 "v2": true,
 "via": "sec-name"
