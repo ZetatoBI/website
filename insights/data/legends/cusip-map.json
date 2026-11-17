@@ -8,6 +8,11 @@
 "t": "ADT",
 "via": "openfigi"
 },
+"001026103": {
+"name": "ADI GLOBAL DISTRIB",
+"t": "ADIG",
+"via": "openfigi"
+},
 "00130H105": {
 "name": "AES CORP",
 "t": "AES",
@@ -822,6 +827,11 @@
 "v2": true,
 "via": null
 },
+"06849F108": {
+"name": "BARRICK MINING CORP",
+"t": "B",
+"via": "openfigi"
+},
 "070830104": {
 "name": "BATH & BODY WORKS INC",
 "t": "BBWI",
@@ -925,6 +935,11 @@
 "090043100": {
 "name": "BILL HOLDINGS INC",
 "t": "BILL",
+"via": "openfigi"
+},
+"090572207": {
+"name": "BIO-RAD LABORATORIES-A",
+"t": "BIO",
 "via": "openfigi"
 },
 "09061G101": {
@@ -1444,6 +1459,11 @@
 "155923105": {
 "name": "CENTURI HOLDINGS INC",
 "t": "CTRI",
+"via": "openfigi"
+},
+"156431108": {
+"name": "CENTURY ALUMINUM COMPANY",
+"t": "CENX",
 "via": "openfigi"
 },
 "15675D103": {
@@ -2021,6 +2041,11 @@
 "231021106": {
 "name": "CUMMINS INC",
 "t": "CMI",
+"via": "openfigi"
+},
+"23255M303": {
+"name": "KORSANA BIOSCIENCES INC",
+"t": "KRSA",
 "via": "openfigi"
 },
 "23292E108": {
@@ -3514,6 +3539,11 @@
 "v2": true,
 "via": null
 },
+"45765U103": {
+"name": "INSIGHT ENTERPRISES INC",
+"t": "NSIT",
+"via": "openfigi"
+},
 "457669307": {
 "name": "INSMED INC",
 "t": "INSM"
@@ -4193,6 +4223,11 @@
 "t": "MGM",
 "via": "openfigi"
 },
+"55306N104": {
+"name": "MKS INC",
+"t": "MKSI",
+"via": "openfigi"
+},
 "55336V100": {
 "name": "MPLX LP",
 "t": "MPLX"
@@ -4441,6 +4476,11 @@
 "t": "MRNA",
 "via": "openfigi"
 },
+"607828100": {
+"name": "MODINE MANUFACTURING CO",
+"t": "MOD",
+"via": "openfigi"
+},
 "608190104": {
 "name": "MOHAWK INDUSTRIES INC",
 "t": "MHK"
@@ -4483,6 +4523,11 @@
 "615369105": {
 "name": "MOODY'S CORP",
 "t": "MCO"
+},
+"61559X104": {
+"name": "MOONLAKE IMMUNOTHERAPEUTICS",
+"t": "MLTX",
+"via": "openfigi"
 },
 "617446448": {
 "name": "MORGAN STANLEY",
@@ -4598,6 +4643,11 @@
 "64119N608": {
 "name": "NETSKOPE INC-CL A",
 "t": "NTSK",
+"via": "openfigi"
+},
+"64125S104": {
+"name": "NEUTRON HOLDINGS INC",
+"t": "LIME",
 "via": "openfigi"
 },
 "64132K102": {
@@ -5355,6 +5405,11 @@
 "v2": true,
 "via": null
 },
+"74762E102": {
+"name": "QUANTA SERVICES INC",
+"t": "PWR",
+"via": "openfigi"
+},
 "74767V109": {
 "name": "QUANTUMSCAPE CORP",
 "t": "QS",
@@ -5636,6 +5691,11 @@
 "v2": true,
 "via": null
 },
+"78392B206": {
+"name": "SK HYNIX INC-ADR",
+"t": "SKHY",
+"via": "openfigi"
+},
 "78409V104": {
 "name": "S&P GLOBAL INC",
 "t": "SPGI",
@@ -5649,6 +5709,11 @@
 "784117103": {
 "name": "SEI INVESTMENTS COMPANY",
 "t": "SEIC",
+"via": "openfigi"
+},
+"78440X887": {
+"name": "SL GREEN REALTY CORP",
+"t": "SLG",
 "via": "openfigi"
 },
 "78442P106": {
@@ -6960,6 +7025,11 @@
 "v2": true,
 "via": null
 },
+"91529Y106": {
+"name": "UNUM GROUP",
+"t": "UNM",
+"via": "openfigi"
+},
 "91680M107": {
 "name": "UPSTART HOLDINGS INC",
 "t": "UPST",
@@ -7256,6 +7326,11 @@
 "942749102": {
 "name": "WATTS WATER TECHNOLOGIES-A",
 "t": "WTS",
+"via": "openfigi"
+},
+"94352A104": {
+"name": "WAVE LIFE SCIENCES INC",
+"t": "WVE",
 "via": "openfigi"
 },
 "94419L101": {
@@ -8377,6 +8452,14 @@
 "v2": true,
 "via": "sec-name"
 },
+"H01301128": {
+"cls": "ORD SHS",
+"name": "ALCON AG",
+"t": "ALC",
+"triedSec": true,
+"v2": true,
+"via": "sec-name"
+},
 "H1467J104": {
 "cls": "COM",
 "name": "CHUBB LIMITED",
@@ -8508,6 +8591,14 @@
 "M87245102": {
 "cls": "ORD SHS",
 "name": "SYNERON MEDICAL LTD",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"M8769Q102": {
+"cls": "SHS",
+"name": "TEVA PHARMACEUTICAL INDS LTD",
 "t": null,
 "triedSec": true,
 "v2": true,
@@ -8676,6 +8767,14 @@
 "Q4982L109": {
 "cls": "ORDINARY SHARES",
 "name": "Iren Limited",
+"t": null,
+"triedSec": true,
+"v2": true,
+"via": null
+},
+"T19377109": {
+"cls": "COM SHS",
+"name": "BENDING SPOONS SPA",
 "t": null,
 "triedSec": true,
 "v2": true,
